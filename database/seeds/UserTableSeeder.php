@@ -31,8 +31,8 @@ class UserTableSeeder extends Seeder
                 'password' => Hash::make('password')
             ]
         ];
-        User::insert($users);
 
+        User::insert($users);
 
         factory(User::class, 10)->create();
     }
