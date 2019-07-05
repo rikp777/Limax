@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserResourceCollection;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
+
+class UserController extends Controller
+{
+    public function index()
+    {
+        $this->authorize('view', auth('api')->user());
+
+        dd(auth('api')->user()->departments);
+        return new UserResourceCollection(User::paginate(15));
+    }
+
+
+    public function store(Request $request)
+    {
+        $this->authorize('create', auth('api')->user());
+
+        $request->validate([
+            'first_name' => 'required|string|min:2|max:25',
+            'insert_name' => 'string|max:10',
+            'last_name' => 'required|string|min:2|max:35',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+
+        $request->request->add(['password' => Hash::make($request->password)]);
+
+
+        $user = User::create($request->all());
+
+        $user->roles()->sync($request->roles);
+        $user->departments()->sync($request->departments);
+
+
+        return new UserResource($user);
+    }
+
+
+    public function show(User $user) : UserResource
+    {
+        $this->authorize('view', auth('api')->user());
+
+        return new userResource($user);
+    }
+
+
+    public function update(User $user, Request $request) : UserResource
+    {
+        $this->authorize('update', auth('api')->user());
+
+        $request->validate([
+            'first_name' => 'required|string|min:2|max:25',
+            'last_name' => 'required|string|min:2|max:35',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'sometimes|string|min:6',
+        ]);
+
+        $request->request->add(['password' => Hash::make($request->password)]);
+
+
+        $user->update($request->all());
+
+        $user->roles()->sync($request->roles);
+        $user->departments()->sync($request->departments);
+
+        return new userResource($user);
+    }
+
+
+    public function destroy($id)
+    {
+        $user = User::withTrashed()->where('id', $id)->first();
+
+        if ($user->trashed()){
+            $user->restore();
+        }
+        else {
+            $user->delete();
+        }
+        return new UserResource($user);
+    }
+}
