@@ -14,8 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('view', auth('api')->user());
-
-        dd(auth('api')->user()->departments);
+        
         return new UserResourceCollection(User::paginate(15));
     }
 
