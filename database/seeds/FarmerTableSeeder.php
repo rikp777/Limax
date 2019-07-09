@@ -14,7 +14,7 @@ class FarmerTableSeeder extends Seeder
     {
         $farmers = [
             [
-                'name' => 'Rik farming house',
+                'name' => 'Riks farming house',
                 'street' => 'Irenestraat',
                 'house_number' => 4,
                 'place' => 'panningen',
@@ -28,7 +28,8 @@ class FarmerTableSeeder extends Seeder
                 'ggn' => '101010101',
                 'skal' => '101010101',
                 'milieu' => '101010101',
-                'article_group' => 1,
+                'preference_article_group_id' => 1,
+                'contact_person_user_id' => 1,
             ]
         ];
         Farmer::insert($farmers);

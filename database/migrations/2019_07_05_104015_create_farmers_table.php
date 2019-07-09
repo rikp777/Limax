@@ -30,16 +30,17 @@ class CreateFarmersTable extends Migration
             $table->bigInteger('skal')->unique();;
             $table->bigInteger('milieu')->unique();;
             $table->timestamps();
+            $table->softDeletes();
 
             // farmers preference article
             // relation to article_groups table
-            $table->unsignedInteger('article_group_id');
-            $table->foreign('article_group_id')->references('id')->on('article_groups')->onDelete('cascade');
+            $table->unsignedInteger('preference_article_group_id');
+            $table->foreign('preference_article_group_id')->references('id')->on('article_groups')->onDelete('cascade');
 
             // farmers contact person
             // relation to article_groups table
-            $table->unsignedInteger('contact_person');
-            $table->foreign('contact_person')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('contact_person_user_id');
+            $table->foreign('contact_person_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
     /**

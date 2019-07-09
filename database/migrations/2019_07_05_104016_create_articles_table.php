@@ -46,6 +46,11 @@ class CreateArticlesTable extends Migration
             // relation sort-types table
             $table->unsignedInteger('sort_type_id');
             $table->foreign('sort_type_id')->references('id')->on('sort_types')->onDelete('cascade');
+
+            // farmers preference article
+            // relation to article_groups table
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
     /**

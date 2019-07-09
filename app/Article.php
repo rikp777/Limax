@@ -34,4 +34,18 @@ class Article extends Model
     {
         return $this->hasMany(PalletLabel::class);
     }
+
+    protected $fillable = [
+        'excel_code',
+        'inset_gram',
+        'inset_limit',
+        'pallet_limit',
+        'origin',
+        'pallet_type_id',
+        'cask_id',
+        'inset_id',
+        'status_id',
+        'article_group_id',
+        'sort_type_id',
+    ];
 }

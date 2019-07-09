@@ -25,14 +25,14 @@ class RoleTableSeeder extends Seeder
                 'color' => 'Orange',
             ],
             [
-                'name' => 'Scheduler',
-                'description' => 'Scheduler',
-                'color' => 'Blue'
-            ],
-            [
                 'name' => 'Farmer',
                 'description' => 'Farmer',
                 'color' => 'Green',
+            ],
+            [
+                'name' => 'Scheduler',
+                'description' => 'Scheduler',
+                'color' => 'Blue'
             ],
             [
                 'name' => 'Other',
@@ -41,17 +41,5 @@ class RoleTableSeeder extends Seeder
             ],
         ];
         Role::insert($roles);
-
-
-        // Make RelationsShips
-        User::findOrFail(1)->roles()->sync( [ 1, 2 ] );
-        User::findOrFail(2)->roles()->sync( [ 2 ] );
-
-        $roles = Role::where('id', '>', '2')->get();
-        User::where('id', '>', '2')->each(function ($user) use ($roles) {
-            $user->roles()->attach(
-                $roles->random(rand(1, 2))->pluck('id')->toArray()
-            );
-        });
     }
 }

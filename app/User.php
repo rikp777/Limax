@@ -40,6 +40,9 @@ class User extends Authenticatable
     public function isModerator(){
         return $this->is('Moderator');
     }
+    public function isFarmer(){
+        return $this->is('Farmer');
+    }
     /**
      * The attributes that are mass assignable.
      *

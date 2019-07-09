@@ -1,5 +1,6 @@
 <?php
 
+use App\Role;
 use Illuminate\Database\Seeder;
 Use App\User;
 use Illuminate\Support\Facades\Hash;
@@ -29,11 +30,32 @@ class UserTableSeeder extends Seeder
                 'email' => 'moderator@limax.nl',
                 'photo' => 'noimg.png',
                 'password' => Hash::make('password')
+            ],
+            [
+                'first_name' => 'test',
+                'insert_name' => null,
+                'last_name' => 'farmer',
+                'email' => 'farmer@limax.nl',
+                'photo' => 'noimg.png',
+                'password' => Hash::make('password')
             ]
         ];
 
         User::insert($users);
 
         factory(User::class, 10)->create();
+
+
+        // Make RelationsShips
+        User::findOrFail(1)->roles()->sync( [ 1, 2 ] );
+        User::findOrFail(2)->roles()->sync( [ 2 ] );
+        User::findOrFail(3)->roles()->sync( [ 3 ] );
+
+        $roles = Role::where('id', '>', '2')->get();
+        User::where('id', '>', '3')->each(function ($user) use ($roles) {
+            $user->roles()->attach(
+                $roles->random(rand(1, 2))->pluck('id')->toArray()
+            );
+        });
     }
 }
