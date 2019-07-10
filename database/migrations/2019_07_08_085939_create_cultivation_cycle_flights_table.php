@@ -14,7 +14,7 @@ class CreateCultivationCycleFlightsTable extends Migration
     public function up()
     {
         Schema::create('cultivation_cycle_flights', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->date('date');
             $table->timestamps();
 

@@ -30,6 +30,24 @@ class FarmerTableSeeder extends Seeder
                 'milieu' => '101010101',
                 'preference_article_group_id' => 1,
                 'contact_person_user_id' => 1,
+            ],
+            [
+                'name' => 'Toms farming house',
+                'street' => 'Binnenhof',
+                'house_number' => 9,
+                'place' => 'Oostrum',
+                'zip_code' => '5807BV',
+                'country' => 'Netherlands',
+                'province' => 'Limburg',
+                'email' => 'tom@limax.nl',
+                'phone' => '00000',
+                'fax' => '00000',
+                'fairproduce_number' => '00000',
+                'ggn' => '00000',
+                'skal' => '00000',
+                'milieu' => '00000',
+                'preference_article_group_id' => 2,
+                'contact_person_user_id' => 2,
             ]
         ];
         Farmer::insert($farmers);
