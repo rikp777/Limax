@@ -11,18 +11,19 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class);
+    }
+
     public function index()
     {
-        $this->authorize('view', auth('api')->user());
-        
-        return new UserResourceCollection(User::paginate(15));
+        return UserResource::collection(User::paginate(15));
     }
 
 
     public function store(Request $request)
     {
-        $this->authorize('create', auth('api')->user());
-
         $request->validate([
             'first_name' => 'required|string|min:2|max:25',
             'insert_name' => 'string|max:10',
@@ -46,15 +47,13 @@ class UserController extends Controller
 
     public function show(User $user) : UserResource
     {
-        $this->authorize('view', auth('api')->user());
-
         return new userResource($user);
     }
 
 
     public function update(User $user, Request $request) : UserResource
     {
-        $this->authorize('update', auth('api')->user());
+        dd($request->all());
 
         $request->validate([
             'first_name' => 'required|string|min:2|max:25',

@@ -15,6 +15,19 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('/user', 'userController')
     ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/article', 'ArticleController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/palletlabel', 'PalletLabelController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::get('/cultivationCycle/calculate/{cell}', 'CultivationCycleController@calculate');
+    Route::apiResource('/cultivationCycle', 'CultivationCycleController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/cultivationCycleFlight', 'CultivationCycleFlightController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
 });
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -18,6 +18,16 @@ class UserPolicy
     }
 
 
+    public function viewAny(User $user)
+    {
+        //dd("viewAny");
+        if($user->isModerator()){
+            return true;
+        }
+        return false;
+    }
+
+
     public function view(User $user, User $model)
     {
         //dd("view");
