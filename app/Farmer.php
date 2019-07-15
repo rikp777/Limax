@@ -31,4 +31,9 @@ class Farmer extends Model
     public static function getCurrentFarmer(){
         return Farmer::find(1);
     }
+
+    public static function getCurrentFarmerId(){
+        return Farmer::find(1)->id;
+    }
+
 }
