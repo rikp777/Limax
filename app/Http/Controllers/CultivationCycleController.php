@@ -10,6 +10,7 @@ use App\Farmer;
 use App\Http\Resources\CultivationCycleResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 
 class CultivationCycleController extends Controller
@@ -148,7 +149,7 @@ class CultivationCycleController extends Controller
 
     public function index()
     {
-        return CultivationCycleResource::collection(CultivationCycle::paginate(15));
+        return CultivationCycleResource::collection(CultivationCycle::where('farmer_id', Farmer::getCurrentFarmerId()));
     }
 
 

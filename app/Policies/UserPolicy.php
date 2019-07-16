@@ -12,6 +12,7 @@ class UserPolicy
 
     public function before($user, $ability)
     {
+        //dd($user);
         if ($user->isAdmin()) {
             return true;
         }

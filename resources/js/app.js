@@ -1,35 +1,44 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import Axios from "axios";
 
 require('./bootstrap');
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Vuex from 'Vuex';
+import {routes} from './routes';
+import StoreData from './store';
+import MainApp from './components/MainApp.vue'
+import {initialize} from "./helpers/general";
+import SweetAlert2  from 'sweetalert2'
 
-window.Vue = require('vue');
-window.Vuetify = require('vuetify');
+Vue.use(VueRouter);
+Vue.use(Vuex);
+window.swal = SweetAlert2;
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-Vue.component('app', require('./App.vue').default);
+const store = new Vuex.Store(StoreData);
+const router = new VueRouter({
+    routes,
+    mode: 'history'
+});
 
-const files = require.context('./', true, /\.vue$/i);
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+initialize(store, router);
 
 const app = new Vue({
     el: '#app',
+    router,
+    store,
+    components: {
+        MainApp
+    }
 });
+
+
+
+
+
+
+// window.Vue = require('vue');
+// window.Vuetify = require('vuetify');
+// Vue.component('app', require('./MainApp.vue').default);
+//
+// const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
