@@ -6,9 +6,10 @@ import store from './store/index.js';
 import MainApp from './components/MainApp.vue'
 import {initialize} from "./helpers/general";
 import SweetAlert2  from 'sweetalert2'
+import Vuetify from 'vuetify'
 
 
-
+Vue.use(Vuetify);
 Vue.use(VueRouter);
 
 window.swal = SweetAlert2;
