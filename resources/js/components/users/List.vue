@@ -32,19 +32,20 @@
 </template>
 
 <script>
+    import { mapGetters, mapActions } from 'vuex';
     export default {
         name: 'user-list',
         mounted() {
+            console.log(this.users);
             if(this.users.length){
                 return;
             }
-            this.$store.dispatch('getUsers');
+
+            this.$store.dispatch('user/getUsers');
         },
-        computed: {
-            users(){
-                return this.$store.getters.users;
-            }
-        }
+        computed: mapGetters({
+            users: 'user/all',
+        }),
     }
 </script>
 

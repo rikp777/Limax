@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
         <div class="container">
-            <router-link class="navbar-brand" to="/">My Vue App</router-link>
+            <router-link class="navbar-brand" to="/">Riks App</router-link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -33,18 +33,18 @@
 </template>
 
 <script>
+    import { mapGetters, mapActions } from 'vuex';
+
     export default {
         name: 'HeaderApp',
         methods: {
             logout() {
-                this.$store.commit('logout');
+                this.$store.commit('auth/logout');
                 this.$router.push('/login');
             }
         },
-        computed: {
-            authUser() {
-                return this.$store.getters.authUser
-            }
-        }
+        computed: mapGetters({
+            authUser: 'auth/authUser',
+        }),
     }
 </script>

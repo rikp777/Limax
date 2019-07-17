@@ -44,15 +44,15 @@
         },
         methods: {
             authenticate() {
-                this.$store.dispatch('login');
+                this.$store.dispatch('auth/login');
 
                 login(this.$data.form)
                     .then((response) => {
-                        this.$store.commit("loginSuccess", response);
+                        this.$store.commit('auth/loginSuccess', response);
                         this.$router.push({path: '/'});
                     })
                     .catch((error)=>{
-                        this.$store.commit("loginFailed", {error})
+                        this.$store.commit('auth/loginFailed', {error})
                     });
             }
         },

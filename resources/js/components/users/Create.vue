@@ -67,7 +67,7 @@
 
                 axios.post('/api/user/', this.$data.user)
                     .then((response) => {
-                        this.$router.push('users');
+                        this.$router.push('user/users');
                     })
 
                 // send user data to api

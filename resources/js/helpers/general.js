@@ -1,10 +1,11 @@
 
-
 export function initialize(store, router) {
     router.beforeEach((to, from, next) => {
+
         const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
         const requiresRoles = to.meta.requiresRoles;
-        const authUser = store.state.authUser;
+        const authUser = store.getters['auth/authUser'];
+
 
         if(requiresAuth && !authUser){
             next('/login');
@@ -21,7 +22,7 @@ export function initialize(store, router) {
         } else{
             next();
         }
-        if (store.getters.authUser) {
+        if (authUser) {
             setAuthorization(authUser.token);
         }
     });
@@ -39,7 +40,7 @@ export function initialize(store, router) {
 
     axios.interceptors.response.use(null, (error) =>{
         if(error.response.status === 401){
-            store.commit('logout');
+            store.commit('auth/logout');
             router.push('/login');
         }
         if (error.response.status === 403){

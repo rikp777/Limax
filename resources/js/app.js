@@ -1,20 +1,18 @@
-import Axios from "axios";
-
 require('./bootstrap');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Vuex from 'Vuex';
 import {routes} from './routes';
-import StoreData from './store';
+import store from './store/index.js';
 import MainApp from './components/MainApp.vue'
 import {initialize} from "./helpers/general";
 import SweetAlert2  from 'sweetalert2'
 
+
+
 Vue.use(VueRouter);
-Vue.use(Vuex);
+
 window.swal = SweetAlert2;
 
-const store = new Vuex.Store(StoreData);
 const router = new VueRouter({
     routes,
     mode: 'history'
