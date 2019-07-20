@@ -50,7 +50,7 @@ class CreateArticlesTable extends Migration
             // farmers preference article
             // relation to article_groups table
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
         });
     }
     /**

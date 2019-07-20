@@ -30,9 +30,9 @@ class CreatePalletLabelsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            // relation to users table
+            // relation to user table
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('user');
 
             // relation to farmers table
             $table->unsignedInteger('farmer_id');

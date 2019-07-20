@@ -24,11 +24,14 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "bootstrap-vue": "^2.0.0-rc.26",
         "node-sass": "^4.12.0",
         "sweetalert2": "^8.13.6",
         "validate.js": "^0.13.1",
+        "vee-validate": "^2.2.13",
         "vue-i18n": "^8.12.0",
         "vue-router": "^3.0.7",
+        "vue-sidebar-menu": "^3.12.1",
         "vuelidate": "^0.7.4",
         "vuetify": "^1.5.16",
         "vuex": "^3.1.1"

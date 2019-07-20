@@ -22,9 +22,9 @@ class CreateShippingLabelsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            // relation to users table
+            // relation to user table
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('user');
 
             // relation to article_groups table
             $table->unsignedInteger('status_id');
@@ -38,9 +38,9 @@ class CreateShippingLabelsTable extends Migration
             $table->unsignedInteger('truck_id');
             $table->foreign('truck_id')->references('id')->on('trucks');
 
-            //relation to users table with who work in the department of driver
+            //relation to user table with who work in the department of driver
             $table->unsignedInteger('transport_driver_user_id');
-            $table->foreign('transport_driver_user_id')->references('id')->on('users');
+            $table->foreign('transport_driver_user_id')->references('id')->on('user');
         });
     }
 

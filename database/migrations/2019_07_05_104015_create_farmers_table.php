@@ -40,7 +40,7 @@ class CreateFarmersTable extends Migration
             // farmers contact person
             // relation to article_groups table
             $table->unsignedInteger('contact_person_user_id');
-            $table->foreign('contact_person_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('contact_person_user_id')->references('id')->on('user')->onDelete('cascade');
         });
     }
     /**
