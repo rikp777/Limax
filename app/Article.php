@@ -35,6 +35,16 @@ class Article extends Model
         return $this->hasMany(PalletLabel::class);
     }
 
+    public static function fullName($article){
+        return
+            $article->articleGroup->name . ' ' .
+            $article->inset_limit . ' ' .
+            $article->inset_gram . ' ' .
+            $article->sort_type->name . ' ' .
+            $article->inset->color . ' ' .
+            $article->excel_code;
+    }
+
     protected $fillable = [
         'excel_code',
         'inset_gram',
