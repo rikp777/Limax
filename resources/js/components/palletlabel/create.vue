@@ -2,8 +2,6 @@
     <div class="card">
         <div class="card-body">
 
-
-
             <form @submit.prevent="validateBeforeSubmit">
                 <div v-if="serverErrors" class="alert alert-warning" role="alert">
                     <div v-for="(value, key) in serverErrors" :key="key">{{ value[0] }}</div>
@@ -41,7 +39,6 @@
                     <div class="col mb-3">
                         <label for="articleId">Article</label>
                         <select class="form-control" id="articleId">
-                            <div v-for="p"
                         </select>
                         <input
                                 type="date"
