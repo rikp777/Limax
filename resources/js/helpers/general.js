@@ -1,11 +1,11 @@
 
 export function initialize(store, router) {
     router.beforeEach((to, from, next) => {
-
+        //console.log(to);
+        console.log('to=' + to.name + ' path=' + to.path);
         const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
         const requiresRoles = to.meta.requiresRoles;
         const authUser = store.getters['auth/authUser'];
-
 
         if(requiresAuth && !authUser){
             next('/login');

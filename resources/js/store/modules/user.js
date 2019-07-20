@@ -1,6 +1,3 @@
-import { getLocalUser } from "../../helpers/auth.js";
-
-const user = getLocalUser();
 
 // Initial State
 const state = {
@@ -16,11 +13,28 @@ const getters = {
 
 // Actions
 const actions = {
-    getUsers(context){
+    getAll(context){
         axios.get('/api/user')
             .then((response) => {
                 context.commit('userUpdate', response.data);
             })
+    },
+    create(context, data){
+        console.log(data.password);
+        return new Promise((resolve, reject) => {
+            axios.post('/api/user', {
+                first_name: data.first_name,
+                last_name: data.last_name,
+                email: data.email,
+                password: data.password,
+            })
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
     }
 };
 

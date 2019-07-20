@@ -36,12 +36,12 @@
     export default {
         name: 'user-list',
         mounted() {
-            console.log(this.users);
+
             if(this.users.length){
                 return;
             }
 
-            this.$store.dispatch('user/getUsers');
+            this.$store.dispatch('user/getAll');
         },
         computed: mapGetters({
             users: 'user/all',

@@ -16,12 +16,13 @@
                         </div>
                         <div class="form-group row">
                             <input type="submit" value="Login">
+                            <router-link v-if="authError" to="authForgot">Forgot?</router-link>
                         </div>
                         <div class="form-group row" v-if="authError">
                             <p class="error">
                                 {{ authError }}
                             </p>
-                        </div>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -29,14 +30,17 @@
     </div>
 </template>
 
+
 <script>
     import {login} from '../../helpers/auth.js'
+    import { mapGetters, mapActions } from 'vuex';
+
     export default {
-        name: "login",
+        name: "auth-login",
         data(){
             return {
                 form: {
-                    email: 'farmer@limax.nl',
+                    email: 'admin@limax.nl',
                     password: 'password',
                 },
                 error: null
@@ -52,15 +56,14 @@
                         this.$router.push({path: '/'});
                     })
                     .catch((error)=>{
-                        this.$store.commit('auth/loginFailed', {error})
+                        this.$store.commit('auth/loginFailed', {error});
+                        this.$router.push({name: 'authLogin'});
                     });
             }
         },
-        computed: {
-            authError() {
-                return this.$store.getters.authError;
-            }
-        }
+        computed: mapGetters({
+            authError: 'auth/authError',
+        }),
     }
 </script>
 

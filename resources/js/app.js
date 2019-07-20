@@ -1,25 +1,27 @@
 require('./bootstrap');
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import {routes} from './routes';
+import router  from './router/index.js'
 import store from './store/index.js';
 import MainApp from './components/MainApp.vue'
 import {initialize} from "./helpers/general";
 import SweetAlert2  from 'sweetalert2'
-import Vuetify from 'vuetify'
+import VeeValidate from 'vee-validate';
 
-
-Vue.use(Vuetify);
-Vue.use(VueRouter);
+// import BootstrapVue from 'bootstrap-vue'
+// import VueRouter from 'vue-router';
+// import {routes} from './routes';
+//Vue.use(BootstrapVue);
+// import Vuetify from 'vuetify'
+// Vue.use(Vuetify);
+// Vue.use(VueRouter);
+Vue.use(VeeValidate);
 
 window.swal = SweetAlert2;
 
-const router = new VueRouter({
-    routes,
-    mode: 'history'
-});
 
 initialize(store, router);
+//throw router;
+//throw store;
 
 const app = new Vue({
     el: '#app',
@@ -29,15 +31,3 @@ const app = new Vue({
         MainApp
     }
 });
-
-
-
-
-
-
-// window.Vue = require('vue');
-// window.Vuetify = require('vuetify');
-// Vue.component('app', require('./MainApp.vue').default);
-//
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));

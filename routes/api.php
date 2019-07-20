@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| API router
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 Route::post('/login', 'AuthController@login');
-
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/logout', 'AuthController@logout');

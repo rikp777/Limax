@@ -1,15 +1,18 @@
 <template>
     <div class="card">
+        <div class="card-header">Pallet Label</div>
         <div class="card-body">
-            <h5 class="card-title">Home</h5>
+            <router-view></router-view>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Home",
-        computed: {
-        }
+        name: "palletLabel-index"
     }
 </script>
+
+<style scoped>
+
+</style>

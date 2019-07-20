@@ -27,6 +27,7 @@
     export default {
         name: "user-read",
         created() {
+            throw(this.$router.params.id);
             if(this.users.length) {
                 this.user = this.users.find((user) => user.id == this.$route.params.id);
             } else {

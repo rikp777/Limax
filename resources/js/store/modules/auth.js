@@ -31,6 +31,24 @@ const actions = {
     login(context){
         context.commit("login")
     },
+    logout(context){
+        if (context.getters.isLoggedIn) {
+            console.log(context);
+            return new Promise((resolve, reject) => {
+                axios.post('/api/logout')
+                    .then(response => {
+                        localStorage.removeItem('user');
+                        context.commit('logout');
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        localStorage.removeItem('user');
+                        context.commit('logout');
+                        reject(error)
+                    })
+            })
+        }
+    }
 };
 
 // Mutations
@@ -44,14 +62,6 @@ const mutations = {
         state.isLoggedIn = true;
         state.loading = false;
         state.authUser = Object.assign({}, payload.user, {token: payload.access_token});
-
-        // function setCookie(cname,cvalue,exdays) {
-        //     var d = new Date();
-        //     d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        //     var expires = "expires=" + d.toGMTString();
-        //     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        // }
-        // setCookie("user", JSON.stringify(state.authUser), 1);
 
         localStorage.setItem("user", JSON.stringify(state.authUser));
     },
