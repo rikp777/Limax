@@ -12,6 +12,7 @@ class CultivationCyclePolicy
 
     public function before($user, $ability)
     {
+        dd($user);
         if ($user->isAdmin()) {
             return true;
         }
@@ -24,7 +25,7 @@ class CultivationCyclePolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -36,6 +37,7 @@ class CultivationCyclePolicy
      */
     public function view(User $user, CultivationCycle $cultivationCycle)
     {
+        dd('test');
         return false;
     }
 

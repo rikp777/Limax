@@ -10,6 +10,7 @@ class PalletLabelPolicy
 {
     use HandlesAuthorization;
 
+
     public function before($user, $ability)
     {
         if ($user->isAdmin()) {

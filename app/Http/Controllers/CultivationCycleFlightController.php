@@ -13,7 +13,7 @@ class CultivationCycleFlightController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(CultivationCycleFlight::class);
+        $this->authorizeResource(CultivationCycleFlight::class, 'App\CultivationCycleFlight');
     }
 
 

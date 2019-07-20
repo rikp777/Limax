@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
-use App\Cell;
+
 use App\CultivationCycle;
-use App\CultivationCycleFlight;
 use App\Http\Resources\PalletLabelResource;
-use App\Http\Resources\UserResourceCollection;
 use App\PalletLabel;
-use App\PalletType;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Route;
 
 class PalletLabelController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(PalletLabel::class);
+        $this->authorizeResource(PalletLabel::class, 'App\PalletLabel'); //BugFix
     }
 
 
@@ -131,9 +126,9 @@ class PalletLabelController extends Controller
     }
 
 
-    public function show(PalletLabel $palletLabel)
+    public function show(PalletLabel $palletlabel) : PalletLabelResource
     {
-        return new PalletLabelResource($palletLabel);
+        return new PalletLabelResource($palletlabel);
     }
 
 

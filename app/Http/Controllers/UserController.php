@@ -59,7 +59,7 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required|string|min:2|max:25',
             'last_name' => 'required|string|min:2|max:35',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'email' => 'required|email|max:255|unique:user,email,' . $user->id,
             'password' => 'sometimes|string|min:6',
         ]);
 

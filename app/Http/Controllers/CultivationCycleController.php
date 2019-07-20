@@ -10,15 +10,12 @@ use App\Farmer;
 use App\Http\Resources\CultivationCycleResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Collection;
 
 class CultivationCycleController extends Controller
 {
-
     public function __construct()
     {
-        $this->authorizeResource(CultivationCycle::class);
+        $this->authorizeResource(CultivationCycle::class, 'App\CultivationCycle');
     }
 
 
