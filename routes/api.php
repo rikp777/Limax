@@ -32,11 +32,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('/palletlabel', 'PalletLabelController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
-    Route::get('/cultivationCycle/calculate/{cell}', 'CultivationCycleController@calculate');
-    Route::apiResource('/cultivationCycle', 'CultivationCycleController')
+    Route::get('/cultivationcycle/calculate/{cell}', 'CultivationCycleController@calculate');
+    Route::apiResource('/cultivationcycle', 'CultivationCycleController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
-    Route::apiResource('/cultivationCycleFlight', 'CultivationCycleFlightController')
+    Route::apiResource('/cultivationcycleflight', 'CultivationCycleFlightController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 });
 

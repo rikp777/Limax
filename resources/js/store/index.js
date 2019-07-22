@@ -6,7 +6,8 @@ import user from '../store/modules/user.js'
 import palletLabel from '../store/modules/palletLabel.js'
 import article from '../store/modules/article'
 import cell from '../store/modules/cell'
-
+import cultivationCycle from '../store/modules/cultivationCycle'
+import palletType from '../store/modules/palletType'
 
 Vue.use(Vuex);
 
@@ -15,6 +16,8 @@ export default new Vuex.Store({
         auth,
         user,
         palletLabel,
+        palletType,
+        cultivationCycle,
         article,
         cell,
     },

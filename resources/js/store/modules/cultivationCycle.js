@@ -1,6 +1,6 @@
 
 //api url
-const apiUrl = '/api/cultivation';
+const apiUrl = '/api/cultivationcycle';
 
 // Initial State
 const state = {
