@@ -10,6 +10,7 @@ use App\Farmer;
 use App\Http\Resources\CultivationCycleResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Collection;
 
 class CultivationCycleController extends Controller
 {
@@ -19,7 +20,8 @@ class CultivationCycleController extends Controller
     }
 
 
-    public function calculate(Cell $cell){
+    public function calculate(Cell $cell)
+    {
         $today = Carbon::now();
         $newFlight = 7; //days
         $resetFlight = 14; //days
@@ -39,7 +41,7 @@ class CultivationCycleController extends Controller
 
 
             // FILL DATE LOGIC
-            if(count($cultivation->CultivationCycleFlights) == 0){
+            if (count($cultivation->CultivationCycleFlights) == 0) {
                 if ($daysOver >= $newFlight) {
                     $error = false;
                     $flight = 1;
@@ -70,14 +72,14 @@ class CultivationCycleController extends Controller
             }
 
             $flightsString = '';
-            foreach($cultivation->CultivationCycleFlights as $cultivationCycleFlight){
+            foreach ($cultivation->CultivationCycleFlights as $cultivationCycleFlight) {
                 $flightsString .= $flightsString . $cultivationCycleFlight->date . ", ";
             }
             //FLIGHT DATE LOGIC
             foreach ($cultivation->CultivationCycleFlights as $cultivationCycleFlight) {
                 $date = Carbon::parse($cultivation->CultivationCycleFlights->last()->date);
                 //dd($date);
-                $daysOver = $today->diffInDays($date)+1;
+                $daysOver = $today->diffInDays($date) + 1;
 
                 if ($daysOver > $newFlight) {
                     $error = true;
@@ -95,7 +97,7 @@ class CultivationCycleController extends Controller
                         $flightDay = 0;
                         $message = [
                             "You will create a new cultivation cycle with this pallet-label!",
-                             "Current cycle:",
+                            "Current cycle:",
                             "Fill-date: " . $fill,
                             "Fightdates: " . $flightsString,
                             "This cycle is " . ($daysOver - $resetFlight) . " days over its reset max"
@@ -107,7 +109,7 @@ class CultivationCycleController extends Controller
                     $flightDay = $daysOver;
                 }
             }
-        }else{
+        } else {
             $error = true;
             $flight = 0;
             $flightDay = 0;
@@ -117,31 +119,32 @@ class CultivationCycleController extends Controller
         }
         //dd($cultivation);
         $cycle = [
-            'calculation' => [
-                'flight' => $flight,
-                'flight_day' => $flightDay,
-                'error' => $error,
-                'message' => $message,
-            ],
-            'raw_data' => [
-                'cell' => [
-                    'id' => isset($cultivation) ? $cultivation->cell->id : $cell->id,
-                    'description' => isset($cultivation) ? $cultivation->cell->description : $cell->description,
+            'data' => [
+                'calculation' => [
+                    'flight' => $flight,
+                    'flight_day' => $flightDay,
+                    'error' => $error,
+                    'message' => $message,
                 ],
-                'cultivation_cycle' => [
-                    'id' => isset($cultivation) ? $cultivation->id : null,
-                    'fill_date' => isset($cultivation) ? $cultivation->fill_date : null,
-                    'cultivation_cycle_flights' => isset($cultivation) ? $cultivation->cultivation_cycle_flights : null,
-                ],
-                'article_group' => [
-                    'id' =>  isset($cultivation) ? $articleGroupId : null,
-                    'name' => isset($cultivation) ? ArticleGroup::find($articleGroupId)->name : null,
-                ],
+                'raw_data' => [
+                    'cell' => [
+                        'id' => isset($cultivation) ? $cultivation->cell->id : $cell->id,
+                        'description' => isset($cultivation) ? $cultivation->cell->description : $cell->description,
+                    ],
+                    'cultivation_cycle' => [
+                        'id' => isset($cultivation) ? $cultivation->id : null,
+                        'fill_date' => isset($cultivation) ? $cultivation->fill_date : null,
+                        'cultivation_cycle_flights' => isset($cultivation) ? $cultivation->cultivation_cycle_flights : null,
+                    ],
+                    'article_group' => [
+                        'id' => isset($cultivation) ? $articleGroupId : null,
+                        'name' => isset($cultivation) ? ArticleGroup::find($articleGroupId)->name : null,
+                    ],
+                ]
             ]
         ];
-        return new Collection($cycle);
+        return new \Illuminate\Support\Collection($cycle);
     }
-
 
 
     public function index()
@@ -157,8 +160,8 @@ class CultivationCycleController extends Controller
         $cultivationCycleData = $cellData->cultivationCycles()->latest()->first();
         $cultivationCycle = null;
 
-        if(isset($cultivationCycleData)){
-            if($today->diffInDays($cultivationCycleData->fill_date) > 14){
+        if (isset($cultivationCycleData)) {
+            if ($today->diffInDays($cultivationCycleData->fill_date) > 14) {
                 $cultivationCycle = new CultivationCycle();
                 $cultivationCycle->cell_id = $cellData->id;
                 $cultivationCycle->cell_description = $cellData->description;
@@ -166,10 +169,10 @@ class CultivationCycleController extends Controller
                 $cultivationCycle->farmer_id = Farmer::getCurrentFarmer()->id;
                 $cultivationCycle->article_group_id = $request->article_group_id;
                 $cultivationCycle->save();
-            }else{
-                abort(409,'Has to be at least 14 days over fill_date of last cultivation cycle');
+            } else {
+                abort(409, 'Has to be at least 14 days over fill_date of last cultivation cycle');
             }
-        }else{
+        } else {
             $cultivationCycle = new CultivationCycle();
             $cultivationCycle->cell_id = $cellData->id;
             $cultivationCycle->cell_description = $cellData->description;
