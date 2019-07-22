@@ -16,6 +16,9 @@ const getters = {
     getById: (state) => (id) => {
         return state.all.find(article => article.id === id);
     },
+    getCalcuation(state){
+        return state.calculation;
+    }
 };
 
 // Actions
