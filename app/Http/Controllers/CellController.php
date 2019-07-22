@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Cell;
+use App\Http\Resources\CellResource;
 use Illuminate\Http\Request;
 
 class CellController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-
+        return CellResource::collection(Cell::all());
     }
 
     /**
