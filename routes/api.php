@@ -24,6 +24,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('/article', 'ArticleController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
+    Route::apiResource('/pallettype', 'PalletTypeController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
     Route::apiResource('/palletlabel', 'PalletLabelController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 

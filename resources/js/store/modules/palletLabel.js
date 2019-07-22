@@ -1,4 +1,4 @@
-
+const apiUrl = '/api/palletlabel';
 // Initial State
 const state = {
     all: [],
@@ -10,30 +10,33 @@ const getters = {
     all(state){
         return state.all;
     },
+    single(state){
+        return state.single
+    }
 };
 
 // Actions
 const actions = {
     getAll(context){
-        axios.get('/api/palletlabel')
+        axios.get(apiUrl)
             .then((response) => {
-                context.commit('palletLabelsUpdate', response.data);
+                context.commit('UpdateAll', response.data);
             })
     },
     getById(context, id){
-        axios.get('/api/palletlabel/' + id)
+        axios.get(apiUrl + '/' + id)
             .then((response) => {
-                context.commit('palletLabelUpdate', response.data);
+                context.commit('UpdateSingle', response.data);
             })
     },
 };
 
 // Mutations
 const mutations = {
-    palletLabelsUpdate(state, payload){
+    UpdateAll(state, payload){
         state.all = payload
     },
-    palletLabelUpdate(state, payload){
+    UpdateSingle(state, payload){
         state.single = payload;
     }
 };

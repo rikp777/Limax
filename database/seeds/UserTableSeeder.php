@@ -1,5 +1,6 @@
 <?php
 
+use App\Department;
 use App\Role;
 use Illuminate\Database\Seeder;
 Use App\User;
@@ -43,7 +44,7 @@ class UserTableSeeder extends Seeder
 
         User::insert($users);
 
-        factory(User::class, 10)->create();
+        factory(User::class, 30)->create();
 
 
         // Make RelationsShips
@@ -55,6 +56,12 @@ class UserTableSeeder extends Seeder
         User::where('id', '>', '3')->each(function ($user) use ($roles) {
             $user->roles()->attach(
                 $roles->random(rand(1, 2))->pluck('id')->toArray()
+            );
+        });
+        $departments = Department::all();
+        User::where('id', '>', '2')->each(function ($user) use ($departments) {
+            $user->departments()->attach(
+                $departments->random(rand(1, 2))->pluck('id')->toArray()
             );
         });
     }

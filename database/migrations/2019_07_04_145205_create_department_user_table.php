@@ -20,7 +20,7 @@ class CreateDepartmentUserTable extends Migration
 
             // relation to user table
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
 
             // both primary
             $table->primary(['department_id', 'user_id']);

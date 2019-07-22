@@ -1,6 +1,6 @@
 
 //api url
-const apiUrl = '/api/article';
+const apiUrl = '/api/palletType';
 
 // Initial State
 const state = {

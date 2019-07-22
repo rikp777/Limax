@@ -32,7 +32,7 @@ class CreatePalletLabelsTable extends Migration
 
             // relation to user table
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
 
             // relation to farmers table
             $table->unsignedInteger('farmer_id');

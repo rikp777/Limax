@@ -1,13 +1,13 @@
 
 // Initial State
 const state = {
-    users: []
+    all: []
 };
 
 // Getters
 const getters = {
     all(state){
-        return state.users;
+        return state.all;
     },
 };
 
@@ -15,6 +15,12 @@ const getters = {
 const actions = {
     getAll(context){
         axios.get('/api/user')
+            .then((response) => {
+                context.commit('userUpdate', response.data);
+            })
+    },
+    getAllByPage(context, page){
+        axios.get('/api/user?page=' + page)
             .then((response) => {
                 context.commit('userUpdate', response.data);
             })
@@ -41,7 +47,7 @@ const actions = {
 // Mutations
 const mutations = {
     userUpdate(state, payload){
-        state.users = payload
+        state.all = payload
     }
 };
 

@@ -37,7 +37,7 @@ class RoleTableSeeder extends Seeder
             [
                 'name' => 'Other',
                 'description' => 'Other',
-                'color' => 'Grap',
+                'color' => 'Gray',
             ],
         ];
         Role::insert($roles);

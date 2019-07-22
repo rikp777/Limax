@@ -22,7 +22,7 @@
                     <td> {{ palletlabel.id}}</td>
                     <td> {{ palletlabel.article_id}}</td>
                     <td>
-                        <router-link :to="{ name: 'palletLabelRead', params: { id: palletlabel.id }}">View</router-link>
+<!--                        <router-link :to="{ name: 'palletLabelRead', params: { id: palletlabel.id }}">View</router-link>-->
                     </td>
                 </tr>
             </template>

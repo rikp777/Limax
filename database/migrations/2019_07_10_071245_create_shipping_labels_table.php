@@ -24,7 +24,7 @@ class CreateShippingLabelsTable extends Migration
 
             // relation to user table
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
 
             // relation to article_groups table
             $table->unsignedInteger('status_id');
@@ -40,7 +40,7 @@ class CreateShippingLabelsTable extends Migration
 
             //relation to user table with who work in the department of driver
             $table->unsignedInteger('transport_driver_user_id');
-            $table->foreign('transport_driver_user_id')->references('id')->on('user');
+            $table->foreign('transport_driver_user_id')->references('id')->on('users');
         });
     }
 

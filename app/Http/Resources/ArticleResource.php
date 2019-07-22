@@ -17,8 +17,24 @@ class ArticleResource extends JsonResource
         return [
             'id' => $this->id,
             'excel_code' => $this->excel_code,
-            'pallet_limit' => $this->pallet_limmit,
+            'pallet_limit' => $this->pallet_limit,
             'name' => $this->fullName($this),
+//            'relations' => [
+//                'pallet_type_id' => $this->pallet_type_id,
+//                'sort_type_id' => $this->sort_type_id,
+//                'cask_id' => $this->cask_id,
+//                'inset_id' => $this->inset_id,
+//                'status_id' => $this->status_id,
+//                'article_group_id' => $this->article_group_id,
+//            ],
+
+
+            'pallet_type' => $this->PalletType,
+            'sort_type' => $this->sortType,
+            'cask' => $this->cask,
+            'inset' => $this->inset,
+            'status' => $this->status,
+            'article_group' => $this->articleGroup,
         ];
     }
 

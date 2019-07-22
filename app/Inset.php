@@ -9,4 +9,10 @@ class Inset extends Model
     public function articleGroups(){
         return $this->hasMany(Article::class);
     }
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 }

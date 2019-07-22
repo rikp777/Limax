@@ -15,14 +15,10 @@ class ArticleController extends Controller
         $this->authorizeResource(Article::class);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        return new ArticleResourceCollection(Article::paginate(15));
+        return ArticleResource::collection(Article::all());
     }
 
     /**
