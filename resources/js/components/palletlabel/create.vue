@@ -1,99 +1,156 @@
 <template>
-    <form>
+    <form @submit.prevent="validateBeforeSubmit">
+
+
+
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col">
                 <label for="cropDate">Crop Date</label>
-                <flat-pickr v-model="palletLabel.cropDate" id="cropDate" class="form-control"></flat-pickr>
-                <!--                <input-->
-                <!--                        type="date"-->
-                <!--                        name="cropDate"-->
-                <!--                        id="cropDate"-->
-                <!--                        v-model="palletLabel.cropDate"-->
-                <!--                        v-validate="'required|date'"-->
-                <!--                        :class="{ 'is-invalid': errors.has('cropDate') }"-->
-                <!--                        class="form-control datepicker"-->
-                <!--                >-->
+                <flat-pickr
+                        v-model="palletLabel.cropDate"
+                        name="cropDate"
+                        id="cropDate"
+                        v-validate="'required|date_format:dd/MM/yyyy'"
+                        :class="{ 'is-invalid': errors.has('cropDate') }"
+                        class="form-control"
+                ></flat-pickr>
                 <span class="invalid-feedback">{{ errors.first('cropDate') }}</span>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col">
                 <label for="amount">Amount</label>
                 <input
+                        v-model="palletLabel.amount"
                         type="number"
                         name="amount"
                         id="amount"
-                        v-model="palletLabel.amount"
+                        v-validate="'required|numeric|min_value:1|max_value:180'"
                         :class="{ 'is-invalid': errors.has('amount') }"
                         class="form-control"
                 >
+                <span class="invalid-feedback">{{ errors.first('amount') }}</span>
             </div>
         </div>
+
+
+
+
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col">
                 <label for="article" class="d-block">Article</label>
-                <select class="selectpicker" id="article" ref="select" v-model="palletLabel.articleId"
-                        data-live-search="true" data-width="100%">
+                <select
+                        v-model="palletLabel.articleId"
+                        id="article"
+                        name="article"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('article') }"
+                        class="selectpicker"
+
+                        ref="select"
+                        data-live-search="true"
+                        data-width="100%"
+                >
                     <option disabled value="">Select</option>
                     <option v-for="article in articles.data" v-bind:value="article.id">{{article.name}}</option>
                 </select>
                 <span class="invalid-feedback">{{ errors.first('article') }}</span>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col">
                 <label for="palletType">Pallet Type</label>
-                <select class="selectpicker" id="palletType" ref="select" v-model="palletLabel.palletTypeId"
-                        data-live-search="true" data-width="100%">
+                <select
+                        v-model="palletLabel.palletTypeId"
+                        id="palletType"
+                        name="palletType"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('palletType') }"
+                        class="selectpicker"
+
+                        ref="select"
+                        data-live-search="true"
+                        data-width="100%"
+                >
                     <option disabled value="">Select</option>
                     <option v-for="palletType in palletTypes.data" v-bind:value="palletType.id">{{palletType.name}}</option>
                 </select>
                 <span class="invalid-feedback">{{ errors.first('palletType') }}</span>
             </div>
         </div>
+
+
+
+
         <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col">
                 <label for="cell">Cell</label>
-                <select class="selectpicker" id="cell" ref="select" v-model="palletLabel.cellId" @change="calculate(palletLabel.cellId)"
-                        data-live-search="true" data-width="100%">
+                <select
+                        v-model="palletLabel.cellId"
+                        id="cell"
+                        name="cell"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('cell') }"
+                        class="selectpicker"
+
+                        ref="select"
+                        data-live-search="true"
+                        data-width="100%"
+
+                        @change="calculate(palletLabel.cellId)"
+                >
                     <option disabled value="">Select</option>
                     <option v-for="cell in cells.data" v-bind:value="cell.id">{{cell.description}}</option>
                 </select>
                 <span class="invalid-feedback">{{ errors.first('cell') }}</span>
             </div>
-            <div class="form-group col-md-4" v-if="calculation.data">
+            <div class="form-group col" v-if="calculation.data">
                 <label for="flight">Flight</label>
-                <input type="number" class="form-control" id="flight" v-model="palletLabel.flight">
+                <input
+                        v-model="palletLabel.flight"
+                        id="flight"
+                        name="flight"
+                        type="number"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('cell') }"
+                        class="form-control"  >
                 <span class="invalid-feedback">{{ errors.first('flight') }}</span>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col" v-if="calculation.data">
                 <label for="flightDay">Flight Day</label>
                 <input
-                        type="number"
-                        name="flightDay"
-                        id="flightDay"
                         v-model="palletLabel.flightDay"
+                        id="flightDay"
+                        name="flightDay"
+                        type="number"
+                        v-validate="'required|numeric'"
                         :class="{ 'is-invalid': errors.has('flightDay') }"
                         class="form-control"
                 >
                 <span class="invalid-feedback">{{ errors.first('flightDay') }}</span>
             </div>
-            <div class="col" v-if="calculation.data">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Message!</strong>
-                    <div v-for="message in calculation.data.calculation.message">
-                        {{message}}
-                    </div>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        </div>
+        <div class="form-row" v-if="calculation.data">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Message!</strong>
+                <div v-for="message in calculation.data.calculation.message">
+                    {{message}}
                 </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </div>
+
+
+
+
+
         <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col">
                 <label for="note">Note</label>
                 <input
-                        type="text"
-                        name="note"
-                        id="note"
                         v-model="palletLabel.note"
+                        id="note"
+                        name="note"
+                        type="text"
+                        v-validate="'required|numeric'"
                         :class="{ 'is-invalid': errors.has('note') }"
                         class="form-control"
                 >
