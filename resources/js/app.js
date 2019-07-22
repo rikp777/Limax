@@ -6,7 +6,8 @@ import MainApp from './components/MainApp.vue'
 import {initialize} from "./helpers/general";
 import SweetAlert2  from 'sweetalert2'
 import VeeValidate from 'vee-validate';
-
+import bootstrapSelect from 'bootstrap-select';
+window.bootstrapSelect = bootstrapSelect;
 // import BootstrapVue from 'bootstrap-vue'
 // import VueRouter from 'vue-router';
 // import {routes} from './routes';

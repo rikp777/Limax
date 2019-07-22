@@ -2,7 +2,11 @@
     <div class="card">
         <div class="card-header">Pallet Label</div>
         <div class="card-body">
-            <router-view></router-view>
+            <div class="row">
+                <div class="col">
+                    <router-view></router-view>
+                </div>
+            </div>
         </div>
     </div>
 </template>

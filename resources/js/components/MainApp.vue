@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="col-8 mx-auto">
         <header-app></header-app>
         <transition name="slide-fade">
             <router-view v-if="show"></router-view>
