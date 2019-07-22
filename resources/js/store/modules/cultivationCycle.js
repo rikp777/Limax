@@ -10,13 +10,13 @@ const state = {
 
 // Getters
 const getters = {
-    all(state){
+    getAll(state){
         return state.all;
     },
     getById: (state) => (id) => {
         return state.all.find(article => article.id === id);
     },
-    getCalcuation(state){
+    getCalculation(state){
         return state.calculation;
     }
 };

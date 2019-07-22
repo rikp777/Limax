@@ -9,7 +9,7 @@ const state = {
 
 // Getters
 const getters = {
-    all(state){
+    getAll(state){
         return state.all;
     },
     getById: (state) => (id) => {
