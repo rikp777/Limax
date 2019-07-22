@@ -30,12 +30,13 @@ const actions = {
             })
     },
     getCalculationCell(context, id){
-        if(id){
+        return new Promise((resolve, reject) => {
             axios.get(apiUrl + '/calculate/' + id)
                 .then((response) => {
+                    resolve(response);
                     context.commit('UpdateCalculation', response.data);
-                })
-        }
+                });
+        })
     }
 };
 

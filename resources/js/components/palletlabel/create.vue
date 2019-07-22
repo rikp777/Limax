@@ -22,7 +22,6 @@
                         name="amount"
                         id="amount"
                         v-model="palletLabel.amount"
-                        v-validate="'required|int'"
                         :class="{ 'is-invalid': errors.has('amount') }"
                         class="form-control"
                 >
@@ -60,7 +59,7 @@
             </div>
             <div class="form-group col-md-4" v-if="calculation.data">
                 <label for="flight">Flight</label>
-                <input type="number" class="form-control" id="flight" v-model="palletLabel.flight">{{calculation.data.calculation.flight}}
+                <input type="number" class="form-control" id="flight" v-model="palletLabel.flight">
                 <span class="invalid-feedback">{{ errors.first('flight') }}</span>
             </div>
             <div class="form-group col-md-4">
@@ -70,11 +69,21 @@
                         name="flightDay"
                         id="flightDay"
                         v-model="palletLabel.flightDay"
-                        v-validate="'required|int'"
                         :class="{ 'is-invalid': errors.has('flightDay') }"
                         class="form-control"
                 >
                 <span class="invalid-feedback">{{ errors.first('flightDay') }}</span>
+            </div>
+            <div class="col" v-if="calculation.data">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Message!</strong>
+                    <div v-for="message in calculation.data.calculation.message">
+                        {{message}}
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
         </div>
         <div class="form-row">
@@ -85,7 +94,6 @@
                         name="note"
                         id="note"
                         v-model="palletLabel.note"
-                        v-validate="'required|date'"
                         :class="{ 'is-invalid': errors.has('note') }"
                         class="form-control"
                 >
@@ -138,18 +146,24 @@
             ...mapGetters({cells: 'cell/getAll'}),
             ...mapGetters({calculation: 'cultivationCycle/getCalculation'})
         },
+        created(){
+            this.getAll();
+            this.palletTypeGetAll();
+            this.cellsGetAll();
+        },
         methods: {
             ...mapActions('article', ['getAll']),
             ...mapActions('palletType', { palletTypeGetAll: 'getAll'}),
             ...mapActions('cell', { cellsGetAll: 'getAll'}),
             ...mapActions('cultivationCycle', { getCalculationCell: 'getCalculationCell'}),
 
-            calculate(id){
-                this.getAll();
-                mapGetters({calculation: 'cultivationCycle/getCalculation'})
-                this.palletLabel.flight = calculate.data.calculate.flight;
+            calculate(id) {
+                this.getCalculationCell(id)
+                    .then(() => {
+                        this.palletLabel.flight = this.calculation.data.calculation.flight;
+                        this.palletLabel.flightDay = this.calculation.data.calculation.flight_day;
+                    });
             },
-
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
@@ -176,13 +190,5 @@
                 })
             },
         },
-        mounted() {
-            if (this.articles.length) {
-                return;
-            }
-            this.getAll();
-            this.palletTypeGetAll();
-            this.cellsGetAll();
-        }
     }
 </script>
