@@ -78,7 +78,7 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     export default {
-        name: "palletLabel-create",
+        name: "palletLabel-update",
         data() {
             return {
                 palletLabel: {
@@ -94,9 +94,9 @@
                 serverErrors: '',
             }
         },
-        computed: {
-            ...mapGetters({articles: 'palletLabel/articles'}),
-        },
+        computed: mapGetters({
+            articles: 'article/articles',
+        }),
         methods: {
             validateBeforeSubmit(){
                 this.$validator.validateAll().then((result) => {
@@ -116,7 +116,7 @@
                     flightDay: this.flightDay,
                     note: this.note
                 }).then(response => {
-                    // this.$router.push({ name: 'userList'})
+
                 }).catch(error => {
                     console.log(error.response.data.errors);
                     this.serverErrors = Object.values(error.response.data.errors)

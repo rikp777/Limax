@@ -42,7 +42,7 @@
                             </router-link>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <router-link :to="{ name: 'palletLabelCreate' }"  class="dropdown-item">Create</router-link>
+                                <router-link :to="{ name: 'palletLabelCombine' }"  class="dropdown-item">Create</router-link>
                                 <router-link :to="{ name: 'palletLabelList' }"  class="dropdown-item">List</router-link>
                             </div>
                         </li>

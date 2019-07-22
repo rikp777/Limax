@@ -35,15 +35,11 @@
     import { mapState, mapActions } from 'vuex';
     export default {
         name: 'palletLabel-list',
-        computed: mapState({
-                palletLabels: state => state.palletLabel.all,
-        }),
+        computed: {
+            ...mapState({palletLabels: state => state.palletLabel.all}),
+        },
         methods: {
-            ...mapActions('palletLabel',
-                [
-                    'getAll'
-                ]
-            ),
+            ...mapActions('palletLabel', ['getAll']),
         },
         mounted() {
             if(this.palletLabels.length){
