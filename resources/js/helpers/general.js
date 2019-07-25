@@ -17,6 +17,10 @@ export function initialize(store, router) {
                 next();
             }else{
                 console.log('unauthorized');
+                Toast.fire({
+                    type: 'error',
+                    title: 'unauthorized',
+                });
                 next('/')
             }
         } else{

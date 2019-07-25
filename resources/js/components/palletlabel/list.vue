@@ -27,6 +27,7 @@
             </template>
             </tbody>
         </table>
+
     </div>
 </template>
 
@@ -35,21 +36,24 @@
     export default {
         name: 'palletLabel-list',
         computed: {
-            ...mapState({palletLabels: state => state.palletLabel.all}),
-        },
-        methods: {
-            ...mapActions('palletLabel', ['getAll']),
-            update(id) {
-                this.$emit("update", {'id': id});
-            }
+            //...mapGetters({palletLabels: 'palletLabel/getAll'}),
+            ...mapState({palletLabels: state => state.palletLabel.palletLabels}),
         },
         mounted() {
-            if(this.palletLabels.length){
-                return;
-            }
-            this.getAll();
+            this.palletLabelGetAll()
+                .then((response) => {
+                    Toast.fire({
+                        type: 'success',
+                        title: 'PalletLabels loaded successfully',
+                    });
+                })
+                .catch((error) => {
+                    console.log('r')
+                });
         },
-
+        methods: {
+            ...mapActions('palletLabel', { palletLabelGetAll: 'getAll' }),
+        },
     }
 </script>
 

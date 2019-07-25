@@ -155,12 +155,18 @@
         </div>
         <div class="form-group">
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="formCheck">
+                <input
+                        id="formCheck"
+                        name="formCheck"
+                        type="checkbox"
+                        v-validate="'required'"
+                        :class="{ 'is-invalid': errors.has('formCheck') }"
+                        class="form-check-input"
+                >
                 <label class="form-check-label" for="formCheck">Is everything correct?</label>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Sign in</button>
-        {{palletLabel}}
     </form>
 
 
