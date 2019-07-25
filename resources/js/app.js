@@ -7,6 +7,7 @@ import {initialize} from "./helpers/general";
 import SweetAlert2  from 'sweetalert2'
 import VeeValidate from 'vee-validate';
 import bootstrapSelect from 'bootstrap-select';
+
 window.bootstrapSelect = bootstrapSelect;
 // import BootstrapVue from 'bootstrap-vue'
 // import VueRouter from 'vue-router';
@@ -16,8 +17,8 @@ window.bootstrapSelect = bootstrapSelect;
 // Vue.use(Vuetify);
 // Vue.use(VueRouter);
 Vue.use(VeeValidate);
-
 window.swal = SweetAlert2;
+
 
 
 initialize(store, router);

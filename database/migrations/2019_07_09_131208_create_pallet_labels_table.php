@@ -18,7 +18,7 @@ class CreatePalletLabelsTable extends Migration
             $table->date('crop_date');
             $table->integer('article_amount');
             $table->string('note')->nullable();
-            $table->string('pallet_label_farmer_id');
+            $table->integer('pallet_label_farmer_id');
             $table->string('made_by');
 
 

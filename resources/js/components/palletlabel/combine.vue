@@ -19,16 +19,6 @@
                 ></pallet-label-list>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <pallet-label-pdf
-                        v-if="print.print"
-                        :id="print.id"
-                        @update="update = $event"
-                        @print="print = $event"
-                ></pallet-label-pdf>
-            </div>
-        </div>
     </div>
 
 </template>

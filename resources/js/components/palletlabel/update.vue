@@ -1,110 +1,245 @@
 <template>
-    <div class="card">
-        <div class="card-body">
+    <form @submit.prevent="validateBeforeSubmit">
 
-            <form @submit.prevent="validateBeforeSubmit">
-                <div v-if="serverErrors" class="alert alert-warning" role="alert">
-                    <div v-for="(value, key) in serverErrors" :key="key">{{ value[0] }}</div>
-                </div>
 
-                <div class="form-row">
-                    <div class="col mb-3">
-                        <label for="cropDate">Crop date</label>
-                        <input
-                                type="date"
-                                name="cropDate"
-                                id="cropDate"
-                                v-model="palletLabel.cropDate"
-                                v-validate="'required|date'"
-                                :class="{ 'is-invalid': errors.has('cropDate') }"
-                                class="form-control"
-                        >
-                        <span class="invalid-feedback">{{ errors.first('cropDate') }}</span>
-                    </div>
-                    <div class="col mb-3">
-                        <label for="amount">Amount</label>
-                        <input
-                                type="number"
-                                name="amount"
-                                id="amount"
-                                v-model="palletLabel.amount"
-                                v-validate="'required|int'"
-                                :class="{ 'is-invalid': errors.has('amount') }"
-                                class="form-control"
-                        >
-                        <span class="invalid-feedback">{{ errors.first('amount') }}</span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col mb-3">
-                        <label for="articleId">Article</label>
-                        <select class="form-control" id="articleId">
-                        </select>
-                        <input
-                                type="date"
-                                name="articleId"
-                                id="articleId"
-                                v-model="palletLabel.articleId"
-                                v-validate="'required|date'"
-                                :class="{ 'is-invalid': errors.has('articleId') }"
-                                class="form-control"
-                        >
-                        <span class="invalid-feedback">{{ errors.first('articleId') }}</span>
-                    </div>
-                    <div class="col mb-3">
-                        <label for="palletType">Pallet Type</label>
-                        <input
-                                type="number"
-                                name="palletType"
-                                id="palletType"
-                                v-model="palletLabel.palletType"
-                                v-validate="'required|int'"
-                                :class="{ 'is-invalid': errors.has('palletType') }"
-                                class="form-control"
-                        >
-                        <span class="invalid-feedback">{{ errors.first('palletType') }}</span>
-                    </div>
-                </div>
-
-                <button class="btn btn-primary" type="submit">Create</button>
-            </form>
-            <form>
-
-            </form>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="cropDate">Crop Date</label>
+                <flat-pickr
+                        v-model="form.cropDate"
+                        name="cropDate"
+                        id="cropDate"
+                        v-validate="'required|date_format:dd/MM/yyyy'"
+                        :class="{ 'is-invalid': errors.has('cropDate') }"
+                        class="form-control"
+                ></flat-pickr>
+                <span class="invalid-feedback">{{ errors.first('cropDate') }}</span>
+            </div>
+            <div class="form-group col">
+                <label for="amount">Amount</label>
+                <input
+                        v-model="form.amount"
+                        type="number"
+                        name="amount"
+                        id="amount"
+                        v-validate="'required|numeric|min_value:1|max_value:180'"
+                        :class="{ 'is-invalid': errors.has('amount') }"
+                        class="form-control"
+                >
+                <span class="invalid-feedback">{{ errors.first('amount') }}</span>
+            </div>
         </div>
-    </div>
+
+
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="article" class="d-block">Article</label>
+                <select
+                        v-model="form.articleId"
+                        id="article"
+                        name="article"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('article') }"
+                        class="selectpicker"
+
+                        ref="select"
+                        data-live-search="true"
+                        data-width="100%"
+                >
+                    <option disabled value="">Select</option>
+                    <option v-for="article in articles.data" v-bind:value="article.id">{{article.name}}</option>
+                </select>
+                <span class="invalid-feedback">{{ errors.first('article') }}</span>
+            </div>
+            <div class="form-group col">
+                <label for="palletType">Pallet Type</label>
+                <select
+                        v-model="form.palletTypeId"
+                        id="palletType"
+                        name="palletType"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('palletType') }"
+                        class="selectpicker"
+
+                        ref="select"
+                        data-live-search="true"
+                        data-width="100%"
+                >
+                    <option disabled value="">Select</option>
+                    <option v-for="palletType in palletTypes.data" v-bind:value="palletType.id">{{palletType.name}}
+                    </option>
+                </select>
+                <span class="invalid-feedback">{{ errors.first('palletType') }}</span>
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="cell">Cell</label>
+                <select
+                        v-model="form.cellId"
+                        id="cell"
+                        name="cell"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('cell') }"
+                        class="selectpicker"
+
+                        ref="select"
+                        data-live-search="true"
+                        data-width="100%"
+
+                        @change="calculate(form.cellId)"
+                >
+                    <option disabled value="">Select</option>
+                    <option v-for="cell in cells.data" v-bind:value="cell.id">{{cell.description}}</option>
+                </select>
+                <span class="invalid-feedback">{{ errors.first('cell') }}</span>
+            </div>
+            <div class="form-group col" v-if="calculation.data">
+                <label for="flight">Flight</label>
+                <input
+                        v-model="form.flight"
+                        id="flight"
+                        name="flight"
+                        type="number"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('cell') }"
+                        class="form-control"
+                        disabled
+                >
+                <span class="invalid-feedback">{{ errors.first('flight') }}</span>
+            </div>
+            <div class="form-group col" v-if="calculation.data">
+                <label for="flightDay">Flight Day</label>
+                <input
+                        v-model="form.flightDay"
+                        id="flightDay"
+                        name="flightDay"
+                        type="number"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('flightDay') }"
+                        class="form-control"
+                        disabled
+                >
+                <span class="invalid-feedback">{{ errors.first('flightDay') }}</span>
+            </div>
+        </div>
+        <div class="form-row" v-if="calculation.data">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Message!</strong>
+                <div v-for="message in calculation.data.calculation.message">
+                    {{message}}
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="note">Note</label>
+                <input
+                        v-model="form.note"
+                        id="note"
+                        name="note"
+                        type="text"
+                        v-validate="'required|numeric'"
+                        :class="{ 'is-invalid': errors.has('note') }"
+                        class="form-control"
+                >
+                <span class="invalid-feedback">{{ errors.first('note') }}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="formCheck">
+                <label class="form-check-label" for="formCheck">Is everything correct?</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+        {{palletLabel}}
+    </form>
+
+
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
+    import FlatPickr from "vue-flatpickr-component/src/component";
+
     export default {
-        name: "palletLabel-update",
+        name: "palletLabel-create",
+        components: {FlatPickr},
+        updated() {
+            $(this.$refs.select).selectpicker('refresh')
+        },
         data() {
+
             return {
-                palletLabel: {
+                form: {
                     cropDate: '',
                     amount: '',
                     articleId: '',
                     palletTypeId: '',
                     cellId: '',
-                    flight: '',
-                    flightDay: '',
+                    flight: 0,
+                    flightDay: 0,
                     note: '',
                 },
                 serverErrors: '',
             }
         },
-        computed: mapGetters({
-            articles: 'article/articles',
-        }),
+        computed: {
+            ...mapGetters({palletLabel: 'palletLabel/single'}),
+            ...mapGetters({articles: 'article/getAll'}),
+            ...mapGetters({palletTypes: 'palletType/getAll'}),
+            ...mapGetters({cells: 'cell/getAll'}),
+            ...mapGetters({calculation: 'cultivationCycle/getCalculation'})
+        },
+        mounted() {
+            this.PalletLabelGetById(this.$route.params.id)
+                .then((data) => {
+                    console.log(this.palletLabel);
+                    this.form.cropDate = this.palletLabel.crop_date,
+                    this.amount = this.palletLabel.amount,
+                    this.articleId = this.palletLabel.article_id,
+                    this.palletTypeId = this.palletLabel.pallet_type_id,
+                    this.cellId = this.palletLabel.cell_number,
+                    this.flight = this.palletLabel.harvest_cycle,
+                    this.flightDay = this.palletLabel.harvest_cycle_day,
+                    this.note = this.palletLabel.note
+                }).catch((error) => {
+                console.log('nope')
+            });
+            this.articleGetAll();
+            this.palletTypeGetAll();
+            this.cellsGetAll();
+        },
         methods: {
-            validateBeforeSubmit(){
+            ...mapActions('palletLabel', {PalletLabelGetById: 'getById'}),
+            ...mapActions('article', {articleGetAll: 'getAll'}),
+            ...mapActions('palletType', {palletTypeGetAll: 'getAll'}),
+            ...mapActions('cell', {cellsGetAll: 'getAll'}),
+            ...mapActions('cultivationCycle', {getCalculationCell: 'getCalculationCell'}),
+
+            calculate(id) {
+                this.getCalculationCell(id)
+                    .then(() => {
+                        this.palletLabel.flight = this.calculation.data.calculation.flight;
+                        this.palletLabel.flightDay = this.calculation.data.calculation.flight_day;
+                    });
+            },
+            validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
-                    if(result) {
+                    if (result) {
                         this.create();
                     }
                 })
             },
+
             create() {
                 this.$store.dispatch('user/create', {
                     cropDate: this.cropDate,
@@ -116,12 +251,12 @@
                     flightDay: this.flightDay,
                     note: this.note
                 }).then(response => {
-
+                    // this.$router.push({ name: 'userList'})
                 }).catch(error => {
                     console.log(error.response.data.errors);
                     this.serverErrors = Object.values(error.response.data.errors)
                 })
-            }
-        }
+            },
+        },
     }
 </script>

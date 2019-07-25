@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div class="btn-wrapper">
-            <router-link to="/users/create" class="btn btn-primary btn-sm">Create</router-link>
-        </div>
         <table class="table">
             <thead>
             <tr>
@@ -22,7 +19,9 @@
                     <td> {{ palletlabel.id}}</td>
                     <td> {{ palletlabel.article_id}}</td>
                     <td>
-<!--                        <router-link :to="{ name: 'palletLabelRead', params: { id: palletlabel.id }}">View</router-link>-->
+                        <router-link :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>
+                        <router-link :to="{ name: 'palletLabelPdf', params: { id: palletlabel.id }}">PDF</router-link>
+                        <router-link :to="{ name: 'palletLabelRead', params: { id: palletlabel.id }}">View</router-link>
                     </td>
                 </tr>
             </template>
@@ -40,6 +39,9 @@
         },
         methods: {
             ...mapActions('palletLabel', ['getAll']),
+            update(id) {
+                this.$emit("update", {'id': id});
+            }
         },
         mounted() {
             if(this.palletLabels.length){

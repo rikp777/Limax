@@ -7,10 +7,10 @@
             <div class="form-group col">
                 <label for="cropDate">Crop Date</label>
                 <flat-pickr
-                        v-model="palletLabel.cropDate"
+                        v-model="form.cropDate"
                         name="cropDate"
                         id="cropDate"
-                        v-validate="'required|date_format:dd/MM/yyyy'"
+                        v-validate="'required'"
                         :class="{ 'is-invalid': errors.has('cropDate') }"
                         class="form-control"
                 ></flat-pickr>
@@ -19,11 +19,11 @@
             <div class="form-group col">
                 <label for="amount">Amount</label>
                 <input
-                        v-model="palletLabel.amount"
+                        v-model="form.amount"
                         type="number"
                         name="amount"
                         id="amount"
-                        v-validate="'required|numeric|min_value:1|max_value:180'"
+                        v-validate="'required|numeric|min_value:1|max_value:' + (form.articleId ? articles.data.find(article => article.id === form.articleId).pallet_limit : 180)"
                         :class="{ 'is-invalid': errors.has('amount') }"
                         class="form-control"
                 >
@@ -38,16 +38,18 @@
             <div class="form-group col">
                 <label for="article" class="d-block">Article</label>
                 <select
-                        v-model="palletLabel.articleId"
+                        v-model="form.articleId"
                         id="article"
                         name="article"
                         v-validate="'required|numeric'"
                         :class="{ 'is-invalid': errors.has('article') }"
                         class="selectpicker"
 
-                        ref="select"
+                        ref="selectArticle"
                         data-live-search="true"
                         data-width="100%"
+
+                        @change="selectPallettype(form.articleId)"
                 >
                     <option disabled value="">Select</option>
                     <option v-for="article in articles.data" v-bind:value="article.id">{{article.name}}</option>
@@ -57,14 +59,14 @@
             <div class="form-group col">
                 <label for="palletType">Pallet Type</label>
                 <select
-                        v-model="palletLabel.palletTypeId"
+                        v-model="form.palletTypeId"
                         id="palletType"
                         name="palletType"
                         v-validate="'required|numeric'"
                         :class="{ 'is-invalid': errors.has('palletType') }"
                         class="selectpicker"
 
-                        ref="select"
+                        ref="selectPalletType"
                         data-live-search="true"
                         data-width="100%"
                 >
@@ -82,18 +84,18 @@
             <div class="form-group col">
                 <label for="cell">Cell</label>
                 <select
-                        v-model="palletLabel.cellId"
+                        v-model="form.cellId"
                         id="cell"
                         name="cell"
                         v-validate="'required|numeric'"
                         :class="{ 'is-invalid': errors.has('cell') }"
                         class="selectpicker"
 
-                        ref="select"
+                        ref="selectCell"
                         data-live-search="true"
                         data-width="100%"
 
-                        @change="calculate(palletLabel.cellId)"
+                        @change="calculate(form.cellId)"
                 >
                     <option disabled value="">Select</option>
                     <option v-for="cell in cells.data" v-bind:value="cell.id">{{cell.description}}</option>
@@ -103,25 +105,28 @@
             <div class="form-group col" v-if="calculation.data">
                 <label for="flight">Flight</label>
                 <input
-                        v-model="palletLabel.flight"
+                        v-model="form.flight"
                         id="flight"
                         name="flight"
                         type="number"
                         v-validate="'required|numeric'"
                         :class="{ 'is-invalid': errors.has('cell') }"
-                        class="form-control"  >
+                        class="form-control"
+                        disabled
+                >
                 <span class="invalid-feedback">{{ errors.first('flight') }}</span>
             </div>
             <div class="form-group col" v-if="calculation.data">
                 <label for="flightDay">Flight Day</label>
                 <input
-                        v-model="palletLabel.flightDay"
+                        v-model="form.flightDay"
                         id="flightDay"
                         name="flightDay"
                         type="number"
                         v-validate="'required|numeric'"
                         :class="{ 'is-invalid': errors.has('flightDay') }"
                         class="form-control"
+                        disabled
                 >
                 <span class="invalid-feedback">{{ errors.first('flightDay') }}</span>
             </div>
@@ -146,7 +151,7 @@
             <div class="form-group col">
                 <label for="note">Note</label>
                 <input
-                        v-model="palletLabel.note"
+                        v-model="form.note"
                         id="note"
                         name="note"
                         type="text"
@@ -163,7 +168,7 @@
                 <label class="form-check-label" for="formCheck">Is everything correct?</label>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <button type="submit" class="btn btn-primary">Print</button>
     </form>
 
 
@@ -177,16 +182,16 @@
         name: "palletLabel-create",
         components: {FlatPickr},
         updated() {
-            $(this.$refs.select).selectpicker('refresh')
+            $(this.$refs.selectArticle).selectpicker('refresh');
+            $(this.$refs.selectCell).selectpicker('refresh');
+            $(this.$refs.selectPalletType).selectpicker('refresh')
         },
-        data() {
 
+        data() {
             return {
-                // listData:['a','b','c'],
-                // select:'b',
-                palletLabel: {
-                    cropDate: '',
-                    amount: '',
+                form: {
+                    cropDate: Date.now(),
+                    amount: 180,
                     articleId: '',
                     palletTypeId: '',
                     cellId: '',
@@ -204,21 +209,21 @@
             ...mapGetters({calculation: 'cultivationCycle/getCalculation'})
         },
         created(){
-            this.getAll();
+            this.articlesGetAll();
             this.palletTypeGetAll();
             this.cellsGetAll();
         },
         methods: {
-            ...mapActions('article', ['getAll']),
-            ...mapActions('palletType', { palletTypeGetAll: 'getAll'}),
-            ...mapActions('cell', { cellsGetAll: 'getAll'}),
-            ...mapActions('cultivationCycle', { getCalculationCell: 'getCalculationCell'}),
+            ...mapActions('article', { articlesGetAll: 'getAll' }),
+            ...mapActions('palletType', { palletTypeGetAll: 'getAll' }),
+            ...mapActions('cell', { cellsGetAll: 'getAll' }),
+            ...mapActions('cultivationCycle', { getCalculationCell: 'getCalculationCell' }),
 
             calculate(id) {
                 this.getCalculationCell(id)
                     .then(() => {
-                        this.palletLabel.flight = this.calculation.data.calculation.flight;
-                        this.palletLabel.flightDay = this.calculation.data.calculation.flight_day;
+                        this.form.flight = this.calculation.data.calculation.flight;
+                        this.form.flightDay = this.calculation.data.calculation.flight_day;
                     });
             },
             validateBeforeSubmit() {
@@ -227,6 +232,10 @@
                         this.create();
                     }
                 })
+            },
+            selectPallettype(selectedArticleId) {
+                let filtered = this.articles.data.find(article => article.id === selectedArticleId);
+                this.form.palletTypeId = filtered.pallet_type.id;
             },
 
             create() {
@@ -240,9 +249,19 @@
                     flightDay: this.flightDay,
                     note: this.note
                 }).then(response => {
-                    // this.$router.push({ name: 'userList'})
+                    swal({
+                        type: 'success',
+                        title: 'Palletlabel has been created id: ' + response.id,
+                        showConfirmButton: false,
+                        timer: 900
+                    });
                 }).catch(error => {
-                    console.log(error.response.data.errors);
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: Object.values(error.response.data.errors),
+                        footer: '<a href="">Why do I have this issue?</a>'
+                    });
                     this.serverErrors = Object.values(error.response.data.errors)
                 })
             },

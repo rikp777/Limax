@@ -1,36 +1,45 @@
-
 //api url
 const apiUrl = '/api/article';
 
 // Initial State
 const state = {
-    all: [],
+    articles: [],
 };
 
 // Getters
 const getters = {
-    getAll(state){
-        return state.all;
+    getAll(state) {
+        return state.articles;
     },
     getById: (state) => (id) => {
-        return state.all.find(article => article.id === id);
+        return state.articles.find(article => article.id === id);
     },
+    getByName: (state) => (name) => {
+        return state.articles.match(name);
+    }
 };
 
 // Actions
 const actions = {
-    getAll(context){
-        axios.get(apiUrl)
-            .then((response) => {
-                context.commit('UpdateAll', response.data);
-            })
-    },
+    getAll(context) {
+        return new Promise((resolve, reject) => {
+            axios
+                .get(apiUrl)
+                .then((response) => {
+                    context.commit('setAll', response.data);
+                    resolve(response)
+                })
+                .catch((error) => {
+                    reject(error)
+                })
+        })
+    }
 };
 
 // Mutations
 const mutations = {
-    UpdateAll(state, payload){
-        state.all = payload
+    setAll(state, payload) {
+        state.articles = payload
     }
 };
 
