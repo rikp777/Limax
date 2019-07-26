@@ -10,12 +10,8 @@ const getters = {
     getAll(state){
         return state.all;
     },
-    getById: (state) => (id) => {
-        let result = state.palletLabels.find(palletLabel => palletLabel.id === id);
-        if(result){
-            return result;
-        }
-        return this.palletLabel;
+    getById(state) {
+        return state.palletLabel;
     },
 };
 

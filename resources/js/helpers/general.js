@@ -38,6 +38,11 @@ export function initialize(store, router) {
                 check = true
             }
         });
+        Toast.fire({
+            type: 'info',
+            title: authUser.last_name + ' access: ' + check,
+            timer: 1200
+        });
         return check
     }
 

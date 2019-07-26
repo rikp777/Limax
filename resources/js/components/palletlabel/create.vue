@@ -155,7 +155,7 @@
                         id="note"
                         name="note"
                         type="text"
-                        v-validate="'required|numeric'"
+                        v-validate="'required'"
                         :class="{ 'is-invalid': errors.has('note') }"
                         class="form-control"
                 >
@@ -179,7 +179,7 @@
     import FlatPickr from "vue-flatpickr-component/src/component";
 
     export default {
-        name: "palletLabel-create",
+        name: "palletLabel-update",
         components: {FlatPickr},
         updated() {
             $(this.$refs.selectArticle).selectpicker('refresh');
@@ -210,12 +210,12 @@
         },
         created(){
             this.articlesGetAll();
-            this.palletTypeGetAll();
+            this.palletTypesGetAll();
             this.cellsGetAll();
         },
         methods: {
             ...mapActions('article', { articlesGetAll: 'getAll' }),
-            ...mapActions('palletType', { palletTypeGetAll: 'getAll' }),
+            ...mapActions('palletType', { palletTypesGetAll: 'getAll' }),
             ...mapActions('cell', { cellsGetAll: 'getAll' }),
             ...mapActions('cultivationCycle', { getCalculationCell: 'getCalculationCell' }),
 

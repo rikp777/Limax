@@ -42,10 +42,7 @@
         mounted() {
             this.palletLabelGetAll()
                 .then((response) => {
-                    Toast.fire({
-                        type: 'success',
-                        title: 'PalletLabels loaded successfully',
-                    });
+                    console.log(response);
                 })
                 .catch((error) => {
                     console.log('r')
