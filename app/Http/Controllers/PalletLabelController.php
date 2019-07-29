@@ -7,6 +7,7 @@ use App\CultivationCycle;
 use App\Http\Resources\PalletLabelResource;
 use App\PalletLabel;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
 class PalletLabelController extends Controller

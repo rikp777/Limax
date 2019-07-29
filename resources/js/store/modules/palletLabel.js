@@ -42,6 +42,42 @@ const actions = {
                 })
         })
     },
+    create(context, data){
+        return new Promise((resolve, reject) => {
+            axios
+                .post(apiUrl, data)
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
+    },
+    update(context, data, id){
+        return new Promise((resolve, reject) => {
+            axios
+                .post(apiUrl + '/' + id, data)
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
+    },
+    delete(context, id){
+        return new Promise((resolve, reject) => {
+            axios
+                .delete(apiUrl + '/' + id)
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
+    }
 };
 
 // Mutations

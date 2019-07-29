@@ -8,6 +8,7 @@ import article from '../store/modules/article'
 import cell from '../store/modules/cell'
 import cultivationCycle from '../store/modules/cultivationCycle'
 import palletType from '../store/modules/palletType'
+import farmer from '../store/modules/farmer'
 
 Vue.use(Vuex);
 
@@ -20,5 +21,6 @@ export default new Vuex.Store({
         cultivationCycle,
         article,
         cell,
+        farmer,
     },
 });

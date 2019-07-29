@@ -3,35 +3,6 @@
 
 
 
-        <div class="form-row">
-            <div class="form-group col">
-                <label for="cropDate">Crop Date</label>
-                <flat-pickr
-                        v-model="form.cropDate"
-                        name="cropDate"
-                        id="cropDate"
-                        v-validate="'required'"
-                        :class="{ 'is-invalid': errors.has('cropDate') }"
-                        class="form-control"
-                ></flat-pickr>
-                <span class="invalid-feedback">{{ errors.first('cropDate') }}</span>
-            </div>
-            <div class="form-group col">
-                <label for="amount">Amount</label>
-                <input
-                        v-model="form.amount"
-                        type="number"
-                        name="amount"
-                        id="amount"
-                        v-validate="'required|numeric|min_value:1|max_value:' + (form.articleId ? articles.data.find(article => article.id === form.articleId).pallet_limit : 180)"
-                        :class="{ 'is-invalid': errors.has('amount') }"
-                        class="form-control"
-                >
-                <span class="invalid-feedback">{{ errors.first('amount') }}</span>
-            </div>
-        </div>
-
-
 
 
         <div class="form-row">
@@ -146,6 +117,37 @@
 
 
 
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="cropDate">Crop Date</label>
+                <flat-pickr
+                    v-model="form.cropDate"
+                    name="cropDate"
+                    id="cropDate"
+                    v-validate="'required'"
+                    :class="{ 'is-invalid': errors.has('cropDate') }"
+                    class="form-control"
+                ></flat-pickr>
+                <span class="invalid-feedback">{{ errors.first('cropDate') }}</span>
+            </div>
+            <div class="form-group col">
+                <label for="amount">Amount <small>{{form.articleId ? "max: " + articles.data.find(article => article.id === form.articleId).pallet_limit : "max: " + 180}}</small></label>
+                <input
+                    v-model="form.amount"
+                    type="number"
+                    name="amount"
+                    id="amount"
+                    :placeholder='(form.articleId ? articles.data.find(article => article.id === form.articleId).pallet_limit : 180)'
+                    v-validate="'required|numeric|min_value:1|max_value:' + (form.articleId ? articles.data.find(article => article.id === form.articleId).pallet_limit : 180)"
+                    :class="{ 'is-invalid': errors.has('amount') }"
+                    class="form-control"
+                >
+                <span class="invalid-feedback">{{ errors.first('amount') }}</span>
+            </div>
+        </div>
+
+
+
 
         <div class="form-row">
             <div class="form-group col">
@@ -191,7 +193,7 @@
             return {
                 form: {
                     cropDate: Date.now(),
-                    amount: 180,
+                    amount: '',
                     articleId: '',
                     palletTypeId: '',
                     cellId: '',
@@ -218,6 +220,7 @@
             ...mapActions('palletType', { palletTypesGetAll: 'getAll' }),
             ...mapActions('cell', { cellsGetAll: 'getAll' }),
             ...mapActions('cultivationCycle', { getCalculationCell: 'getCalculationCell' }),
+            ...mapActions('palletLabel', { palletLabelCreate: 'create' }),
 
             calculate(id) {
                 this.getCalculationCell(id)
@@ -239,24 +242,24 @@
             },
 
             create() {
-                this.$store.dispatch('user/create', {
-                    cropDate: this.cropDate,
-                    amount: this.amount,
-                    articleId: this.articleId,
-                    palletTypeId: this.palletTypeId,
-                    cellId: this.cellId,
-                    flight: this.flight,
-                    flightDay: this.flightDay,
+                this.palletLabelCreate(
+                    {
+                    crop_date: this.cropDate,
+                    article_amount: this.amount,
+                    article_id: this.articleId,
+                    pallet_type_id: this.palletTypeId,
+                    cell_id: this.cellId,
                     note: this.note
-                }).then(response => {
-                    swal({
+                    }
+                ).then(response => {
+                    Swal.fire({
                         type: 'success',
                         title: 'Palletlabel has been created id: ' + response.id,
                         showConfirmButton: false,
                         timer: 900
                     });
                 }).catch(error => {
-                    swal({
+                    Swal.fire({
                         type: 'error',
                         title: 'Oops...',
                         text: Object.values(error.response.data.errors),
