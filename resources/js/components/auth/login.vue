@@ -5,23 +5,35 @@
             <div class="card">
                 <div class="card-header">login</div>
                 <div class="card-body">
-                    <form @submit.prevent="authenticate" autocomplete="off">
+                    <form v-on:submit.prevent="onSubmit(form.email, form.password)" autocomplete="off">
                         <div class="form-group row">
                             <label for="email">Email:</label>
-                            <input type="email" v-model="form.email" class="form-control" placeholder="Email Address">
+                            <input
+                                name="email"
+                                id="email"
+                                type="email"
+                                v-model="form.email"
+                                class="form-control"
+                                placeholder="Email Address">
                         </div>
                         <div class="form-group row">
                             <label for="password">Password:</label>
-                            <input type="password" v-model="form.password" class="form-control" placeholder="Password">
+                            <input
+                                name="password"
+                                id="password"
+                                type="password"
+                                v-model="form.password"
+                                class="form-control"
+                                placeholder="Password">
                         </div>
                         <div class="form-group row">
                             <input type="submit" value="Login">
-                            <router-link v-if="authError" to="authForgot">Forgot?</router-link>
+                            <router-link v-if="errors" to="authForgot">Forgot?</router-link>
                         </div>
-                        <div class="form-group row" v-if="authError">
-                            <p class="error">
-                                {{ authError }}
-                            </p>
+                        <div class="form-group row" v-if="errors">
+                            <ul class="error-messages">
+                                <li v-for="(v, k) in errors" :key="k">{{ k }} {{ v | error }}</li>
+                            </ul>
                     </div>
                     </form>
                 </div>
@@ -32,8 +44,7 @@
 
 
 <script>
-    import {login} from '../../helpers/auth.js'
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapState } from 'vuex';
 
     export default {
         name: "auth-login",
@@ -43,33 +54,20 @@
                     email: 'admin@limax.nl',
                     password: 'password',
                 },
-                error: null
             };
         },
         methods: {
-            authenticate() {
-                this.$store.dispatch('auth/login');
-
-                login(this.$data.form)
-                    .then((response) => {
-                        this.$store.commit('auth/loginSuccess', response);
-                        this.$router.push({path: '/'});
-                    })
-                    .catch((error)=>{
-                        this.$store.commit('auth/loginFailed', {error});
-                        this.$router.push({name: 'authLogin'});
-                    });
+            onSubmit(email, password){
+                // throw(this.$store);
+                this.$store
+                    .dispatch("login", { email, password })
+                    .then(() => this.$router.push({ name: "home"}));
             }
         },
-        computed: mapGetters({
-            authError: 'auth/authError',
-        }),
+        computed: {
+            ...mapState({
+                errors: state => state.auth.errors
+            })
+        }
     }
 </script>
-
-<style scoped>
-    .error{
-        text-align: center;
-        color: red;
-    }
-</style>

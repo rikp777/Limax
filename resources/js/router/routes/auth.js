@@ -3,7 +3,10 @@ export default [
     {
         name: 'home',
         path: '/',
-        component: () => import('../../components/home')
+        component: () => import('../../components/home'),
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: '/auth',

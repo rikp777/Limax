@@ -205,22 +205,32 @@
             }
         },
         computed: {
-            ...mapGetters({articles: 'article/getAll'}),
+            ...mapGetters({articles: 'articles'}),
             ...mapGetters({palletTypes: 'palletType/getAll'}),
             ...mapGetters({cells: 'cell/getAll'}),
-            ...mapGetters({calculation: 'cultivationCycle/getCalculation'})
+            ...mapGetters({calculation: 'cultivationCycle/getCalculation'}),
         },
         created(){
-            this.articlesGetAll();
-            this.palletTypesGetAll();
-            this.cellsGetAll();
+            this.getAllArticles();
+            this.getAllPalletTypes();
+            this.getAllCells();
         },
         methods: {
-            ...mapActions('article', { articlesGetAll: 'getAll' }),
-            ...mapActions('palletType', { palletTypesGetAll: 'getAll' }),
-            ...mapActions('cell', { cellsGetAll: 'getAll' }),
-            ...mapActions('cultivationCycle', { getCalculationCell: 'getCalculationCell' }),
-            ...mapActions('palletLabel', { palletLabelCreate: 'create' }),
+            getAllArticles(){
+                this.$store.dispatch("getAllArticles");
+            },
+            getAllPalletTypes(){
+                this.$store.dispatch("getAllPalletTypes")
+            },
+            getAllCells(){
+                this.$store.dispatch("getAllCells")
+            },
+            getCultivationCalculationCell(id){
+                this.$store.dispatch("getCultivationCalculationCell", id)
+            },
+            createPalletLabel(){
+
+            },
 
             calculate(id) {
                 this.getCalculationCell(id)

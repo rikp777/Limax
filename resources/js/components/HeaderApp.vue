@@ -7,7 +7,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <template v-if="!authUser">
+                    <template v-if="!isAuthenticated">
                         <li>
                             <router-link :to="{ name: 'authLogin' }" class="nav-link">Login</router-link>
                         </li>
@@ -28,7 +28,7 @@
 
                         <li class="nav-item dropdown">
                             <router-link to="/" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-                                {{ authUser.last_name }} <span class="caret"></span>
+                                {{authUser.last_name}}<span class="caret"></span>
                             </router-link>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -47,28 +47,21 @@
                             </div>
                         </li>
 
-
                     </template>
                 </ul>
             </div>
         </div>
+
     </nav>
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapGetters } from 'vuex';
 
     export default {
         name: 'HeaderApp',
-        methods: {
-            logout() {
-                this.$store.commit('auth/logout');
-                this.$router.push('/login');
-            }
-
-        },
-        computed: mapGetters({
-            authUser: 'auth/authUser',
-        }),
+        computed: {
+            ...mapGetters(["authUser", "isAuthenticated"])
+        }
     }
 </script>

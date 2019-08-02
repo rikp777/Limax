@@ -1,12 +1,15 @@
+import ApiService from "./common/api.service";
+
 require('./bootstrap');
 import Vue from 'vue';
 import router  from './router/index.js'
 import store from './store/index.js';
 import MainApp from './components/MainApp.vue'
-import {initialize} from "./helpers/general";
+import AccessControl from "./helpers/accessControl";
 import Swal from 'sweetalert2'
 import VeeValidate from 'vee-validate';
 import bootstrapSelect from 'bootstrap-select';
+
 
 window.bootstrapSelect = bootstrapSelect;
 // import BootstrapVue from 'bootstrap-vue'
@@ -19,7 +22,6 @@ window.bootstrapSelect = bootstrapSelect;
 Vue.use(VeeValidate);
 window.Swal = Swal;
 
-
 const toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -28,11 +30,9 @@ const toast = Swal.mixin({
 });
 window.Toast = toast;
 
+ApiService.initialize();
+AccessControl.router(store, router);
 
-
-initialize(store, router);
-//throw router;
-//throw store;
 
 const app = new Vue({
     el: '#app',

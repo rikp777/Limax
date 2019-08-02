@@ -6,8 +6,7 @@
     export default {
         name: "auth-logout",
         created() {
-            console.log("logout");
-            this.$store.dispatch('auth/logout')
+            this.$store.dispatch('logout')
                 .then(response => {
                     this.$router.push({ name: 'home' })
                 })

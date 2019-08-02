@@ -1,46 +1,88 @@
+import {PalletTypeService} from "../../common/api.service";
 
-//api url
-const apiUrl = '/api/pallettype';
+// action names
+const FETCH_START = "setArticleLoading";
+
+
+// mutation names
+const SET_PALLETTYPE = "setPalletType";
+const SET_PALLETTYPES = "setAllPalletTypes";
+
+
+
 
 // Initial State
 const state = {
-    palletTypes: [],
+    palletTypes: {},
+    palletType: [],
+    isLoading: true,
+    palletTypesCount: 0,
 };
 
 // Getters
 const getters = {
-    getAll(state) {
+    palletTypes(state) {
         return state.palletTypes;
     },
-    getById: (state) => (id) => {
-        return state.palletTypes.find(article => article.id === id);
+    palletType(state) {
+        return state.palletType
     },
-    getByName: (state) => (name) => {
-        return state.palletTypes.match(name);
-    }
+    palletTypesCount(state) {
+        return state.palletTypesCount
+    },
+    isLoading(state) {
+        return state.isLoading
+    },
+
+
+    palletTypeById: (state) => (id) => {
+        return state.palletTypes.find(palletType => palletType.id === id)
+    },
+    palletTypeByName: (state) => (name) => {
+        return state.palletTypes.find(palletType => palletType.name === name)
+    },
 };
 
 // Actions
 const actions = {
-    getAll(context) {
-        return new Promise((resolve, reject) => {
-            axios
-                .get(apiUrl)
-                .then((response) => {
-                    context.commit('setAll', response.data);
-                    resolve(response)
-                })
-                .catch((error) => {
-                    reject(error)
-                })
-        })
-    }
+
+    //get all palletTypes
+    async getAllPalletTypes(context){
+        context.commit(FETCH_START);
+        return PalletTypeService.getAll()
+            .then(({ data }) => {
+                context.commit(SET_PALLETTYPES, data.data);
+            })
+            .catch(error => {
+                throw new Error(error)
+            })
+    },
+
+    //get single article
+    async getPalletType(context, palletTypeSlug, prevPalletType){
+        context.commit(FETCH_START);
+        if(prevPalletType !== undefined){
+            return context.commit(SET_PALLETTYPE, prevPalletType);
+        }
+        const { data } = await PalletTypeService.get(palletTypeSlug);
+        context.commit(SET_PALLETTYPE, data);
+        return data;
+    },
 };
 
 // Mutations
 const mutations = {
-    setAll(state, payload) {
-        state.palletTypes = payload
+    [FETCH_START](state){
+        state.isLoading = true;
+    },
+    [SET_PALLETTYPES](state, palletTypes) {
+        state.palletTypes = palletTypes;
+        state.palletTypesCount = palletTypes.length;
+        state.isLoading = false;
+    },
+    [SET_PALLETTYPE](state, palletType){
+        state.palletType = palletType;
+        state.isLoading = false;
     }
 };
 
