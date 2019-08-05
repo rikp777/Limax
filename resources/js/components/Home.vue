@@ -19,7 +19,7 @@
         name: "Home",
         computed: {
             articles(){
-                return this.$store.getters.article
+                return this.$store.getters.articles
             },
             isLoading(){
                 return this.$store.getters.isLoading
@@ -30,7 +30,7 @@
         },
         methods: {
             getAllArticles(){
-                this.$store.dispatch("getArticle", 1);
+                this.$store.dispatch("getAllArticles");
             }
         }
     }

@@ -1,8 +1,8 @@
 import {PalletTypeService} from "../../common/api.service";
 
 // action names
-const FETCH_START = "setArticleLoading";
-
+const FETCH_START = "setPalletLabelLoading";
+const FETCH_END =  "resetPalletLabelLoading";
 
 // mutation names
 const SET_PALLETTYPE = "setPalletType";
@@ -87,7 +87,6 @@ const mutations = {
 };
 
 export default {
-    namespaced: true,
     state,
     getters,
     actions,

@@ -23,7 +23,7 @@
                         @change="selectPallettype(form.articleId)"
                 >
                     <option disabled value="">Select</option>
-                    <option v-for="article in articles.data" v-bind:value="article.id">{{article.name}}</option>
+                    <option v-for="article in articles" v-bind:value="article.id">{{article.name}}</option>
                 </select>
                 <span class="invalid-feedback">{{ errors.first('article') }}</span>
             </div>
@@ -42,7 +42,7 @@
                         data-width="100%"
                 >
                     <option disabled value="">Select</option>
-                    <option v-for="palletType in palletTypes.data" v-bind:value="palletType.id">{{palletType.name}}</option>
+                    <option v-for="palletType in palletTypes" v-bind:value="palletType.id">{{palletType.name}}</option>
                 </select>
                 <span class="invalid-feedback">{{ errors.first('palletType') }}</span>
             </div>
@@ -66,14 +66,14 @@
                         data-live-search="true"
                         data-width="100%"
 
-                        @change="calculate(form.cellId)"
+                        @change="getCultivationCalculationCell(form.cellId)"
                 >
                     <option disabled value="">Select</option>
-                    <option v-for="cell in cells.data" v-bind:value="cell.id">{{cell.description}}</option>
+                    <option v-for="cell in cells" v-bind:value="cell.id">{{cell.description}}</option>
                 </select>
                 <span class="invalid-feedback">{{ errors.first('cell') }}</span>
             </div>
-            <div class="form-group col" v-if="calculation.data">
+            <div class="form-group col" v-if="calculation.flight">
                 <label for="flight">Flight</label>
                 <input
                         v-model="form.flight"
@@ -87,7 +87,7 @@
                 >
                 <span class="invalid-feedback">{{ errors.first('flight') }}</span>
             </div>
-            <div class="form-group col" v-if="calculation.data">
+            <div class="form-group col" v-if="calculation.flight">
                 <label for="flightDay">Flight Day</label>
                 <input
                         v-model="form.flightDay"
@@ -102,10 +102,10 @@
                 <span class="invalid-feedback">{{ errors.first('flightDay') }}</span>
             </div>
         </div>
-        <div class="form-row" v-if="calculation.data">
+        <div class="form-row" v-if="calculation.message">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>Message!</strong>
-                <div v-for="message in calculation.data.calculation.message">
+                <div v-for="message in calculation.message">
                     {{message}}
                 </div>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -131,14 +131,14 @@
                 <span class="invalid-feedback">{{ errors.first('cropDate') }}</span>
             </div>
             <div class="form-group col">
-                <label for="amount">Amount <small>{{form.articleId ? "max: " + articles.data.find(article => article.id === form.articleId).pallet_limit : "max: " + 180}}</small></label>
+                <label for="amount">Amount <small>{{form.articleId ? "max: " + articles.find(article => article.id === form.articleId).pallet_limit : "max: " + 180}}</small></label>
                 <input
                     v-model="form.amount"
                     type="number"
                     name="amount"
                     id="amount"
-                    :placeholder='(form.articleId ? articles.data.find(article => article.id === form.articleId).pallet_limit : 180)'
-                    v-validate="'required|numeric|min_value:1|max_value:' + (form.articleId ? articles.data.find(article => article.id === form.articleId).pallet_limit : 180)"
+                    :placeholder='(form.articleId ? articles.find(article => article.id === form.articleId).pallet_limit : 180)'
+                    v-validate="'required|numeric|min_value:1|max_value:' + (form.articleId ? articles.find(article => article.id === form.articleId).pallet_limit : 180)"
                     :class="{ 'is-invalid': errors.has('amount') }"
                     class="form-control"
                 >
@@ -205,12 +205,24 @@
             }
         },
         computed: {
-            ...mapGetters({articles: 'articles'}),
-            ...mapGetters({palletTypes: 'palletType/getAll'}),
-            ...mapGetters({cells: 'cell/getAll'}),
-            ...mapGetters({calculation: 'cultivationCycle/getCalculation'}),
+            articles(){
+                //console.log(this.$store.getters.articles);
+                return this.$store.getters.articles;
+            },
+            palletTypes(){
+                //console.log(this.$store.getters.palletTypes);
+                return this.$store.getters.palletTypes;
+            },
+            cells(){
+                console.log(this.$store.getters.cells);
+                return this.$store.getters.cells;
+            },
+            calculation(){
+                return this.$store.getters.calculation
+            },
         },
-        created(){
+        mounted(){
+            console.log(this.$store);
             this.getAllArticles();
             this.getAllPalletTypes();
             this.getAllCells();
@@ -227,17 +239,10 @@
             },
             getCultivationCalculationCell(id){
                 this.$store.dispatch("getCultivationCalculationCell", id)
-            },
-            createPalletLabel(){
-
-            },
-
-            calculate(id) {
-                this.getCalculationCell(id)
                     .then(() => {
-                        this.form.flight = this.calculation.data.calculation.flight;
-                        this.form.flightDay = this.calculation.data.calculation.flight_day;
-                    });
+                        this.form.flight = this.calculation.flight;
+                        this.form.flightDay = this.calculation.flight_day;
+                    })
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -251,33 +256,36 @@
                 this.form.palletTypeId = filtered.pallet_type.id;
             },
 
-            create() {
-                this.palletLabelCreate(
-                    {
-                    crop_date: this.cropDate,
-                    article_amount: this.amount,
-                    article_id: this.articleId,
-                    pallet_type_id: this.palletTypeId,
-                    cell_id: this.cellId,
-                    note: this.note
-                    }
-                ).then(response => {
-                    Swal.fire({
-                        type: 'success',
-                        title: 'Palletlabel has been created id: ' + response.id,
-                        showConfirmButton: false,
-                        timer: 900
-                    });
-                }).catch(error => {
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: Object.values(error.response.data.errors),
-                        footer: '<a href="">Why do I have this issue?</a>'
-                    });
-                    this.serverErrors = Object.values(error.response.data.errors)
-                })
-            },
+            create(){
+
+            }
+            // create() {
+            //     this.palletLabelCreate(
+            //         {
+            //         crop_date: this.cropDate,
+            //         article_amount: this.amount,
+            //         article_id: this.articleId,
+            //         pallet_type_id: this.palletTypeId,
+            //         cell_id: this.cellId,
+            //         note: this.note
+            //         }
+            //     ).then(response => {
+            //         Swal.fire({
+            //             type: 'success',
+            //             title: 'Palletlabel has been created id: ' + response.id,
+            //             showConfirmButton: false,
+            //             timer: 900
+            //         });
+            //     }).catch(error => {
+            //         Swal.fire({
+            //             type: 'error',
+            //             title: 'Oops...',
+            //             text: Object.values(error.response.data.errors),
+            //             footer: '<a href="">Why do I have this issue?</a>'
+            //         });
+            //         this.serverErrors = Object.values(error.response.data.errors)
+            //     })
+            // },
         },
     }
 </script>

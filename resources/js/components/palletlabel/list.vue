@@ -15,7 +15,7 @@
                 </tr>
             </template>
             <template v-else>
-                <tr v-for="palletlabel in palletLabels.data" :key="palletlabel.id">
+                <tr v-for="palletlabel in palletLabels" :key="palletlabel.id">
                     <td> {{ palletlabel.id}}</td>
                     <td> {{ palletlabel.article_id}}</td>
                     <td>
@@ -32,25 +32,25 @@
 </template>
 
 <script>
-    import { mapState, mapActions } from 'vuex';
+    import { mapGetters } from 'vuex';
     export default {
-        name: 'palletLabel-list',
+        name: "Home",
         computed: {
-            //...mapGetters({palletLabels: 'palletLabel/getAll'}),
-            ...mapState({palletLabels: state => state.palletLabel.palletLabels}),
+            palletLabels(){
+                return this.$store.getters.palletLabels
+            },
+            isLoading(){
+                return this.$store.getters.palletLabelIsLoading
+            }
         },
         mounted() {
-            this.palletLabelGetAll()
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((error) => {
-                    console.log('r')
-                });
+            this.getAllPalletLabels();
         },
         methods: {
-            ...mapActions('palletLabel', { palletLabelGetAll: 'getAll' }),
-        },
+            getAllPalletLabels(){
+                this.$store.dispatch("getAllPalletLabels");
+            }
+        }
     }
 </script>
 

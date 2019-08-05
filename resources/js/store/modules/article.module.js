@@ -1,4 +1,4 @@
-import { ArticlesService } from "../../common/api.service";
+import { ArticleService } from "../../common/api.service";
 
 // action names
 const FETCH_START = "setArticleLoading";
@@ -46,7 +46,7 @@ export const actions = {
     //get all articles
     async getAllArticles(context){
         context.commit(FETCH_START);
-        return ArticlesService.getAll()
+        return ArticleService.getAll()
             .then(({ data }) => {
                 context.commit(SET_ARTICLES, data.data);
                 context.commit(FETCH_END);
@@ -63,7 +63,7 @@ export const actions = {
         }
 
         context.commit(FETCH_START);
-        return ArticlesService.get(articleSlug)
+        return ArticleService.get(articleSlug)
             .then(({ data }) => {
                 context.commit(SET_ARTICLE, data.data);
                 context.commit(FETCH_END);
@@ -80,21 +80,21 @@ export const actions = {
 
     //create article
     async createArticle(context, { state }) {
-        const { data } = await ArticlesService.create(state.article);
+        const { data } = await ArticleService.create(state.article);
         context.commit(SET_ARTICLE, data);
         return data;
     },
 
     //update article
     async updateArticle(context, articleSlug, { state }) {
-        const { data } = await ArticlesService.update(articleSlug, state.article);
+        const { data } = await ArticleService.update(articleSlug, state.article);
         context.commit(SET_ARTICLE, data);
         return data;
     },
 
     //delete article
     async deleteArticle(context, articleSlug) {
-        const { data } = await ArticlesService.delete(articleSlug);
+        const { data } = await ArticleService.delete(articleSlug);
         return data;
     }
 

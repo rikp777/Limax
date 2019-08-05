@@ -70,7 +70,7 @@ export default ApiService;
 
 
 const ArticleApi = "article";
-export const ArticlesService  = {
+export const ArticleService  = {
     create(params){
         return ApiService.post(ArticleApi, { article: params})
     },
@@ -103,5 +103,50 @@ export const PalletTypeService = {
     },
     getAll() {
         return ApiService.get(PalletTypeApi)
+    }
+};
+
+
+//PalletLabel
+const PalletLabelApi = "palletlabel";
+export const PalletLabelService = {
+    create(params){
+        return ApiService.post(PalletLabelApi, { palletLabel: params})
+    },
+    update(slug, params) {
+        return ApiService.update(PalletLabelApi, slug, { palletLabel: params });
+    },
+    delete(slug) {
+        return ApiService.delete(PalletLabelApi, slug);
+    },
+    get(slug){
+        return ApiService.get(PalletLabelApi, slug)
+    },
+    getAll() {
+        return ApiService.get(PalletLabelApi)
+    }
+};
+
+
+//Cell
+const CellApi = "cell";
+export const CellService = {
+    create(params){
+        return ApiService.post(CellApi, { cell: params})
+    },
+    update(slug, params) {
+        return ApiService.update(CellApi, slug, { cell: params });
+    },
+    delete(slug) {
+        return ApiService.delete(CellApi, slug);
+    },
+    get(slug){
+        return ApiService.get(CellApi, slug)
+    },
+    getAll() {
+        return ApiService.get(CellApi)
+    },
+    getCultivationCalculationCell(slug){
+        return ApiService.get('/cultivationcycle/calculate', slug)
     }
 };

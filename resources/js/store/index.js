@@ -1,25 +1,31 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import VuexPersist from 'vuex-persistedstate';
+import Cookies from 'js-cookie'
 
-const vuexLocal = new VuexPersist({
-    key: 'cache',
-    storage: window.localStorage,
-});
 
 import auth from './modules/auth.module.js'
 import user from '../store/modules/user.js'
-import palletLabel from '../store/modules/palletLabel.js'
+import palletLabel from './modules/palletLabel.module.js'
 import article from './modules/article.module'
-import cell from '../store/modules/cell'
+import cell from './modules/cell.module'
 import cultivationCycle from '../store/modules/cultivationCycle'
-import palletType from '../store/modules/palletType'
+import palletType from './modules/palletType.module'
 import farmer from '../store/modules/farmer'
+import moment from "moment";
 
 Vue.use(Vuex);
-
+const production = false;
 export default new Vuex.Store({
-    plugins: [vuexLocal],
+    plugins: [
+        VuexPersist({
+            storage: {
+                getItem: key => Cookies.get(key),
+                setItem: (key, value) => Cookies.set(key, value, {secure: production }),
+                removeItem: key => Cookies.remove(key)
+            }
+        })
+    ],
     modules: {
         auth,
         user,

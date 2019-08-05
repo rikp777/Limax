@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from 'vue-router';
 
 
+
 import auth from '../router/routes/auth'
 import user from '../router/routes/user'
 import palletLabel from '../router/routes/palletLabel'
