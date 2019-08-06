@@ -9,7 +9,10 @@ import AccessControl from "./helpers/accessControl";
 import Swal from 'sweetalert2'
 import VeeValidate from 'vee-validate';
 import bootstrapSelect from 'bootstrap-select';
+import moment from 'moment';
 
+window.moment = moment;
+Vue.prototype.moment = moment
 
 window.bootstrapSelect = bootstrapSelect;
 // import BootstrapVue from 'bootstrap-vue'

@@ -25,6 +25,10 @@ class Farmer extends Model
     {
         return $this->hasMany(PalletLabel::class);
     }
+    public function certificateFarmerCode()
+    {
+        return $this->hasMany(CertificateFarmerCode::class);
+    }
 
 
 

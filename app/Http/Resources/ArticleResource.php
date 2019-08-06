@@ -19,6 +19,7 @@ class ArticleResource extends JsonResource
             'excel_code' => $this->excel_code,
             'pallet_limit' => $this->pallet_limit,
             'name' => $this->fullName($this),
+            'origin' => $this->origin,
 //            'relations' => [
 //                'pallet_type_id' => $this->pallet_type_id,
 //                'sort_type_id' => $this->sort_type_id,
@@ -33,8 +34,14 @@ class ArticleResource extends JsonResource
             'sort_type' => $this->sortType,
             'cask' => $this->cask,
             'inset' => $this->inset,
+            'weight' => $this->inset_gram,
             'status' => $this->status,
             'article_group' => $this->articleGroup,
+
+            'fairproduce_number' => $this->fairproduce_number,
+            'ggn' => $this->ggn,
+            'skal' => $this->skal,
+            'milieu' => $this->milieu,
         ];
     }
 

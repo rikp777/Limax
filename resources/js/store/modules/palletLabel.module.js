@@ -63,7 +63,7 @@ const actions = {
 
     //get single article
     async getPalletLabel(context, palletLabelSlug){
-        if(state.article.id === palletLabelSlug){
+        if(state.palletLabel.id === palletLabelSlug){
             return;
         }
 

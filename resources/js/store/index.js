@@ -11,7 +11,7 @@ import article from './modules/article.module'
 import cell from './modules/cell.module'
 import cultivationCycle from '../store/modules/cultivationCycle'
 import palletType from './modules/palletType.module'
-import farmer from '../store/modules/farmer'
+import farmer from './modules/farmer.module'
 import moment from "moment";
 
 Vue.use(Vuex);

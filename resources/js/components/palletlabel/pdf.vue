@@ -1,24 +1,196 @@
 <template>
     <div>
+        <template v-if="isLoading">
+            <div class="spinner-grow text-dark" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </template>
+        <template v-else>
+            <div class="card-body" style="page-break-after: always;" background='https://www.limax.nl/build/images/color-block.ac4809e9.svg'>
+
+                <div class="text-center">
+<!--                    <img class="card-img-top" style="width: 400px; height: auto; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/images/limax-logo@3x.png' alt="Card image cap">-->
+                    <img class="card-img-top" style="width: 400px; height: auto;" src='https://www.limax.nl/images/limax-logo@3x.png' alt="Card image cap">
+                </div>
+
+                <!--                STATUS-->
+                <div class="row">
+                    <div class="col-sm-6" style="font-size: 16px;">
+                        Palletlabel
+                        <strong>{{ moment().format("dddd, MMMM Do YYYY") }}</strong>
+                    </div>
+                    <div class="col-sm-6" style="font-size: 16px;">
+                        <span class="float-right"> <strong>Status:</strong> </span>
+                    </div>
+                </div>
+                <hr>
+
+
+
+                <!--                FROM / TO-->
+                <div class="row">
+                    <template>
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <h6 class="mb-3" style="font-size: 26px;">FROM :</h6>
+
+                            <strong>{{ farmer.name }}</strong>
+                            <div>{{ farmer.street }}, {{ farmer.house_number }}</div>
+                            <div>{{ farmer.place }}, {{ farmer.zip_code }}</div>
+                            <div>Email: {{ farmer.email }}</div>
+                            <div>Phone: {{ farmer.phone }}</div>
+
+
+                            <strong>Certificates</strong>
+                            <div v-for="certificate in farmer.certificates">
+                                {{certificate.certificate.name}}: {{certificate.code}}
+                            </div>
+                        </div>
+                    </template>
+                    <template>
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <h6 class="mb-3" style="font-size: 26px;">TO :</h6>
+
+
+                            <strong>Limax Horst</strong>
+                            <div>Venrayseweg, 126b</div>
+                            <div>Horst, 5961 AJ</div>
+                            <div>Email: info@limax.nl</div>
+                            <div>Phone: 773999660</div>
+                        </div>
+                    </template>
+                </div>
+                <hr>
+                <template>
+
+
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <h6 class="mb-3" style="font-size: 26px;">PRODUCT : </h6>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <h6 class="mb-3" style="font-size: 26px;">LABEL ID : {{ palletLabel.id }}</h6>
+                        </div>
+                    </div>
+                    <hr>
+
+
+                    <div class="row">
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <strong>Crop Date</strong>
+                            <div>{{ palletLabel.crop_date }}</div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <strong>Amount</strong>
+                            <div>{{ palletLabel.article_amount }}</div>
+                        </div>
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <strong>Article</strong>
+                            <div>{{ article.name }}</div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <strong>Origin</strong>
+                            <div>{{ article.origin }}</div>
+                        </div>
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <strong>Weight</strong>
+                            <div>{{ article.weight }} GR</div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <strong>Harvest Cycle</strong>
+                            <div>{{ palletLabel.harvest_cycle }}</div>
+                        </div>
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <strong>Harvest Cycle Day</strong>
+                            <div>{{ palletLabel.harvest_cycle_day }}</div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6" style="font-size: 22px;">
+                            <strong>Note</strong>
+                            <div>{{ palletLabel.note }}</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+<!--                        <div class="col-sm-6" style="background: url('https://www.limax.nl/build/images/color-block.ac4809e9.svg'); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">-->
+<!--                            <barcode v-bind:value="palletLabel.id" width="5" lineColor="#F2AB58" id="text-mask-1"></barcode>-->
+<!--asdfasdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-->
+<!--                            sdaffffffffffffffffffffffffffffffsasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff-->
+<!--                            adsffffffffffffffffffffffffff-->
+<!--                        </div>-->
+                                <div class="col-sm-6">
+                                    <barcode v-bind:value="palletLabel.id" width="5" lineColor="#F2AB58" id="text-mask-1"></barcode>
+                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center">
+<!--                            <img class="card-img-bottom" style=" bottom:0; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
+                            <img class="card-img-bottom" style=" bottom:0;" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">
+                        </div>
+                    </div>
+                </template>
+
+
+
+            </div>
+        </template>
     </div>
+
 </template>
 
 <script>
-    import { mapState, mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
+    import barcode from "vue-barcode";
     export default {
         name: 'palletLabel-pdf',
-        computed: mapState({
-            palletLabel: state => state.palletLabel.single
-        }),
+        components: {barcode},
+        computed: {
+            article(){
+                return this.$store.getters.article;
+            },
+            palletLabel(){
+                return this.$store.getters.palletLabel;
+            },
+            farmer(){
+                return this.$store.getters.farmer;
+            },
+            isLoading(){
+                return this.$store.getters.farmerIsLoading
+            }
+        },
         methods: {
-            ...mapActions('palletLabel',
-                [
-                    'getById'
-                ]
-            ),
+            getArticle(id){
+                this.$store.dispatch("getArticle", id);
+            },
+            getPalletlabel(id){
+                console.log(id);
+                this.$store.dispatch("getPalletLabel", id)
+                    .then(() => {
+                        this.getArticle(this.palletLabel.article_id);
+                        this.getFarmer(this.palletLabel.farmer_id);
+                    })
+            },
+            getFarmer(id){
+                this.$store.dispatch("getFarmer", id);
+            },
         },
         mounted() {
-            this.getById(this.$route.params.id);
+            this.getPalletlabel(this.$route.params.id)
         },
 
     }

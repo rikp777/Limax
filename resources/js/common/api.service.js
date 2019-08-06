@@ -150,3 +150,24 @@ export const CellService = {
         return ApiService.get('/cultivationcycle/calculate', slug)
     }
 };
+
+
+//Farmer
+const FarmerApi = "farmer";
+export const FarmerService = {
+    create(params){
+        return ApiService.post(FarmerApi, { farmer: params})
+    },
+    update(slug, params) {
+        return ApiService.update(FarmerApi, slug, { farmer: params });
+    },
+    delete(slug) {
+        return ApiService.delete(FarmerApi, slug);
+    },
+    get(slug){
+        return ApiService.get(FarmerApi, slug)
+    },
+    getAll() {
+        return ApiService.get(FarmerApi)
+    },
+};

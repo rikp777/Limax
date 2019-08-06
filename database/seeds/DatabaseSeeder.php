@@ -26,5 +26,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(FarmerTableSeeder::class);
         $this->call(CellTableSeeder::class);
+        $this->call(CertificateTableSeeder::class);
+        $this->call(CertificateFarmerCodeTableSeeder::class);
+        $this->call(CultivationCycleTableSeeder::class);
+        $this->call(CultivationCycleFlightTableSeeder::class);
+
+        $this->call(PalletlabelTableSeeder::class);
     }
 }

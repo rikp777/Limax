@@ -15,20 +15,16 @@ class CreateFarmersTable extends Migration
     {
         Schema::create('farmers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();;
+            $table->string('name')->unique();
             $table->string('street');
             $table->string('house_number');
             $table->string('place');
             $table->string('zip_code');
             $table->string('country');
             $table->string('province');
-            $table->string('email')->unique();;
-            $table->bigInteger('phone')->unique();;
-            $table->bigInteger('fax')->nullable()->unique();;
-            $table->bigInteger('fairproduce_number')->unique();;
-            $table->bigInteger('ggn')->unique();;
-            $table->bigInteger('skal')->unique();;
-            $table->bigInteger('milieu')->unique();;
+            $table->string('email')->unique();
+            $table->bigInteger('phone')->unique();
+            $table->bigInteger('fax')->nullable()->unique();
             $table->timestamps();
             $table->softDeletes();
 

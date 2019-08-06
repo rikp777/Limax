@@ -14,7 +14,7 @@ class CreatePickingExpectationsTable extends Migration
     public function up()
     {
         Schema::create('picking_expectations', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->timestamps();
         });
     }
