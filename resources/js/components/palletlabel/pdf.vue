@@ -6,7 +6,7 @@
             </div>
         </template>
         <template v-else>
-            <div class="card-body" style="page-break-after: always;" background='https://www.limax.nl/build/images/color-block.ac4809e9.svg'>
+            <div class="card-body" style="page-break-after: always; background: url('https://www.limax.nl/build/images/color-block.ac4809e9.svg'); background-size: cover; opacity: 0.1; -webkit-filter: grayscale(100%); filter: grayscale(100%);">
 
                 <div class="text-center">
 <!--                    <img class="card-img-top" style="width: 400px; height: auto; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/images/limax-logo@3x.png' alt="Card image cap">-->
@@ -127,15 +127,9 @@
                     </div>
                     <hr>
                     <div class="row">
-<!--                        <div class="col-sm-6" style="background: url('https://www.limax.nl/build/images/color-block.ac4809e9.svg'); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">-->
-<!--                            <barcode v-bind:value="palletLabel.id" width="5" lineColor="#F2AB58" id="text-mask-1"></barcode>-->
-<!--asdfasdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-->
-<!--                            sdaffffffffffffffffffffffffffffffsasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff-->
-<!--                            adsffffffffffffffffffffffffff-->
-<!--                        </div>-->
-                                <div class="col-sm-6">
-                                    <barcode v-bind:value="palletLabel.id" width="5" lineColor="#F2AB58" id="text-mask-1"></barcode>
-                                </div>
+                        <div class="col" >
+                            <barcode v-bind:value="palletLabel.id" width="5" lineColor="#F2AB58" id="text-mask-1"></barcode>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="text-center">
