@@ -10,6 +10,22 @@ import Swal from 'sweetalert2'
 import VeeValidate from 'vee-validate';
 import bootstrapSelect from 'bootstrap-select';
 import moment from 'moment';
+import VueHtmlToPaper from 'vue-html-to-paper';
+
+
+const options = {
+    name: '_blank',
+    specs: [
+        'fullscreen=yes',
+        'titlebar=yes',
+        'scrollbars=yes'
+    ],
+    styles: [
+        'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
+        'https://unpkg.com/kidlat-css/css/kidlat.css'
+    ]
+};
+Vue.use(VueHtmlToPaper, options);
 
 window.moment = moment;
 Vue.prototype.moment = moment
@@ -35,6 +51,8 @@ window.Toast = toast;
 
 ApiService.initialize();
 AccessControl.router(store, router);
+
+
 
 
 const app = new Vue({
