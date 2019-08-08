@@ -3,13 +3,8 @@
         <div class="row">
             <div class="col">
                 <pallet-label-create
-                        v-if="!update.update && !print.print"
-                        @print="print = $event"
+                        :updateId=1
                 ></pallet-label-create>
-                <pallet-label-update
-                        v-if="update.update && print.print"
-                        @print="print = $event"
-                ></pallet-label-update>
             </div>
             <div class="col">
                 <pallet-label-list
@@ -24,7 +19,7 @@
 </template>
 
 <script>
-    import PalletLabelCreate from "./create";
+    import PalletLabelCreate from "./create-update";
     import PalletLabelUpdate from "./update";
     import PalletLabelList from "./list";
     import PalletLabelPdf from "./pdf";

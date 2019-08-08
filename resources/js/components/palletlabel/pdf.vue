@@ -192,7 +192,7 @@
                 this.$store.dispatch("getArticle", id);
             },
             getPalletlabel(id){
-                console.log(id);
+                //console.log(id);
                 this.$store.dispatch("getPalletLabel", id)
                     .then(() => {
                         this.getArticle(this.palletLabel.article_id);

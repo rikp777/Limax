@@ -108,7 +108,7 @@ const mutations = {
         state.cell = cell;
     },
     setCalculation(state, calculation){
-        console.log(calculation);
+        //console.log(calculation);
         state.calculation = calculation
     }
 };
