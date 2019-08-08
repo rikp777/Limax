@@ -8,7 +8,6 @@ const FETCH_END =  "resetArticleLoading";
 const SET_ARTICLE = "setArticle";
 const SET_ARTICLES = "setAllArticles";
 
-
 // Initial State
 const state  = {
     articles: {},

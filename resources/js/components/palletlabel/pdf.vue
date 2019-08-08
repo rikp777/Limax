@@ -92,7 +92,6 @@
                                 <h6 class="mb-3" style="font-size: 26px;">LABEL ID : {{ palletLabel.id }}</h6>
                             </div>
                         </div>
-                        <hr>
 
 
                         <div class="row">
