@@ -36,7 +36,7 @@
                                 @change="selectTrucker(form.truckerId)"
                         >
                             <option disabled value="">Select</option>
-                            <option v-for="trucker in truckers" v-bind:value="trucker.id">{{trucker.name}}</option>
+<!--                            <option v-for="trucker in truckers" v-bind:value="trucker.id">{{trucker.name}}</option>-->
                         </select>
                         <span class="invalid-feedback">{{ errors.first('trucker') }}</span>
                     </div>
@@ -57,11 +57,30 @@
                                 @change="selectLicense(form.licenseId)"
                         >
                             <option disabled value="">Select</option>
-                            <option v-for="license in licenses" v-bind:value="license.id">{{license.name}}</option>
+<!--                            <option v-for="license in licenses" v-bind:value="license.id">{{license.name}}</option>-->
                         </select>
                         <span class="invalid-feedback">{{ errors.first('license') }}</span>
                     </div>
                 </div>
+            <div class="row">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Palletlabels</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="palletLabel in palletLabels">
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="palletlabels" checked>
+                                <label class="custom-control-label" for="palletlabels">{{getArticleById(palletLabel.article_id)}}</label>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
 
@@ -89,26 +108,27 @@
             }
         },
         computed: {
-            truckers(){
-                //console.log(this.$store.getters.truckers);
-                return this.$store.getters.truckers;
+
+            palletLabels(){
+                return this.$store.getters.palletLabels
             },
-            licenses(){
-                //console.log(this.$store.getters.licenses);
-                return this.$store.getters.licenses;
+            articles(){
+                return this.$store.getters.articles
             },
         },
         mounted(){
-            console.log(this.$store);
-            this.getAllTruckers();
-            this.getAllLicenses();
+            this.getAllPalletLabels();
+            this.getAllArticles();
         },
         methods: {
-            getAllTruckers(){
-                this.$store.dispatch("getAllTruckers");
+            getArticleById(id){
+                return this.$store.getters.articleById(id)
             },
-            getAllLicenses(){
-                this.$store.dispatch("getAllLicenses");
+            getAllPalletLabels(){
+                this.$store.dispatch("getAllPalletLabels");
+            },
+            getAllArticles(){
+                this.$store.dispatch("getAllArticles");
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
@@ -117,12 +137,6 @@
                     }
                 })
             },
-            selectTrucker(id) {
-
-            },
-            selectLicense(id) {
-
-            }
         }
     }
 </script>
