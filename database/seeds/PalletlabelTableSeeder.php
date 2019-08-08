@@ -27,6 +27,7 @@ class PalletlabelTableSeeder extends Seeder
                 'cultivation_cycle_id' => 1,
                 'pallet_type_id' => 1,
                 'status_id' => 2,
+                'cell_id' => 1,
                 'article_id' => 2,
                 'made_by' => "gods of the application"
             ],
@@ -44,6 +45,7 @@ class PalletlabelTableSeeder extends Seeder
                 'cultivation_cycle_id' => 1,
                 'pallet_type_id' => 1,
                 'status_id' => 2,
+                'cell_id' => 2,
                 'article_id' => 1,
                 'made_by' => "gods of the application"
             ],

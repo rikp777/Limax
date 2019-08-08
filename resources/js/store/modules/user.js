@@ -26,7 +26,7 @@ const actions = {
             })
     },
     create(context, data){
-        console.log(data.password);
+        //console.log(data.password);
         return new Promise((resolve, reject) => {
             axios.post('/api/user', {
                 first_name: data.first_name,

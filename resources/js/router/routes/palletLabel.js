@@ -29,7 +29,7 @@ export default [
             {
                 name: 'palletLabelCreate',
                 path: 'create',
-                component: () => import('../../components/palletLabel/create'),
+                component: () => import('../../components/palletlabel/create-update'),
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -38,7 +38,7 @@ export default [
             {
                 name: 'palletLabelUpdate',
                 path: 'update/:id',
-                component: () => import('../../components/palletLabel/update'),
+                component: () => import('../../components/palletLabel/create-update'),
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
