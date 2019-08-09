@@ -47,6 +47,17 @@
                             </div>
                         </li>
 
+                        <li class="nav-item dropdown">
+                            <router-link to="/" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                                Shippinglabels <span class="caret"></span>
+                            </router-link>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <router-link :to="{ name: 'shippingLabelCombine' }"  class="dropdown-item">Create</router-link>
+                                <router-link :to="{ name: 'shippingLabelList' }"  class="dropdown-item">List</router-link>
+                            </div>
+                        </li>
+
                     </template>
                 </ul>
             </div>

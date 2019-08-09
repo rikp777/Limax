@@ -8,7 +8,6 @@ const FETCH_END =  "resetArticleLoading";
 const SET_ARTICLE = "setArticle";
 const SET_ARTICLES = "setAllArticles";
 
-
 // Initial State
 const state  = {
     articles: {},
@@ -32,10 +31,13 @@ export const getters = {
         return state.isLoading
     },
 
-
-    articleById: (state) => (id) => {
-        return state.articles.find(todo => todo.id === id)
+    articleById: (state) => (id) =>{
+        if(state.articles.length) {
+           return state.articles.find(article => article.id === id).name
+        }
     },
+
+
     articleByName: (state) => (name) => {
         return state.articles.find(todo => todo.name === name)
     },

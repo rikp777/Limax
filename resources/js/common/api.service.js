@@ -94,6 +94,28 @@ export const ArticleService  = {
         return ApiService.get(ArticleApi)
     }
 };
+
+// Truck Module
+const TruckApi = "truck";
+export const TruckService  = {
+    create(params){
+        return TruckService.post(TruckApi, { article: params})
+    },
+    update(slug, params) {
+        return TruckService.update(TruckApi, slug, { article: params });
+    },
+    delete(slug) {
+        return TruckService.delete(TruckApi, slug);
+    },
+    get(slug){
+        return TruckService.get(TruckApi, slug)
+    },
+    getAll() {
+        return TruckService.get(TruckApi)
+    }
+};
+
+
 const PalletTypeApi = "pallettype";
 export const PalletTypeService = {
     create(params){
@@ -132,6 +154,27 @@ export const PalletLabelService = {
     },
     getAll() {
         return ApiService.get(PalletLabelApi)
+    }
+};
+
+
+//Shippinglabel
+const ShippingLabelApi = "shippinglabel";
+export const ShippingLabelService = {
+    create(params){
+        return ApiService.post(ShippingLabelApi, { shippingLabel: params})
+    },
+    update(slug, params) {
+        return ApiService.update(ShippingLabelApi, slug, { shippingLabel: params });
+    },
+    delete(slug) {
+        return ApiService.delete(ShippingLabelApi, slug);
+    },
+    get(slug){
+        return ApiService.get(ShippingLabelApi, slug)
+    },
+    getAll() {
+        return ApiService.get(ShippingLabelApi)
     }
 };
 
