@@ -4,8 +4,8 @@ require('./bootstrap');
 import Vue from 'vue';
 import router  from './router/index.js'
 import store from './store/index.js';
-import MainApp from './components/MainApp.vue'
-import AccessControl from "./helpers/accessControl";
+import MainApp from './components/mainapp.vue'
+import AccessControl from "./helpers/accesscontrol";
 import Swal from 'sweetalert2'
 import VeeValidate from 'vee-validate';
 import bootstrapSelect from 'bootstrap-select';

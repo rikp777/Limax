@@ -121,8 +121,8 @@ class CultivationCycleController extends Controller
         $cycle = [
             'data' => [
                 'calculation' => [
-                    'flight' => $flight,
-                    'flight_day' => $flightDay,
+                    'harvest_cycle' => $flight,
+                    'harvest_cycle_day' => $flightDay,
                     'error' => $error,
                     'message' => $message,
                 ],

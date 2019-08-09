@@ -28,7 +28,7 @@
 
                         <li class="nav-item dropdown">
                             <router-link to="/" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-                                {{authUser.last_name}}<span class="caret"></span>
+                                {{authUser.lastName}}<span class="caret"></span>
                             </router-link>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">

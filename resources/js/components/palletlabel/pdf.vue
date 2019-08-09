@@ -54,8 +54,8 @@
                                 <h6 class="mb-3" style="font-size: 26px;">FROM :</h6>
 
                                 <strong>{{ farmer.name }}</strong>
-                                <div>{{ farmer.street }}, {{ farmer.house_number }}</div>
-                                <div>{{ farmer.place }}, {{ farmer.zip_code }}</div>
+                                <div>{{ farmer.street }}, {{ farmer.houseNumber }}</div>
+                                <div>{{ farmer.place }}, {{ farmer.zipCode }}</div>
                                 <div>Email: {{ farmer.email }}</div>
                                 <div>Phone: {{ farmer.phone }}</div>
 
@@ -98,7 +98,7 @@
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <strong>Crop Date</strong>
-                                <div>{{ palletLabel.crop_date }}</div>
+                                <div>{{ palletLabel.cropDate }}</div>
                             </div>
                         </div>
 
@@ -106,7 +106,7 @@
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <strong>Amount</strong>
-                                <div>{{ palletLabel.article_amount }}</div>
+                                <div>{{ palletLabel.articleAmount }}</div>
                             </div>
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <strong>Article</strong>
@@ -130,11 +130,11 @@
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <strong>Harvest Cycle</strong>
-                                <div>{{ palletLabel.harvest_cycle }}</div>
+                                <div>{{ palletLabel.harvestCycle }}</div>
                             </div>
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <strong>Harvest Cycle Day</strong>
-                                <div>{{ palletLabel.harvest_cycle_day }}</div>
+                                <div>{{ palletLabel.harvestCycleDay }}</div>
                             </div>
                         </div>
 
@@ -195,8 +195,8 @@
                 //console.log(id);
                 this.$store.dispatch("getPalletLabel", id)
                     .then(() => {
-                        this.getArticle(this.palletLabel.article_id);
-                        this.getFarmer(this.palletLabel.farmer_id);
+                        this.getArticle(this.palletLabel.articleId);
+                        this.getFarmer(this.palletLabel.farmerId);
                         this.$htmlToPaper('printMe');
                     })
             },

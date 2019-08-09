@@ -9,6 +9,14 @@ export default [
         },
     },
     {
+        name: 'pricelist',
+        path: '/pricelist',
+        component: () => import('../../components/pricelist/read'),
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
         path: '/auth',
         component: () => import('../../components/auth/index'),
         children: [

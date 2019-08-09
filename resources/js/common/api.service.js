@@ -4,6 +4,8 @@ import VueAxios from "vue-axios"
 
 import JwtService from "./jwt.service";
 import { API_URL } from "./config";
+import applyConverters  from "axios-case-converter";
+
 
 const ApiService  = {
     initialize() {
@@ -16,52 +18,57 @@ const ApiService  = {
     },
 
     query(resource, params) {
-        return Vue.axios
+        const request = applyConverters(Vue.axios)
             .get(`${resource}`, params)
             .catch(error => {
                 throw `[Limax] ApiService ${resource} \n ${error.response.data.message}`;
             });
+        return request;
     },
 
-    get(resource, slug = "") {
-        // throw(`${resource}/${slug}`);
-        return Vue.axios
+   get(resource, slug = "") {
+        const request = applyConverters(Vue.axios)
             .get(`${resource}/${slug}`)
             .catch(error => {
                 throw `[Limax] ApiService ${resource} \n ${error.response.data.message}`;
             });
+        return request;
     },
 
     post(resource, params) {
-        return Vue.axios
+        const request = applyConverters(Vue.axios)
             .post(`${resource}`, params)
             .catch(error => {
                 throw `[Limax] ApiService ${resource} \n ${error.response.data.message}`;
             });
+        return request;
     },
 
     update(resource, slug, params) {
-        return Vue.axios
+        const request = applyConverters(Vue.axios)
             .put(`${resource}/${slug}`, params)
             .catch(error => {
                 throw `[Limax] ApiService ${resource}/${slug} \n ${error.response.data.message}`;
             });
+        return request;
     },
 
     put(resource, params) {
-        return Vue.axios
+        const request = applyConverters(Vue.axios)
             .put(`${resource}`, params)
             .catch(error => {
                 throw `[Limax] ApiService ${resource} \n ${error.response.data.message}`;
             });
+        return request
     },
 
     delete(resource, slug) {
-        return Vue.axios
+        const request = applyConverters(Vue.axios)
             .delete(`${resource}/${slug}`)
             .catch(error => {
                 throw `[Limax] ApiService ${resource}/${slug} \n ${error.response.data.message}`;
             });
+        return request
     }
 };
 
@@ -111,10 +118,11 @@ export const PalletTypeService = {
 const PalletLabelApi = "palletlabel";
 export const PalletLabelService = {
     create(params){
-        return ApiService.post(PalletLabelApi, { palletLabel: params})
+        return ApiService.post(PalletLabelApi, params)
     },
     update(slug, params) {
-        return ApiService.update(PalletLabelApi, slug, { palletLabel: params });
+        console.log(params);
+        return ApiService.update(PalletLabelApi, slug, params);
     },
     delete(slug) {
         return ApiService.delete(PalletLabelApi, slug);

@@ -12,6 +12,7 @@
     "devDependencies": {
         "axios": "^0.19",
         "bootstrap": "^4.1.0",
+        "brotli-gzip-webpack-plugin": "^0.5.0",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
@@ -24,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "axios-case-converter": "^0.3.0",
         "bootstrap-select": "^1.13.10",
         "js-cookie": "^2.2.0",
         "moment": "^2.24.0",

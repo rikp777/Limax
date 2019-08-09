@@ -71,33 +71,33 @@
                     </select>
                     <span class="invalid-feedback">{{ errors.first('cell') }}</span>
                 </div>
-                <div class="form-group col" v-if="calculation.flight">
+                <div class="form-group col" v-if="calculation.harvestCycle">
                     <label for="flight">Flight</label>
                     <input
-                        v-model="form.flight"
+                        v-model="form.harvestCycle"
                         id="flight"
                         name="flight"
                         type="number"
                         v-validate="'required|numeric'"
-                        :class="{ 'is-invalid': errors.has('cell') }"
+                        :class="{ 'is-invalid': errors.has('harvestCycle') }"
                         class="form-control"
                         disabled
                     >
                     <span class="invalid-feedback">{{ errors.first('flight') }}</span>
                 </div>
-                <div class="form-group col" v-if="calculation.flight">
+                <div class="form-group col" v-if="calculation.harvestCycleDay">
                     <label for="flightDay">Flight Day</label>
                     <input
-                        v-model="form.flightDay"
+                        v-model="form.harvestCycleDay"
                         id="flightDay"
                         name="flightDay"
                         type="number"
                         v-validate="'required|numeric'"
-                        :class="{ 'is-invalid': errors.has('flightDay') }"
+                        :class="{ 'is-invalid': errors.has('harvestCycleDay') }"
                         class="form-control"
                         disabled
                     >
-                    <span class="invalid-feedback">{{ errors.first('flightDay') }}</span>
+                    <span class="invalid-feedback">{{ errors.first('harvestCycleDay') }}</span>
                 </div>
             </div>
             <div class="form-row" v-if="calculation.message">
@@ -129,18 +129,18 @@
                     <span class="invalid-feedback">{{ errors.first('cropDate') }}</span>
                 </div>
                 <div class="form-group col">
-                    <label for="amount">Amount <small>{{form.articleId ? "max: " + articles.find(article => article.id === form.articleId).pallet_limit : "max: " + 180}}</small></label>
+                    <label for="amount">Amount <small>{{form.articleId ? "max: " + articles.find(article => article.id === form.articleId).palletLimit : "max: " + 180}}</small></label>
                     <input
-                        v-model="form.amount"
+                        v-model="form.articleAmount"
                         type="number"
                         name="amount"
                         id="amount"
-                        :placeholder='(form.articleId ? articles.find(article => article.id === form.articleId).pallet_limit : 180)'
-                        v-validate="'required|numeric|min_value:1|max_value:' + (form.articleId ? articles.find(article => article.id === form.articleId).pallet_limit : 180)"
-                        :class="{ 'is-invalid': errors.has('amount') }"
+                        :placeholder='(form.articleId ? articles.find(article => article.id === form.articleId).palletLimit : 180)'
+                        v-validate="'required|numeric|min_value:1|max_value:' + (form.articleId ? articles.find(article => article.id === form.articleId).palletLimit : 180)"
+                        :class="{ 'is-invalid': errors.has('articleAmount') }"
                         class="form-control"
                     >
-                    <span class="invalid-feedback">{{ errors.first('amount') }}</span>
+                    <span class="invalid-feedback">{{ errors.first('articleAmount') }}</span>
                 </div>
             </div>
 
@@ -175,13 +175,14 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex';
     import FlatPickr from "vue-flatpickr-component/src/component";
 
     export default {
-        name: "palletLabel-create",
+        name: "palletlabel-create",
         components: {FlatPickr},
         props: ['updateId'],
+
+
         updated() {
             $(this.$refs.selectArticle).selectpicker('refresh');
             $(this.$refs.selectCell).selectpicker('refresh');
@@ -191,13 +192,14 @@
         data() {
             return {
                 form: {
+                    id: '',
                     cropDate: Date.now(),
-                    amount: '',
+                    articleAmount: '',
                     articleId: '',
                     palletTypeId: '',
                     cellId: '',
-                    flight: 0,
-                    flightDay: 0,
+                    harvestCycle: 0,
+                    harvestCycleDay: 0,
                     note: '',
                 },
                 serverErrors: '',
@@ -228,17 +230,16 @@
             this.mode(this.updateId);
         },
         methods: {
+            createPalletLabel(){
+                this.$store.dispatch("createPalletLabel", this.form)
+            },
+            updatePalletLabel(){
+                this.$store.dispatch("updatePalletLabel", this.form)
+            },
             getPalletLabel(id){
                 this.$store.dispatch("getPalletLabel", id)
                     .then(() => {
-                        this.form.cropDate = this.palletLabel.crop_date;
-                        this.form.amount = this.palletLabel.article_amount;
-                        this.form.articleId = this.palletLabel.article_id;
-                        this.form.palletTypeId = this.palletLabel.pallet_type_id,
-                        this.form.cellId = this.palletLabel.cell_id;
-                        this.form.flight = this.palletLabel.harvest_cycle;
-                        this.form.flightDay = this.palletLabel.harvest_cycle_day;
-                        this.form.note = this.palletLabel.note;
+                        this.form = this.palletLabel;
                     });
             },
             getAllArticles(){
@@ -253,24 +254,24 @@
             getCultivationCalculationCell(id){
                 this.$store.dispatch("getCultivationCalculationCell", id)
                     .then(() => {
-                        this.form.flight = this.calculation.flight;
-                        this.form.flightDay = this.calculation.flight_day;
+                        this.form.harvestCycle = this.calculation.harvestCycle;
+                        this.form.harvestCycleDay = this.calculation.harvestCycleDay;
                     })
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         if(this.updateMode){
-                            this.update();
+                            this.updatePalletLabel();
                         }else{
-                            this.create();
+                            this.createPalletLabel();
                         }
                     }
                 })
             },
             selectPallettype(selectedArticleId) {
                 let filtered = this.articles.data.find(article => article.id === selectedArticleId);
-                this.form.palletTypeId = filtered.pallet_type.id;
+                this.form.palletTypeId = filtered.palletType.id;
             },
             mode(id){
                 if(id || this.$route.params.id){
@@ -278,17 +279,11 @@
                         id = this.$route.params.id
                     }
                     console.log("update mode");
+                    this.form.id = id;
                     this.updateMode = true;
                     this.getPalletLabel(id)
                 }
             },
-
-            create(){
-
-            },
-            update(){
-
-            },
-        },
+        }
     }
 </script>

@@ -20,14 +20,12 @@
 
 <script>
     import PalletLabelCreate from "./create-update";
-    import PalletLabelUpdate from "./update";
     import PalletLabelList from "./list";
     import PalletLabelPdf from "./pdf";
 
     export default {
         name: "combine",
-        components: {PalletLabelPdf, PalletLabelList, PalletLabelUpdate, PalletLabelCreate},
-
+        components: {PalletLabelPdf, PalletLabelList, PalletLabelCreate},
         data() {
             return {
                 state: 1,

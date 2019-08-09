@@ -1,4 +1,4 @@
-import { PalletLabelService } from "../../common/api.service";
+import {ArticleService, PalletLabelService} from "../../common/api.service";
 
 // action names
 const FETCH_START = "setPalletLabelLoading";
@@ -7,7 +7,6 @@ const FETCH_END =  "resetPalletLabelLoading";
 // mutation names
 const SET_PALLETLABEL = "setPalletLabel";
 const SET_PALLETLABELS = "setPalletLabels";
-
 
 
 // Initial State
@@ -48,7 +47,7 @@ const getters = {
 // Actions
 const actions = {
 
-    //get all articles
+    //get all palletLabels
     async getAllPalletLabels(context){
         context.commit(FETCH_START);
         return PalletLabelService.getAll()
@@ -61,7 +60,7 @@ const actions = {
             })
     },
 
-    //get single article
+    //get single palletLabels
     async getPalletLabel(context, palletLabelSlug){
         if(state.palletLabel.id === palletLabelSlug){
             return;
@@ -78,6 +77,22 @@ const actions = {
                 throw error
             });
     },
+
+    //create palletLabel
+    async createPalletlabel(context, payload) {
+        const { data } = await PalletLabelService.create(payload);
+        context.commit(SET_PALLETLABEL, data);
+        return data;
+    },
+
+    //update palletLabel
+    async updatePalletLabel(context, payload) {
+        console.log(payload);
+        const { data } = await PalletLabelService.update(payload.id, payload);
+        context.commit(SET_PALLETLABEL, data);
+        return data;
+    },
+
 };
 
 // Mutations
@@ -97,6 +112,7 @@ export const mutations = {
         state.palletLabel = article;
     }
 };
+
 
 export default {
     state,

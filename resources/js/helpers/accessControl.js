@@ -10,9 +10,10 @@ const AccessControl = {
             let authUser = [];
             if (store.getters.authUser.id !== undefined) {
                 authUser = store.getters.authUser;
-                store.dispatch("checkAuth")
+                store.dispatch("checkAuth");
+                console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' roles=' + requiresRoles)
             }
-            console.log('user=' + authUser + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' roles=' + requiresRoles)
+
 
 
             if (requiresAuth && !authUser) {

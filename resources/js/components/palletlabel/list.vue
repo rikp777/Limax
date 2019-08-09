@@ -17,7 +17,7 @@
             <template v-else>
                 <tr v-for="palletlabel in palletLabels" :key="palletlabel.id">
                     <td> {{ palletlabel.id}}</td>
-                    <td> {{ palletlabel.article_id}}</td>
+                    <td> {{ palletlabel.articleId}}</td>
                     <td>
                         <router-link :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>
                         <router-link :to="{ name: 'palletLabelPdf', params: { id: palletlabel.id }}">PDF</router-link>

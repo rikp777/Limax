@@ -1,5 +1,5 @@
 <template>
-    <div class="col-8 mx-auto">
+    <div class="container">
         <header-app></header-app>
         <transition name="slide-fade">
             <router-view v-if="show"></router-view>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import HeaderApp from './HeaderApp.vue'
+    import HeaderApp from './headerapp.vue'
     export default {
         name: "MainApp",
         data() {
