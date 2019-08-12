@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web router
+| Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('{any}', function () {
+Route::get('/', function () {
     return view('welcome');
-})->where('any', '.*');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

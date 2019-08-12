@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
-| API router
+| API Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
@@ -12,36 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/login', 'AuthController@login');
-
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::post('/logout', 'AuthController@logout');
-
-
     Route::apiResource('/user', 'userController')
     ->only(['index', 'show', 'destroy', 'update', 'store']);
-
-    Route::apiResource('/article', 'ArticleController')
-        ->only(['index', 'show', 'destroy', 'update', 'store']);
-
-    Route::apiResource('/pallettype', 'PalletTypeController')
-        ->only(['index', 'show', 'destroy', 'update', 'store']);
-
-    Route::apiResource('/cell', 'CellController')
-        ->only(['index', 'show', 'destroy', 'update', 'store']);
-
-    Route::apiResource('/farmer', 'FarmerController')
-        ->only(['index', 'show', 'destroy', 'update', 'store']);
-
-    Route::apiResource('/palletlabel', 'PalletLabelController')
-        ->only(['index', 'show', 'destroy', 'update', 'store']);
-
-    Route::get('/cultivationcycle/calculate/{cell}', 'CultivationCycleController@calculate');
-    Route::apiResource('/cultivationcycle', 'CultivationCycleController')
-        ->only(['index', 'show', 'destroy', 'update', 'store']);
-
-    Route::apiResource('/cultivationcycleflight', 'CultivationCycleFlightController')
-        ->only(['index', 'show', 'destroy', 'update', 'store']);
 });
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {

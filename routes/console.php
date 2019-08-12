@@ -4,7 +4,7 @@ use Illuminate\Foundation\Inspiring;
 
 /*
 |--------------------------------------------------------------------------
-| Console router
+| Console Routes
 |--------------------------------------------------------------------------
 |
 | This file is where you may define all of your Closure based console

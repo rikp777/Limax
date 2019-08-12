@@ -10,11 +10,4 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
-
-    protected $hidden = [
-        'updated_at',
-        'created_at',
-        'pivot'
-    ];
 }

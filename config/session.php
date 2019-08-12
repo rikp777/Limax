@@ -89,7 +89,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Session Cache store
+    | Session Cache Store
     |--------------------------------------------------------------------------
     |
     | When using the "apc", "memcached", or "dynamodb" session drivers you may
