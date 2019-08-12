@@ -12,20 +12,9 @@ class UserPolicy
 
     public function before($user, $ability)
     {
-        //dd($user);
         if ($user->isAdmin()) {
             return true;
         }
-    }
-
-
-    public function viewAny(User $user)
-    {
-        //dd("viewAny");
-        if($user->isModerator()){
-            return true;
-        }
-        return false;
     }
 
 
