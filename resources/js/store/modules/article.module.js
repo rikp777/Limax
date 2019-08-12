@@ -33,7 +33,7 @@ export const getters = {
 
     articleById: (state) => (id) =>{
         if(state.articles.length) {
-           return state.articles.find(article => article.id === id).name
+           return state.articles.find(article => article.id === id)
         }
     },
 

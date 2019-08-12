@@ -25,6 +25,12 @@ const actions = {
                 context.commit('userUpdate', response.data);
             })
     },
+    getTrucker(context, page){
+        // axios.get('/api/user')
+        //     .then((response) => {
+        //         context.commit('userUpdate', response.data);
+        //     })
+    },
     create(context, data){
         //console.log(data.password);
         return new Promise((resolve, reject) => {

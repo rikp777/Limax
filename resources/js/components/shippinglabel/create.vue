@@ -70,11 +70,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="palletLabel in palletLabels">
+                    <tr v-for="palletLabel in palletLabels" v-if="articles.length">
                         <td>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="palletlabels" checked>
-                                <label class="custom-control-label" for="palletlabels">{{getArticleById(palletLabel.article_id)}}</label>
+                                <label class="custom-control-label" for="palletlabels">{{getArticleById(palletLabel.articleId).name}}</label>
                             </div>
                         </td>
                     </tr>
@@ -122,6 +122,7 @@
         },
         methods: {
             getArticleById(id){
+                // console.log(id);
                 return this.$store.getters.articleById(id)
             },
             getAllPalletLabels(){
@@ -130,6 +131,9 @@
             getAllArticles(){
                 this.$store.dispatch("getAllArticles");
             },
+            getTruckers(){
+                this.$store.dispatch("")
+            }
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
