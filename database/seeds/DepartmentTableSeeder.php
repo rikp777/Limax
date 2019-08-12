@@ -15,12 +15,5 @@ class DepartmentTableSeeder extends Seeder
     {
         factory(Department::class, 10)->create();
 
-
-        $departments = Department::all();
-        User::where('id', '>', '2')->each(function ($user) use ($departments) {
-            $user->departments()->attach(
-                $departments->random(rand(1, 2))->pluck('id')->toArray()
-            );
-        });
     }
 }

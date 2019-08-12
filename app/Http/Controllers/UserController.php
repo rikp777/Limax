@@ -8,22 +8,23 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class);
+    }
+
     public function index()
     {
-        $this->authorize('view', auth('api')->user());
-
-        dd(auth('api')->user()->departments);
-        return new UserResourceCollection(User::paginate(15));
+        return UserResource::collection(User::paginate(15));
     }
 
 
     public function store(Request $request)
     {
-        $this->authorize('create', auth('api')->user());
-
         $request->validate([
             'first_name' => 'required|string|min:2|max:25',
             'insert_name' => 'string|max:10',
@@ -47,20 +48,18 @@ class UserController extends Controller
 
     public function show(User $user) : UserResource
     {
-        $this->authorize('view', auth('api')->user());
-
         return new userResource($user);
     }
 
 
     public function update(User $user, Request $request) : UserResource
     {
-        $this->authorize('update', auth('api')->user());
+        dd($request->all());
 
         $request->validate([
             'first_name' => 'required|string|min:2|max:25',
             'last_name' => 'required|string|min:2|max:35',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'email' => 'required|email|max:255|unique:user,email,' . $user->id,
             'password' => 'sometimes|string|min:6',
         ]);
 
