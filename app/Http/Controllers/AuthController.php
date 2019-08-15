@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Role;
 use App\User;
 use Carbon\Carbon;
@@ -57,7 +58,7 @@ class AuthController extends Controller
 
         return response()->json([
             'access_token' => $tokenResult->accessToken,
-            'user' => User::with('roles')->find(Auth::id()),
+            'user' => new userResource(Auth::user()),
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
         ]);

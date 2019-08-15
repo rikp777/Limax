@@ -1,5 +1,6 @@
 <template>
     <div>
+        <router-link :to="{ name: 'palletLabelCombine' }"  class="btn btn-light btn-block" style="position: relative; z-index: 3">New</router-link>
         <template v-if="isLoading">
             <div class="spinner-grow text-dark" role="status">
                 <span class="sr-only">Loading...</span>

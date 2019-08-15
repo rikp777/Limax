@@ -5,6 +5,7 @@ use App\Role;
 use Illuminate\Database\Seeder;
 Use App\User;
 use Illuminate\Support\Facades\Hash;
+use App\Farmer;
 
 class UserTableSeeder extends Seeder
 {
@@ -59,7 +60,7 @@ class UserTableSeeder extends Seeder
             );
         });
         $departments = Department::all();
-        User::where('id', '>', '2')->each(function ($user) use ($departments) {
+        User::where('id', '>', '0')->each(function ($user) use ($departments) {
             $user->departments()->attach(
                 $departments->random(rand(1, 2))->pluck('id')->toArray()
             );

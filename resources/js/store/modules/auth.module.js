@@ -77,6 +77,7 @@ const mutations = {
        state.errors = errors
    },
     [SET_AUTH_USER](state, payload) {
+        console.log(payload.user);
        state.isAuthenticated = true;
        state.user = payload.user;
        state.errors = {};

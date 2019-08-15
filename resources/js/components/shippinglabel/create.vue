@@ -133,7 +133,7 @@
             },
             getTruckers(){
                 this.$store.dispatch("")
-            }
+            },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {

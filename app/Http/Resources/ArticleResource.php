@@ -20,6 +20,7 @@ class ArticleResource extends JsonResource
             'pallet_limit' => $this->pallet_limit,
             'name' => $this->fullName($this),
             'origin' => $this->origin,
+            'inset_limit' => $this->inset_limit,
 //            'relations' => [
 //                'pallet_type_id' => $this->pallet_type_id,
 //                'sort_type_id' => $this->sort_type_id,
@@ -37,11 +38,6 @@ class ArticleResource extends JsonResource
             'weight' => $this->inset_gram,
             'status' => $this->status,
             'article_group' => $this->articleGroup,
-
-            'fairproduce_number' => $this->fairproduce_number,
-            'ggn' => $this->ggn,
-            'skal' => $this->skal,
-            'milieu' => $this->milieu,
         ];
     }
 

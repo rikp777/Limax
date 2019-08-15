@@ -1,14 +1,31 @@
 <template>
-    <div class="container">
-        <header-app></header-app>
-        <transition name="slide-fade">
-            <router-view v-if="show"></router-view>
-        </transition>
+    <div class="container-scroller">
+        <template v-if="authUser.id">
+            <AppHeader></AppHeader>
+            <div class="container-fluid page-body-wrapper">
+                <AppSidebar></AppSidebar>
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        <router-view></router-view>
+                    </div>
+                    <AppFooter></AppFooter>
+
+                </div>
+
+            </div>
+        </template>
+        <template v-else>
+            <router-view></router-view>
+        </template>
     </div>
 </template>
-
 <script>
-    import HeaderApp from './headerapp.vue'
+    import {mapGetters} from 'vuex';
+
+    import AppHeader from "./partials/AppHeader";
+    import AppSidebar from "./partials/AppSidebar";
+    import AppFooter from "./partials/AppFooter";
+
     export default {
         name: "MainApp",
         data() {
@@ -16,19 +33,10 @@
                 show: true
             };
         },
-        components: { HeaderApp }
+        components: {AppFooter, AppSidebar, AppHeader},
+        computed: {
+            ...mapGetters(["authUser", "isAuthenticated"])
+        }
     }
 </script>
-<style>
 
-    .slide-fade-enter-active {
-        transition: all .3s ease;
-    }
-    .slide-fade-leave-active {
-        transition: all 0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-    .slide-fade-enter, .slide-fade-leave-to{
-        transform: translateX(10px);
-        opacity: 0;
-    }
-</style>

@@ -1,4 +1,5 @@
 import ApiService from "../common/api.service";
+import auth from "../router/routes/auth";
 
 
 const AccessControl = {
@@ -14,12 +15,10 @@ const AccessControl = {
                 console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' roles=' + requiresRoles)
             }
 
-
-
-            if (requiresAuth && !authUser) {
+            if (requiresAuth && !authUser.id) {
                 console.log('not logged in');
-                next('/login');
-            } else if (to.path === '/login' && authUser) {
+                next('/auth/login');
+            } else if (to.path === '/auth/login' && authUser.id) {
                 console.log('already logged in');
                 next('/');
             } else if (requiresRoles && authUser) {
@@ -30,9 +29,8 @@ const AccessControl = {
                     console.log('unauthorized');
                     next('/')
                 }
-            } else {
-                console.log('no authorization needed');
-                next();
+            }else{
+                next()
             }
         });
         axios.interceptors.response.use(null, (error) =>{
@@ -49,6 +47,7 @@ const AccessControl = {
     },
     hasRight(requiresRoles, authUser) {
         let check = false;
+        console.log(authUser);
         authUser.roles.forEach((item) => {
             if (requiresRoles.hasOwnProperty(item.id)) {
                 check = true

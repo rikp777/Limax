@@ -3,9 +3,9 @@
         <table class="table">
             <thead>
             <tr>
+                <th class="text-center">#</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
+                <th class="text-right">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -15,13 +15,12 @@
                 </tr>
             </template>
             <template v-else>
-                <tr v-for="palletlabel in palletLabels" :key="palletlabel.id">
+                <tr v-for="palletlabel in palletLabels" :key="palletlabel.id" v-if="articles.length">
                     <td> {{ palletlabel.id}}</td>
-                    <td> {{ palletlabel.articleId}}</td>
-                    <td>
-                        <router-link :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>
-                        <router-link :to="{ name: 'palletLabelPdf', params: { id: palletlabel.id }}">PDF</router-link>
-                        <router-link :to="{ name: 'palletLabelRead', params: { id: palletlabel.id }}">View</router-link>
+                    <td> {{ getArticlesById(palletlabel.articleId).name }}</td>
+                    <td class="td-actions text-right">
+                        <router-link class="btn btn-primary" :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>
+                        <router-link class="btn btn-primary" :to="{ name: 'palletLabelPdf', params: { id: palletlabel.id }}">PDF</router-link>
                     </td>
                 </tr>
             </template>
@@ -41,14 +40,25 @@
             },
             isLoading(){
                 return this.$store.getters.palletLabelIsLoading
+            },
+            articles(){
+                return this.$store.getters.articles
             }
+
         },
         mounted() {
             this.getAllPalletLabels();
+            this.getAllArticles();
         },
         methods: {
+            getArticlesById(id){
+                return this.$store.getters.articleById(id);
+            },
             getAllPalletLabels(){
                 this.$store.dispatch("getAllPalletLabels");
+            },
+            getAllArticles(){
+                this.$store.dispatch("getAllArticles");
             }
         }
     }

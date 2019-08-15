@@ -21,6 +21,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Department::class);
     }
+    public function farmers()
+    {
+        return $this->belongsToMany(Farmer::class);
+    }
 
 
     public function is($roleName)
