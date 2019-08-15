@@ -147,8 +147,7 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col" >
-                                <barcode v-bind:value="palletLabel.id" width="5" lineColor="#F2AB58" background="none" id="text-mask-1"></barcode>
+                            <div class="col" >{{palletLabel.id}}
                             </div>
                         </div>
                         <div class="row">
@@ -169,10 +168,8 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
-    import barcode from "vue-barcode";
     export default {
         name: 'palletLabel-pdf',
-        components: {barcode},
         computed: {
             article(){
                 return this.$store.getters.article;

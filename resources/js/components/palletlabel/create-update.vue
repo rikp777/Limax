@@ -150,7 +150,6 @@
                             name="amount"
                             id="amount"
                             :placeholder='(form.articleId ? articles.find(article => article.id === form.articleId).palletLimit : 180)'
-                            v-validate="'required|numeric|min_value:1|max_value:' + (form.articleId ? articles.find(article => article.id === form.articleId).palletLimit : 180)"
                             :class="{ 'is-invalid': errors.has('articleAmount') }"
                             class="form-control"
                         >
