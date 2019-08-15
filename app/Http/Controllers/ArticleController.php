@@ -18,55 +18,6 @@ class ArticleController extends Controller
 
     public function index()
     {
-
-        $data = array(
-            array(
-                "image" => 'sjaak',
-                "product" => "Wit Fijn 250",
-                "origin" => "NL",
-                "quantity" => "1500",
-                "popular" => "true",
-                "category" => "Wit"
-            ),
-            array(
-                "image" => 'asdfalk',
-                "product" => "kastanje Fijn 250",
-                "origin" => "NL",
-                "quantity" => "1500",
-                "popular" => "true",
-                "category" => "Wit"
-            ),
-            array(
-                "image" => 'adsfakl',
-                "product" => "bier Fijn 250",
-                "origin" => "BE",
-                "quantity" => "1500",
-                "popular" => "false",
-                "category" => "Kastanje"
-            ),
-            array(
-                "image" => 'blskadfj',
-                "product" => "Blah Fijn 250",
-                "origin" => "BE",
-                "quantity" => "1500",
-                "popular" => "false",
-                "category" => "Kastanje"
-            ),
-        );
-        $originGroups = collect($data)->groupBy("origin");
-        $categories = collect($data)->groupBy("category");
-        $popular = collect($data)->where("popular", "true");
-
-
-        $sorted = array(
-            "originGroups" => $originGroups,
-            "categories" => $categories,
-            "popular" => $popular,
-        );
-
-        return $sorted;
-
-
         return ArticleResource::collection(Article::all());
     }
 
