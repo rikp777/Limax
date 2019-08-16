@@ -15,7 +15,7 @@ const AccessControl = {
                 console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' roles=' + requiresRoles)
             }
 
-            if (requiresAuth && !authUser.id) {
+            if (requiresAuth && authUser.id === undefined) {
                 console.log('not logged in');
                 next('/auth/login');
             } else if (to.path === '/auth/login' && authUser.id) {
@@ -36,7 +36,7 @@ const AccessControl = {
         axios.interceptors.response.use(null, (error) =>{
             if(error.response.status === 401){
                 store.dispatch('logout');
-                router.push('/login');
+                router.push('/');
             }
             if (error.response.status === 403){
                 router.push('/');

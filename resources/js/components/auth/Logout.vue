@@ -9,7 +9,8 @@
             this.$store.dispatch('logout')
                 .then(response => {
                     this.$router.push({ name: 'home' })
-                })
+                });
+            console.log('ja');
         }
     }
 </script>

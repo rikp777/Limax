@@ -17,14 +17,6 @@ export default [
         },
     },
     {
-        name: 'pricelist',
-        path: '/pricelist',
-        component: Pricelist,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
         path: '/auth',
         component: Index,
         children: [

@@ -8,6 +8,7 @@ import user from '../router/routes/user'
 import palletLabel from '../router/routes/palletLabel'
 import shippingLabel from '../router/routes/shippingLabel'
 import article from '../router/routes/article'
+import pricelist from "./routes/pricelist";
 
 Vue.use(VueRouter);
 
@@ -17,7 +18,8 @@ const router = new VueRouter({
         ...auth,
         ...user,
         ...palletLabel,
-        ...shippingLabel
+        ...shippingLabel,
+        ...pricelist
     ],
     mode: 'history'
 });

@@ -55,6 +55,23 @@
                         </ul>
                     </b-collapse>
                 </li>
+                <li class="nav-item">
+                    <span class="nav-link" v-b-toggle="'pricelist'">
+                        <font-awesome-icon icon="dollar-sign" class="menu-icon"></font-awesome-icon>
+                        <span class="menu-title">Pricelist</span>
+                        <font-awesome-icon icon="angle-down" class="menu-arrow"></font-awesome-icon>
+                    </span>
+                    <b-collapse :id="'pricelist'">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <router-link class="nav-link" :to="{ name: 'priceListCreate' }">
+                                    <font-awesome-icon icon="plus" class="menu-icon"></font-awesome-icon>
+                                    <span class="menu-title">Create</span>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </b-collapse>
+                </li>
             </ul>
         </nav>
     </section>

@@ -10,7 +10,7 @@ import AccessControl from "./helpers/accessControl";
 import VeeValidate from 'vee-validate';
 import bootstrapSelect from 'bootstrap-select';
 // import moment from 'moment';
-// import VueHtmlToPaper from 'vue-html-to-paper';
+import VueHtmlToPaper from 'vue-html-to-paper'
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 
@@ -25,19 +25,19 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 // Vue.config.productionTip = false;
 //
 //
-// const options = {
-//     name: '_blank',
-//     specs: [
-//         'fullscreen=yes',
-//         'titlebar=yes',
-//         'scrollbars=yes'
-//     ],
-//     styles: [
-//         'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
-//         'https://unpkg.com/kidlat-css/css/kidlat.css'
-//     ]
-// };
-// Vue.use(VueHtmlToPaper, options);
+const options = {
+    name: '_blank',
+    specs: [
+        'fullscreen=yes',
+        'titlebar=yes',
+        'scrollbars=yes'
+    ],
+    styles: [
+        'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
+        'https://unpkg.com/kidlat-css/css/kidlat.css'
+    ]
+};
+Vue.use(VueHtmlToPaper, options);
 // //
 // window.moment = moment;
 // Vue.prototype.moment = moment;
