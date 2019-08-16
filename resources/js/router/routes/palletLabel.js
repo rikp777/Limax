@@ -1,7 +1,7 @@
 import RightEnum from '../rights'
 
 
-import Index from '../../components/palletLabel/index'
+import Index from '../../components/palletlabel/index'
 import Combine from '../../components/palletlabel/Combine'
 import List from '../../components/palletlabel/List'
 import CreateUpdate from '../../components/palletlabel/CreateUpdate'

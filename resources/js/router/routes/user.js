@@ -1,6 +1,6 @@
 import RightEnum from '../rights'
 
-import Index from '../../components/user/index'
+import Index from '../../components/user/Index'
 import List from '../../components/user/List'
 import Create from '../../components/user/Create'
 import Read from '../../components/user/Read'
