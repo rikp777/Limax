@@ -1,17 +1,22 @@
+import index from '../../components/article/views/index'
+import list from '../../components/article/views/list'
+import read from '../../components/article/views/read'
+
+
 export default [
     {
         path: '/article',
-        component: () => import('../../components/article/views/index'),
+        component: index,
         children: [
             {
                 name: 'list',
                 path: '',
-                component: () => import('../../components/article/views/list')
+                component: list
             },
             {
                 name: 'read',
                 path: 'read/:id',
-                component: () => import('../../components/article/views/read')
+                component: read
             },
         ]
     },

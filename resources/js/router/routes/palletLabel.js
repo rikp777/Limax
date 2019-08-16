@@ -1,8 +1,17 @@
 import RightEnum from '../rights'
+
+
+import index from '../../components/palletLabel/index'
+import combine from '../../components/palletLabel/combine'
+import list from '../../components/palletLabel/list'
+import createUpdate from '../../components/palletLabel/create-update'
+import read from '../../components/palletLabel/read'
+import pdf from '../../components/palletLabel/pdf'
+
 export default [
     {
         path: '/palletLabel',
-        component: () => import('../../components/palletLabel/index'),
+        component: index,
         meta: {
             requiresAuth: true,
             requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -11,7 +20,7 @@ export default [
             {
                 name: 'palletLabelCombine',
                 path: 'combine',
-                component: () => import('../../components/palletLabel/combine'),
+                component: combine,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -20,7 +29,7 @@ export default [
             {
                 name: 'palletLabelList',
                 path: '',
-                component: () => import('../../components/palletLabel/list'),
+                component: list,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -29,7 +38,7 @@ export default [
             {
                 name: 'palletLabelCreate',
                 path: 'create',
-                component: () => import('../../components/palletlabel/create-update'),
+                component: createUpdate,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -38,7 +47,7 @@ export default [
             {
                 name: 'palletLabelUpdate',
                 path: 'update/:id',
-                component: () => import('../../components/palletLabel/create-update'),
+                component: createUpdate,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -48,7 +57,7 @@ export default [
                 name: 'palletLabelRead',
                 path: ':id',
                 props: true,
-                component: () => import('../../components/palletLabel/read'),
+                component: read,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -58,7 +67,7 @@ export default [
                 name: 'palletLabelPdf',
                 path: 'pdf/:id',
                 props: true,
-                component: () => import('../../components/palletLabel/pdf'),
+                component: pdf,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]

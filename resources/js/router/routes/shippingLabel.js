@@ -1,8 +1,17 @@
 import RightEnum from '../rights'
+
+import index from '../../components/shippingLabel/index'
+import combine from '../../components/shippingLabel/combine'
+import list from '../../components/shippingLabel/list'
+import create from '../../components/shippingLabel/create'
+import update from '../../components/shippingLabel/update'
+import read from '../../components/shippingLabel/read'
+import pdf from '../../components/shippingLabel/pdf'
+
 export default [
     {
         path: '/shippingLabel',
-        component: () => import('../../components/shippingLabel/index'),
+        component: index,
         meta: {
             requiresAuth: true,
             requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -11,7 +20,7 @@ export default [
             {
                 name: 'shippingLabelCombine',
                 path: 'combine',
-                component: () => import('../../components/shippingLabel/combine'),
+                component: combine,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -20,7 +29,7 @@ export default [
             {
                 name: 'shippingLabelList',
                 path: '',
-                component: () => import('../../components/shippingLabel/list'),
+                component: list,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -29,7 +38,7 @@ export default [
             {
                 name: 'shippingLabelCreate',
                 path: 'create',
-                component: () => import('../../components/shippingLabel/create'),
+                component: create,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -38,7 +47,7 @@ export default [
             {
                 name: 'shippingLabelUpdate',
                 path: 'update/:id',
-                component: () => import('../../components/shippingLabel/update'),
+                component: update,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -48,7 +57,7 @@ export default [
                 name: 'shippingLabelRead',
                 path: ':id',
                 props: true,
-                component: () => import('../../components/shippingLabel/read'),
+                component: read,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
@@ -58,7 +67,7 @@ export default [
                 name: 'shippingLabelPdf',
                 path: 'pdf/:id',
                 props: true,
-                component: () => import('../../components/shippingLabel/pdf'),
+                component: pdf,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
