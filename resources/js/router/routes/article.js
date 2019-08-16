@@ -1,22 +1,22 @@
-import index from '../../components/article/views/index'
-import list from '../../components/article/views/list'
-import read from '../../components/article/views/read'
+import Index from '../../components/article/views/Index'
+import List from '../../components/article/views/List'
+import Read from '../../components/article/views/Read'
 
 
 export default [
     {
         path: '/article',
-        component: index,
+        component: Index,
         children: [
             {
                 name: 'list',
                 path: '',
-                component: list
+                component: List
             },
             {
                 name: 'read',
                 path: 'read/:id',
-                component: read
+                component: Read
             },
         ]
     },

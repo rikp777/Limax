@@ -9,7 +9,7 @@
 
 <script>
     import { mapGetters } from "vuex";
-    import ArticleActions from "../components/actions";
+    import ArticleActions from "../components/Actions";
     export default {
         name: "article-read",
         components: {ArticleActions},

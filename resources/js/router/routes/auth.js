@@ -1,17 +1,17 @@
 import RightEnum from '../rights'
 
-import home from '../../components/home'
-import pricelist from '../../components/pricelist/read'
-import index from '../../components/auth/index'
-import login from '../../components/auth/login'
-import logout from '../../components/auth/logout'
-import forgot from '../../components/auth/forgot'
+import Home from '../../components/Home'
+import Pricelist from '../../components/pricelist/Read'
+import Index from '../../components/auth/Index'
+import Login from '../../components/auth/Login'
+import Logout from '../../components/auth/Logout'
+import Forgot from '../../components/auth/Forgot'
 
 export default [
     {
         name: 'home',
         path: '/',
-        component: home,
+        component: Home,
         meta: {
             requiresAuth: true,
         },
@@ -19,29 +19,29 @@ export default [
     {
         name: 'pricelist',
         path: '/pricelist',
-        component: pricelist,
+        component: Pricelist,
         meta: {
             requiresAuth: true,
         },
     },
     {
         path: '/auth',
-        component: index,
+        component: Index,
         children: [
             {
                 name: 'authLogin',
                 path: 'login',
-                component: login
+                component: Login
             },
             {
                 name: 'authLogout',
                 path: 'logout',
-                component: logout
+                component: Logout
             },
             {
                 name: 'authForgot',
                 path: 'forgot',
-                component: forgot
+                component: Forgot
             }
         ]
     },

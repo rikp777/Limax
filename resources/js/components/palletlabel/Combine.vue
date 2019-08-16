@@ -19,9 +19,9 @@
 </template>
 
 <script>
-    import PalletLabelCreate from "./create-update";
-    import PalletLabelList from "./list";
-    import PalletLabelPdf from "./pdf";
+    import PalletLabelCreate from "./CreateUpdate";
+    import PalletLabelList from "./List";
+    import PalletLabelPdf from "./Pdf";
 
     export default {
         name: "combine",

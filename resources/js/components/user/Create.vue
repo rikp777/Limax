@@ -107,7 +107,7 @@
             validateBeforeSubmit(){
                 this.$validator.validateAll().then((result) => {
                     if(result) {
-                        this.create();
+                        this.Create();
                     }
                 })
             },

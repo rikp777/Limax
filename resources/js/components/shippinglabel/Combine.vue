@@ -24,10 +24,10 @@
 </template>
 
 <script>
-    import ShippingLabelCreate from "./create";
-    import ShippingLabelUpdate from "./update";
-    import ShippingLabelList from "./list";
-    import ShippingLabelPdf from "./pdf";
+    import ShippingLabelCreate from "./Create";
+    import ShippingLabelUpdate from "./Update";
+    import ShippingLabelList from "./List";
+    import ShippingLabelPdf from "./Pdf";
 
     export default {
         name: "combine",
