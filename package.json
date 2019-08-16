@@ -12,16 +12,16 @@
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.10.1",
         "axios": "^0.19",
-        "bootstrap": "^4.1.0",
-        "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "bootstrap": "^4.3.1",
+        "cross-env": "^5.2",
+        "jquery": "^3.4",
         "laravel-mix": "^4.1.2",
-        "lodash": "^4.17.5",
-        "popper.js": "^1.12",
-        "resolve-url-loader": "^2.3.1",
+        "lodash": "^4.17.15",
+        "popper.js": "^1.15",
+        "resolve-url-loader": "^3.1.0",
         "sass": "^1.22.9",
         "sass-loader": "^7.2.0",
-        "vue": "^2.5.17",
+        "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
@@ -29,17 +29,18 @@
         "@fortawesome/free-solid-svg-icons": "^5.10.1",
         "@fortawesome/vue-fontawesome": "^0.1.6",
         "axios-case-converter": "^0.3.0",
+        "babel-loader": "^8.0.6",
+        "bootstrap-select": "^1.13.10",
         "bootstrap-vue": "^2.0.0-rc.28",
         "compass-mixins": "^0.12.10",
         "js-cookie": "^2.2.1",
         "node-sass": "^4.12.0",
+        "vee-validate": "^2.2.15",
         "vue-axios": "^2.1.4",
         "vue-flatpickr-component": "^8.1.2",
         "vue-moment": "^4.0.0",
         "vue-router": "^3.1.2",
         "vuex": "^3.1.1",
-        "vuex-persistedstate": "^2.5.4",
-        "vee-validate": "^2.2.15",
-        "bootstrap-select": "^1.13.10"
+        "vuex-persistedstate": "^2.5.4"
     }
 }
