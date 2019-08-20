@@ -1,13 +1,13 @@
 ////////// COLOR SYSTEM //////////
-$blue: #03a9f3;
-$indigo: #6610f2;
+$blue: #37D5F2;
+$indigo: #3C4D69;
 $purple: #ab8ce4;
-$pink: #E91E63;
+$pink: #F75676;
 $red: #f96868;
-$orange: #fb9678;
+$orange: #FC7C5F;
 $yellow: #ffb463;
-$green: #00c292;
-$teal: #58d8a3;
+$green: #2DCE89;
+$teal: #4FD69C;
 $cyan: #57c7d4;
 $black: #000;
 $white: #ffffff;
@@ -17,15 +17,17 @@ $violet: #41478a;
 $darkslategray: #2e383e;
 $dodger-blue: #3498db;
 $blue-teal-gradient: linear-gradient(88deg, #318be3, #04befe);
-$blue: #1991EB;
-$indigo: #6610f2;
-$purple: #745af2;
+
+
+$blue: #11CDEF;
+$indigo: #172B4D;
+$purple: #5E72E4;
 $pink: #e83e8c;
-$red: #FF0017;
-$orange: #FFC105;
+$red: #F5365C;
+$orange: #FB6340;
 $yellow: #ffc107;
-$green: #08D419;
-$teal: #58d8a3;
+$green: #2DCE89;
+$teal: #4FD69C;
 $cyan: #17a2b8;
 $white: #ffffff;
 $limax-yellow: #F2AB58;
@@ -41,10 +43,10 @@ $colors: (
     teal: $teal,
     cyan: $cyan,
     white: $white,
-    white-smoke: #f2f7f8,
+    white-smoke: #F8FBFC,
     gray: $gray-600,
     gray-light: #636c72,
-    gray-lightest: #f7f7f9,
+    gray-lightest: #F8F9FE,
     gray-dark: #292b2c,
     limax-yellow: $limax-yellow
 );

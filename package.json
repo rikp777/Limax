@@ -33,8 +33,10 @@
         "bootstrap-select": "^1.13.10",
         "bootstrap-vue": "^2.0.0-rc.28",
         "compass-mixins": "^0.12.10",
+        "csvtojson": "^2.0.10",
         "js-cookie": "^2.2.1",
         "node-sass": "^4.12.0",
+        "papaparse": "^5.0.2",
         "vee-validate": "^2.2.15",
         "vue-axios": "^2.1.4",
         "vue-flatpickr-component": "^8.1.2",
@@ -42,6 +44,7 @@
         "vue-moment": "^4.0.0",
         "vue-router": "^3.1.2",
         "vuex": "^3.1.1",
-        "vuex-persistedstate": "^2.5.4"
+        "vuex-persistedstate": "^2.5.4",
+        "xml-js": "^1.6.11"
     }
 }
