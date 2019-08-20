@@ -1,5 +1,9 @@
 <template>
     <b-navbar class="fixed-top" toggleable="md" type="dark">
+
+
+
+
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
             <router-link class="navbar-brand brand-logo" :to="{ name: 'home' }"><img src="https://www.limax.nl/images/limax-logo.png" alt="logo"/></router-link>
@@ -31,7 +35,7 @@
                         </div>
 
                     </template>
-                    <b-dropdown-item href="#">Profile</b-dropdown-item>
+                    <b-dropdown-item><router-link :to="{ name: 'profileRead'}">Profile</router-link></b-dropdown-item>
                     <b-dropdown-item>
                         <router-link :to="{ name: 'authLogout' }">Logout</router-link>
                     </b-dropdown-item>
