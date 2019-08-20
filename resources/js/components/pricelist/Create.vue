@@ -22,7 +22,7 @@
                     <div v-for="extraData in article_groupData.extra">
                         <div v-for="extra in extraData">
                             <h3 class="ml-4"><strong>{{extra.name}}</strong></h3>
-                            <div class="card-columns">
+                            <div class="ml-4 card-columns">
                                 <div class="card border border-dark" v-for="data in extra.data">
                                     <img v-if="data.image" :src="data.image" class="card-img-top" >
                                     <div class="card-body">
@@ -33,7 +33,7 @@
                                             <li>{{data.amount}} per pallet</li>
                                         </ul>
                     <!--                    <p>8 x 150gr | Multi | 200 / 160 per pallet</p>-->
-                                        <h1 class="card-title pricing-card-title">€29 <small class="text-muted">/ box </small> </h1>
+                                        <h1 class="card-title pricing-card-title">€ {{data.price}}<small class="text-muted">/ box </small> </h1>
                                     </div>
                                 </div>
                             </div>
@@ -198,6 +198,8 @@
                     // console.log(resultData);
                     resultData['class'].push(classesData);
                 });
+                resultData['class'] = resultData['class'].filter(value => value.name !== "undefined");
+                resultData['class'] = resultData['class'].filter(value => value.name !== "null");
                 return resultData;
             }
         }
