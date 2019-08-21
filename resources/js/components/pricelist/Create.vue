@@ -50,7 +50,6 @@
                             </div>
                         </div>
                     </div>
-                    <img style="page-break-after: avoid;"class="w-100" src="https://www.limax.nl/build/images/color-bar.48031fde.svg">
                 </div>
             </div>
         </template>
