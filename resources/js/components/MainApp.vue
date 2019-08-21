@@ -6,10 +6,9 @@
                 <AppSidebar></AppSidebar>
                 <div class="main-panel">
                     <div class="content-wrapper">
-                        <router-view></router-view>
+                        <router-view v-bind="authUser"></router-view>
                     </div>
                     <AppFooter></AppFooter>
-
                 </div>
 
             </div>

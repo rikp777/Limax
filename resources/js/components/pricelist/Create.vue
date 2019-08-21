@@ -8,8 +8,6 @@
                     <b-form-group label="Upload file" label-for="input8">
                         <b-form-file v-model="file" id="file" :state="Boolean(file)" placeholder="Choose a file..." @change="convertFile($event)"></b-form-file>
                     </b-form-group>
-                    <b-button type="submit" variant="success" class="mr-2">Submit</b-button>
-                    <b-button variant="light">Cancel</b-button>
                 </form>
             </div>
         </div>

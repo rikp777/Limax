@@ -22,7 +22,7 @@ class UserTableSeeder extends Seeder
                 'insert_name' => null,
                 'last_name' => 'admin',
                 'email' => 'admin@limax.nl',
-                'photo' => 'noimg.png',
+                'photo' => 'https://microhealth.com/assets/images/illustrations/personal-user-illustration-@2x.png',
                 'password' => Hash::make('password')
             ],
             [
@@ -30,7 +30,7 @@ class UserTableSeeder extends Seeder
                 'insert_name' => null,
                 'last_name' => 'moderator',
                 'email' => 'moderator@limax.nl',
-                'photo' => 'noimg.png',
+                'photo' => 'https://microhealth.com/assets/images/illustrations/personal-user-illustration-@2x.png',
                 'password' => Hash::make('password')
             ],
             [
@@ -38,7 +38,7 @@ class UserTableSeeder extends Seeder
                 'insert_name' => null,
                 'last_name' => 'farmer',
                 'email' => 'farmer@limax.nl',
-                'photo' => 'noimg.png',
+                'photo' => 'https://microhealth.com/assets/images/illustrations/personal-user-illustration-@2x.png',
                 'password' => Hash::make('password')
             ]
         ];

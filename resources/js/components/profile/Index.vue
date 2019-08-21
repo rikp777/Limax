@@ -12,7 +12,10 @@
             <div class="col-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Profile</h5>
+                        <h5 class="card-title">Connections</h5>
+                        <ul v-for="(farmer, index) in farmers">
+                            <li>{{farmer.name}}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -23,9 +26,11 @@
 
 <script>
     import ProfileUpdate from "./update";
+
     export default {
         name: "Index",
-        components: {ProfileUpdate}
+        components: {ProfileUpdate},
+        props: ['farmers'],
     }
 </script>
 
