@@ -1,9 +1,20 @@
 <template>
     <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Profile</h5>
-                <profile-update></profile-update>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile</h5>
+                        <profile-update></profile-update>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile</h5>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

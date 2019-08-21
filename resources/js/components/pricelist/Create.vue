@@ -27,31 +27,30 @@
                 </div>
                 <hr>
                 <div v-for="classData in remap.class">
-                <h1><strong>{{classData.name}}</strong></h1>
-                <div v-for="article_groupData in classData.article_group">
-                    <h2 class="ml-2"><strong>{{article_groupData.name}}</strong></h2>
-                    <div v-for="extraData in article_groupData.extra">
-                        <div v-for="extra in extraData">
-                            <h3 class="ml-4"><strong>{{extra.name}}</strong></h3>
-                            <div class="ml-4 card-columns">
-                                <div class="card border border-dark" v-for="data in extra.data" v-if="data.display">
-                                    <img v-if="data.image" :src="data.image" class="card-img-top" >
-                                    <div class="card-body">
-                                        <h4 class="card-title">{{data.article_description}}</h4>
-                                        <ul class="list-unstyled mt-3 mb-4">
-                                            <li>{{data.trade_unit}}</li>
-                                            <li>{{data.container_box}}</li>
-                                            <li>{{data.amount}} per pallet</li>
-                                        </ul>
-                    <!--                    <p>8 x 150gr | Multi | 200 / 160 per pallet</p>-->
-                                        <h1 class="card-title pricing-card-title">€ {{data.price}}<small class="text-muted">/ box </small> </h1>
+                    <img class="w-100" src="https://www.limax.nl/build/images/color-bar.48031fde.svg">
+                    <h1 class="mt-3"><strong>{{classData.name}}</strong></h1>
+                    <div v-for="article_groupData in classData.article_group">
+                        <img class="w-100" style="height: 3px" src="https://www.limax.nl/build/images/color-bar.48031fde.svg">
+                        <h2 class="ml-2 mt-3"><strong>{{article_groupData.name}}</strong></h2>
+                        <div v-for="extraData in article_groupData.extra">
+                            <div v-for="extra in extraData">
+                                <h3 class="ml-4"><strong>{{extra.name}}</strong></h3>
+                                <div class="ml-4 card-columns">
+                                    <div class="card border border-dark" v-for="data in extra.data">
+                                        <img v-if="data.image" :src="data.image" class="card-img-top" >
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{data.article_description}}</h4>
+                                            <ul class="list-unstyled mt-3 mb-4">
+                                                <li>{{data.amount}} per pallet</li>
+                                            </ul>
+                                            <h1 class="card-title pricing-card-title">€ {{data.price}}<small class="text-muted">/ box </small> </h1>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </template>
     </div>
@@ -87,7 +86,7 @@
 
                 Papa.parsePromise(file)
                     .then((results) => {
-                        this.fileData = results.data
+                        this.fileData = results.data.filter(x => x.display === 1);
                     });
 
             },
@@ -148,7 +147,7 @@
                 });
                 resultData['class'] = resultData['class'].filter(value => value.name !== "undefined");
                 resultData['class'] = resultData['class'].filter(value => value.name !== "null");
-                console.log(resultData);
+                // console.log(resultData);
                 return resultData;
             }
         }
