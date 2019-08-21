@@ -26,10 +26,10 @@
                     </div>
                 </div>
                 <hr>
-                <div v-for="classData in remap.class">
+                <div v-for="classData in remap.class" style="page-break-after: always;">
                     <img class="w-100" src="https://www.limax.nl/build/images/color-bar.48031fde.svg">
                     <h1 class="mt-3"><strong>{{classData.name}}</strong></h1>
-                    <div v-for="article_groupData in classData.article_group">
+                    <div v-for="article_groupData in classData.article_group" style="page-break-after: always;">
                         <img class="w-100" style="height: 3px" src="https://www.limax.nl/build/images/color-bar.48031fde.svg">
                         <h2 class="ml-2 mt-3"><strong>{{article_groupData.name}}</strong></h2>
                         <div v-for="extraData in article_groupData.extra">
@@ -50,6 +50,7 @@
                             </div>
                         </div>
                     </div>
+                    <img style="page-break-after: avoid;"class="w-100" src="https://www.limax.nl/build/images/color-bar.48031fde.svg">
                 </div>
             </div>
         </template>
