@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
     Route::get('/cultivationcycle/calculate/{cell}', 'CultivationCycleController@calculate');
+
     Route::apiResource('/cultivationcycle', 'CultivationCycleController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 

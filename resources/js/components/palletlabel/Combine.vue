@@ -3,8 +3,9 @@
         <div class="row">
             <div class="col">
                 <pallet-label-create
-                        :updateId=1
+                        :updateId=0
                 ></pallet-label-create>
+<!--                id 0 = standard, id 1 = update mode (testing)                                -->
             </div>
             <div class="col">
                 <pallet-label-list

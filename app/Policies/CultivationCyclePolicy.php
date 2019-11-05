@@ -12,7 +12,7 @@ class CultivationCyclePolicy
 
     public function before($user, $ability)
     {
-        dd($user);
+//        dd($user); -- 04-11-2019 this killed the application, memorial to this line.....
         if ($user->isAdmin()) {
             return true;
         }

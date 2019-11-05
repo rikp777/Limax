@@ -129,6 +129,7 @@ class CultivationCycleController extends Controller
                 'raw_data' => [
                     'cell' => [
                         'id' => isset($cultivation) ? $cultivation->cell->id : $cell->id,
+                        'number' => isset($cultivation) ? $cultivation->cell->number : $cell->number,
                         'description' => isset($cultivation) ? $cultivation->cell->description : $cell->description,
                     ],
                     'cultivation_cycle' => [
@@ -188,6 +189,7 @@ class CultivationCycleController extends Controller
 
     public function show(CultivationCycle $cultivationCycle)
     {
+//        return "Ik ben een gert";
         return new CultivationCycleResource($cultivationCycle);
     }
 

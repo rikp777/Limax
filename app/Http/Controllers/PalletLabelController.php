@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 
+use App\Article;
+use App\Cell;
 use App\CultivationCycle;
+use App\Farmer;
 use App\Http\Resources\PalletLabelResource;
 use App\PalletLabel;
+use App\PalletType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
+//use Illuminate\Routing\Route;
 
 class PalletLabelController extends Controller
 {
@@ -43,16 +48,19 @@ class PalletLabelController extends Controller
 
 
         //Consume own cultivation api
-        $apiUrlCall = '/api/cultivationCycle/' . $cell->id;
+
+        $apiUrlCall = '/api/cultivationcycle/calculate/' . $cell->id;
         $cultivationCycleReqeust = Request::create($apiUrlCall, 'GET');
         $cultivationCycleContent = Route::dispatch($cultivationCycleReqeust)->getContent();
-        $cultivationCycleCalculation = json_decode($cultivationCycleContent);
+        $cultivationCycleCalculation = json_decode($cultivationCycleContent, TRUE);
+//        dd($cultivationCycleCalculation);
+//        dd($cultivationCycleCalculation['data']['raw_data']['cultivation_cycle']['id']);
 
 
         if (!empty($cultivationCycleCalculation)) {
-            $cultivationCycle = CultivationCycle::findOrFail($cultivationCycleCalculation->raw_data->cultivation_id);
-            if ($cultivationCycleCalculation->error) {
-                if ($cultivationCycleCalculation->flight == 1) {
+            $cultivationCycle = CultivationCycle::findOrFail($cultivationCycleCalculation['data']['raw_data']['cultivation_cycle']['id']);
+            if ($cultivationCycleCalculation['data']['calculation']['error']) {
+                if ($cultivationCycleCalculation['data']['calculation']['harvest_cycle'] == 1) {
 
 
                     $newCycle = new CultivationCycle();
@@ -68,7 +76,7 @@ class PalletLabelController extends Controller
                     $newCycleDate->save();
 
 
-                } else if ($cultivationCycleCalculation->flight > 1) {
+                } else if ($cultivationCycleCalculation['data']['calculation']['harvest_cycle'] > 1) {
 
 
                     $newCycleDate = new CultivationCycleFlight();
@@ -85,13 +93,13 @@ class PalletLabelController extends Controller
 
         // reload data
         //Consume own cultivation api
-        $apiUrlCall = '/api/cultivationCycle/' . $cell->id;
+
+        $apiUrlCall = '/api/cultivationcycle/calculate/' . $cell->id;
         $cultivationCycleReqeust = Request::create($apiUrlCall, 'GET');
         $cultivationCycleContent = Route::dispatch($cultivationCycleReqeust)->getContent();
-        $cultivationCycleCalculation = json_decode($cultivationCycleContent);
+        $cultivationCycleCalculation = json_decode($cultivationCycleContent, TRUE);
 
 
-        //dd($cultivationCycleCalculation);
         //autoincrement unique palletlabel farmer id
         $palletlabelFarmerId = 0;
         $palletlabelFarmer = Palletlabel::where('farmer_id', $currentFarmer->id)->orderby('id', 'desc')->first();
@@ -110,17 +118,16 @@ class PalletLabelController extends Controller
         $palletlabel->made_by = $authUser->first_name;
         $palletlabel->user_id = $authUser->id;
         $palletlabel->farmer_id = $currentFarmer->id;
-        $palletlabel->cultivation_cycle_id = $cultivationCycleCalculation->raw_data->cultivation_id;
         $palletlabel->pallet_type_id = $palletType->id;
         $palletlabel->status_id = 1;
         $palletlabel->article_id = $article->id;
-
-        $palletlabel->harvest_cycle = $cultivationCycleCalculation->flight;
-        $palletlabel->harvest_cycle_day = $cultivationCycleCalculation->flight_day;
-        $palletlabel->cell_number = $cultivationCycleCalculation->cell_number ;
-        $palletlabel->cell_description = $cultivationCycleCalculation->cell_description;
-
-        $palletlabel->save();
+        $palletlabel->cultivation_cycle_id = $cultivationCycleCalculation['data']['raw_data']['cultivation_cycle']['id'];
+        $palletlabel->harvest_cycle = $cultivationCycleCalculation['data']['calculation']['harvest_cycle'];
+        $palletlabel->harvest_cycle_day = $cultivationCycleCalculation['data']['calculation']['harvest_cycle_day'];
+        $palletlabel->cell_number = $cultivationCycleCalculation['data']['raw_data']['cell']['number'];
+        $palletlabel->cell_description = $cultivationCycleCalculation['data']['raw_data']['cell']['description'];
+        $palletlabel->cell_id = $cultivationCycleCalculation['data']['raw_data']['cell']['id'];
+         $palletlabel->save();
 
         //return
         return new PalletLabelResource($palletlabel);
@@ -152,7 +159,7 @@ class PalletLabelController extends Controller
 
 
         //Consume own cultivation api
-        $apiUrlCall = '/api/cultivationCycle/' . $cell->id;
+        $apiUrlCall = '/api/cultivationcycle/' . $cell->id;
         $cultivationCycleReqeust = Request::create($apiUrlCall, 'GET');
         $cultivationCycleContent = Route::dispatch($cultivationCycleReqeust)->getContent();
         $cultivationCycleCalculation = json_decode($cultivationCycleContent);
@@ -194,7 +201,7 @@ class PalletLabelController extends Controller
 
             // reload data
             //Consume own cultivation api
-            $apiUrlCall = '/api/cultivationCycle/' . $cell->id;
+            $apiUrlCall = '/api/cultivationcycle/' . $cell->id;
             $cultivationCycleReqeust = Request::create($apiUrlCall, 'GET');
             $cultivationCycleContent = Route::dispatch($cultivationCycleReqeust)->getContent();
             $cultivationCycleCalculation = json_decode($cultivationCycleContent);

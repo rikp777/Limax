@@ -79,7 +79,7 @@ const actions = {
     },
 
     //create palletLabel
-    async createPalletlabel(context, payload) {
+    async createPalletLabel(context, payload) {
         const { data } = await PalletLabelService.create(payload);
         context.commit(SET_PALLETLABEL, data);
         return data;
