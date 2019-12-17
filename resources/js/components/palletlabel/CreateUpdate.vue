@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card-body" :class="{ 'bg-info text-white': updateMode }">
+    <div class="card-body" :class="{ 'updatemodeStyle': updateMode }">
         <template v-if="false">
             <h3>loading...</h3>
         </template>
@@ -8,10 +8,11 @@
             <template v-if="updateMode">
                 <div class="row">
                     <div class="col">
-                        <h5 class="card-title col">Update Mode</h5>
+                        <h5 class="card-title"><b>Update Mode</b></h5>
                     </div>
-                    <div class="col" v-if="!$route.params.id">
-                        <button class="btn btn-secondary float-right" @click="mode(0)">Cancel</button>
+                    <div class="col" >
+<!--                        <font-awesome-icon icon="list-alt" class="menu-icon" @click="mode(0)">Cancel</font-awesome-icon>-->
+<!--                        <button class="btn btn-secondary float-right" @click="mode(0)">Cancel</button>-->
                     </div>
                 </div>
             </template>
@@ -39,7 +40,7 @@
                         </select>
                         <div class="invalid-feedback">{{ errors.first('article') }}</div>
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col" v-if="form.articleId">
                         <label for="palletType">Pallet Type</label>
                         <select
                             v-model="form.palletTypeId"
@@ -64,7 +65,7 @@
 
 
                 <div class="form-row">
-                    <div class="form-group col">
+                    <div class="form-group col" v-if="form.palletTypeId">
                         <label for="cell">Cell</label>
                         <select
                             v-model="form.cellId"
@@ -77,15 +78,17 @@
                             ref="selectCell"
                             data-live-search="true"
                             data-width="100%"
-
-                            @change="getCultivationCalculationCell(form.cellId)"
+                            @change="this.consolelogfunctionsigh"
                         >
+<!--                            @change="getCultivationCalculationCell(form.cellId)"-->
+
+<!--                        >-->
                             <option disabled value="">Select</option>
                             <option v-for="cell in cells" v-bind:value="cell.id">{{cell.description}}</option>
                         </select>
                         <span class="invalid-feedback">{{ errors.first('cell') }}</span>
                     </div>
-                    <div class="form-group col" v-if="calculation.harvestCycle">
+                    <div class="form-group col" v-if="form.cellId">
                         <label for="flight">Flight</label>
                         <input
                             v-model="form.harvestCycle"
@@ -95,11 +98,10 @@
                             v-validate="'required|numeric'"
                             :class="{ 'is-invalid': errors.has('harvestCycle') }"
                             class="form-control"
-                            disabled
                         >
                         <span class="invalid-feedback">{{ errors.first('flight') }}</span>
                     </div>
-                    <div class="form-group col" v-if="calculation.harvestCycleDay">
+                    <div class="form-group col" v-if="form.harvestCycle">
                         <label for="flightDay">Flight Day</label>
                         <input
                             v-model="form.harvestCycleDay"
@@ -109,11 +111,39 @@
                             v-validate="'required|numeric'"
                             :class="{ 'is-invalid': errors.has('harvestCycleDay') }"
                             class="form-control"
-                            disabled
                         >
                         <span class="invalid-feedback">{{ errors.first('harvestCycleDay') }}</span>
                     </div>
+<!--                    <div class="form-group col" v-if="calculation.harvestCycle">-->
+<!--                        <label for="flight">Flight</label>-->
+<!--                        <input-->
+<!--                            v-model="form.harvestCycle"-->
+<!--                            id="flight"-->
+<!--                            name="flight"-->
+<!--                            type="number"-->
+<!--                            v-validate="'required|numeric'"-->
+<!--                            :class="{ 'is-invalid': errors.has('harvestCycle') }"-->
+<!--                            class="form-control"-->
+<!--                            disabled-->
+<!--                        >-->
+<!--                        <span class="invalid-feedback">{{ errors.first('flight') }}</span>-->
+<!--                    </div>-->
+<!--                    <div class="form-group col" v-if="calculation.harvestCycleDay">-->
+<!--                        <label for="flightDay">Flight Day</label>-->
+<!--                        <input-->
+<!--                            v-model="form.harvestCycleDay"-->
+<!--                            id="flightDay"-->
+<!--                            name="flightDay"-->
+<!--                            type="number"-->
+<!--                            v-validate="'required|numeric'"-->
+<!--                            :class="{ 'is-invalid': errors.has('harvestCycleDay') }"-->
+<!--                            class="form-control"-->
+<!--                            disabled-->
+<!--                        >-->
+<!--                        <span class="invalid-feedback">{{ errors.first('harvestCycleDay') }}</span>-->
+<!--                    </div>-->
                 </div>
+
                 <div class="form-row" v-if="calculation.message">
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>Message!</strong>
@@ -130,7 +160,7 @@
 
 
                 <div class="form-row">
-                    <div class="form-group col">
+                    <div class="form-group col" v-if="form.harvestCycleDay">
                         <label for="cropDate">Crop Date</label>
                         <flat-pickr
                             v-model="form.cropDate"
@@ -142,7 +172,7 @@
                         ></flat-pickr>
                         <span class="invalid-feedback">{{ errors.first('cropDate') }}</span>
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col" v-if="form.harvestCycleDay">
                         <label for="amount">Amount <small>{{form.articleId ? "max: " + articles.find(article => article.id === form.articleId).palletLimit : "max: " + 180}}</small></label>
                         <input
                             v-model="form.articleAmount"
@@ -161,7 +191,7 @@
 
 
                 <div class="form-row">
-                    <div class="form-group col">
+                    <div class="form-group col" v-if="form.articleAmount">
                         <label for="note">Note</label>
                         <input
                             v-model="form.note"
@@ -176,12 +206,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="formCheck">
+                    <div class="form-check" v-if="form.note">
+                        <input type="checkbox" class="form-check-input" id="formCheck" v-model="isChecked">
                         <label class="form-check-label" for="formCheck">Is everything correct?</label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Print</button>
+<!--                <button type="submit" class="btn btn-primary text-white">Print</button>-->
+                <button type="button" class="btn btn-primary text-white" v-if="isChecked" @click="validateBeforeSubmit">Print</button>
+<!--                <router-link type="submit" class="btn btn-primary" :to="{ name: 'palletLabelPdf', params: { id: 1 }}">Print</router-link>-->
             </form>
         </template>
     </div>
@@ -190,6 +222,8 @@
 
 <script>
     import FlatPickr from "vue-flatpickr-component/src/component";
+    import router from "../../router";
+    import palletLabel from "../../router/routes/palletLabel";
 
     export default {
         name: "palletlabel-create",
@@ -207,15 +241,19 @@
             return {
                 form: {
                     id: '',
-                    cropDate: Date.now(),
+                    // cropDate: Date.now(),
+                    cropDate: '',
                     articleAmount: '',
                     articleId: '',
                     palletTypeId: '',
                     cellId: '',
-                    harvestCycle: 0,
-                    harvestCycleDay: 0,
+                    // harvestCycle: 0,
+                    // harvestCycleDay: 0,
+                    harvestCycle: '',
+                    harvestCycleDay: '',
                     note: '',
                 },
+                isChecked: '',
                 serverErrors: '',
                 updateMode: false,
             }
@@ -223,6 +261,9 @@
         computed: {
             palletLabel(){
                 return this.$store.getters.palletLabel;
+            },
+            palletLabels(){
+                return this.$store.getters.palletLabels;
             },
             articles(){
                 return this.$store.getters.articles;
@@ -245,12 +286,17 @@
             }
         },
         mounted(){
+
+            this.getAllPalletLabels();
             this.getAllArticles();
             this.getAllPalletTypes();
             this.getAllCells();
             this.mode(this.updateId);
         },
         methods: {
+            getAllPalletLabels() {
+                this.$store.dispatch("getAllPalletLabels");
+            },
             isLoading(){
                 return false;
             },
@@ -258,6 +304,7 @@
                 this.$store.dispatch("createPalletLabel", this.form)
             },
             updatePalletLabel(){
+                // console.log(this.form);
                 this.$store.dispatch("updatePalletLabel", this.form)
             },
             getPalletLabel(id){
@@ -286,9 +333,31 @@
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         if(this.updateMode){
-                            this.updatePalletLabel();
+
+                            this.$store.dispatch("updatePalletLabel", this.form)
+                                .then(()=>{
+                                    // console.log(this.palletLabel.id);
+                                    this.$router.push({ name: 'palletLabelPdf', params: { id: this.palletLabel.id } })
+                                });
                         }else{
-                            this.createPalletLabel();
+
+                            this.$store.dispatch("createPalletLabel", this.form)
+                                .then(()=>{
+                                    // console.log(this.palletLabel.id);
+                                this.$router.push({ name: 'palletLabelPdf', params: { id: this.palletLabel.id } })
+                            });
+                            //desperate times
+                            // const routerConst = this.$router;
+                            // let idConst = null;
+                            // if(this.palletLabels[0] === undefined){
+                            //     idConst = 1;
+                            // }else{
+                            //     idConst = this.palletLabels[0].id+1
+                            // }
+                            // // console.log(idConst);
+                            // setTimeout(function(){
+                            //     routerConst.push({ name: 'palletLabelPdf', params: { id: idConst } })
+                            // }, 400);
                         }
                     }
                 })
@@ -297,6 +366,9 @@
                 console.log(selectedArticleId);
                 let filtered = this.articles.find(article => article.id === selectedArticleId);
                 this.form.palletTypeId = filtered.palletType.id;
+            },
+            consolelogfunctionsigh() {
+                console.log(this.form.cellId);
             },
             mode(id){
                 if(id >= 1 || this.$route.params.id){
@@ -326,3 +398,15 @@
         }
     }
 </script>
+<style>
+    .disabled.selected.active {
+        background-color: transparent;
+    }
+    .selected.active {
+        background-color: #F2AB58
+    }
+    .updatemodeStyle {
+        background-color: #313c6a;
+        color: white;
+    }
+</style>

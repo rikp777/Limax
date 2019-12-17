@@ -17,36 +17,48 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
     public function departments()
     {
         return $this->belongsToMany(Department::class);
     }
+
     public function farmers()
     {
         return $this->belongsToMany(Farmer::class);
     }
 
 
+
+
     public function is($roleName)
     {
-        foreach ($this->roles()->get() as $role)
-        {
-            if ($role->name == $roleName)
-            {
+        foreach ($this->roles()->get() as $role) {
+            if ($role->name == $roleName) {
                 return true;
             }
         }
         return false;
     }
-    public function isAdmin(){
+
+
+
+
+    public function isAdmin()
+    {
         return $this->is('Admin');
     }
-    public function isModerator(){
+
+    public function isModerator()
+    {
         return $this->is('Moderator');
     }
-    public function isFarmer(){
+
+    public function isFarmer()
+    {
         return $this->is('Farmer');
     }
+
     /**
      * The attributes that are mass assignable.
      *

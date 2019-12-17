@@ -32,11 +32,11 @@ class Farmer extends Model
     }
 
 
-
+//ctrlfFARMERID change farmer id to route
     public static function getCurrentFarmer(){
         return Farmer::find(1);
     }
-
+//ctrlfFARMERID change farmer id to route
     public static function getCurrentFarmerId(){
         return Farmer::find(1)->id;
     }

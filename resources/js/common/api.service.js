@@ -14,7 +14,8 @@ const ApiService  = {
     },
 
     setHeader() {
-        Vue.axios.defaults.headers.common["Authorization"] = `Bearer ${JwtService.getToken()}`
+        Vue.axios.defaults.headers.common["Authorization"] = `Bearer ${JwtService.getToken('user')}`;
+        Vue.axios.defaults.headers.common["farmerId"] = `${JwtService.getToken('farmer')}`;
     },
 
     query(resource, params) {
@@ -27,11 +28,14 @@ const ApiService  = {
     },
 
    get(resource, slug = "") {
+        // console.log('resource = ' + resource);
+        // console.log('slug = ' + slug);
         const request = applyConverters(Vue.axios)
             .get(`${resource}/${slug}`)
             .catch(error => {
                 throw `[Limax] ApiService ${resource} \n ${error.response.data.message}`;
             });
+        // console.log('request = ' + request);
         return request;
     },
 
@@ -99,19 +103,21 @@ export const ArticleService  = {
 const TruckApi = "truck";
 export const TruckService  = {
     create(params){
-        return TruckService.post(TruckApi, { article: params})
+        return ApiService.post(TruckApi, { truck: params})
     },
     update(slug, params) {
-        return TruckService.update(TruckApi, slug, { article: params });
+        return ApiService.update(TruckApi, slug, { truck: params });
     },
     delete(slug) {
-        return TruckService.delete(TruckApi, slug);
+        return ApiService.delete(TruckApi, slug);
     },
     get(slug){
-        return TruckService.get(TruckApi, slug)
+        console.log("get(slug) - TruckApi");
+        return ApiService.get(TruckApi, slug)
     },
     getAll() {
-        return TruckService.get(TruckApi)
+        console.log("getAll(slug) - TruckApi");
+        return ApiService.get(TruckApi)
     }
 };
 
@@ -143,7 +149,6 @@ export const PalletLabelService = {
         return ApiService.post(PalletLabelApi, params)
     },
     update(slug, params) {
-        console.log(params);
         return ApiService.update(PalletLabelApi, slug, params);
     },
     delete(slug) {
@@ -156,6 +161,18 @@ export const PalletLabelService = {
         return ApiService.get(PalletLabelApi)
     }
 };
+
+//PalletLabelStatus
+const PalletLabelStatusApi = "palletlabelStatus";
+export const PalletLabelStatusService = {
+    create(params) {
+        return ApiService.post(PalletLabelStatusApi, { ShippingPalletLabel: params});
+    },
+    update(slug, params) {
+        return ApiService.update(PalletLabelStatusApi, slug, params);
+    }
+};
+
 
 
 //Shippinglabel
@@ -171,6 +188,8 @@ export const ShippingLabelService = {
         return ApiService.delete(ShippingLabelApi, slug);
     },
     get(slug){
+        // console.log('api = ' + ShippingLabelApi);
+        // console.log('slug = ' + slug);
         return ApiService.get(ShippingLabelApi, slug)
     },
     getAll() {

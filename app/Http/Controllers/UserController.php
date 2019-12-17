@@ -54,7 +54,7 @@ class UserController extends Controller
 
     public function update(User $user, Request $request) : UserResource
     {
-        dd($request->all());
+//        dd($request->all());
 
         $request->validate([
             'first_name' => 'required|string|min:2|max:25',

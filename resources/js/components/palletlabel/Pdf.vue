@@ -1,12 +1,8 @@
 <template>
     <div>
         <router-link :to="{ name: 'palletLabelCombine' }"  class="btn btn-light btn-block" style="position: relative; z-index: 3">New</router-link>
-        <template v-if="isLoading">
-            <div class="spinner-grow text-dark" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </template>
-        <template v-else>
+
+        <template>
             <div class="card-body" v-on:click="checkPrint" id="printMe">
                 <div style="
                     background: url('https://www.limax.nl/build/images/color-block.ac4809e9.svg') right bottom fixed;
@@ -34,7 +30,10 @@
                         <!--                    <img class="card-img-top" style="width: 400px; height: auto; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/images/limax-logo@3x.png' alt="Card image cap">-->
                         <img class="card-img-top" style="width: 400px; height: auto; margin-bottom: 10px" src='https://www.limax.nl/images/limax-logo@3x.png' alt="Card image cap">
                     </div>
-
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <!--                STATUS-->
                     <div class="row">
                         <div class="col-sm-6" style="font-size: 16px;">
@@ -54,43 +53,50 @@
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <h6 class="mb-3" style="font-size: 26px;">FROM :</h6>
 
-                                <strong>{{ farmer.name }}</strong>
-                                <div>{{ farmer.street }}, {{ farmer.houseNumber }}</div>
-                                <div>{{ farmer.place }}, {{ farmer.zipCode }}</div>
-                                <div>Email: {{ farmer.email }}</div>
-                                <div>Phone: {{ farmer.phone }}</div>
+<!--                                <strong>{{ farmer.name }}</strong>-->
+<!--                                <div>{{ farmer.street }}, {{ farmer.houseNumber }}</div>-->
+<!--                                <div>{{ farmer.place }}, {{ farmer.zipCode }}</div>-->
+<!--                                <div>Email: {{ farmer.email }}</div>-->
+<!--                                <div>Phone: {{ farmer.phone }}</div>-->
 
 
-                                <strong>Certificates</strong>
-                                <div v-for="certificate in farmer.certificates">
-                                    {{certificate.certificate.name}}: {{certificate.code}}
-                                </div>
+<!--                                <strong>Certificates</strong>-->
+<!--                                <div v-for="certificate in farmer.certificates">-->
+<!--                                    {{certificate.certificate.name}}: {{certificate.code}}-->
+<!--                                </div>-->
                             </div>
                         </template>
                         <template>
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <h6 class="mb-3" style="font-size: 26px;">TO :</h6>
-
-
-                                <strong>Limax Horst</strong>
-                                <div>Venrayseweg, 126b</div>
-                                <div>Horst, 5961 AJ</div>
-                                <div>Email: info@limax.nl</div>
-                                <div>Phone: 773999660</div>
+<!--                                <strong>Limax Horst</strong>-->
+<!--                                <div>Venrayseweg, 126b</div>-->
+<!--                                <div>Horst, 5961 AJ</div>-->
+<!--                                <div>Email: info@limax.nl</div>-->
+<!--                                <div>Phone: 773999660</div>-->
                             </div>
                         </template>
                     </div>
                     <hr>
                     <template>
-
-
                         <div class="row mt-4">
                             <div class="col-sm-6">
                                 <h6 class="mb-3" style="font-size: 26px;">PRODUCT : </h6>
                             </div>
 
                             <div class="col-sm-6">
-                                <h6 class="mb-3" style="font-size: 26px;">LABEL ID : {{ palletLabel.id }}</h6>
+                                <h6 class="mb-3" style="font-size: 26px;">LABEL ID : {{ palletLabel.palletLabelFarmerId }}</h6>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6" style="font-size: 22px;">
+                                <strong>Article</strong>
+                                <div>{{ getArticlesById(palletLabel.articleId).name }}</div>
+                            </div>
+                            <div class="col-sm-6" style="font-size: 22px;">
+                                <strong>Amount</strong>
+                                <div>{{ palletLabel.articleAmount }}</div>
                             </div>
                         </div>
 
@@ -100,32 +106,11 @@
                                 <strong>Crop Date</strong>
                                 <div>{{ palletLabel.cropDate }}</div>
                             </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-sm-6" style="font-size: 22px;">
-                                <strong>Amount</strong>
-                                <div>{{ palletLabel.articleAmount }}</div>
-                            </div>
-                            <div class="col-sm-6" style="font-size: 22px;">
-                                <strong>Article</strong>
-                                <div>{{ article.name }}</div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-sm-6" style="font-size: 22px;">
-                                <strong>Origin</strong>
-                                <div>{{ article.origin }}</div>
-                            </div>
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <strong>Weight</strong>
-                                <div>{{ article.weight }} GR</div>
+                                <div>{{ getArticlesById(palletLabel.articleId).weight }} GR</div>
                             </div>
                         </div>
-
 
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 22px;">
@@ -138,8 +123,11 @@
                             </div>
                         </div>
 
-
                         <div class="row">
+                            <div class="col-sm-6" style="font-size: 22px;">
+                                <strong>Origin</strong>
+                                <div>{{ getArticlesById(palletLabel.articleId).origin }}</div>
+                            </div>
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <strong>Note</strong>
                                 <div>{{ palletLabel.note }}</div>
@@ -147,7 +135,7 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col" >{{palletLabel.id}}
+                            <div class="barcodee" style="font-family: 'Libre Barcode 39', cursive;">{{palletLabel.pallet_label_farmer_id}}
                             </div>
                         </div>
                         <div class="row">
@@ -168,11 +156,12 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
+    import palletLabel from "../../router/routes/palletLabel";
     export default {
         name: 'palletLabel-pdf',
         computed: {
             article(){
-                return this.$store.getters.article;
+                return this.$store.getters.articles;
             },
             palletLabel(){
                 return this.$store.getters.palletLabel;
@@ -181,32 +170,51 @@
                 return this.$store.getters.farmer;
             },
             isLoading(){
-                return this.$store.getters.farmerIsLoading
+                return this.$store.getters.farmerIsLoading;
             }
         },
         methods: {
-            getArticle(id){
+            getArticlesById(id) {
+                return this.$store.getters.articleById(id);
+            },
+            getArticle(id) {
                 this.$store.dispatch("getArticle", id);
             },
             getPalletlabel(id){
-                //console.log(id);
+                // console.log(id);
                 this.$store.dispatch("getPalletLabel", id)
-                    .then(() => {
-                        this.getArticle(this.palletLabel.articleId);
-                        this.getFarmer(this.palletLabel.farmerId);
-                        this.$htmlToPaper('printMe');
-                    })
             },
             getFarmer(id){
                 this.$store.dispatch("getFarmer", id);
+            },
+            getAllArticles() {
+                this.$store.dispatch("getAllArticles");
             },
             checkPrint() {
                 this.$htmlToPaper('printMe');
             },
         },
         mounted() {
-            this.getPalletlabel(this.$route.params.id)
+
+            Promise.all([
+               this.getPalletlabel(this.$route.params.id),
+               this.getAllArticles(),
+               // this.getArticle(1)
+            ]).finally(() => {
+                console.log(" nu ben ik klaar");
+                // this.checkPrint();
+            })
         },
 
     }
 </script>
+<style scoped>
+
+    .barcodee {
+    @import url('https://fonts.googleapis.com/css?family=Libre+Barcode+39&display=swap');
+    font-family: 'Libre Barcode 39', cursive;
+        font-size: 100%;
+    }
+
+</style>
+

@@ -1,12 +1,15 @@
 import ApiService from "../common/api.service";
 import auth from "../router/routes/auth";
+import jwtService from "../common/jwt.service";
 
-
+var farmerIdH = null;
 const AccessControl = {
     router(store, router) {
         router.beforeEach((to, from, next) => {
             const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
             const requiresRoles = to.meta.requiresRoles;
+            // const farmerIdH = null;
+            const farmerId =   jwtService.getToken('farmer');
 
             let authUser = [];
             if (store.getters.authUser.id !== undefined) {
@@ -24,7 +27,7 @@ const AccessControl = {
             } else if (requiresRoles && authUser) {
                 if (this.hasRight(requiresRoles, authUser)) {
                     console.log('authorized');
-                    next();
+                    next()
                 } else {
                     console.log('unauthorized');
                     next('/')

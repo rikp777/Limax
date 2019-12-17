@@ -3,7 +3,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th class="text-center">#</th>
+                <th class="text-left">#</th>
                 <th>Name</th>
                 <th class="text-right">Actions</th>
             </tr>
@@ -19,8 +19,8 @@
                     <td> {{ palletlabel.id}}</td>
                     <td> {{ getArticlesById(palletlabel.articleId).name }}</td>
                     <td class="td-actions text-right">
-                        <router-link class="btn btn-primary" :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>
-                        <router-link class="btn btn-primary" :to="{ name: 'palletLabelPdf', params: { id: palletlabel.id }}">PDF</router-link>
+                        <router-link class="btn btn-primary text-white" :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>
+                        <router-link class="btn btn-primary text-white" :to="{ name: 'palletLabelPdf', params: { id: palletlabel.id }}">PDF</router-link>
                     </td>
                 </tr>
             </template>
@@ -34,6 +34,7 @@
     import { mapGetters } from 'vuex';
     export default {
         name: "Home",
+        props: ['farmerId'],
         computed: {
             palletLabels(){
                 return this.$store.getters.palletLabels
@@ -47,6 +48,7 @@
 
         },
         mounted() {
+            console.log('test ' + this.farmerId);
             this.getAllPalletLabels();
             this.getAllArticles();
         },

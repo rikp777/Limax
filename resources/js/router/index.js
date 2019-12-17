@@ -10,11 +10,13 @@ import shippingLabel from '../router/routes/shippingLabel'
 import article from '../router/routes/article'
 import priceList from "./routes/pricelist";
 import profile from "./routes/profile";
+import truck from "../router/routes/truck";
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: [
+        ...truck,
         ...article,
         ...auth,
         ...user,

@@ -42,7 +42,6 @@ export const getters = {
 };
 // Actions
 export const actions = {
-
     //get all trucks
     async getAllTrucks(context){
         context.commit(FETCH_START);

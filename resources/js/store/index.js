@@ -7,6 +7,8 @@ import Cookies from 'js-cookie'
 import auth from './modules/auth.module.js'
 import user from '../store/modules/user.js'
 import palletLabel from './modules/palletLabel.module.js'
+import shippingLabel from './modules/shippingLabel.module'
+import truck from './modules/truck.module'
 import article from './modules/article.module'
 import cell from './modules/cell.module'
 import cultivationCycle from '../store/modules/cultivationCycle'
@@ -30,6 +32,8 @@ export default new Vuex.Store({
         auth,
         user,
         palletLabel,
+        shippingLabel,
+        truck,
         palletType,
         cultivationCycle,
         article,

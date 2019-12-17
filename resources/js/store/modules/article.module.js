@@ -44,7 +44,6 @@ export const getters = {
 };
 // Actions
 export const actions = {
-
     //get all articles
     async getAllArticles(context){
         context.commit(FETCH_START);

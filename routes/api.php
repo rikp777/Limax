@@ -21,6 +21,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('/user', 'userController')
     ->only(['index', 'show', 'destroy', 'update', 'store']);
 
+    Route::apiResource('/truck', 'truckController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
     Route::apiResource('/article', 'ArticleController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
@@ -33,10 +36,19 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('/farmer', 'FarmerController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
+//    Route::post('/palletlabel/pdf/{id}', 'PalletLabelController@shippingLabelPalletLabels');
     Route::apiResource('/palletlabel', 'PalletLabelController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
+    Route::apiResource('/palletlabelStatus', 'PalletLabelStatusController')
+        ->only(['update', 'store']);
+
+    Route::apiResource('/shippinglabel', 'ShippingLabelController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
     Route::get('/cultivationcycle/calculate/{cell}', 'CultivationCycleController@calculate');
+
+
 
     Route::apiResource('/cultivationcycle', 'CultivationCycleController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);

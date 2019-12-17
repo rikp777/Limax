@@ -24,6 +24,10 @@ class PalletLabel extends Model
     public function cultivationCycle(){
         return $this->belongsTo(CultivationCycle::class);
     }
+    public function shippingLabels()
+    {
+        return $this->belongsToMany(ShippingLabel::class);
+    }
 
     protected $hidden = [
         'deleted_at'

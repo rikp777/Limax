@@ -35,7 +35,7 @@
                                 <h3 class="ml-4"><strong>{{extra.name}}</strong></h3>
                                 <div class="ml-4 card-columns">
                                     <div class="card border border-dark" v-for="data in extra.data">
-                                        <img v-if="data.image" :src="data.image" class="card-img-top" >
+                                        <img v-if="data.image" :src="data.image" class="card-img-top">
                                         <div class="card-body">
                                             <h4 class="card-title">{{data.article_description}}</h4>
                                             <ul class="list-unstyled mt-3 mb-4">

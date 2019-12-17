@@ -6,13 +6,13 @@
                     <div class="nav-link">
                         <div class="profile-image">
                             <img
-                                src="https://scontent-amt2-1.cdninstagram.com/vp/8f0ae9ca18b7cff053b005cd7340428d/5DE4E6BD/t51.2885-15/e35/s320x320/38097047_703325176677934_6077619263483412480_n.jpg?_nc_ht=scontent-amt2-1.cdninstagram.com"
+                                src="https://media.licdn.com/dms/image/C5603AQFJgyCX9voOdg/profile-displayphoto-shrink_200_200/0?e=1580947200&v=beta&t=4Tx1GPnqAUyPVvTaXEaX1s5f4xuyONQBS-R02ADiDwg"
                                 alt="image"/> <span class="online-status online"></span>
                         </div>
                         <div class="profile-name">
                             <p class="name">{{authUser.lastName + ','}} {{ authUser.firstName}}</p>
                             <p v-if="authUser.departments" class="designation" v-for="department in authUser.departments" v-text="department.name "></p>
-                            <div v-if="authUser.roles" class="badge badge-outline-dark x-auto mt-3" v-for="role in authUser.roles" v-text="role.name "></div>
+                            <div v-if="authUser.roles" class="badge badge-outline-dark x-auto mt-3" v-for="role in authUser.roles" v-text="role.name"></div>
                         </div>
                     </div>
                 </li>
@@ -21,7 +21,7 @@
                         <font-awesome-icon icon="home" class="menu-icon"></font-awesome-icon>
                         <span class="menu-title">Dashboard</span></router-link>
                 </li>
-                <li class="nav-item" v-for="(farmer, index) in authUser.farmers">
+                <li class="nav-item" v-for="(farmer, index) in authUser.farmers" @click="changeFarmerCookie(farmer.id)">
                     <span class="nav-link" v-b-toggle="'farmer-'+index">
                         <font-awesome-icon icon="tractor" class="menu-icon"></font-awesome-icon>
                         <span class="menu-title"><span v-if="authUser.farmers.length > 1" class="mr-">{{farmer.id}}.</span> {{farmer.name}}</span>
@@ -39,13 +39,32 @@
                             <b-collapse :id="'palletLabel-' + index">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item">
-                                        <router-link class="nav-link" :to="{ name: 'palletLabelCombine' }">
+                                        <router-link class="nav-link" :to="{ name: 'palletLabelCombine', params: { farmerId: index } }" replace>
                                             <font-awesome-icon icon="plus" class="menu-icon"></font-awesome-icon>
                                             <span class="menu-title">Create</span>
                                         </router-link>
                                     </li>
                                 </ul>
                             </b-collapse>
+
+                            <li class="nav-item">
+                                 <span class="nav-link" v-b-toggle="'shippingLabel-' + index">
+                                    <font-awesome-icon icon="list-alt" class="menu-icon"></font-awesome-icon>
+                                    <span class="menu-title">ShippingLabel</span>
+                                    <font-awesome-icon icon="angle-down" class="menu-arrow"></font-awesome-icon>
+                                </span>
+                            </li>
+                            <b-collapse :id="'shippingLabel-' + index">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item">
+                                        <router-link class="nav-link" :to="{ name: 'shippingLabelCombine' }">
+                                            <font-awesome-icon icon="plus" class="menu-icon"></font-awesome-icon>
+                                            <span class="menu-title">Create</span>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                            </b-collapse>
+
                             <li class="nav-item">
                                 <router-link class="nav-link" to="/alerts/">
                                     <font-awesome-icon icon="cogs" class="menu-icon"></font-awesome-icon>
@@ -80,11 +99,31 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import jwtService from "../../common/jwt.service";
+
 
     export default {
         name: 'HeaderApp',
+        data() {
+          return {
+              idFarmer: null,
+          }
+        },
         computed: {
             ...mapGetters(["authUser", "isAuthenticated"])
+        },
+        methods: {
+            changeFarmerCookie(id) {
+                console.log(id);
+                if(this.idFarmer !== id){
+                    console.log('saveToken');
+                    jwtService.destroyToken('farmer');
+                    jwtService.saveToken('farmer', id);
+                    this.idFarmer = id;
+                    //QUICK FIX FOR FARMER ID'S!!!!!!!!!!!!!!!!!!!!!! (SWAPPED NAAR HOME ALS JE VAN FARMER VERANDERD)
+                    this.$router.push( { name:  'home'} )
+                }
+            },
         }
     }
 </script>

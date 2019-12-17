@@ -17,7 +17,7 @@ class CreateShippingLabelsTable extends Migration
             $table->increments('id');
             $table->dateTime('transport_date');
             $table->dateTime("transport_delivery_date");
-            $table->string("transport_driver");
+            $table->integer("transport_driver");
 
             $table->timestamps();
             $table->softDeletes();

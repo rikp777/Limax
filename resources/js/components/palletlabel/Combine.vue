@@ -10,6 +10,7 @@
             <div class="col">
                 <pallet-label-list
                         v-if="!print.print"
+                        :farmerId=this.$route.params.farmerId
                         @update="update = $event"
                         @print="print = $event"
                 ></pallet-label-list>
@@ -35,5 +36,8 @@
                 print: []
             }
         },
+        mounted() {
+            console.log(this.$route.params);
+        }
     }
 </script>

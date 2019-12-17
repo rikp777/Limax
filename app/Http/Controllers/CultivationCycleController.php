@@ -88,7 +88,7 @@ class CultivationCycleController extends Controller
                     $message = [
                         "You will create a new Flight with this pallet-label!, Flight " . (count($cultivation->CultivationCycleFlights) + 1),
                         "Fill-date: " . $fill,
-                        "Fightdates" . $flightsString,
+                        "Flightdates: " . $flightsString,
                         "This cycle is " . ($daysOver - $newFlight) . " days over its flight max"
                     ];
                     if ($daysOver > $resetFlight) {
@@ -99,7 +99,7 @@ class CultivationCycleController extends Controller
                             "You will create a new cultivation cycle with this pallet-label!",
                             "Current cycle:",
                             "Fill-date: " . $fill,
-                            "Fightdates: " . $flightsString,
+                            "Flightdates: " . $flightsString,
                             "This cycle is " . ($daysOver - $resetFlight) . " days over its reset max"
                         ];
                     }

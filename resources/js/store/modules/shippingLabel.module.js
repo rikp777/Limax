@@ -1,13 +1,13 @@
-import { ShippingLabelService } from "../../common/api.service";
+import {PalletLabelService, ShippingLabelService} from "../../common/api.service";
+import shippingLabel from "../../router/routes/shippingLabel";
 
 // action names
 const FETCH_START = "setShippingLabelLoading";
-const FETCH_END =  "resetShippingLabelLoading";
+const FETCH_END = "resetShippingLabelLoading";
 
 // mutation names
 const SET_SHIPPINGLABEL = "setShippingLabel";
 const SET_SHIPPINGLABELS = "setShippingLabels";
-
 
 
 // Initial State
@@ -21,9 +21,11 @@ const state = {
 // Getters
 const getters = {
     shippingLabels(state) {
+        // console.log(state);
         return state.shippingLabels;
     },
     shippingLabel(state) {
+        // console.log(state.shippingLabel);
         return state.shippingLabel
     },
     shippingLabelsCount(state) {
@@ -35,7 +37,7 @@ const getters = {
 
     shippingLabelById: (state) => (id) => {
         let shippingLabel = state.shippingLabels.find(shippingLabel => shippingLabel.id === id);
-        if(shippingLabel) {
+        if (shippingLabel) {
             return shippingLabel;
         }
         this.getShippingLabel(id);
@@ -47,14 +49,16 @@ const getters = {
 
 // Actions
 const actions = {
-
     //get all shippinglabels
-    async getAllShippingLabels(context){
+    async getAllShippingLabels(context) {
         context.commit(FETCH_START);
         return ShippingLabelService.getAll()
-            .then(({ data }) => {
-                context.commit(SET_SHIPPINGLABELS, data.data);
+            .then(({data}) => {
+                // console.log(data);
+                // console.log(shippingLabels);
+                context.commit(SET_SHIPPINGLABELS, data);
                 context.commit(FETCH_END);
+                // console.log(SET_SHIPPINGLABELS);
             })
             .catch(error => {
                 throw new Error(error)
@@ -62,15 +66,13 @@ const actions = {
     },
 
     //get single shippinglabel
-    async getShippingLabel(context, shippingLabelSlug){
-        if(state.shippingLabel.id === shippingLabelSlug){
+    async getShippingLabel(context, shippingLabelSlug) {
+        if (state.shippingLabel.id === shippingLabelSlug) {
             return;
         }
-
         context.commit(FETCH_START);
         return ShippingLabelService.get(shippingLabelSlug)
             .then(({ data }) => {
-                //console.log(data);
                 context.commit(SET_SHIPPINGLABEL, data.data);
                 context.commit(FETCH_END);
             })
@@ -78,6 +80,25 @@ const actions = {
                 throw error
             });
     },
+
+//create palletLabel
+    async createShippingLabel(context, payload) {
+        // console.log(payload);
+        // const data = payload;
+        const {data} = await ShippingLabelService.create(payload);
+        context.commit(SET_SHIPPINGLABEL, data);
+        // console.log(data);
+        return data;
+    },
+
+    //update palletLabel
+    async updateShippingLabel(context, payload) {
+        // console.log(payload);
+        const {data} = await ShippingLabelService.update(payload.id, payload);
+        context.commit(SET_SHIPPINGLABEL, data);
+        return data;
+    },
+
 };
 
 // Mutations
@@ -88,13 +109,14 @@ export const mutations = {
     [FETCH_END](state) {
         state.isLoading = false;
     },
-    [SET_SHIPPINGLABELS](state, shippingLabels){
-        //console.log(palletLabels);
+    [SET_SHIPPINGLABELS](state, shippingLabels) {
+        // console.log(shippingLabels);
         state.shippingLabels = shippingLabels;
+        // console.log(state.shippingLabels);
         state.shippingLabelsCount = shippingLabels.length;
     },
-    [SET_SHIPPINGLABEL](state, shippinglabel){
-        state.shippingLabel = shippinglabel;
+    [SET_SHIPPINGLABEL](state, shippingLabel) {
+        state.shippingLabel = shippingLabel;
     }
 };
 
