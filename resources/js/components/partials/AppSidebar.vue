@@ -66,7 +66,7 @@
                             </b-collapse>
 
                             <li class="nav-item">
-                                <router-link class="nav-link" to="/alerts/">
+                                <router-link class="nav-link" :to="{ name: 'settingsRead', params: {'farmerId' : farmer.id } }">
                                     <font-awesome-icon icon="cogs" class="menu-icon"></font-awesome-icon>
                                     <span class="menu-title">Settings</span>
                                 </router-link>

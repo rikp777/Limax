@@ -22,7 +22,7 @@ class CreatePalletLabelsTable extends Migration
             $table->string('made_by');
 
 
-            $table->integer('cell_number');
+            $table->integer('cell_number')->nullable();
             $table->string('cell_description')->nullable();
             $table->integer('harvest_cycle');
             $table->integer('harvest_cycle_day');

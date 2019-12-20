@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TruckResource;
 use App\Truck;
+use App\User;
 use Illuminate\Http\Request;
 
 class TruckController extends Controller
@@ -37,6 +38,7 @@ class TruckController extends Controller
      */
     public function show(Truck $truck) : TruckResource
     {
+
         return new TruckResource($truck);
     }
 

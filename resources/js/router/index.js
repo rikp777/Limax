@@ -10,6 +10,7 @@ import shippingLabel from '../router/routes/shippingLabel'
 import article from '../router/routes/article'
 import priceList from "./routes/pricelist";
 import profile from "./routes/profile";
+import settings from "./routes/settings";
 import truck from "../router/routes/truck";
 
 Vue.use(VueRouter);
@@ -23,7 +24,8 @@ const router = new VueRouter({
         ...palletLabel,
         ...shippingLabel,
         ...priceList,
-        ...profile
+        ...profile,
+        ...settings
     ],
     mode: 'history'
 });

@@ -1,4 +1,4 @@
-import { CellService } from "../../common/api.service";
+import {CellService, PalletLabelService} from "../../common/api.service";
 
 // action names
 const FETCH_START = "setCellLoading";
@@ -89,7 +89,27 @@ const actions = {
             .catch(error => {
                 throw error
             });
-    }
+    },
+
+    //create cell
+    createCell(context) {
+        return CellService.create()
+            .then(({data}) => {
+                // console.log(data.data);
+                context.commit(SET_CELL, data.data);
+            }).catch( (error) => {
+                throw error
+            })
+    },
+    updateCell(context, payload) {
+        return CellService.update(payload.id, payload)
+            .then(({data}) => {
+                console.log(data);
+                context.commit(SET_CELL, data);
+            }).catch( (error) => {
+                throw error
+            })
+    },
 };
 
 // Mutations

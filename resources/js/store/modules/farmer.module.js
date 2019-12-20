@@ -57,7 +57,7 @@ export const actions = {
     },
 
     //get single article
-    async getFarmer(context, farmerSlug){
+    getFarmer(context, farmerSlug){
         if(state.farmer.id === farmerSlug){
             return;
         }
@@ -65,6 +65,7 @@ export const actions = {
         context.commit(FETCH_START);
         return FarmerService.get(farmerSlug)
             .then(({ data }) => {
+                console.log(data);
                 context.commit(SET_FARMER, data.data);
                 context.commit(FETCH_END);
             })

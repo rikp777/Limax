@@ -15,8 +15,8 @@ class CreateCellsTable extends Migration
     {
         Schema::create('cells', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer("number");
-            $table->string("description");
+            $table->integer("number")->nullable();
+            $table->string("description")->nullable();
             $table->timestamps();
 
             // relation to farmers table

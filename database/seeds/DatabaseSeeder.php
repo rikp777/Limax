@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CultivationCycleFlightTableSeeder::class);
 
         $this->call(PalletlabelTableSeeder::class);
+        $this->call(TruckTableSeeder::class);
 
 
         User::findOrFail(1)->farmers()->sync( [ 1, 2 ] );

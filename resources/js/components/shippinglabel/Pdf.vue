@@ -72,30 +72,26 @@
                         <template>
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <h6 class="mb-3" style="font-size: 26px;">FROM :</h6>
-                                <!--                                {{authUser.farmers}}-->
-                                <!--                                <div v-for="(farmer, index) in authUser.farmers">-->
-                                <!--                                    <strong>{{ farmer.name }}</strong>-->
-                                <!--                                    <div>{{ farmer.street }}, {{ farmer.houseNumber }}</div>-->
-                                <!--                                    <div>{{ farmer.place }}, {{ farmer.zipCode }}</div>-->
-                                <!--                                    <div>Email: {{ farmer.email }}</div>-->
-                                <!--                                    <div>Phone: {{ farmer.phone }}</div>-->
+                                <div>
+                                    <strong>{{ farmer.name }}</strong>
+                                    <div>{{ farmer.street }}, {{ farmer.houseNumber }}</div>
+                                    <div>{{ farmer.place }}, {{ farmer.zipCode }}</div>
+                                    <div>Email: {{ farmer.email }}</div>
+                                    <div>Phone: {{ farmer.phone }}</div>
+                                    <br>
 
-
-                                <!--                                    <strong>Certificates</strong>-->
-                                <!--                                    <div v-for="certificate in farmer.certificates">-->
-                                <!--                                        {{certificate.certificate.name}}: {{certificate.code}}-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
+                                    <strong>Certificates</strong>
+                                    <div v-for="certificate in farmer.certificates">
+                                        {{certificate.certificate.name}}: {{certificate.code}}
+                                    </div>
+                                </div>
                             </div>
                         </template>
                         <template>
                             <div class="col-sm-6" style="font-size: 22px;">
                                 <h6 class="mb-3" style="font-size: 26px;">Truck Driver :</h6>
-                                <!--                                <strong>Limax Horst</strong>-->
-                                <!--                                <div>Venrayseweg, 126b</div>-->
-                                <!--                                <div>Horst, 5961 AJ</div>-->
-                                <!--                                <div>Email: info@limax.nl</div>-->
-                                <!--                                <div>Phone: 773999660</div>-->
+                                    <strong>{{truckDriver.trucker.firstName + " " + truckDriver.trucker.lastName}}</strong>
+                                    <div>License: {{truckDriver.licensePlate}}</div>
                             </div>
                         </template>
                     </div>
@@ -198,6 +194,7 @@
     import {mapGetters, mapActions} from 'vuex';
     import palletLabel from "../../router/routes/palletLabel";
     import $router from "vue-router/dist/vue-router.esm.browser";
+    import {getToken} from '../../common/jwt.service';
 
     export default {
         name: 'shippingLabel-pdf',
@@ -218,11 +215,20 @@
             farmer() {
                 return this.$store.getters.farmer;
             },
+            truckDriver() {
+                return this.$store.getters.truck;
+            },
             isLoading() {
                 return this.$store.getters.farmerIsLoading;
             }
         },
         methods: {
+            getFarmer(id) {
+                this.$store.dispatch("getFarmer", id);
+            },
+            getTruck(id) {
+                this.$store.dispatch("getTruck", id);
+            },
             getArticlesById(id) {
                 return this.$store.getters.articleById(id);
             },
@@ -232,6 +238,9 @@
             getShippingLabelPalletLabels(id) {
                 // console.log('getShippingLabelPalletLabels id = ' + id);
                 this.$store.dispatch("getShippingLabel", id)
+            },
+            getShippingLabel(id){
+              // this.$store.dispatch("")
             },
             getFarmer(id) {
                 this.$store.dispatch("getFarmer", id);
@@ -244,6 +253,8 @@
             },
         },
         mounted() {
+            this.getFarmer(getToken('farmer'));
+            this.getTruck(2);
             Promise.all([
                 // console.log('hoi' + this.$route.params.id),
                 // this.getFarmer(),

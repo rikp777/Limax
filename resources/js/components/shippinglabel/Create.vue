@@ -20,9 +20,9 @@
                         data-width="100%"
                     >
                         <!--                                @change="selectTrucker(form.truckerId)"-->
-                        <option v-for="trucker in trucks" v-bind:value="trucker.id">{{trucker.id}}</option>
+                        <option v-for="truckDriver in trucks" v-bind:value="truckDriver.id">{{truckDriver.trucker.firstName + " " + truckDriver.trucker.lastName}}</option>
                     </select>
-                    <span class="invalid-feedback">{{ errors.first('trucker') }}</span>
+                    <span class="invalid-feedback">{{ errors.first('truckDriver') }}</span>
                 </div>
                 <div class="col" v-if="form.truckerId">
                     <label for="license" class="d-block">License</label>
@@ -153,6 +153,9 @@
                 // console.log('sadfasdfasd' + this.$store.getters.shippingLabels);
                 return this.$store.getters.shippingLabels
             },
+            shippingLabel(){
+                return this.$store.getters.shippingLabel
+            },
             articles() {
                 return this.$store.getters.articles
             },
@@ -213,17 +216,29 @@
                     // console.log(result);
                     if (result) {
                         if (this.updateMode) {
-                            this.updateShippingLabel();
+                            // this.updateShippingLabel();
+                            this.$store.dispatch("updateShippingLabel", this.form)
+                                .then(()=>{
+                                    // console.log(this.palletLabel.id);
+                                    this.$router.push({ name: 'shippingLabelPdf', params: { id: this.shippingLabel.id } })
+                                });
                         } else {
-                            this.createShippingLabel();
+                            // this.createShippingLabel();
+                            this.$store.dispatch("createShippingLabel", this.form)
+                                .then(()=>{
+                                    this.$router.push({ name: 'shippingLabelPdf', params: { id: this.shippingLabel.id } })
+                                });
                             this.updatePalletLabelStatus();
-                            const routerConst = this.$router;
-                            const idConst = this.shippingLabelID.data[0].shippinglabelId.id + 1;
-                            // console.log(idConst);
-                            setTimeout(function () {
-                                // tom.push({ path: `shippingLabel/pdf/${shippingLabelidTest}` });
-                                routerConst.push({name: 'shippingLabelPdf', params: {id: idConst}})
-                            }, 400);
+
+
+
+                            // const routerConst = this.$router;
+                            // const idConst = this.shippingLabelID.data[0].shippinglabelId.id + 1;
+                            // // console.log(idConst);
+                            // setTimeout(function () {
+                            //     // tom.push({ path: `shippingLabel/pdf/${shippingLabelidTest}` });
+                            //     routerConst.push({name: 'shippingLabelPdf', params: {id: idConst}})
+                            // }, 400);
                         }
                     }
                 })

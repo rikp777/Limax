@@ -14,8 +14,8 @@ class ShippingLabelResource extends JsonResource
      */
     public function toArray($request)
     {
-//        dd($request);
-//dd($this);
+//        'certificates' => $this->certificateFarmerCode()->with('certificate')->get(),
+//        dd(parent::toArray($request));
         $totarray = [];
         $totarray["shippinglabelID"] = parent::toArray($request);
 

@@ -27,6 +27,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Farmer::class);
     }
+    public function truck()
+    {
+        return $this->belongsTo(Truck::class);
+    }
 
 
 

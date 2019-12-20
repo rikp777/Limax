@@ -205,6 +205,7 @@ export const CellService = {
         return ApiService.post(CellApi, { cell: params})
     },
     update(slug, params) {
+        // console.log(params);
         return ApiService.update(CellApi, slug, { cell: params });
     },
     delete(slug) {

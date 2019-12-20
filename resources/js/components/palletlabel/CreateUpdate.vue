@@ -343,7 +343,6 @@
 
                             this.$store.dispatch("createPalletLabel", this.form)
                                 .then(()=>{
-                                    // console.log(this.palletLabel.id);
                                 this.$router.push({ name: 'palletLabelPdf', params: { id: this.palletLabel.id } })
                             });
                             //desperate times
