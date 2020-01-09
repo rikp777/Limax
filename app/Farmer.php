@@ -9,6 +9,10 @@ class Farmer extends Model
 {
     use SoftDeletes;
 
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class);
+    }
 
     public function users()
     {
@@ -18,10 +22,10 @@ class Farmer extends Model
     {
         return $this->hasMany(Cell::class);
     }
-    public function cultivationCycles()
-    {
-        return $this->hasMany(CultivationCycle::class);
-    }
+//    public function cultivationCycles()
+//    {
+//        return $this->hasMany(CultivationCycle::class);
+//    }
     public function palletlabels()
     {
         return $this->hasMany(PalletLabel::class);

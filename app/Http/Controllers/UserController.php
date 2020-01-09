@@ -14,12 +14,13 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(User::class);
+        $this->authorizeResource(User::class, 'App\User');
+
     }
 
     public function index()
     {
-        return UserResource::collection(User::paginate(15));
+        return UserResource::collection(User::paginate(10));
     }
 
 
@@ -59,17 +60,20 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required|string|min:2|max:25',
             'last_name' => 'required|string|min:2|max:35',
-            'email' => 'required|email|max:255|unique:user,email,' . $user->id,
-            'password' => 'sometimes|string|min:6',
+            'email' => 'required|email|max:255' . $user->id,
         ]);
-
-        $request->request->add(['password' => Hash::make($request->password)]);
+//        $request->request->add(['password' => Hash::make($request->password)]);
 
 
         $user->update($request->all());
 
-        $user->roles()->sync($request->roles);
-        $user->departments()->sync($request->departments);
+        $user->roles()->sync($request->roles['id']);
+
+        $idsDepartments = array_column($request->departments, 'id');
+        $user->departments()->sync($idsDepartments);
+
+        $idsFarmers = array_column($request->farmers, 'id');
+        $user->farmers()->sync($idsFarmers);
 
         return new userResource($user);
     }

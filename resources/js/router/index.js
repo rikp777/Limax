@@ -11,6 +11,7 @@ import article from '../router/routes/article'
 import priceList from "./routes/pricelist";
 import profile from "./routes/profile";
 import settings from "./routes/settings";
+import report from "./routes/report";
 import truck from "../router/routes/truck";
 
 Vue.use(VueRouter);
@@ -25,7 +26,8 @@ const router = new VueRouter({
         ...shippingLabel,
         ...priceList,
         ...profile,
-        ...settings
+        ...settings,
+        ...report
     ],
     mode: 'history'
 });

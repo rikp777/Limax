@@ -21,9 +21,9 @@ class PalletLabel extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function cultivationCycle(){
-        return $this->belongsTo(CultivationCycle::class);
-    }
+//    public function cultivationCycle(){
+//        return $this->belongsTo(CultivationCycle::class);
+//    }
     public function shippingLabels()
     {
         return $this->belongsToMany(ShippingLabel::class);

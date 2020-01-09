@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    public function farmers()
+    {
+        return $this->belongsToMany(Farmer::class);
+    }
+
     public function palletType()
     {
         return $this->belongsTo(PalletType::class);

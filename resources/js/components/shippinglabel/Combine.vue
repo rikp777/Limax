@@ -12,11 +12,11 @@
 <!--                ></shipping-label-update>-->
             </div>
             <div class="col">
-<!--                <shipping-label-list-->
-<!--                        v-if="!print.print"-->
-<!--                        @update="update = $event"-->
-<!--                        @print="print = $event"-->
-<!--                ></shipping-label-list>-->
+                <shipping-label-list
+                        v-if="!print.print"
+                        @update="update = $event"
+                        @print="print = $event"
+                ></shipping-label-list>
             </div>
         </div>
     </div>

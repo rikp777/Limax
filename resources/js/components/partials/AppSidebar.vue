@@ -6,7 +6,7 @@
                     <div class="nav-link">
                         <div class="profile-image">
                             <img
-                                src="https://media.licdn.com/dms/image/C5603AQFJgyCX9voOdg/profile-displayphoto-shrink_200_200/0?e=1580947200&v=beta&t=4Tx1GPnqAUyPVvTaXEaX1s5f4xuyONQBS-R02ADiDwg"
+                                src="https://images.assetsdelivery.com/compings_v2/salamatik/salamatik1801/salamatik180100019.jpg"
                                 alt="image"/> <span class="online-status online"></span>
                         </div>
                         <div class="profile-name">
@@ -21,7 +21,8 @@
                         <font-awesome-icon icon="home" class="menu-icon"></font-awesome-icon>
                         <span class="menu-title">Dashboard</span></router-link>
                 </li>
-                <li class="nav-item" v-for="(farmer, index) in authUser.farmers" @click="changeFarmerCookie(farmer.id)">
+                <div v-for="authenticatedRole in authUser.roles">
+                <li class="nav-item" v-if="authenticatedRole.name === 'Farmer' || authenticatedRole.name === 'Admin' || authenticatedRole.name === 'Moderator'" v-for="(farmer, index) in authUser.farmers" @click="changeFarmerCookie(farmer.id)">
                     <span class="nav-link" v-b-toggle="'farmer-'+index">
                         <font-awesome-icon icon="tractor" class="menu-icon"></font-awesome-icon>
                         <span class="menu-title"><span v-if="authUser.farmers.length > 1" class="mr-">{{farmer.id}}.</span> {{farmer.name}}</span>
@@ -71,26 +72,93 @@
                                     <span class="menu-title">Settings</span>
                                 </router-link>
                             </li>
+
+<!--                            <li class="nav-item">-->
+<!--                                <router-link class="nav-link" :to="{ name: 'reportRead', params: {'farmerId' : farmer.id } }">-->
+<!--                                    <font-awesome-icon icon="archive" class="menu-icon"></font-awesome-icon>-->
+<!--                                    <span class="menu-title">Report</span>-->
+<!--                                </router-link>-->
+<!--                            </li>-->
                         </ul>
                     </b-collapse>
                 </li>
-                <li class="nav-item">
-                    <span class="nav-link" v-b-toggle="'pricelist'">
-                        <font-awesome-icon icon="dollar-sign" class="menu-icon"></font-awesome-icon>
-                        <span class="menu-title">Pricelist</span>
+                </div>
+<!--                {{authUser.roles}}-->
+                <div v-for="authenticatedRole in authUser.roles">
+<!--                    {{authenticatedRole.name}}-->
+                    <li class="nav-item" v-if="authenticatedRole.name === 'Admin' || authenticatedRole.name === 'Moderator'">
+                    <span class="nav-link" v-b-toggle="'role-'+authUser.roles.id">
+                        <font-awesome-icon icon="user-shield" class="menu-icon"></font-awesome-icon>
+                        <span class="menu-title">Admin</span>
                         <font-awesome-icon icon="angle-down" class="menu-arrow"></font-awesome-icon>
                     </span>
-                    <b-collapse :id="'pricelist'">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <router-link class="nav-link" :to="{ name: 'priceListCreate' }">
-                                    <font-awesome-icon icon="plus" class="menu-icon"></font-awesome-icon>
-                                    <span class="menu-title">Create</span>
-                                </router-link>
-                            </li>
-                        </ul>
-                    </b-collapse>
-                </li>
+                        <b-collapse :id="'role-'+authUser.roles.id">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                 <span class="nav-link" v-b-toggle="'user-' + authUser.roles.id">
+                                    <font-awesome-icon icon="users" class="menu-icon"></font-awesome-icon>
+                                    <span class="menu-title">Users</span>
+                                    <font-awesome-icon icon="angle-down" class="menu-arrow"></font-awesome-icon>
+                                </span>
+                                </li>
+                                <b-collapse :id="'user-' + authUser.roles.id">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item">
+                                            <router-link class="nav-link" :to="{ name: 'userCreate' }" replace>
+                                                <font-awesome-icon icon="plus" class="menu-icon"></font-awesome-icon>
+                                                <span class="menu-title">Create</span>
+                                            </router-link>
+                                        </li>
+                                        <li class="nav-item">
+                                            <router-link class="nav-link" :to="{ name: 'userList' }" replace>
+                                                <font-awesome-icon icon="plus" class="menu-icon"></font-awesome-icon>
+                                                <span class="menu-title">Overview</span>
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </b-collapse>
+
+<!--                                <li class="nav-item">-->
+<!--                                 <span class="nav-link" v-b-toggle="'article-' + authUser.roles.id">-->
+<!--                                    <font-awesome-icon icon="list-alt" class="menu-icon"></font-awesome-icon>-->
+<!--                                    <span class="menu-title">Articles</span>-->
+<!--                                    <font-awesome-icon icon="angle-down" class="menu-arrow"></font-awesome-icon>-->
+<!--                                </span>-->
+<!--                                </li>-->
+<!--                                <b-collapse :id="'article-' + authUser.roles.id">-->
+<!--                                    <ul class="nav flex-column sub-menu">-->
+<!--                                        <li class="nav-item">-->
+<!--                                            <router-link class="nav-link" :to="{ name: 'articleCreate' }">-->
+<!--                                                <font-awesome-icon icon="plus" class="menu-icon"></font-awesome-icon>-->
+<!--                                                <span class="menu-title">Create</span>-->
+<!--                                            </router-link>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </b-collapse>-->
+
+                                <li class="nav-item">
+                                <span class="nav-link" v-b-toggle="'pricelist-' + authUser.roles.id">
+                                    <font-awesome-icon icon="dollar-sign" class="menu-icon"></font-awesome-icon>
+                                    <span class="menu-title">Pricelist</span>
+                                    <font-awesome-icon icon="angle-down" class="menu-arrow"></font-awesome-icon>
+                                </span>
+                                </li>
+                                <b-collapse :id="'pricelist-' + authUser.roles.id">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item">
+                                            <router-link class="nav-link" :to="{ name: 'priceListCreate' }">
+                                                <font-awesome-icon icon="plus" class="menu-icon"></font-awesome-icon>
+                                                <span class="menu-title">Create</span>
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </b-collapse>
+
+                            </ul>
+                        </b-collapse>
+                    </li>
+                </div>
+
             </ul>
         </nav>
     </section>

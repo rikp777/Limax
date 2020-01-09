@@ -10,7 +10,6 @@ use App\Farmer;
 use App\Http\Resources\PalletLabelResource;
 use App\PalletLabel;
 use App\PalletType;
-use App\CultivationCycleFlight;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Request as CookieRequest;
@@ -22,7 +21,7 @@ class PalletLabelController extends Controller
     public function __construct()
     {
 //        dd(PalletLabel::whereRaw('ID IN (SELECT pallet_label_id FROM pallet_label_shipping_label WHERE shipping_label_id = 18)')->get());
-        $this->authorizeResource(PalletLabel::class, 'App\PalletLabel'); //BugFix
+        //$this->authorizeResource(PalletLabel::class, 'App\PalletLabel'); //BugFix
     }
 
 
@@ -61,7 +60,8 @@ class PalletLabelController extends Controller
         $article = Article::findOrFail($request->article_id);
         $palletType = PalletType::findOrFail($request->pallet_type_id);
         $cell = Cell::findOrFail($request->cell_id);
-//        dd($cell->number);
+        $cultivationcycle = CultivationCycle::where('cell_id', $cell->id)->first();
+//        dd($cultivationcycle);
 
         //autoincrement unique palletlabel farmer id
         $palletlabelFarmerId = 0;
@@ -69,7 +69,6 @@ class PalletLabelController extends Controller
         if ($palletlabelFarmer) {
             $palletlabelFarmerId = $palletlabelFarmer->pallet_label_farmer_id + 1;
         }
-
 
         //insert palletLabel
         $palletlabel = new Palletlabel();
@@ -85,7 +84,7 @@ class PalletLabelController extends Controller
         $palletlabel->pallet_type_id = $palletType->id;
         $palletlabel->status_id = 1;
         $palletlabel->article_id = $article->id;
-        $palletlabel->cultivation_cycle_id = 1;
+        $palletlabel->cultivation_cycle_id = $cultivationcycle->id;
 //        $palletlabel->harvest_cycle = $cultivationCycleCalculation['data']['calculation']['harvest_cycle'];
 //        $palletlabel->harvest_cycle_day = $cultivationCycleCalculation['data']['calculation']['harvest_cycle_day'];
         $palletlabel->harvest_cycle = $request->harvest_cycle;

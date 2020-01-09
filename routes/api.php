@@ -33,6 +33,18 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('/cell', 'CellController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
+    Route::apiResource('/role', 'RoleController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/department', 'DepartmentController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/articlefarmer', 'ArticleFarmerController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/report', 'ReportController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
     Route::apiResource('/farmer', 'FarmerController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 

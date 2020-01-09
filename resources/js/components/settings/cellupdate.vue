@@ -1,38 +1,44 @@
 <template>
-    <form class="needs-validation" @submit.prevent="validateBeforeSubmit">
-        <div class="row">
-            <div class="col">
-                <div class="form-row">
-                    <div class="col mb-3">
-                        <div class="card border-0 text-white mb-3" style="background-color: #313c6a">
-                            <div class="row">
-                                <div class="col-12">
-                                    <h6 class="card-header border-bottom-0" v-if="delMode === false"><button type="button" class="btn btn-primary text-white float-right" style="width: 100%;" @click="delMode = true" v-if="delMode === false"><b>Cell Creation Mode</b></button></h6>
-                                    <h6 class="card-header border-bottom-0" v-if="delMode === true"><button type="button" class="btn btn-primary text-white float-right" style="width: 100%;" @click="delMode = false" v-if="delMode === true"><b>Cell Remove Mode</b></button></h6>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <div class="form-group col-md-3" v-for="(cell, index) in form.cells" >
-                                        <label class="active">{{cell.number}}</label>
-                                        <input type="text" class="form-control" style="border-color: red" v-if="delMode === true" v-model="form.cells[index].description" @blur="cellUpdate(cell)">
-                                        <input type="text" class="form-control" style="border-color: green" v-if="delMode === false" v-model="form.cells[index].description" @blur="cellUpdate(cell)">
-<!--                                        <input type="text" class="form-control" v-model="form.cells[index].description" v-on:change="btnShow = true">-->
+    <div class="row">
+        <div class="card">
+            <form class="needs-validation" @submit.prevent="validateBeforeSubmit">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-row">
+                            <div class="col mb-3">
+<!--                                <div class="card border-0 text-white mb-3" style="background-color: #313c6a">-->
+                                <div class="card border-0 text-black mb-3">
+                                    <div class="row">
+<!--                                        <div class="col-12">-->
+<!--                                            <h6 class="card-header border-bottom-0" v-if="delMode === false"><button type="button" class="btn btn-primary text-white float-right" style="width: 100%;" @click="delMode = true" v-if="delMode === false"><b>Cell Creation Mode</b></button></h6>-->
+<!--                                            <h6 class="card-header border-bottom-0" v-if="delMode === true"><button type="button" class="btn btn-primary text-white float-right" style="width: 100%;" @click="delMode = false" v-if="delMode === true"><b>Cell Remove Mode</b></button></h6>-->
+<!--                                        </div>-->
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="active"><span style="opacity:0;">Add Cell</span></label>
-                                        <button type="button" class="btn btn-primary text-white"  style="width: 100%;" @click="addRow" v-if="delMode === false"><b>+</b></button>
-                                        <button type="button" class="btn btn-primary text-white"  style="width: 100%;" @click="delRow" v-if="delMode === true"><b>-</b></button>
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-3" v-for="(cell, index) in form.cells" >
+                                                <label class="active">{{cell.number}}</label>
+                                                <input type="text" class="form-control" style="border-color: red" v-if="delMode === true" v-model="form.cells[index].description" @blur="cellUpdate(cell)">
+                                                <input type="text" class="form-control" style="border-color: green" v-if="delMode === false" v-model="form.cells[index].description" @blur="cellUpdate(cell)">
+                                                <!--                                        <input type="text" class="form-control" v-model="form.cells[index].description" v-on:change="btnShow = true">-->
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label class="active"><span style="opacity:0;">Add Cell</span></label>
+                                                <button type="button" class="btn btn-primary text-white"  style="width: 100%;" @click="addRow" v-if="delMode === false"><b>+</b></button>
+                                                <button type="button" class="btn btn-primary text-white"  style="width: 100%;" v-if="delMode === true"><b>-</b></button>
+                                            </div>
+                                        </div>
+                                        <!--                                <button type="button" class="btn btn-primary text-white" v-if="btnShow === true" @click="validateBeforeSubmit">Print</button>-->
                                     </div>
                                 </div>
-<!--                                <button type="button" class="btn btn-primary text-white" v-if="btnShow === true" @click="validateBeforeSubmit">Print</button>-->
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
+
 </template>
 
 <script>
@@ -109,7 +115,6 @@
             delRow: function() {
                 this.$store.dispatch("deleteCell")
                     .then(()=> {
-                        // console.log(this.cell),
                         // this.cells.push({
                         //     createdAt: this.cell.createdAt,
                         //     description: "",

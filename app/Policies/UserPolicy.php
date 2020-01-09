@@ -58,7 +58,7 @@ class UserPolicy
 
     public function delete(User $user, User $model)
     {
-        //dd("delete");
+//        dd("delete");
         if($user->isModerator()){
             return true;
         }

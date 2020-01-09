@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Article;
-use App\CultivationCycle;
 use App\Farmer;
 use App\PalletType;
 use App\Status;

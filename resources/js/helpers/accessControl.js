@@ -1,6 +1,7 @@
 import ApiService from "../common/api.service";
 import auth from "../router/routes/auth";
 import jwtService from "../common/jwt.service";
+import stringifyObjectValues from "bootstrap-vue/esm/components/table/helpers/stringify-object-values";
 
 var farmerIdH = null;
 const AccessControl = {
@@ -15,7 +16,10 @@ const AccessControl = {
             if (store.getters.authUser.id !== undefined) {
                 authUser = store.getters.authUser;
                 store.dispatch("checkAuth");
-                console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' requiredRoles=' + requiresRoles)
+                console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' requiredRoles=' + requiresRoles + " userRoles= ");
+                authUser.roles.forEach(item => {
+                    console.log("Right: " + item.id +  " " + item.name)
+                })
             }
 
             if (requiresAuth && authUser.id === undefined) {
@@ -52,9 +56,14 @@ const AccessControl = {
         let check = false;
         console.log(authUser);
         authUser.roles.forEach((item) => {
-            if (requiresRoles.hasOwnProperty(item.id)) {
-                check = true
-            }
+            requiresRoles.forEach(role =>{
+                if(role === item.id){
+                    check = true
+                }
+            })
+            // if (requiresRoles.hasOwnProperty(item.id)) {
+            //     check = true
+            // }
         });
         return check
     },

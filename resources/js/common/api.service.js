@@ -27,6 +27,17 @@ const ApiService  = {
         return request;
     },
 
+    getByParam(resource, param = "") {
+        // console.log('resource = ' + resource);
+        // console.log('slug = ' + slug);
+        const request = applyConverters(Vue.axios)
+            .get(`${resource}${param}`)
+            .catch(error => {
+                throw `[Limax] ApiService ${resource} \n ${error.response.data.message}`;
+            });
+        // console.log('request = ' + request);
+        return request;
+    },
    get(resource, slug = "") {
         // console.log('resource = ' + resource);
         // console.log('slug = ' + slug);
@@ -141,6 +152,28 @@ export const PalletTypeService = {
     }
 };
 
+//User
+const UserApi = "user";
+export const UserService = {
+    create(params){
+        return ApiService.post(UserApi, params)
+    },
+    update(slug, params) {
+        return ApiService.update(UserApi, slug, params);
+    },
+    delete(slug) {
+        return ApiService.delete(UserApi, slug);
+    },
+    get(slug){
+        return ApiService.get(UserApi, slug)
+    },
+    getByParam(param){
+        return ApiService.getByParam(UserApi, param)
+    },
+    getAll() {
+        return ApiService.get(UserApi)
+    }
+};
 
 //PalletLabel
 const PalletLabelApi = "palletlabel";
@@ -159,6 +192,66 @@ export const PalletLabelService = {
     },
     getAll() {
         return ApiService.get(PalletLabelApi)
+    }
+};
+
+//RoleService
+const RoleApi = "role";
+export const RoleService = {
+    create(params){
+        return ApiService.post(RoleApi, params)
+    },
+    update(slug, params) {
+        return ApiService.update(RoleApi, slug, params);
+    },
+    delete(slug) {
+        return ApiService.delete(RoleApi, slug);
+    },
+    get(slug){
+        return ApiService.get(RoleApi, slug)
+    },
+    getAll() {
+        return ApiService.get(RoleApi)
+    }
+};
+
+//DepartmentService
+const DepartmentApi = "department";
+export const DepartmentService = {
+    create(params){
+        return ApiService.post(DepartmentApi, params)
+    },
+    update(slug, params) {
+        return ApiService.update(DepartmentApi, slug, params);
+    },
+    delete(slug) {
+        return ApiService.delete(DepartmentApi, slug);
+    },
+    get(slug){
+        return ApiService.get(DepartmentApi, slug)
+    },
+    getAll() {
+        return ApiService.get(DepartmentApi)
+    }
+};
+
+//ArticleUserService
+const ArticleFarmerApi = "articlefarmer";
+export const ArticleFarmerService = {
+    create(params){
+        return ApiService.post(ArticleFarmerApi, params)
+    },
+    update(slug, params) {
+        return ApiService.update(ArticleFarmerApi, slug, params);
+    },
+    delete(slug) {
+        return ApiService.delete(ArticleFarmerApi, slug);
+    },
+    get(slug){
+        return ApiService.get(ArticleFarmerApi, slug)
+    },
+    getAll() {
+        return ApiService.get(ArticleFarmerApi)
     }
 };
 
@@ -217,11 +310,30 @@ export const CellService = {
     getAll() {
         return ApiService.get(CellApi)
     },
-    getCultivationCalculationCell(slug){
-        return ApiService.get('/cultivationcycle/calculate', slug)
-    }
+    // getCultivationCalculationCell(slug){
+    //     return ApiService.get('/cultivationcycle/calculate', slug)
+    // }
 };
 
+//Cell
+const ReportApi = "report";
+export const ReportService = {
+    create(params){
+        return ApiService.post(ReportApi, { report: params})
+    },
+    update(slug, params) {
+        return ApiService.update(ReportApi, slug, { report: params });
+    },
+    delete(slug) {
+        return ApiService.delete(ReportApi, slug);
+    },
+    get(slug){
+        return ApiService.get(ReportApi, slug)
+    },
+    getAll() {
+        return ApiService.get(ReportApi)
+    }
+};
 
 //Farmer
 const FarmerApi = "farmer";

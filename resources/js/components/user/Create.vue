@@ -14,7 +14,7 @@
                     <div class="col mb-3">
                         <label for="email">Email</label>
                         <input
-                                type="text"
+                                type="email"
                                 name="email"
                                 id="email"
                                 v-model="user.email"
@@ -59,7 +59,7 @@
                     <div class="col mb-3">
                         <label for="password">Password</label>
                         <input
-                                type="text"
+                                type="password"
                                 name="password"
                                 id="password"
                                 v-model="user.password"
@@ -72,7 +72,7 @@
                 </div>
 
 
-                <button class="btn btn-primary" type="submit">Create</button>
+                <button class="btn btn-primary text-white" type="submit">Create</button>
             </form>
             <form>
 
@@ -107,12 +107,12 @@
             validateBeforeSubmit(){
                 this.$validator.validateAll().then((result) => {
                     if(result) {
-                        this.Create();
+                        this.create();
                     }
                 })
             },
             create() {
-                this.$store.dispatch('user/create', {
+                this.$store.dispatch('createUser', {
                     email: this.user.email,
                     first_name: this.user.firstName,
                     last_name: this.user.lastName,

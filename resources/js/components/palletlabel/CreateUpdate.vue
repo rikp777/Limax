@@ -1,6 +1,5 @@
 <template>
-
-    <div class="card-body" :class="{ 'updatemodeStyle': updateMode }">
+    <div class="card-body" :class="{ 'updatemodeStyle': updateMode }" v-if="isMounted">
         <template v-if="false">
             <h3>loading...</h3>
         </template>
@@ -17,9 +16,30 @@
                 </div>
             </template>
 
+            <div v-if="!articlefarmers.length">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">You do not have an article selection setup!</h4>
+                    <p>In order to make palletlabels you need to setup a personalized article selection for your account. So you will only see the articles you want to make labels for.</p>
+                    <hr>
+                    <p class="mb-0">Whenever you're ready press the button</p>
+                    <br>
+                    <p><router-link class="btn btn-primary text-white" :to="{ name: 'settingsRead'}">Settings</router-link></p>
+                </div>
+            </div>
+            <div v-if="!cells.length">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">You do not have any cells setup!</h4>
+                    <p>In order to make palletlabels you need to setup the cells for your account. So you will only see the cells that you have..</p>
+                    <hr>
+                    <p class="mb-0">Whenever you're ready press the button</p>
+                    <br>
+                    <p><router-link class="btn btn-primary text-white" :to="{ name: 'settingsRead'}">Settings</router-link></p>
+                </div>
+            </div>
+
             <form @submit.prevent="validateBeforeSubmit">
                 <div class="form-row">
-                    <div class="form-group col">
+                    <div class="form-group col" v-if="articlefarmers.length && cells.length">
                         <label for="article" class="d-block">Article</label>
                         <select
                             v-model="form.articleId"
@@ -36,7 +56,7 @@
                             @change="selectPallettype(form.articleId)"
                         >
                             <option disabled value="">Select</option>
-                            <option v-for="article in articles" v-bind:value="article.id">{{article.name}}</option>
+                            <option v-for="article in articlefarmers" v-bind:value="article.id">{{article.name}}</option>
                         </select>
                         <div class="invalid-feedback">{{ errors.first('article') }}</div>
                     </div>
@@ -256,9 +276,13 @@
                 isChecked: '',
                 serverErrors: '',
                 updateMode: false,
+                isMounted: false
             }
         },
         computed: {
+            articlefarmers() {
+                return this.$store.getters.articlefarmers;
+            },
             palletLabel(){
                 return this.$store.getters.palletLabel;
             },
@@ -286,14 +310,18 @@
             }
         },
         mounted(){
-
+            this.getAllArticleFarmers();
             this.getAllPalletLabels();
             this.getAllArticles();
             this.getAllPalletTypes();
             this.getAllCells();
             this.mode(this.updateId);
+            this.form.cropDate = moment().format("YYYY-MM-DD");
         },
         methods: {
+            getAllArticleFarmers() {
+                this.$store.dispatch("getAllArticleFarmers");
+            },
             getAllPalletLabels() {
                 this.$store.dispatch("getAllPalletLabels");
             },
@@ -320,7 +348,11 @@
                 this.$store.dispatch("getAllPalletTypes")
             },
             getAllCells(){
-                this.$store.dispatch("getAllCells")
+                this.$store.dispatch("getAllCells").then(()=>{
+                    console.log('nu heb ik getallcells gedaan');
+                    //scuffed maar vue is fucking kenker
+                    this.isMounted = true;
+                })
             },
             getCultivationCalculationCell(id){
                 this.$store.dispatch("getCultivationCalculationCell", id)

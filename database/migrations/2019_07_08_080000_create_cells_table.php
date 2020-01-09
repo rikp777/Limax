@@ -22,6 +22,9 @@ class CreateCellsTable extends Migration
             // relation to farmers table
             $table->unsignedInteger('farmer_id');
             $table->foreign('farmer_id')->references('id')->on('farmers');
+
+            //soft delete
+            $table->softDeletes();
         });
     }
     /**

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    public function departments()
+    public function users()
     {
         return $this->belongsToMany(User::class);
     }

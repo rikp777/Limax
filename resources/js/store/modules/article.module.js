@@ -1,4 +1,4 @@
-import { ArticleService } from "../../common/api.service";
+import {ArticleService, UserService} from "../../common/api.service";
 
 // action names
 const FETCH_START = "setArticleLoading";
@@ -36,7 +36,6 @@ export const getters = {
            return state.articles.find(article => article.id === id)
         }
     },
-
 
     articleByName: (state) => (name) => {
         return state.articles.find(todo => todo.name === name)

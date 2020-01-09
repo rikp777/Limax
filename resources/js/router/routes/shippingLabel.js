@@ -14,7 +14,7 @@ export default [
         component: Index,
         meta: {
             requiresAuth: true,
-            requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+            requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
         },
         children: [
             {
@@ -23,7 +23,7 @@ export default [
                 component: Combine,
                 meta: {
                     requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
                 },
             },
             {
@@ -32,7 +32,7 @@ export default [
                 component: List,
                 meta: {
                     requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
                 },
             },
             {
@@ -41,7 +41,7 @@ export default [
                 component: Create,
                 meta: {
                     requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
                 },
             },
             {
@@ -50,7 +50,7 @@ export default [
                 component: Update,
                 meta: {
                     requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
                 },
             },
             {
@@ -60,7 +60,7 @@ export default [
                 component: Read,
                 meta: {
                     requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
                 },
             },
             {
@@ -70,7 +70,7 @@ export default [
                 component: Pdf,
                 meta: {
                     requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
                 },
             }
         ]

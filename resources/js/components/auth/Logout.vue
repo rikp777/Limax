@@ -10,7 +10,6 @@
                 .then(response => {
                     this.$router.push({ name: 'home' })
                 });
-            console.log('ja');
         }
     }
 </script>

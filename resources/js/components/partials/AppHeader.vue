@@ -26,19 +26,19 @@
                             <div class="col">
                                 {{authUser.fullName}}
                                 <img class="img-xs rounded-circle d-inline"
-                                     src="https://media.licdn.com/dms/image/C5603AQFJgyCX9voOdg/profile-displayphoto-shrink_200_200/0?e=1580947200&v=beta&t=4Tx1GPnqAUyPVvTaXEaX1s5f4xuyONQBS-R02ADiDwg"
+                                     src="https://images.assetsdelivery.com/compings_v2/salamatik/salamatik1801/salamatik180100019.jpg"
                                      alt="profile image">
-                                <div class="count-indicator d-inline">
-                                    <i class="icon mdi mdi-email-variant"></i>
-                                    <span class="count" style="background-color:transparent">7</span>
-                                </div>
+<!--                                <div class="count-indicator d-inline">-->
+<!--                                    <i class="icon mdi mdi-email-variant"></i>-->
+<!--                                    <span class="count" style="background-color:transparent">7</span>-->
+<!--                                </div>-->
                             </div>
                         </div>
 
                     </template>
-                    <b-dropdown-item><router-link :to="{ name: 'profileRead'}" style="color: #eb5b65">Profile</router-link></b-dropdown-item>
-                    <b-dropdown-item>
-                        <router-link :to="{ name: 'authLogout' }" style="color: #eb5b65">Logout</router-link>
+<!--                    <b-dropdown-item><router-link :to="{ name: 'profileRead'}" style="color: #eb5b65">Profile</router-link></b-dropdown-item>-->
+                    <b-dropdown-item :to="{ name: 'authLogout' }">
+                        <router-link :to="{ name: 'authLogout' }" style="color: #eb5b65"><nav>Logout</nav></router-link>
                     </b-dropdown-item>
                 </b-nav-item-dropdown>
             </b-navbar-nav>

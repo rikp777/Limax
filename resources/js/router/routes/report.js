@@ -1,25 +1,23 @@
 import RightEnum from '../rights'
 
-import Index from '../../components/settings/Index'
-import Read from '../../components/settings/Read'
+import Index from '../../components/report/Index'
+import Read from '../../components/report/Read'
 
 export default [
     {
-        path: '/settings',
+        path: '/report',
         component: Index,
         meta: {
             requiresAuth: true,
-            requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
         },
         children: [
             {
-                name: 'settingsRead',
+                name: 'reportRead',
                 path: '/',
                 props: true,
                 component: Read,
                 meta: {
                     requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
                 },
             }
         ]

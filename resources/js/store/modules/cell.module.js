@@ -1,4 +1,4 @@
-import {CellService, PalletLabelService} from "../../common/api.service";
+import {ArticleService, CellService, PalletLabelService} from "../../common/api.service";
 
 // action names
 const FETCH_START = "setCellLoading";

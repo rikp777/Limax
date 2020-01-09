@@ -88,6 +88,7 @@ const mutations = {
        state.user = [];
        state.errors = {};
        jwtService.destroyToken('user');
+       jwtService.destroyToken('farmer');
     }
 };
 
