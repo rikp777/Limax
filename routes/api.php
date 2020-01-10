@@ -18,10 +18,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/logout', 'AuthController@logout');
 
 
-    Route::apiResource('/user', 'userController')
+    Route::apiResource('/user', 'UserController')
     ->only(['index', 'show', 'destroy', 'update', 'store']);
 
-    Route::apiResource('/truck', 'truckController')
+    Route::apiResource('/truck', 'TruckController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
     Route::apiResource('/article', 'ArticleController')
