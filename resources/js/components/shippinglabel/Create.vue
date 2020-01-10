@@ -20,6 +20,7 @@
                         data-width="100%"
                     >
                         <!--                                @change="selectTrucker(form.truckerId)"-->
+                        <option disabled value="">Select</option>
                         <option v-for="truckDriver in trucks" v-bind:value="truckDriver.id">
                             {{truckDriver.trucker.firstName + " " + truckDriver.trucker.lastName}}
                         </option>
@@ -43,7 +44,7 @@
                     >
                         <!--                    @change="selectLicense(form.licenseId)"-->
 
-
+                        <option disabled value="">Select</option>
                         <option v-for="license in trucks" v-if="license.id === form.truckerId"
                                 v-bind:value="license.id">{{license.licensePlate}}
                         </option>
