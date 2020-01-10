@@ -111,7 +111,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <router-link class="nav-link" :to="{ name: 'userList' }" replace>
-                                                <font-awesome-icon icon="plus" class="menu-icon"></font-awesome-icon>
+                                                <font-awesome-icon icon="address-book" class="menu-icon"></font-awesome-icon>
                                                 <span class="menu-title">Overview</span>
                                             </router-link>
                                         </li>
