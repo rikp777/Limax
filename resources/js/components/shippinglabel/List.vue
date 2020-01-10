@@ -54,7 +54,7 @@
 
         },
         mounted() {
-            console.log('test ' + this.farmerId);
+            // console.log('test ' + this.farmerId);
             this.getAllShippingLabels();
             this.getAllArticles();
         },

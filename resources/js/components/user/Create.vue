@@ -120,7 +120,7 @@
                 }).then(response => {
                     this.$router.push({ name: 'userList'})
                 }).catch(error => {
-                    console.log(error.response.data.errors);
+                    // console.log(error.response.data.errors);
                     this.serverErrors = Object.values(error.response.data.errors)
                 })
             }

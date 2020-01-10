@@ -81,7 +81,7 @@
             getAllCells() {
                 this.$store.dispatch("getAllCells")
                     .then(()=>{
-                        console.log(this.cells);
+                        // console.log(this.cells);
                         this.form.cells = this.cells;
                     });
             },

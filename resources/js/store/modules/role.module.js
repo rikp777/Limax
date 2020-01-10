@@ -54,7 +54,7 @@ const actions = {
         context.commit(FETCH_START);
         return RoleService.getAll()
             .then(({ data }) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_ROLES, data.data);
             })
             .catch(error => {

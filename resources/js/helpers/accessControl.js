@@ -16,24 +16,24 @@ const AccessControl = {
             if (store.getters.authUser.id !== undefined) {
                 authUser = store.getters.authUser;
                 store.dispatch("checkAuth");
-                console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' requiredRoles=' + requiresRoles + " userRoles= ");
+                // console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' requiredRoles=' + requiresRoles + " userRoles= ");
                 authUser.roles.forEach(item => {
-                    console.log("Right: " + item.id +  " " + item.name)
+                    // console.log("Right: " + item.id +  " " + item.name)
                 })
             }
 
             if (requiresAuth && authUser.id === undefined) {
-                console.log('not logged in');
+                // console.log('not logged in');
                 next('/auth/login');
             } else if (to.path === '/auth/login' && authUser.id) {
-                console.log('already logged in');
+                // console.log('already logged in');
                 next('/');
             } else if (requiresRoles && authUser) {
                 if (this.hasRight(requiresRoles, authUser)) {
-                    console.log('authorized');
+                    // console.log('authorized');
                     next()
                 } else {
-                    console.log('unauthorized');
+                    // console.log('unauthorized');
                     next('/')
                 }
             }else{
@@ -54,7 +54,7 @@ const AccessControl = {
     },
     hasRight(requiresRoles, authUser) {
         let check = false;
-        console.log(authUser);
+        // console.log(authUser);
         authUser.roles.forEach((item) => {
             requiresRoles.forEach(role =>{
                 if(role === item.id){

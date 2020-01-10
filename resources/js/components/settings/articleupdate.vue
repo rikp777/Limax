@@ -110,7 +110,7 @@
                     if (result) {
                             this.$store.dispatch("updateArticleFarmer", this.form)
                                 .then(()=>{
-                                    console.log(this.form.articles);
+                                    // console.log(this.form.articles);
                                     var articleReturnData = '';
                                     this.form.articles.forEach((articleReturnDataa)=>{
                                         articleReturnData += articleReturnDataa.id + ', ';

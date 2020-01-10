@@ -439,7 +439,7 @@
                 this.getAllArticles(),
                 this.getShippingLabelPalletLabels(this.$route.params.id)
             ]).finally(() => {
-                console.log(" nu ben ik klaar");
+                // console.log(" nu ben ik klaar");
                 // this.checkPrint();
             });
         },

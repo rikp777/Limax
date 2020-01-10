@@ -123,11 +123,11 @@ export const TruckService  = {
         return ApiService.delete(TruckApi, slug);
     },
     get(slug){
-        console.log("get(slug) - TruckApi");
+        // console.log("get(slug) - TruckApi");
         return ApiService.get(TruckApi, slug)
     },
     getAll() {
-        console.log("getAll(slug) - TruckApi");
+        // console.log("getAll(slug) - TruckApi");
         return ApiService.get(TruckApi)
     }
 };

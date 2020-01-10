@@ -72,7 +72,7 @@ const actions = {
         context.commit(FETCH_START);
         return PalletLabelService.get(palletLabelSlug)
             .then(({ data }) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_PALLETLABEL, data.data);
                 context.commit(FETCH_END);
             })
@@ -85,7 +85,7 @@ const actions = {
      createPalletLabel(context, payload) {
         return PalletLabelService.create(payload)
             .then(({data}) => {
-                console.log(data.data);
+                // console.log(data.data);
                 context.commit(SET_PALLETLABEL, data.data);
             }).catch( (error) => {
                  throw error
@@ -122,9 +122,9 @@ const actions = {
 
     //update palletLabelStatus
     async updatePalletLabelStatus(context, payload) {
-        console.log('updatePalletLabelStatus');
+        // console.log('updatePalletLabelStatus');
         payload.forEach(function(palletLabelID) {
-            console.log(palletLabelID);
+            // console.log(palletLabelID);
             const { data } = PalletLabelStatusService.update(palletLabelID);
             context.commit(SET_PALLETLABEL, data);
             return data;
@@ -137,7 +137,7 @@ const actions = {
     },
     //create palletLabelStatus
     async createShippingPalletID(context, payload) {
-        console.log(payload);
+        // console.log(payload);
         // payload.selectedLabels.forEach(function(palletLabelID) {
             // console.log(palletLabelID);
             const {data} = PalletLabelStatusService.create(payload);

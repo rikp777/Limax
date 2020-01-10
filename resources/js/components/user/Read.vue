@@ -193,7 +193,7 @@
                     this.form.farmers = this.user.farmers;
                 })
             ]).finally(() => {
-                console.log(" nu ben ik klaar");
+                // console.log(" nu ben ik klaar");
             })
         },
     }

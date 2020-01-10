@@ -54,7 +54,7 @@ const actions = {
         context.commit(FETCH_START);
         return DepartmentService.getAll()
             .then(({ data }) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_DEPARTMENTS, data.data);
             })
             .catch(error => {
@@ -92,7 +92,7 @@ const actions = {
     updateDepartment(context, payload) {
         return DepartmentService.update(payload.id, payload)
             .then(({data}) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_DEPARTMENT, data);
             }).catch( (error) => {
                 throw error

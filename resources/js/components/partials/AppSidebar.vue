@@ -182,9 +182,9 @@
         },
         methods: {
             changeFarmerCookie(id) {
-                console.log(id);
+                // console.log(id);
                 if(this.idFarmer !== id){
-                    console.log('saveToken');
+                    // console.log('saveToken');
                     jwtService.destroyToken('farmer');
                     jwtService.saveToken('farmer', id);
                     this.idFarmer = id;

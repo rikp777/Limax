@@ -331,7 +331,7 @@
                this.getAllArticles(),
                // this.getArticle(1)
             ]).finally(() => {
-                console.log(" nu ben ik klaar");
+                // console.log(" nu ben ik klaar");
                 // this.checkPrint();
             })
         },

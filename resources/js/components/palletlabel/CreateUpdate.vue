@@ -393,19 +393,19 @@
                 })
             },
             selectPallettype(selectedArticleId) {
-                console.log(selectedArticleId);
+                // console.log(selectedArticleId);
                 let filtered = this.articles.find(article => article.id === selectedArticleId);
                 this.form.palletTypeId = filtered.palletType.id;
             },
             consolelogfunctionsigh() {
-                console.log(this.form.cellId);
+                // console.log(this.form.cellId);
             },
             mode(id){
                 if(id >= 1 || this.$route.params.id){
                     if(this.$route.params.id){
                         id = this.$route.params.id
                     }
-                    console.log("update mode");
+                    // console.log("update mode");
                     this.form.id = id;
                     this.updateMode = true;
                     this.getPalletLabel(id)

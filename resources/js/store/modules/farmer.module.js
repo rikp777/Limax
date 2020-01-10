@@ -65,7 +65,7 @@ export const actions = {
         context.commit(FETCH_START);
         return FarmerService.get(farmerSlug)
             .then(({ data }) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_FARMER, data.data);
                 context.commit(FETCH_END);
             })

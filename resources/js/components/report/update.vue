@@ -66,7 +66,7 @@
             getAllReports() {
                 this.$store.dispatch("getAllReports")
                     .then(()=>{
-                        console.log(this.reports);
+                        // console.log(this.reports);
                         // this.form.cells = this.cells;
                     });
             },

@@ -48,7 +48,7 @@
 
         },
         mounted() {
-            console.log('test ' + this.farmerId);
+            // console.log('test ' + this.farmerId);
             this.getAllPalletLabels();
             this.getAllArticles();
         },

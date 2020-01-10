@@ -209,7 +209,7 @@
                 this.$store.dispatch("createShippingPalletID", this.form)
             },
             selectedPalletlabels(id) {
-                console.log(this.form);
+                // console.log(this.form);
             },
             emptySelected() {
                 // this.form.shippingLblid = [];

@@ -104,7 +104,7 @@ const actions = {
     updateCell(context, payload) {
         return CellService.update(payload.id, payload)
             .then(({data}) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_CELL, data);
             }).catch( (error) => {
                 throw error

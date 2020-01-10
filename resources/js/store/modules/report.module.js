@@ -91,7 +91,7 @@ const actions = {
     updateCell(context, payload) {
         return ReportService.update(payload.id, payload)
             .then(({data}) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_REPORT, data);
             }).catch( (error) => {
                 throw error

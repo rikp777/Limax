@@ -62,7 +62,7 @@ const actions = {
     getAllByPage(context, page) {
             UserService.getByParam('?page=' + page)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 context.commit('userUpdate', response.data);
             })
     },
@@ -70,7 +70,7 @@ const actions = {
     createUser(context, payload) {
         return UserService.create(payload)
             .then(({data}) => {
-                console.log(data.data);
+                // console.log(data.data);
                 context.commit(SET_USER, data.data);
             }).catch( (error) => {
                 throw error
@@ -80,7 +80,7 @@ const actions = {
     updateUser(context, payload) {
         return UserService.update(payload.id, payload)
             .then(({data}) => {
-                console.log(data.data);
+                // console.log(data.data);
                 context.commit(SET_USER, data.data);
             }).catch( (error) => {
                 throw error
@@ -117,7 +117,7 @@ const actions = {
         context.commit(FETCH_START);
         return UserService.get(userSlug)
             .then(({data}) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_USER, data.data);
                 context.commit(FETCH_END);
             })

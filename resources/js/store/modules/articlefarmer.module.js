@@ -53,7 +53,7 @@ const actions = {
         context.commit(FETCH_START);
         return ArticleFarmerService.getAll()
             .then(({ data }) => {
-                console.log(data.data);
+                // console.log(data.data);
                 context.commit(SET_ARTICLEFARMERS, data.data);
                 context.commit(FETCH_END);
             })
@@ -82,7 +82,7 @@ const actions = {
     createArticleFarmer(context, payload) {
         return ArticleFarmerService.create(payload)
             .then(({data}) => {
-                console.log(data.data);
+                // console.log(data.data);
                 context.commit(SET_ARTICLEFARMER, data.data);
             }).catch( (error) => {
                 throw error
