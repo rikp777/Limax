@@ -1,5 +1,5 @@
 <template>
-    <div class="card-body" :class="{ 'updatemodeStyle': updateMode }" v-if="isMounted">
+    <div class="card-body" :class="{ 'updatemodeStyle': updateMode }" v-if="cellsCount">
         <template v-if="false">
             <h3>loading...</h3>
         </template>
@@ -295,6 +295,9 @@
             palletTypes(){
                 return this.$store.getters.palletTypes;
             },
+            cellsCount(){
+                return this.$store.getters.cellsCount;
+            },
             cells(){
                 return this.$store.getters.cells;
             },
@@ -348,11 +351,7 @@
                 this.$store.dispatch("getAllPalletTypes")
             },
             getAllCells(){
-                this.$store.dispatch("getAllCells").then(()=>{
-                    console.log('nu heb ik getallcells gedaan');
-                    //scuffed maar vue is fucking kenker
-                    this.isMounted = true;
-                })
+                this.$store.dispatch("getAllCells")
             },
             getCultivationCalculationCell(id){
                 this.$store.dispatch("getCultivationCalculationCell", id)

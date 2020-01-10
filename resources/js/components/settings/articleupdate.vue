@@ -17,7 +17,6 @@
                                                                  :preserve-search="true"
                                                                  placeholder="Select articles" label="name"
                                                                  track-by="name"
-                                                                 :preselect-first="true"
                                                                  style="width: 600px;">
                                                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} article(s) selected</span></template>
                                                     </multiselect>

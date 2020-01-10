@@ -62,7 +62,7 @@
                         </div>
 <!--                        all pages incase table becomes very big-->
                         <div class="btn-group mr-2" role="group" aria-label="Second group">
-                            <button class="btn btn-primary text-white" v-for="(page, index) in paginate.meta.lastPage" @click="getAllByPage(index +1)">{{index+1}}</button>
+                             <button class="btn btn-primary text-white" v-for="(page, index) in paginate.meta.lastPage" @click="getAllByPage(index +1)" v-bind:class="{ active: index+1 === paginate.meta.currentPage }">{{index+1}}</button>
                         </div>
 <!--                        next with click-->
                         <div class="btn-group mr-2" role="group" aria-label="Third group" v-if="paginate.meta.currentPage !== paginate.meta.lastPage">

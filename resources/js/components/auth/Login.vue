@@ -58,7 +58,7 @@
                         </div>
 
                         <!-- Sign in button -->
-                        <button class="btn btn-primary btn-block my-4" type="submit" value="Login">Sign in</button>
+                        <button class="btn btn-primary btn-block my-4 text-white" type="submit" value="Login">Sign in</button>
 
                         <div class="form-group row" v-if="errors">
                             <ul class="error-messages">
@@ -82,8 +82,8 @@
         data() {
             return {
                 form: {
-                    email: 'admin@limax.nl',
-                    password: 'password',
+                    email: '',
+                    password: '',
                 },
             };
         },
