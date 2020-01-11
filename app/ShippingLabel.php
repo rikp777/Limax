@@ -10,6 +10,6 @@ class ShippingLabel extends Model
     use SoftDeletes;
 
     public function palletLabels(){
-        return $this->belongsToMany(Palletlabel::class);
+        return $this->belongsToMany(PalletLabel::class);
     }
 }
