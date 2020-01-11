@@ -1,9 +1,29 @@
 <template>
-    <div class="card-body" :class="{ 'updatemodeStyle': updateMode }" v-if="cellsCount">
+    <div class="card-body" :class="{ 'updatemodeStyle': updateMode }">
         <template v-if="false">
             <h3>loading...</h3>
         </template>
-        <template v-else>
+        <div v-if="!articlefarmers.length">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">You do not have an article selection setup!</h4>
+                <p>In order to make palletlabels you need to setup a personalized article selection for your account. So you will only see the articles you want to make labels for.</p>
+                <hr>
+                <p class="mb-0">Whenever you're ready press the button</p>
+                <br>
+                <p><router-link class="btn btn-primary text-white" :to="{ name: 'settingsRead'}">Settings</router-link></p>
+            </div>
+        </div>
+        <div v-if="!cells.length">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">You do not have any cells setup!</h4>
+                <p>In order to make palletlabels you need to setup the cells for your account. So you will only see the cells that you have..</p>
+                <hr>
+                <p class="mb-0">Whenever you're ready press the button</p>
+                <br>
+                <p><router-link class="btn btn-primary text-white" :to="{ name: 'settingsRead'}">Settings</router-link></p>
+            </div>
+        </div>
+        <template v-if="cellsCount">
             <template v-if="updateMode">
                 <div class="row">
                     <div class="col">
@@ -15,27 +35,6 @@
                     </div>
                 </div>
             </template>
-
-            <div v-if="!articlefarmers.length">
-                <div class="alert alert-danger" role="alert">
-                    <h4 class="alert-heading">You do not have an article selection setup!</h4>
-                    <p>In order to make palletlabels you need to setup a personalized article selection for your account. So you will only see the articles you want to make labels for.</p>
-                    <hr>
-                    <p class="mb-0">Whenever you're ready press the button</p>
-                    <br>
-                    <p><router-link class="btn btn-primary text-white" :to="{ name: 'settingsRead'}">Settings</router-link></p>
-                </div>
-            </div>
-            <div v-if="!cells.length">
-                <div class="alert alert-danger" role="alert">
-                    <h4 class="alert-heading">You do not have any cells setup!</h4>
-                    <p>In order to make palletlabels you need to setup the cells for your account. So you will only see the cells that you have..</p>
-                    <hr>
-                    <p class="mb-0">Whenever you're ready press the button</p>
-                    <br>
-                    <p><router-link class="btn btn-primary text-white" :to="{ name: 'settingsRead'}">Settings</router-link></p>
-                </div>
-            </div>
 
             <form @submit.prevent="validateBeforeSubmit">
                 <div class="form-row">
@@ -314,10 +313,10 @@
         },
         mounted(){
             this.getAllArticleFarmers();
+            this.getAllCells();
             this.getAllPalletLabels();
             this.getAllArticles();
             this.getAllPalletTypes();
-            this.getAllCells();
             this.mode(this.updateId);
             this.form.cropDate = moment().format("YYYY-MM-DD");
         },
