@@ -67,12 +67,13 @@ const actions = {
 
     //get single shippinglabel
     async getShippingLabel(context, shippingLabelSlug) {
-        if (state.shippingLabel.id === shippingLabelSlug) {
-            return;
-        }
+        // if (state.shippingLabel.id === shippingLabelSlug) {
+        //     return;
+        // }
         context.commit(FETCH_START);
         return ShippingLabelService.get(shippingLabelSlug)
             .then(({ data }) => {
+                // console.log(data);
                 context.commit(SET_SHIPPINGLABEL, data.data);
                 context.commit(FETCH_END);
             })
@@ -117,6 +118,7 @@ export const mutations = {
     },
     [SET_SHIPPINGLABEL](state, shippingLabel) {
         state.shippingLabel = shippingLabel;
+        // state.shippingLabelsCount = shippingLabel.length +1;
     }
 };
 
