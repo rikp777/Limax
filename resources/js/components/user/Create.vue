@@ -57,7 +57,7 @@
 
                 <div class="form-row">
                     <div class="col mb-3">
-                        <label for="password">Password: <small>(min 6 characters...)</small></label>
+                        <label for="password">Password: <small>(min 7 characters...)</small></label>
                         <input
                                 type="password"
                                 name="password"
