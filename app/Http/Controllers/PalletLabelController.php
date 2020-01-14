@@ -33,7 +33,7 @@ class PalletLabelController extends Controller
         $currentFarmer = Farmer::find($farmerId);
 //        dd($currentFarmer);
         //ctrlfFARMERID change farmer id to route
-        return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->get());
+        return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->paginate(10));
 
     }
 

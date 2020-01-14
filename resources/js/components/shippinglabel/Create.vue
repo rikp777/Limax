@@ -159,12 +159,15 @@
             palletLabels() {
                 return this.$store.getters.palletLabels
             },
-            shippingLabelID() {
-                // console.log('sadfasdfasd' + this.$store.getters.shippingLabels);
-                return this.$store.getters.shippingLabels
-            },
+            // shippingLabelID() {
+            //     // console.log('sadfasdfasd' + this.$store.getters.shippingLabels);
+            //     return this.$store.getters.shippingLabels
+            // },
             shippingLabel() {
                 return this.$store.getters.shippingLabel
+            },
+            shippingLabelID() {
+                return this.$store.getters.shippingLabelID
             },
             articles() {
                 return this.$store.getters.articles
@@ -244,11 +247,15 @@
                                 });
                         } else {
                             // this.createShippingLabel();
+                            this.updatePalletLabelStatus();
                             this.$store.dispatch("createShippingLabel", this.form)
                                 .then(() => {
-                                    this.$router.push({name: 'shippingLabelPdf', params: {id: this.shippingLabel.id}})
+                                        this.$router.push({
+                                            name: 'shippingLabelPdf',
+                                            params: {id: this.shippingLabel.id}
+                                        })
                                 });
-                            this.updatePalletLabelStatus();
+
 
 
                             // const routerConst = this.$router;

@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div v-if="ShippingLabelPalletLabels">
+<!--        {{ShippingLabelPalletLabels}}-->
         <router-link :to="{ name: 'shippingLabelCombine' }" class="btn btn-light btn-block"
                      style="position: relative; z-index: 3">New
         </router-link>
@@ -162,7 +163,8 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="detail in ShippingLabelPalletLabels['detail']" v-if="articles.length">
+                                        <tr v-for="detail in ShippingLabelPalletLabels['detail']"
+                                            v-if="articles.length">
                                             <td>
                                                 {{ detail.palletlabelId }}
                                             </td>
@@ -327,7 +329,8 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="detail in ShippingLabelPalletLabels['detail']" v-if="articles.length">
+                                        <tr v-for="detail in ShippingLabelPalletLabels['detail']"
+                                            v-if="articles.length">
                                             <td>
                                                 {{ detail.palletlabelId }}
                                             </td>
@@ -358,7 +361,7 @@
                             </div>
                         </template>
                     </div>
-                    </div>
+                </div>
 
             </div>
             <div class="card-body" style="page-break-after: always;">
@@ -378,6 +381,9 @@
         name: 'shippingLabel-pdf',
         computed: {
             ...mapGetters(["authUser"]),
+            shippingLabelCount() {
+                return this.$store.getters.shippingLabelsCount;
+            },
             articles() {
                 return this.$store.getters.articles
             },
@@ -415,10 +421,7 @@
             },
             getShippingLabelPalletLabels(id) {
                 // console.log('getShippingLabelPalletLabels id = ' + id);
-                this.$store.dispatch("getShippingLabel", id)
-            },
-            getShippingLabel(id){
-              // this.$store.dispatch("")
+                this.$store.dispatch("getShippingLabel", id);
             },
             getFarmer(id) {
                 this.$store.dispatch("getFarmer", id);
@@ -431,17 +434,16 @@
             },
         },
         mounted() {
-            this.getFarmer(getToken('farmer'));
-            // this.getTruck(2);
             Promise.all([
-                // console.log('hoi' + this.$route.params.id),
-                // this.getFarmer(),
+                this.getFarmer(getToken('farmer')),
+                // console.log(this.$route.params.id),
+                // this.getShippingLabelPalletLabels(this.$route.params.id),
+                this.$store.dispatch("getShippingLabel", this.$route.params.id),
                 this.getAllArticles(),
-                this.getShippingLabelPalletLabels(this.$route.params.id)
             ]).finally(() => {
                 // console.log(" nu ben ik klaar");
                 // this.checkPrint();
-            });
+            })
         },
 
     }

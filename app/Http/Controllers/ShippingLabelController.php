@@ -60,6 +60,9 @@ class ShippingLabelController extends Controller
 //        $shippingLabel->palletlabels()->update(['status_id' =>1]);
 
         return $shippingLabel;
+
+//        return new ShippingLabelResource(PalletLabel::whereRaw("ID IN (SELECT pallet_label_id FROM pallet_label_shipping_label WHERE shipping_label_id = '$shippingLabel->id')")->get());
+
     }
 
 
