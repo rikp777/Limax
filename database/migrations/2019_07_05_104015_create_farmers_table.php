@@ -22,8 +22,8 @@ class CreateFarmersTable extends Migration
             $table->string('zip_code');
             $table->string('country');
             $table->string('province');
-            $table->string('email')->unique();
-            $table->bigInteger('phone')->unique();
+            $table->string('email');
+            $table->bigInteger('phone');
             $table->bigInteger('fax')->nullable()->unique();
             $table->timestamps();
             $table->softDeletes();
