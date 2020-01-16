@@ -15,11 +15,11 @@ class CreateInsetsTable extends Migration
     {
         Schema::create('insets', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('description');
             $table->integer('amount');
-            $table->string('code')->unique();
-            $table->string('color')->unique();
+            $table->string('code');
+            $table->string('color');
             $table->timestamps();
             $table->softDeletes();
         });
