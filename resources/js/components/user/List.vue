@@ -99,10 +99,30 @@
                 this.$store.dispatch("getAllByPage", id);
             },
             deleteUser(id, index){
-                this.$store.dispatch("deleteUser", id)
-                    .then(() =>{
-                        this.paginate.data.splice(index, 1)
-                    })
+
+                this.$swal({
+                    title: "Are you sure ?",
+                    text: "Deleting a user, removes all their access to the application!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#f2ab59",
+                    confirmButtonText: "Yes, delete user!",
+                    cancelButtonText: "No, cancel!",
+                }).then((confirmed) => {
+                    if (confirmed.value) {
+                        this.$swal(
+                            'Deleted!',
+                            'User has been deleted.',
+                            'success'
+                        );
+                        this.$store.dispatch("deleteUser", id)
+                            .then(() =>{
+                                this.paginate.data.splice(index, 1)
+                            })
+                    } else {
+                        this.$swal("Cancelled", "User has not been deleted !", "error");
+                    }
+                });
             },
         },
         mounted() {
