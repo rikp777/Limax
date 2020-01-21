@@ -10,7 +10,7 @@
                                 alt="image"/> <span class="online-status online"></span>
                         </div>
                         <div class="profile-name">
-                            <p class="name">{{authUser.lastName + ','}} {{ authUser.firstName}}</p>
+                            <p class="name">{{authUser.firstName + ','}} {{ authUser.lastName }}</p>
                             <p v-if="authUser.departments" class="designation" v-for="department in authUser.departments" v-text="department.name "></p>
                             <div v-if="authUser.roles" class="badge badge-outline-dark x-auto mt-3" v-for="role in authUser.roles" v-text="role.name"></div>
                         </div>
@@ -25,7 +25,8 @@
                 <li class="nav-item" v-if="authenticatedRole.name === 'Farmer' || authenticatedRole.name === 'Admin' || authenticatedRole.name === 'Moderator'" v-for="(farmer, index) in authUser.farmers" @click="changeFarmerCookie(farmer.id)">
                     <span class="nav-link" v-b-toggle="'farmer-'+index">
                         <font-awesome-icon icon="tractor" class="menu-icon"></font-awesome-icon>
-                        <span class="menu-title"><span v-if="authUser.farmers.length > 1" class="mr-">{{farmer.id}}.</span> {{farmer.name}}</span>
+                        <span class="menu-title" style="overflow: hidden;">{{farmer.name}}</span>
+<!--                        <span class="menu-title"><span v-if="authUser.farmers.length > 1" class="mr-">{{farmer.id}}.</span> {{farmer.name}}</span>-->
                         <font-awesome-icon icon="angle-down" class="menu-arrow"></font-awesome-icon>
                     </span>
                     <b-collapse :id="'farmer-'+index">
