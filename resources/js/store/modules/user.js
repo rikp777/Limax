@@ -78,9 +78,10 @@ const actions = {
     },
 
     updateUser(context, payload) {
+        // console.log(payload);
         return UserService.update(payload.id, payload)
             .then(({data}) => {
-                // console.log(data.data);
+                // console.log(data);
                 context.commit(SET_USER, data.data);
             }).catch( (error) => {
                 throw error
