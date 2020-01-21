@@ -56,20 +56,23 @@ class UserController extends Controller
     public function update(User $user, Request $request) : UserResource
     {
 //        dd($request->all());
-
+//        dd($user->id);
         $request->validate([
             'first_name' => 'required|string|min:2|max:25',
             'last_name' => 'required|string|min:2|max:35',
-            'email' => 'required|email|max:255' . $user->id,
+            'email' => 'required|email|max:255'. $user->id,
         ]);
 //        $request->request->add(['password' => Hash::make($request->password)]);
 
 
         $user->update($request->all());
 
-        $user->roles()->sync($request->roles['id']);
+        $idsRoles = $request->roles['id'];
+//        dd($request->roles['id']);
+        $user->roles()->sync($idsRoles);
 
         $idsDepartments = array_column($request->departments, 'id');
+//        dd($idsDepartments);
         $user->departments()->sync($idsDepartments);
 
         $idsFarmers = array_column($request->farmers, 'id');
