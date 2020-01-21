@@ -67,9 +67,9 @@ class UserController extends Controller
 
         $user->update($request->all());
 
-        $idsRoles = $request->roles['id'];
-//        dd($request->roles['id']);
-        $user->roles()->sync($idsRoles);
+//        $idsRoles = $request->roles;
+//        dd($request['roles']['id']);
+        $user->roles()->sync($request['roles']['id']);
 
         $idsDepartments = array_column($request->departments, 'id');
 //        dd($idsDepartments);

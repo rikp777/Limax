@@ -188,7 +188,8 @@
                     this.form.firstName = this.user.firstName;
                     this.form.lastName = this.user.lastName;
                     this.form.email = this.user.email;
-                    this.form.roles = this.user.roles;
+                    this.form.roles = this.user.roles[0];
+                    // console.log(this.user.roles[0]);
                     this.form.departments = this.user.departments;
                     this.form.farmers = this.user.farmers;
                 })
