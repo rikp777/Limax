@@ -27,6 +27,9 @@ const getters = {
     authUser(state) {
         return state.user
     },
+    errors(state) {
+        return state.errors
+    },
     isAuthenticated(state){
         return state.isAuthenticated;
     },
@@ -80,13 +83,13 @@ const mutations = {
         // console.log(payload.user);
        state.isAuthenticated = true;
        state.user = payload.user;
-       state.errors = {};
+       state.errors = null;
        jwtService.saveToken('user', payload.accessToken);
     },
     [AUTH_PURGE](state){
        state.isAuthenticated = false;
        state.user = [];
-       state.errors = {};
+       state.errors = null;
        jwtService.destroyToken('user');
        jwtService.destroyToken('farmer');
     }
