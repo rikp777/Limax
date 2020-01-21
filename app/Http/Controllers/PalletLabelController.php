@@ -40,7 +40,7 @@ class PalletLabelController extends Controller
 
     public function store(Request $request)
     {
-
+//        dd($request);
         $request->validate([
             'crop_date' => 'required|date',
             'article_amount' => 'required|int',
@@ -72,8 +72,8 @@ class PalletLabelController extends Controller
 
         //insert palletLabel
         $palletlabel = new Palletlabel();
-        $palletlabel->crop_date = Carbon::parse($request->crop_date);
-        $palletlabel->crop_date = Carbon::parse($request->crop_date);
+//        $palletlabel->crop_date = Carbon::parse($request->crop_date);
+        $palletlabel->crop_date = $request->crop_date;
         $palletlabel->article_amount = $request->article_amount;
         $palletlabel->note = $request->note;
         $palletlabel->pallet_label_farmer_id = $palletlabelFarmerId;

@@ -35,6 +35,7 @@
                         </div>
                     </div>
                 </div>
+                <button type="button"class="btn btn-primary text-white" @click="routeHistory">Back</button>
             </form>
         </div>
     </div>
@@ -129,6 +130,9 @@
                 this.$store.dispatch("updateCell", cell);
                 console.log(cell);
             },
+            routeHistory() {
+                this.$router.go(-1);
+            }
         }
     }
 </script>

@@ -23,7 +23,7 @@ class CreateCertificateFarmerCodeTable extends Migration
             $table->foreign('farmer_id')->references('id')->on('farmers')->onDelete('cascade');
 
             // code col
-            $table->string('code')->unique();
+            $table->string('code');
 
             // both primary
             $table->primary(['certificate_id', 'farmer_id']);

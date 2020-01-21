@@ -38,7 +38,7 @@
                         <!--                STATUS-->
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 16px;">
-                                <strong>Palletlabel: </strong>{{ moment().format("dddd, MMMM Do YYYY") }}
+                                <strong>Palletlabel: </strong>{{ moment().format("dddd, MMMM Do YYYY") + ' ' + moment().locale('nl').format('LTS') }}
                             </div>
                             <div class="col-sm-6" style="font-size: 16px;">
                                 <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -160,7 +160,9 @@
                         <!--                STATUS-->
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 16px;">
-                                <strong>Palletlabel: </strong>{{ moment().format("dddd, MMMM Do YYYY") }}
+                                <strong>Palletlabel: </strong>{{ moment().format("dddd, MMMM Do YYYY") + ' ' + moment().locale('nl').format('LTS') }}
+<!--                                {{ moment().locale('nl').format('LTS') }}-->
+<!--                                <strong>Palletlabel: </strong>{{ moment().locale('nl').format('L') }} : {{ moment().locale('nl').format('LTS') }}-->
                             </div>
                             <div class="col-sm-6" style="font-size: 16px;">
                                 <span class="float-right"> <strong>Status: </strong>Ready </span>

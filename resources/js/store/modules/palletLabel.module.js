@@ -72,7 +72,7 @@ const actions = {
         context.commit(FETCH_START);
         return PalletLabelService.get(palletLabelSlug)
             .then(({ data }) => {
-                // console.log(data);
+                console.log(data);
                 context.commit(SET_PALLETLABEL, data.data);
                 context.commit(FETCH_END);
             })
