@@ -217,7 +217,6 @@
                             id="note"
                             name="note"
                             type="text"
-                            v-validate="'required'"
                             :class="{ 'is-invalid': errors.has('note') }"
                             class="form-control"
                         >
@@ -225,7 +224,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-check" v-if="form.note">
+                    <div class="form-check" v-if="form.articleAmount">
                         <input type="checkbox" class="form-check-input" id="formCheck" v-model="isChecked">
                         <label class="form-check-label" for="formCheck">Is everything correct?</label>
                     </div>
