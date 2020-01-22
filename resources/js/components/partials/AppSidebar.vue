@@ -80,6 +80,7 @@
 <!--                                    <span class="menu-title">Report</span>-->
 <!--                                </router-link>-->
 <!--                            </li>-->
+
                         </ul>
                     </b-collapse>
                 </li>
