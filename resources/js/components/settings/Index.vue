@@ -18,10 +18,16 @@
                     <div class="card-body" v-if="componentShow">
                         <div v-if="componentShow === 'Cells'">
                             <h5 class="card-title">{{farmer.name}} : Cells Config</h5>
+                            <div class="alert alert-warning" role="alert">
+                                <h6>Create a cell by pressing the <strong>[ + ]</strong> button. Name your cell as you wish.</h6>
+                            </div>
                             <SettingsCellUpdate></SettingsCellUpdate>
                         </div>
                         <div v-if="componentShow === 'Articles'">
                             <h5 class="card-title">{{farmer.name}} : Articles Selection</h5>
+                                <div class="alert alert-warning" role="alert">
+                                    <h6>Select/Deselect the articles you want to use in your application. If all articles are selected press <strong>Update</strong>.</h6>
+                                </div>
                             <SettingsArticleUpdate></SettingsArticleUpdate>
                         </div>
                     </div>
