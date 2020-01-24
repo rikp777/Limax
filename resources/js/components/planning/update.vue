@@ -32,6 +32,11 @@
     import {mapGetters} from 'vuex';
     export default {
         name: "planning-update",
+        data() {
+            return {
+                farmerId: 0
+            }
+        },
         computed: {
             ...mapGetters(["authUser", "isAuthenticated"]),
             farmers() {
@@ -45,6 +50,7 @@
             this.getAllFarmers();
             this.getAllPlannings();
             this.getAllArticles();
+            this.getAllFarmers();
         },
         methods: {
             getAllFarmers() {
@@ -55,6 +61,9 @@
             },
             getArticlesById(id) {
                 return this.$store.getters.articleById(id);
+            },
+            getFarmerById(id) {
+                return this.$store.getters.farmerById(id);
             },
             getOverzicht(id){
                 this.$store.dispatch("getPlanning", id)

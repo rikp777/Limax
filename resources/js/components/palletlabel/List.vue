@@ -5,7 +5,7 @@
             <tr>
                 <th class="text-left">#</th>
                 <th>Name</th>
-                <th class="text-right">Actions</th>
+                <th class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -15,12 +15,13 @@
                 </tr>
             </template>
             <template v-else>
-                <tr v-for="palletlabel in palletLabels" :key="palletlabel.id" v-if="articles.length">
-                    <td> {{ palletlabel.id}}</td>
+                <tr v-for="(palletlabel, index) in palletLabels" :key="palletlabel.id" v-if="articles.length">
+                    <td> {{ palletlabel.palletLabelFarmerId}}</td>
                     <td> {{ getArticlesById(palletlabel.articleId).name }}</td>
                     <td class="td-actions text-right">
-                        <router-link class="btn btn-primary text-white" :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>
                         <router-link class="btn btn-primary text-white" :to="{ name: 'palletLabelPdf', params: { id: palletlabel.id }}">PDF</router-link>
+                        <router-link class="btn btn-primary text-white" :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>
+                        <button class="btn btn-primary text-white" data-toggle="modal" @click="palletLabelDelete(palletlabel.id, index)">Delete</button>
                     </td>
                 </tr>
             </template>
@@ -61,7 +62,37 @@
             },
             getAllArticles(){
                 this.$store.dispatch("getAllArticles");
-            }
+            },
+
+            palletLabelDelete(id, index){
+
+                this.$swal({
+                    title: "Are you sure ?",
+                    text: "Deleting a PalletLabel, permanently removes it from the application!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#f2ab59",
+                    confirmButtonText: "Yes, delete PalletLabel!",
+                    cancelButtonText: "No, cancel!",
+                }).then((confirmed) => {
+                    if (confirmed.value) {
+                        this.$swal(
+                            'Deleted!',
+                            'PalletLabel has been deleted.',
+                            'success'
+                        );
+                        this.$store.dispatch("deletePalletLabel", id)
+                            .then(() =>{
+                                // this.paginate.data.splice(index, 1)
+                                this.palletLabels.splice(index, 1);
+                                console.log('hoi')
+                            })
+                    } else {
+                        this.$swal("Cancelled", "PalletLabel has not been deleted !", "error");
+                    }
+                });
+            },
+
         }
     }
 </script>
