@@ -74,12 +74,16 @@
                                 </router-link>
                             </li>
 
+
+
 <!--                            <li class="nav-item">-->
 <!--                                <router-link class="nav-link" :to="{ name: 'reportRead', params: {'farmerId' : farmer.id } }">-->
 <!--                                    <font-awesome-icon icon="archive" class="menu-icon"></font-awesome-icon>-->
 <!--                                    <span class="menu-title">Report</span>-->
 <!--                                </router-link>-->
 <!--                            </li>-->
+
+
 
                         </ul>
                     </b-collapse>

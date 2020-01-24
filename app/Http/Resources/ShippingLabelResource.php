@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\PalletType;
 
 class ShippingLabelResource extends JsonResource
 {
@@ -16,7 +17,10 @@ class ShippingLabelResource extends JsonResource
     {
 //        'certificates' => $this->certificateFarmerCode()->with('certificate')->get(),
 //        dd(parent::toArray($request));
+        $pallettype = pallettype::all();
+
         $totarray = [];
+        $totarray["palletlabelCount"] = sizeof(parent::toArray($request));
         $totarray["shippinglabelID"] = parent::toArray($request);
 
         foreach ($this as $this2) {
@@ -24,6 +28,15 @@ class ShippingLabelResource extends JsonResource
 
             foreach ($this2 as $article) {
 //                dd($article);
+                foreach ($pallettype as $pallet){
+                    if($article["pallet_type_id"] === $pallet["id"]){
+                        if(!isset($ptype[$pallet["description"]])){
+                            $ptype[$pallet["description"]] = 0;
+                        }
+                        $ptype[$pallet["description"]]++;
+                    }
+                }
+
                 $totarray["detail"][] = [
                     'palletlabel_id' => $article["id"],
                     'article_id' => $article["article_id"],
@@ -40,7 +53,7 @@ class ShippingLabelResource extends JsonResource
             }
 
         }
-
+        $totarray["pallet_types"] = $ptype;
         return $totarray;
 
 
