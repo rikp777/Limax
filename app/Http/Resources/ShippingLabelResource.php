@@ -53,7 +53,10 @@ class ShippingLabelResource extends JsonResource
             }
 
         }
-        $totarray["pallet_types"] = $ptype;
+        if (isset($ptype)){
+            $totarray["pallet_types"] = $ptype;
+        }
+
         return $totarray;
 
 
