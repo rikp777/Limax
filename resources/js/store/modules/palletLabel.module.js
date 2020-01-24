@@ -1,4 +1,4 @@
-import {ArticleService, PalletLabelService, PalletLabelStatusService} from "../../common/api.service";
+import {ArticleService, PalletLabelService, PalletLabelStatusService, UserService} from "../../common/api.service";
 import palletLabel from "../../router/routes/palletLabel";
 
 
@@ -146,6 +146,10 @@ const actions = {
         // });
     },
 
+    //delete palletlabel
+    deletePalletLabel(context, palletLabelSlug) {
+        return PalletLabelService.delete(palletLabelSlug)
+    },
 };
 
 // Mutations

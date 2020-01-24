@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-row">
+<!--                    {{reports}}-->
                     <table class="table table-borderless">
                         <thead>
                         <tr>
@@ -13,9 +14,9 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>5</td>
-                            <td>58,9 KG</td>
-                            <td>294,5 ‬KG</td>
+                            <td>{{reports.totalpallets}}</td>
+                            <td>{{reports.avgpalletweight}} KG</td>
+                            <td>{{reports.totalpalletweight}} KG</td>
                         </tr>
                         </tbody>
                     </table>
@@ -25,6 +26,35 @@
                     <div class="col mb-3">
                         <ChartDoughnut />
                     </div>
+                </div>
+                <div class="form-row">
+<!--                    {{reports.labels}}-->
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Crop Date</th>
+                            <th scope="col">Article Amount</th>
+                            <th scope="col">Sort</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Cell</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="report in reports.labels">
+                            <td>{{report.id}}</td>
+                            <td>{{report.cropDate}}</td>
+                            <td>{{report.articleAmount}}</td>
+                            <td>{{report.sort}}</td>
+                            <td>{{report.weight}} KG</td>
+                            <td>{{report.note}}</td>
+                            <td>{{report.statusDescription}}</td>
+                            <td>{{report.cellNumber + '. ' + report.cellDescription}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -55,8 +85,8 @@
         },
         computed: {
             ...mapGetters(["authUser", "isAuthenticated"]),
-            report(){
-                return this.$store.getters.report;
+            reports(){
+                return this.$store.getters.reports;
             }
         },
         mounted() {

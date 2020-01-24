@@ -2,45 +2,76 @@
 
 namespace App\Http\Resources;
 
+use App\Article;
+use App\Farmer;
+use App\PalletLabel;
+use App\SortType;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Request as CookieRequest;
 
 class ReportResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
     {
-//        return parent::toArray($request);
-        $totarray = [];
-        $totarray["data"] = parent::toArray($request);
+        $farmerId = CookieRequest::header('farmerId');
+        $currentFarmer = Farmer::find($farmerId);
+        $article = article::all();
+        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->where('crop_date', '2020-01-22')->get();
+        $sorts = SortType::all();
+//        dd($article);
 
-        foreach ($this as $this2) {
-//            dd($this2);
 
-            foreach ($this2 as $report) {
-//                dd($article);
-                $totarray["detail"][] = [
-                    'palletlabel_id' => $report["id"],
-                    'article_id' => $report["article_id"],
-                    'amount' => $report["article_amount"],
-                ];
-                if (isset($totarray["total"][$report["article_id"]])) {
-                    $totarray["total"][$report["article_id"]]['amount'] += $report["article_amount"];
-                } else {
-                    $totarray["total"][$report["article_id"]] = [
-                        'article_id' => $report["article_id"],
-                        'amount' => $report["article_amount"],
-                    ];
+        $palletweight = 0;
+        foreach ($palletlabels as $pallet) {
+
+            $articleid = $pallet["article_id"];
+            foreach ($article as $index => $art) {
+
+                $artSortType = $art["sort_type_id"];
+                foreach ($sorts as $sort) {
+
+                    if ($articleid === $art["id"]) {
+                        $indexes[] = $index;
+                        $palletweight += ($art["inset_gram"] * $pallet["article_amount"]);
+
+                        $sortid = $sort["id"];
+                        if ($artSortType === $sortid) {
+                            $sortDesc = $sort["description"];
+                            if (!isset($uniqueSort[$sortDesc])) {
+                                $uniqueSort[$sortDesc] = 0;
+                            }
+                            $uniqueSort[$sortDesc] += round(($art["inset_gram"] * $pallet["article_amount"]) / 1000, 2);
+
+                        }
+
+                    }
+
                 }
+
+
             }
 
         }
+        $totalpallets = sizeof($palletlabels);
+        $avgpalletweight = round(($palletweight / sizeof($palletlabels)) / 1000, 2);
+        $totalpalletweight = round(($palletweight) / 1000, 2);
+        $sortChartArr = $uniqueSort;
 
-        return $totarray;
+        $totArr = [
+            "totalpallets" => $totalpallets,
+            "avgpalletweight" => $avgpalletweight,
+            "totalpalletweight" => $totalpalletweight,
+            "sortchartarr" => $sortChartArr,
+        ];
+
+        return $totArr;
+
     }
 
 }
