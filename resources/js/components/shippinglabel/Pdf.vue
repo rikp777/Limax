@@ -110,8 +110,74 @@
                         <hr>
 
                         <template>
+<!--                            <div class="row mt-4">-->
+<!--                                <div class="col-sm-6">-->
+<!--                                    <h6 class="mb-3" style="font-size: 26px;">Total Pallets</h6>-->
+<!--                                </div>-->
 
+<!--                                <div class="col-sm-6">-->
+<!--                                    <h6 class="mb-3" style="font-size: 26px;">Total </h6>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
+<!--                            <div class="row">-->
+<!--                                <div class="col-sm-6" style="font-size: 22px;">-->
+<!--                                    <table style="width: 100%">-->
+<!--                                        <thead>-->
+<!--                                        <tr>-->
+<!--                                            <th>-->
+<!--                                                Article:-->
+<!--                                            </th>-->
+<!--                                            <th>-->
+<!--                                                Amount:-->
+<!--                                            </th>-->
+<!--                                        </tr>-->
+<!--                                        </thead>-->
+<!--                                        <tbody>-->
+<!--                                        <tr v-for="total in ShippingLabelPalletLabels['total']" v-if="articles.length">-->
+<!--                                            <td>-->
+<!--                                                {{ getArticlesById(total.articleId).name }}-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                {{ total.amount }}-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        </tbody>-->
+<!--                                    </table>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-6" style="font-size: 22px;">-->
+<!--                                    <table style="width: 100%">-->
+<!--                                        <thead>-->
+<!--                                        <tr>-->
+<!--                                            <th>-->
+<!--                                                Nr.:-->
+<!--                                            </th>-->
+<!--                                            <th>-->
+<!--                                                Article:-->
+<!--                                            </th>-->
+<!--                                            <th>-->
+<!--                                                Amount:-->
+<!--                                            </th>-->
+<!--                                        </tr>-->
+<!--                                        </thead>-->
+<!--                                        <tbody>-->
+<!--                                        <tr v-for="detail in ShippingLabelPalletLabels['detail']"-->
+<!--                                            v-if="articles.length">-->
+<!--                                            <td>-->
+<!--                                                {{ detail.palletlabelId }}-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                {{ getArticlesById(detail.articleId).name }}-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                {{ detail.amount }}-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        </tbody>-->
+<!--                                    </table>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <hr>-->
                             <div class="row mt-4">
                                 <div class="col-sm-6">
                                     <h6 class="mb-3" style="font-size: 26px;">Total</h6>
@@ -181,6 +247,67 @@
                             </div>
 
                             <hr>
+                            <div class="row mt-4">
+                                <div class="col-sm-6" style="font-size: 22px;">
+                                    <h6 class="mb-3" style="font-size: 26px;">Total Pallets</h6>
+                                </div>
+
+                                <div class="col-sm-6" style="font-size: 22px;">
+                                    <h6 class="mb-3" style="font-size: 26px;">Pallet Types</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6" style="font-size: 22px;">
+                                    <table style="width: 100%">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                Count:
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                {{ShippingLabelPalletLabels['palletlabelCount']}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-6" style="font-size: 22px;">
+<!--                                    {{ShippingLabelPalletLabels['palletTypes']}}-->
+<!--                                    <div v-for="(value, name) in ShippingLabelPalletLabels['palletTypes']">-->
+<!--                                        {{name}} : {{value}}-->
+<!--                                    </div>-->
+                                    <table style="width: 100%">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                Type:
+                                            </th>
+                                            <th>
+                                                Count:
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(value, name) in ShippingLabelPalletLabels['palletTypes']"
+                                            v-if="articles.length">
+                                            <td>
+                                                {{name}}
+                                            </td>
+                                            <td>
+                                                {{value}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr>
+                            <br>
+                            <br>
                             <div class="row">
                                 <div class="barcodee" style="font-family: 'Libre Barcode 39', cursive;">
                                 </div>
@@ -347,6 +474,67 @@
                             </div>
 
                             <hr>
+                            <div class="row mt-4">
+                                <div class="col-sm-6" style="font-size: 22px;">
+                                    <h6 class="mb-3" style="font-size: 26px;">Total Pallets</h6>
+                                </div>
+
+                                <div class="col-sm-6" style="font-size: 22px;">
+                                    <h6 class="mb-3" style="font-size: 26px;">Pallet Types</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6" style="font-size: 22px;">
+                                    <table style="width: 100%">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                Count:
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                {{ShippingLabelPalletLabels['palletlabelCount']}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-6" style="font-size: 22px;">
+                                    <!--                                    {{ShippingLabelPalletLabels['palletTypes']}}-->
+                                    <!--                                    <div v-for="(value, name) in ShippingLabelPalletLabels['palletTypes']">-->
+                                    <!--                                        {{name}} : {{value}}-->
+                                    <!--                                    </div>-->
+                                    <table style="width: 100%">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                Type:
+                                            </th>
+                                            <th>
+                                                Count:
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(value, name) in ShippingLabelPalletLabels['palletTypes']"
+                                            v-if="articles.length">
+                                            <td>
+                                                {{name}}
+                                            </td>
+                                            <td>
+                                                {{value}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr>
+                            <br>
+                            <br>
                             <div class="row">
                                 <div class="barcodee" style="font-family: 'Libre Barcode 39', cursive;">
                                 </div>

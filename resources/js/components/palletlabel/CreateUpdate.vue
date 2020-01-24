@@ -416,8 +416,8 @@
                     this.form.articleId = '';
                     this.form.palletTypeId= '';
                     this.form.cellId= '';
-                    this.form.harvestCycle= 0;
-                    this.form.harvestCycleDay= 0;
+                    this.form.harvestCycle= '';
+                    this.form.harvestCycleDay= '';
                     this.form.note= '';
                     // this.updateMode = false;
 
