@@ -335,6 +335,26 @@ export const ReportService = {
     }
 };
 
+//Planning
+const PlanningApi = "planning";
+export const PlanningService = {
+    create(params){
+        return ApiService.post(PlanningApi, { planning: params})
+    },
+    update(slug, params) {
+        return ApiService.update(PlanningApi, slug, { planning: params });
+    },
+    delete(slug) {
+        return ApiService.delete(PlanningApi, slug);
+    },
+    get(slug){
+        return ApiService.get(PlanningApi, slug)
+    },
+    getAll() {
+        return ApiService.get(PlanningApi)
+    }
+};
+
 //Farmer
 const FarmerApi = "farmer";
 export const FarmerService = {

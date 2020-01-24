@@ -54,7 +54,8 @@ const actions = {
         context.commit(FETCH_START);
         return ReportService.getAll()
             .then(({ data }) => {
-                context.commit(SET_REPORTS, data.data);
+                // console.log(data);
+                context.commit(SET_REPORTS, data);
             })
             .catch(error => {
                 throw new Error(error)
