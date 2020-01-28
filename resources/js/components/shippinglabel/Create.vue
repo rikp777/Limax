@@ -68,37 +68,48 @@
                     <span class="invalid-feedback">{{ errors.first('deliveryDate') }}</span>
                 </div>
             </div>
-            <!--            <div v-for="tom in shippingLabelID">-->
-            <!--&lt;!&ndash;                <div v-for="to in tom">&ndash;&gt;-->
-            <!--&lt;!&ndash;                    {{to.id}}&ndash;&gt;-->
-            <!--&lt;!&ndash;                </div>&ndash;&gt;-->
 
             <!--            </div>-->
             <hr v-if="form.deliveryDate">
             <div class="row">
                 <table class="table" v-if="form.deliveryDate">
                     <thead>
-                    <tr>
+                    <tr style="font-size: x-large">
                         <th>ID</th>
                         <th>Crop Date</th>
                         <th>Amount</th>
                         <th>Article</th>
-                        <th>Selected : {{form.palletLabels.length}}</th>
+<!--                        <th>Selected : {{form.palletLabels.length}} <input type="checkbox" v-model="selectAll"></th>-->
+                        <th style="text-align: right"><label class="switch"><input type="checkbox" v-model="selectAll"><span class="slider round"></span></label></th>
                     </tr>
                     </thead>
                                         <tbody>
 
+<!--                                        <tr v-for="palletLabel in palletLabels" v-if="articles.length">-->
+<!--                                            <td v-if="palletLabel.cropDate === form.deliveryDate">{{palletLabel.id}}</td>-->
+<!--                                            <td v-if="palletLabel.cropDate === form.deliveryDate">{{palletLabel.cropDate}}</td>-->
+<!--                                            <td v-if="palletLabel.cropDate === form.deliveryDate">{{palletLabel.articleAmount}}</td>-->
+<!--                                            <td v-if="palletLabel.cropDate === form.deliveryDate">{{getArticleById(palletLabel.articleId).name}}</td>-->
+<!--                                            <td v-if="palletLabel.cropDate === form.deliveryDate" style="text-align: center">-->
+<!--                                                <label class="form-checkbox">-->
+<!--                                                    <input type="checkbox" :value="palletLabel.id" v-model="form.palletLabels"-->
+<!--                                                            style="display: none;">-->
+<!--                                                    <palletlabelSelectStyling class="noselect btn btn-secondary"><b>➤</b>-->
+<!--                                                    </palletlabelSelectStyling>-->
+
+<!--                                                </label>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
                                         <tr v-for="palletLabel in palletLabels" v-if="articles.length">
-                                            <td v-if="palletLabel.cropDate === form.deliveryDate">{{palletLabel.id}}</td>
-                                            <td v-if="palletLabel.cropDate === form.deliveryDate">{{palletLabel.cropDate}}</td>
-                                            <td v-if="palletLabel.cropDate === form.deliveryDate">{{palletLabel.articleAmount}}</td>
-                                            <td v-if="palletLabel.cropDate === form.deliveryDate">{{getArticleById(palletLabel.articleId).name}}</td>
-                                            <td v-if="palletLabel.cropDate === form.deliveryDate" style="text-align: center">
-                                                <label class="form-checkbox">
+                                            <td>{{palletLabel.id}}</td>
+                                            <td>{{palletLabel.cropDate}}</td>
+                                            <td>{{palletLabel.articleAmount}}</td>
+                                            <td>{{getArticleById(palletLabel.articleId).name}}</td>
+                                            <td style="text-align: right">
+                                                <label class="switch">
                                                     <input type="checkbox" :value="palletLabel.id" v-model="form.palletLabels"
-                                                            style="display: none;">
-                                                    <palletlabelSelectStyling class="noselect btn btn-secondary"><b>➤</b>
-                                                    </palletlabelSelectStyling>
+                                                           style="display: none;" number>
+                                                    <span class="slider round"></span>
 
                                                 </label>
                                             </td>
@@ -175,6 +186,37 @@
                 // console.log(this.$store.getters.trucks);
                 return this.$store.getters.trucks
             },
+            selectAll: {
+                get() {
+                    if (this.form.palletLabels && this.form.palletLabels.length > 0) { // A users array exists with at least one item
+                        let allChecked = true;
+
+                        this.form.palletLabels.forEach((label) => {
+                            if (!this.selected.includes(label.id)) {
+                                allChecked = false; // If even one is not included in array
+                            }
+
+                            // Break out of loop if mismatch already found
+                            if(!allChecked) return;
+                        });
+
+                        return allChecked;
+                    }
+
+                    return false;
+                },
+                set(value) {
+                    const checked = [];
+
+                    if (value) {
+                        this.palletLabels.forEach((label) => {
+                            checked.push(label.id);
+                        });
+                    }
+
+                    this.form.palletLabels = checked;
+                }
+            },
         },
         mounted() {
             this.getAllPalletLabels();
@@ -211,12 +253,6 @@
             createShippingPalletID() {
                 this.$store.dispatch("createShippingPalletID", this.form)
             },
-            selectedPalletlabels(date) {
-                console.log(date);
-            },
-            emptySelected() {
-                // this.form.shippingLblid = [];
-            },
             getArticleById(id) {
                 return this.$store.getters.articleById(id)
             },
@@ -224,7 +260,9 @@
                 this.$store.dispatch("getAllPalletLabels");
             },
             getAllShippingLabels() {
-                this.$store.dispatch("getAllShippingLabels");
+                this.$store.dispatch("getAllShippingLabels").then(()=>{
+                    // this.form.palletLabels = this.palletLabels;
+                });
             },
             getAllArticles() {
                 this.$store.dispatch("getAllArticles");
@@ -295,5 +333,65 @@
         font-style: normal;
         background-color: #f2ab59;
         border-color: #f2ab59;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #f2ab59;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #f2ab59;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
     }
 </style>
