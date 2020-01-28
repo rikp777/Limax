@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google" content="notranslate">
         <link rel="apple-touch-icon" sizes="180x180" href="https://www.limax.nl/icon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="https://www.limax.nl/icon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="https://www.limax.nl/icon/favicon-16x16.png">
@@ -25,7 +26,7 @@
 
     </head>
     <body>
-        <div id="app">
+        <div id="app" class="notranslate">
             <main-app></main-app>
         </div>
     </body>

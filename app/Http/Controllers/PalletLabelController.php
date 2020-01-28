@@ -33,7 +33,15 @@ class PalletLabelController extends Controller
         $currentFarmer = Farmer::find($farmerId);
 //        dd($currentFarmer);
         //ctrlfFARMERID change farmer id to route
-        return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->paginate(10));
+//        return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->get());
+        $palletLabelAll = PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->get();
+        $palletLabelPaginated = PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->paginate(10);
+
+        $collectionReturn = [
+            "all" => $palletLabelAll,
+            "paginated" => $palletLabelPaginated,
+        ];
+        return $collectionReturn;
 
     }
 
@@ -132,9 +140,9 @@ class PalletLabelController extends Controller
         //autoincrement unique palletlabel farmer id
         $palletlabelFarmerId = 0;
         $palletlabelFarmer = Palletlabel::where('farmer_id', $currentFarmer->id)->orderby('id', 'desc')->first();
-        if ($palletlabelFarmer) {
-            $palletlabelFarmerId = $palletlabelFarmer->pallet_label_farmer_id + 1;
-        }
+//        if ($palletlabelFarmer) {
+//            $palletlabelFarmerId = $palletlabelFarmer->pallet_label_farmer_id + 1;
+//        }
 
 
         //insert palletLabel
@@ -142,7 +150,6 @@ class PalletLabelController extends Controller
         $palletlabel->crop_date = Carbon::parse($request->crop_date);
         $palletlabel->article_amount = $request->article_amount;
         $palletlabel->note = $request->note;
-        $palletlabel->pallet_label_farmer_id = $palletlabelFarmerId;
         $palletlabel->made_by = $authUser->first_name;
         $palletlabel->user_id = $authUser->id;
         $palletlabel->pallet_type_id = $palletType->id;

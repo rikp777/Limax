@@ -4,9 +4,11 @@ namespace App\Http\Resources;
 
 use App\Article;
 use App\Farmer;
+use App\PalletLabel;
 use App\PalletType;
 use App\Status;
 use App\User;
+use Request as CookieRequest;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PalletLabelResource extends JsonResource
@@ -19,7 +21,14 @@ class PalletLabelResource extends JsonResource
      */
     public function toArray($request)
     {
+//        $farmerId = CookieRequest::header('farmerId');
+//
+//        $authUser = auth()->user();
+//        $currentFarmer = Farmer::find($farmerId);
         return parent::toArray($request);
+//        $palletLabelPaginate =  PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->paginate(10));
+
+
     }
 //    public function toArray($request)
 //    {

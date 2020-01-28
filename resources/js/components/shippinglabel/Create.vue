@@ -63,8 +63,7 @@
                         v-validate="'required'"
                         :class="{ 'is-invalid': errors.has('deliveryDate') }"
                         class="form-control"
-                        @input="emptySelected"
-                    ></flat-pickr>
+                    />
 
                     <span class="invalid-feedback">{{ errors.first('deliveryDate') }}</span>
                 </div>
@@ -97,7 +96,7 @@
                                             <td v-if="palletLabel.cropDate === form.deliveryDate" style="text-align: center">
                                                 <label class="form-checkbox">
                                                     <input type="checkbox" :value="palletLabel.id" v-model="form.palletLabels"
-                                                           @change="selectedPalletlabels(form.palletLabels)" style="display: none;">
+                                                            style="display: none;">
                                                     <palletlabelSelectStyling class="noselect btn btn-secondary"><b>➤</b>
                                                     </palletlabelSelectStyling>
 
@@ -212,8 +211,8 @@
             createShippingPalletID() {
                 this.$store.dispatch("createShippingPalletID", this.form)
             },
-            selectedPalletlabels(id) {
-                // console.log(this.form);
+            selectedPalletlabels(date) {
+                console.log(date);
             },
             emptySelected() {
                 // this.form.shippingLblid = [];
