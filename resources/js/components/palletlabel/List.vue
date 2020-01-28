@@ -15,7 +15,9 @@
                 </tr>
             </template>
             <template v-else>
-                <tr v-for="(palletlabel, index) in palletLabels" :key="palletlabel.id" v-if="articles.length">
+<!--                {{palletLabels}}-->
+                <tr v-for="(palletlabel,index) in palletLabelsPaginated" :key="palletlabel.id" v-if="articles.length">
+<!--                    <td> {{ palletlabel}}</td>-->
                     <td> {{ palletlabel.palletLabelFarmerId}}</td>
                     <td> {{ getArticlesById(palletlabel.articleId).name }}</td>
                     <td class="td-actions text-right">
@@ -39,6 +41,9 @@
         computed: {
             palletLabels(){
                 return this.$store.getters.palletLabels
+            },
+            palletLabelsPaginated(){
+                return this.$store.getters.palletLabelsPaginated
             },
             isLoading(){
                 return this.$store.getters.palletLabelIsLoading
@@ -65,7 +70,6 @@
             },
 
             palletLabelDelete(id, index){
-
                 this.$swal({
                     title: "Are you sure ?",
                     text: "Deleting a PalletLabel, permanently removes it from the application!",
@@ -84,8 +88,9 @@
                         this.$store.dispatch("deletePalletLabel", id)
                             .then(() =>{
                                 // this.paginate.data.splice(index, 1)
-                                this.palletLabels.splice(index, 1);
-                                console.log('hoi')
+                                // console.log(this.palletLabelsPaginated);
+                                this.palletLabelsPaginated.splice(index, 1);
+                                // console.log('hoi')
                             })
                     } else {
                         this.$swal("Cancelled", "PalletLabel has not been deleted !", "error");

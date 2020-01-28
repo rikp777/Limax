@@ -16,18 +16,15 @@
                 </tr>
             </template>
             <template v-else v-for="shipLabels in shippingLabels">
-<!--                <div v-for="shipLabels in shippingLabels">-->
-                    <tr v-for="shippingLabel in shipLabels" :key="shippingLabel.id" v-if="articles.length">
-<!--                        {{shippingLabel.shippinglabelId}}-->
+                    <tr v-for="(shippingLabel,index) in shipLabels" :key="shippingLabel.id" v-if="articles.length">
                         <td> {{ shippingLabel.shippinglabelId.id}}</td>
                         <td> {{ shippingLabel.shippinglabelId.transportDate }}</td>
                         <td> {{ shippingLabel.shippinglabelId.createdAt }}</td>
                         <td class="td-actions text-right">
-                            <!--                        <router-link class="btn btn-primary text-white" :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>-->
+<!--                                                    <router-link class="btn btn-primary text-white" :to="{ name: 'palletLabelUpdate', params: { id: palletlabel.id }}">Update</router-link>-->
                             <router-link class="btn btn-primary text-white" :to="{ name: 'shippingLabelPdf', params: { id: shippingLabel.shippinglabelId.id }}">PDF</router-link>
                         </td>
                     </tr>
-<!--                </div>-->
 
             </template>
             </tbody>

@@ -2,8 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Farmer;
+use App\ShippingLabel;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\PalletType;
+use Request as CookieRequest;
 
 class ShippingLabelResource extends JsonResource
 {
@@ -22,6 +25,10 @@ class ShippingLabelResource extends JsonResource
         $totarray = [];
         $totarray["palletlabelCount"] = sizeof(parent::toArray($request));
         $totarray["shippinglabelID"] = parent::toArray($request);
+        $farmerId = CookieRequest::header('farmerId');
+        $currentFarmer = Farmer::find($farmerId);
+//        $total = ShippingLabel::where('farmer_id', $currentFarmer->id)->latest('id')->get();
+        $paginated = ShippingLabel::where('farmer_id', $currentFarmer->id)->latest('id')->paginate(10);
 
         foreach ($this as $this2) {
 //            dd($this2);
@@ -58,7 +65,12 @@ class ShippingLabelResource extends JsonResource
         }
 
         return $totarray;
-
+//
+//        $collectionReturn = [
+//            "all" => $totarray,
+//            "paginated" => $paginated,
+//        ];
+//        return $collectionReturn;
 
 //        dd($request);
 //        dd(parent::toArray($request));

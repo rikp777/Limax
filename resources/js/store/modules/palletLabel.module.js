@@ -9,11 +9,13 @@ const FETCH_END =  "resetPalletLabelLoading";
 // mutation names
 const SET_PALLETLABEL = "setPalletLabel";
 const SET_PALLETLABELS = "setPalletLabels";
+const SET_LABELSPAGINATED = "setPalletLabelsPaginated";
 
 
 // Initial State
 const state = {
     palletLabels: {},
+    palletLabelsPaginated: {},
     palletLabel: [],
     isLoading: true,
     palletLabelsCount: 0,
@@ -23,6 +25,9 @@ const state = {
 const getters = {
     palletLabels(state) {
         return state.palletLabels;
+    },
+    palletLabelsPaginated(state) {
+        return state.palletLabelsPaginated;
     },
     palletLabel(state) {
         return state.palletLabel
@@ -53,8 +58,10 @@ const actions = {
         context.commit(FETCH_START);
         return PalletLabelService.getAll()
             .then(({ data }) => {
-                // console.log(data);
-                context.commit(SET_PALLETLABELS, data.data);
+                // console.log(data.all);
+                // console.log(data.paginated.data);
+                context.commit(SET_PALLETLABELS, data.all);
+                context.commit(SET_LABELSPAGINATED, data.paginated.data);
                 context.commit(FETCH_END);
                 // console.log(state.palletLabels);
             })
@@ -164,6 +171,10 @@ export const mutations = {
         //console.log(palletLabels);
         state.palletLabels = palletLabels;
         state.palletLabelsCount = palletLabels.length;
+    },
+    [SET_LABELSPAGINATED](state, palletLabelsPaginated){
+        //console.log(palletLabelsPaginated);
+        state.palletLabelsPaginated = palletLabelsPaginated;
     },
     [SET_PALLETLABEL](state, article){
         state.palletLabel = article;

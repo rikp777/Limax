@@ -8,11 +8,13 @@ const FETCH_END = "resetShippingLabelLoading";
 // mutation names
 const SET_SHIPPINGLABEL = "setShippingLabel";
 const SET_SHIPPINGLABELS = "setShippingLabels";
+// const SET_LABELSPAGINATED = "setShippingLabelsPaginated";
 
 
 // Initial State
 const state = {
     shippingLabels: {},
+    // shippingLabelsPaginated: {},
     shippingLabel: [],
     isLoading: true,
     shippingLabelsCount: 0,
@@ -55,8 +57,8 @@ const actions = {
         return ShippingLabelService.getAll()
             .then(({data}) => {
                 // console.log(data);
-                // console.log(shippingLabels);
                 context.commit(SET_SHIPPINGLABELS, data);
+                // context.commit(SET_LABELSPAGINATED, data.paginated.data);
                 context.commit(FETCH_END);
                 // console.log(SET_SHIPPINGLABELS);
             })
@@ -116,6 +118,10 @@ export const mutations = {
         // console.log(state.shippingLabels);
         state.shippingLabelsCount = shippingLabels.length;
     },
+    // [SET_LABELSPAGINATED](state, shippingLabelsPaginated){
+    //     //console.log(palletLabelsPaginated);
+    //     state.shippingLabelsPaginated = shippingLabelsPaginated;
+    // },
     [SET_SHIPPINGLABEL](state, shippingLabel) {
         state.shippingLabel = shippingLabel;
         // state.shippingLabelsCount = shippingLabel.length +1;
