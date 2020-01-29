@@ -14,8 +14,9 @@ const AUTH_PURGE = "AuthPurge";
 //Initial State
 const state = {
     loginError: null,
-    authUser: jwtService.getToken('authUser') ? JSON.parse(jwtService.getToken('authUser')) : null,
-    authUserFarmers: jwtService.getToken('authUser') ?  JSON.parse(jwtService.getToken('authUser')).user.farmers : null,
+    authUser: [],
+    authUserFarmers: [],
+    authFarmer: [],
     isAuthenticated: !!jwtService.getToken(),
     processing: false,
 };
@@ -24,6 +25,7 @@ const state = {
 // Getters
 const getters = {
     authUser: state => state.authUser,
+    authFarmer: state => state.authFarmer,
     loginError: state => state.loginError,
     isAuthenticated: state => state.isAuthenticated,
     processing: state => state.processing,
@@ -32,6 +34,15 @@ const getters = {
 
 // Actions
 const actions = {
+    getAuthUser(context){
+        ApiService.get("/authuser")
+            .then((response) => {
+                context.commit(SET_AUTH_USER, response.data);
+            })
+            .catch((error) => {
+                context.commit(SET_AUTH_ERROR, error);
+            });
+    },
     login(context, credentials) {
         return new Promise(resolve => {
             context.commit(FETCH_START);
@@ -75,34 +86,35 @@ const mutations = {
         state.loginError = errors
     },
     [SET_AUTH_USER](state, data) {
-        const authUser = {
-            "token": {
-                "accessToken": data.accessToken,
-                "tokenType": data.tokenType,
-                "expiresAt": data.expiresAt
-            },
-            "user": data.user
-        };
-        console.log(authUser);
-        jwtService.saveToken('authUser', JSON.stringify(authUser));
-        if(authUser.user.farmers){
-            jwtService.saveToken('authFarmer', JSON.stringify(authUser.user.farmers[0].uid));
+        if(data.user){
+            jwtService.saveToken('authToken', JSON.stringify(data.auth.accessToken));
+            jwtService.saveToken('authUser', JSON.stringify(data.user.uid));
+        }
+        if(data.user.farmers){
+            if(!jwtService.getToken('authFarmer')){
+                jwtService.saveToken('authFarmer', JSON.stringify(data.user.farmers[0].uid));
+            }
         }
         ApiService.setHeader();
 
-
         state.isAuthenticated = true;
-        state.authUser = authUser;
+        state.authUser = data.user;
+        state.authUserFarmers = data.user.farmers;
+        state.authFarmer = data.user.farmers.find(f => f.uid === JSON.parse(jwtService.getToken('authFarmer')));
         state.loginError = null;
     },
     [AUTH_PURGE](state) {
         console.log("Destroy all states");
+        jwtService.destroyToken('authToken');
         jwtService.destroyToken('authUser');
         jwtService.destroyToken('authFarmer');
 
         state.isAuthenticated = false;
         state.authUser = [];
         state.loginError = null;
+    },
+    changeAuthFarmer(state, payload){
+        state.authFarmer = payload;
     }
 };
 

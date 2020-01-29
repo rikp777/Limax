@@ -35,7 +35,6 @@ class Farmer extends Model
         return $this->hasMany(CertificateFarmerCode::class);
     }
 
-
 //ctrlfFARMERID change farmer id to route
     public static function getCurrentFarmer(){
         return Farmer::find(1);

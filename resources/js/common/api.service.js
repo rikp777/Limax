@@ -14,11 +14,15 @@ const ApiService  = {
     },
 
     setHeader() {
-        const authUser = JSON.parse(JwtService.getToken('authUser'));
-        const authFarmer = JSON.parse(JwtService.getToken('authFarmer'));
-        if(authUser && authFarmer){
-            Vue.axios.defaults.headers.common["AuthUser"] = `Bearer ${authUser.token.accessToken}`;
-            Vue.axios.defaults.headers.common["AuthFarmer"] = `UID ${authFarmer.uid}` ;
+        const authToken = JwtService.getToken('authToken');
+        const authUser = JwtService.getToken('authUser');
+        const authFarmer = JwtService.getToken('authFarmer');
+        if(authUser && authToken){
+            Vue.axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(authToken)}`;
+            Vue.axios.defaults.headers.common["AuthUser"] = `${JSON.parse(authUser)}`;
+        }
+        if(authFarmer){
+            Vue.axios.defaults.headers.common["AuthFarmer"] = `${JSON.parse(authFarmer)}` ;
         }
     },
 
@@ -242,7 +246,7 @@ export const DepartmentService = {
 
 //ArticleUserService
 const ArticleFarmerApi = "articlefarmer";
-export const ArticleFarmerService = {
+export const FarmerArticleService = {
     create(params){
         return ApiService.post(ArticleFarmerApi, params)
     },

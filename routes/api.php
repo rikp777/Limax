@@ -14,9 +14,10 @@ use Illuminate\Http\Request;
 */
 Route::post('/login', 'AuthController@login');
 
+
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/logout', 'AuthController@logout');
-
+    Route::get('/authuser', 'AuthController@authUser');
 
     Route::apiResource('/user', 'UserController')
     ->only(['index', 'show', 'destroy', 'update', 'store']);

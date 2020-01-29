@@ -126,6 +126,7 @@ import VCalendar from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
 import VueScrollTo from 'vue-scrollto'
 import Vuelidate from "vuelidate";
+import Multiselect from 'vue-multiselect'
 
 //Vue Uses
 Vue.use(BootstrapVue);
@@ -152,11 +153,13 @@ Vue.use(VCalendar, {
 Vue.use(VueScrollTo);
 Vue.use(Vuelidate);
 
+
 //Vue Components
 Vue.component('piaf-breadcrumb', Breadcrumb);
 Vue.component('b-refresh-button', RefreshButton);
 Vue.component('b-colxx', Colxx);
 Vue.component('vue-perfect-scrollbar', vuePerfectScrollbar);
+Vue.component('multiselect', Multiselect);
 
 const messages = { en: en, nl: nl, pl: pl };
 const locale = (localStorage.getItem('currentLanguage')

@@ -24,9 +24,9 @@
             <div class="d-inline-block">
                 <b-dropdown id="farmer" class="ml-2" variant="light" size="sm" toggle-class="farmer-button">
                     <template slot="button-content">
-                        <span class="name">{{authFarmer}}</span>
+                        <span class="name">{{authFarmer.name}}</span>
                     </template>
-                    <b-dropdown-item v-for="(farmer,index) in authUserFarmers" :key="index" @click="changeFarmer(farmer.uid)">{{farmer.name}}</b-dropdown-item>
+                    <b-dropdown-item v-for="(farmer,index) in authUserFarmers" :key="index" @click="changeFarmer(farmer)">{{farmer.name}}</b-dropdown-item>
                 </b-dropdown>
             </div>
         </div>
@@ -112,7 +112,7 @@
                     <template slot="button-content">
                         <span class="name mr-1">{{authUser.fullName}}</span>
                         <span>
-                        <img :alt="authUser.fullName" :src="authUser.img" />
+                        <img :alt="authUser.fullName" src="https://cdn.discordapp.com/attachments/490497757098803200/672062989251117066/486846866412011561.png" />
                     </span>
                     </template>
                     <b-dropdown-item>Account</b-dropdown-item>
@@ -128,6 +128,7 @@
 </template>
 
 <script>
+    import jwtService from "../common/jwt.service";
     import Switches from 'vue-switches'
     import notifications from '../data/notifications'
 
@@ -172,7 +173,7 @@
             }
         },
         methods: {
-            ...mapMutations(['changeSideMenuStatus', 'changeSideMenuForMobile']),
+            ...mapMutations(['changeSideMenuStatus', 'changeSideMenuForMobile', 'changeAuthFarmer']),
             ...mapActions(['setLang', 'logout', 'setFarmer']),
             search() {
                 this.$router.push(`${this.searchPath}?search=${this.searchKeyword}`)
@@ -196,12 +197,12 @@
                     this.searchKeyword = ''
                 }
             },
-
             changeLocale(locale) {
                 this.setLang(locale)
             },
-            changeFarmer(uid){
-                this.setFarmer(uid)
+            changeFarmer(farmer){
+                this.setFarmer(farmer.uid);
+                this.changeAuthFarmer(farmer);
             },
             logout() {
                 this.$router.push({ name: "logout"})
@@ -248,22 +249,30 @@
                         document.mozFullScreenElement !== null) ||
                     (document.msFullscreenElement && document.msFullscreenElement !== null)
                 )
+            },
+            currentFarmer(){
+                console.log(jwtService.getToken("authFarmer"))
+                console.log(this.authUserFarmers.find(f => f.uid == jwtService.getToken("authFarmer")));
+                console.log(this.authUserFarmers);
+                return this.authUserFarmers.find(f => f.uid == JSON.parse(jwtService.getToken("authFarmer")));
             }
         },
         computed: {
             ...mapGetters({
                 authUser: 'authUser',
+                authFarmer: 'authFarmer',
                 menuType: 'getMenuType',
                 menuClickCount: 'getMenuClickCount',
                 selectedMenuHasSubItems: 'getSelectedMenuHasSubItems',
-                authUserFarmers: 'authUserFarmers'
+                authUserFarmers: 'authUserFarmers',
             })
         },
         beforeDestroy() {
             document.removeEventListener('click', this.handleDocumentforMobileSearch)
         },
         created() {
-            const color = this.getThemeColor()
+            this.$store.dispatch("getAuthUser");
+            const color = this.getThemeColor();
             this.isDarkActive = color.indexOf('dark') > -1
         },
         watch: {

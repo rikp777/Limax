@@ -7,6 +7,7 @@ use App\Article;
 use App\Cell;
 use App\CultivationCycle;
 use App\Farmer;
+use App\Http\Resources\ArticleFarmerResource;
 use App\Http\Resources\PalletLabelResource;
 use App\PalletLabel;
 use App\PalletType;
@@ -25,10 +26,16 @@ class PalletLabelController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+//        dd($request->header('authFarmer'));
+        if($currentFarmer){
+            $palletlabels = PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->get();
 
-        return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->paginate(10));
+            return PalletLabelResource::collection($palletlabels);
+        }
+        return null;
     }
 
 

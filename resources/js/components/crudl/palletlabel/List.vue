@@ -1,11 +1,10 @@
 <template>
     <b-card title="Palletlabel List">
         <b-refresh-button @click="refreshButtonClick" />
-
         <vue-table
             ref="palletlabelList"
             :api-mode="false"
-            :data="palletlabels.data"
+            :data="palletLabels"
             :fields="palletlabels.fields"
             :per-page="6"
             pagination-path=""
@@ -62,22 +61,28 @@
         data() {
             return {
                 palletlabels: {
-                    data: [],
                     fields: [
                         {
-                            name: 'id',
+                            name: 'palletLabelFarmerId',
                             sortField: 'id',
                             title: '#',
                             titleClass: '',
-                            dataClass: 'list-item-heading'
+                            dataClass: ''
                         },
                         {
-                            name: 'name',
-                            sortField: 'sales',
+                            name: 'article.name',
+                            sortField: 'name',
                             title: 'Name',
                             titleClass: '',
-                            dataClass: 'text-muted'
+                            dataClass: ''
                         },
+                        {
+                            name: 'cropDate',
+                            sortField: 'cropDate',
+                            title: 'Crop Date',
+                            titleClass: '',
+                            dataClass: ''
+                        }
                     ]
                 }
             }
