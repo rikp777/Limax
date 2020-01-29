@@ -128,14 +128,14 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import FlatPickr from "vue-flatpickr-component/src/component";
+    //import FlatPickr from "vue-flatpickr-component/src/component";
     import $router from "vue-router/dist/vue-router.esm.browser";
     import shippingLabel from "../../router/routes/shippingLabel";
     import palletLabel from "../../router/routes/palletLabel";
 
     export default {
         name: "shippingLabel-update",
-        components: {FlatPickr},
+        //components: {FlatPickr},
         updated() {
             $(this.$refs.selectTrucker).selectpicker('refresh');
             $(this.$refs.selectLicense).selectpicker('refresh');

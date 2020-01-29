@@ -1,36 +1,25 @@
 import Vue from "vue";
 import VueRouter from 'vue-router';
-
-
-
-import auth from '../router/routes/auth'
-import user from '../router/routes/user'
-import palletLabel from '../router/routes/palletLabel'
-import shippingLabel from '../router/routes/shippingLabel'
-import article from '../router/routes/article'
-import priceList from "./routes/pricelist";
-import profile from "./routes/profile";
-import planning from "./routes/planning";
-import settings from "./routes/settings";
-import report from "./routes/report";
-import truck from "../router/routes/truck";
+import palletLabel from "./routes/palletLabel";
+import documentation from "./routes/documentation";
+import auth from "./routes/auth"
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: [
-        ...truck,
-        ...article,
-        ...auth,
-        ...user,
-        ...palletLabel,
-        ...shippingLabel,
-        ...priceList,
-        ...profile,
-        ...settings,
-        ...report,
-        ...planning
+        {
+            path: "/",
+            component: () => import("../views/app"),
+            redirect: "app/docs",
+            children: [
+                ...palletLabel,
+                ...documentation
+            ]
+        },
+        ...auth
     ],
+    linkActiveClass: "active",
     mode: 'history'
 });
 

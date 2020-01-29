@@ -1,8 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import VuexPersist from 'vuex-persistedstate';
-import Cookies from 'js-cookie'
-
 
 import auth from './modules/auth.module.js'
 import user from '../store/modules/user.js'
@@ -19,35 +16,43 @@ import planning from './modules/planning.module'
 import cultivationCycle from '../store/modules/cultivationCycle'
 import palletType from './modules/palletType.module'
 import farmer from './modules/farmer.module'
-import moment from "moment";
+import menu from './modules/menu.module'
+import app from '../app'
 
 Vue.use(Vuex);
-const production = false;
 export default new Vuex.Store({
+    state: {
+
+    },
+    mutations: {
+        changeLang(state, payload){
+            app.$i18n.locale = payload;
+            localStorage.setItem('currentLanguage', payload)
+        }
+    },
+    actions: {
+        setLang({ commit }, payload){
+            commit('changeLang', payload)
+        }
+    },
     plugins: [
-        VuexPersist({
-            storage: {
-                getItem: key => Cookies.get(key),
-                setItem: (key, value) => Cookies.set(key, value, {secure: production }),
-                removeItem: key => Cookies.remove(key)
-            }
-        })
     ],
     modules: {
+        menu,
         auth,
         user,
         palletLabel,
-        shippingLabel,
-        truck,
-        palletType,
-        cultivationCycle,
-        article,
-        cell,
-        role,
+        // shippingLabel,
+        // truck,
+        // palletType,
+        // cultivationCycle,
+        // article,
+        // cell,
+        // role,
         farmer,
-        report,
-        planning,
-        department,
-        articlefarmer,
+        // report,
+        // planning,
+        // department,
+        // articlefarmer,
     },
 });

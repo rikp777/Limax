@@ -1,4 +1,4 @@
-import ApiService, { ArticlesService } from "../../common/api.service";
+import ApiService, {ArticlesService} from "../../common/api.service";
 import jwtService from "../../common/jwt.service";
 
 // action names
@@ -11,58 +11,53 @@ const SET_AUTH_ERROR = "setAuthError";
 const AUTH_PURGE = "AuthPurge";
 
 
-
 //Initial State
 const state = {
-    errors: null,
-    user: [],
+    loginError: null,
+    authUser: jwtService.getToken('authUser') ? JSON.parse(jwtService.getToken('authUser')) : null,
+    authUserFarmers: jwtService.getToken('authUser') ?  JSON.parse(jwtService.getToken('authUser')).user.farmers : null,
     isAuthenticated: !!jwtService.getToken(),
-    isLoading: true,
+    processing: false,
 };
-
 
 
 // Getters
 const getters = {
-    authUser(state) {
-        return state.user
-    },
-    errors(state) {
-        return state.errors
-    },
-    isAuthenticated(state){
-        return state.isAuthenticated;
-    },
-    authIsLoading(state){
-        return state.isLoading;
-    }
+    authUser: state => state.authUser,
+    loginError: state => state.loginError,
+    isAuthenticated: state => state.isAuthenticated,
+    processing: state => state.processing,
+    authUserFarmers: state => state.authUserFarmers
 };
 
 // Actions
 const actions = {
-    login(context, credentials){
+    login(context, credentials) {
         return new Promise(resolve => {
             context.commit(FETCH_START);
             ApiService
                 .post("login", credentials)
-                .then(( response )  => {
+                .then((response) => {
                     context.commit(SET_AUTH_USER, response.data);
-                    ApiService.setHeader();
                     context.commit(FETCH_END);
+
                     resolve(response);
                 })
-                .catch(( error ) => {
+                .catch((error) => {
                     context.commit(SET_AUTH_ERROR, error);
                 });
         });
     },
-    logout(context){
-        context.commit(AUTH_PURGE)
+    logout(context) {
+        return new Promise(resolve => {
+            context.commit(AUTH_PURGE);
+            resolve();
+        })
     },
-    checkAuth(context){
-        if(jwtService.getToken()){
+    checkAuth(context) {
+        if (jwtService.getToken('authUser')) {
             ApiService.setHeader();
-        }else {
+        } else {
             context.commit(AUTH_PURGE)
         }
     },
@@ -71,27 +66,43 @@ const actions = {
 // Mutations
 const mutations = {
     [FETCH_START](state) {
-        state.isLoading = true;
+        state.processing = true;
     },
     [FETCH_END](state) {
-        state.isLoading = false;
+        state.processing = false;
     },
-   [SET_AUTH_ERROR](state, errors){
-       state.errors = errors
-   },
-    [SET_AUTH_USER](state, payload) {
-        // console.log(payload.user);
-       state.isAuthenticated = true;
-       state.user = payload.user;
-       state.errors = null;
-       jwtService.saveToken('user', payload.accessToken);
+    [SET_AUTH_ERROR](state, errors) {
+        state.loginError = errors
     },
-    [AUTH_PURGE](state){
-       state.isAuthenticated = false;
-       state.user = [];
-       state.errors = null;
-       jwtService.destroyToken('user');
-       jwtService.destroyToken('farmer');
+    [SET_AUTH_USER](state, data) {
+        const authUser = {
+            "token": {
+                "accessToken": data.accessToken,
+                "tokenType": data.tokenType,
+                "expiresAt": data.expiresAt
+            },
+            "user": data.user
+        };
+        console.log(authUser);
+        jwtService.saveToken('authUser', JSON.stringify(authUser));
+        if(authUser.user.farmers){
+            jwtService.saveToken('authFarmer', JSON.stringify(authUser.user.farmers[0].uid));
+        }
+        ApiService.setHeader();
+
+
+        state.isAuthenticated = true;
+        state.authUser = authUser;
+        state.loginError = null;
+    },
+    [AUTH_PURGE](state) {
+        console.log("Destroy all states");
+        jwtService.destroyToken('authUser');
+        jwtService.destroyToken('authFarmer');
+
+        state.isAuthenticated = false;
+        state.authUser = [];
+        state.loginError = null;
     }
 };
 

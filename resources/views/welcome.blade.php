@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google" content="notranslate">
         <link rel="apple-touch-icon" sizes="180x180" href="https://www.limax.nl/icon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="https://www.limax.nl/icon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="https://www.limax.nl/icon/favicon-16x16.png">
@@ -21,12 +22,36 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <style>
+            .loading {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                border: 2px solid rgba(0,0,0,.2 );
+                border-radius: 50%;
+                border-top-color: rgba(0,0,0,.4 );
+                animation: spin 1s ease-in-out infinite;
+                -webkit-animation: spin 1s ease-in-out infinite;
+                left: calc(50%);
+                top: calc(50%);
+                position: fixed;
+                z-index: 1;
+            }
 
-
+            @keyframes spin {
+                to { -webkit-transform: rotate(360deg); }
+            }
+            @-webkit-keyframes spin {
+                to { -webkit-transform: rotate(360deg); }
+            }
+        </style>
     </head>
     <body>
-        <div id="app">
-            <main-app></main-app>
+        <noscript>
+            You need to enable JavaScript to run this app.
+        </noscript>
+        <div id="app" class="notranslate">
+            <div class="loading"></div>
         </div>
     </body>
 

@@ -14,8 +14,12 @@ const ApiService  = {
     },
 
     setHeader() {
-        Vue.axios.defaults.headers.common["Authorization"] = `Bearer ${JwtService.getToken('user')}`;
-        Vue.axios.defaults.headers.common["farmerId"] = `${JwtService.getToken('farmer')}`;
+        const authUser = JSON.parse(JwtService.getToken('authUser'));
+        const authFarmer = JSON.parse(JwtService.getToken('authFarmer'));
+        if(authUser && authFarmer){
+            Vue.axios.defaults.headers.common["AuthUser"] = `Bearer ${authUser.token.accessToken}`;
+            Vue.axios.defaults.headers.common["AuthFarmer"] = `UID ${authFarmer.uid}` ;
+        }
     },
 
     query(resource, params) {
@@ -41,6 +45,7 @@ const ApiService  = {
    get(resource, slug = "") {
         // console.log('resource = ' + resource);
         // console.log('slug = ' + slug);
+       console.log("get: "+ resource +  " " + slug)
         const request = applyConverters(Vue.axios)
             .get(`${resource}/${slug}`)
             .catch(error => {

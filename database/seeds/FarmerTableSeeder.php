@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 Use App\Farmer;
+use Illuminate\Support\Str;
 
 class FarmerTableSeeder extends Seeder
 {
@@ -14,6 +15,7 @@ class FarmerTableSeeder extends Seeder
     {
         $farmers = [
             [
+                'uid' => Str::uuid()->toString(),
                 'name' => 'Riks farming house',
                 'street' => 'Irenestraat',
                 'house_number' => 4,
@@ -28,6 +30,7 @@ class FarmerTableSeeder extends Seeder
                 'contact_person_user_id' => 1,
             ],
             [
+                'uid' => Str::uuid()->toString(),
                 'name' => 'Toms farming house',
                 'street' => 'Binnenhof',
                 'house_number' => 9,

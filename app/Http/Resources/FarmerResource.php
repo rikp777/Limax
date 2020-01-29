@@ -15,7 +15,7 @@ class FarmerResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'uid' => $this->uid,
             'name' => $this->name,
             'street' => $this->street,
             'house_number' => $this->house_number,
@@ -28,14 +28,6 @@ class FarmerResource extends JsonResource
             'fax' => $this->fax,
             'preference_article_group_id' => $this->preference_article_group_id,
             'contact_person_user_id' => $this->contact_person_user_id,
-//            'certificate_data' => [
-//                $this->certificateFarmerCode->each(function ($certificateFarmerCode){
-//                    return [
-//                        'name' => $certificateFarmerCode->Certificate->name,
-//                        'code' => $certificateFarmerCode->code,
-//                    ];
-//                })
-//            ],
             'certificates' => $this->certificateFarmerCode()->with('certificate')->get(),
         ];
     }

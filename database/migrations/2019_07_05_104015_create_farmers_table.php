@@ -15,6 +15,7 @@ class CreateFarmersTable extends Migration
     {
         Schema::create('farmers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('uid')->unique();
             $table->string('name')->unique();
             $table->string('street');
             $table->string('house_number');

@@ -1,0 +1,48 @@
+{
+    "general": {
+        "copyright": "Copyright © 2020 Limax. All rights reserved. Made by Tom van Vegchel & Rik Peeters."
+    },
+
+    "user": {
+        "email": "E-mail",
+        "password": "Password",
+        "fullName": "Full Name",
+        "firstName": "First Name",
+        "lastName": "Last Name"
+    },
+
+    "auth": {
+        "loginTitle": "Login",
+        "register": "Register",
+        "forgotPassword": "Forgot Password",
+        "passwordAgain": "Password Again",
+        "forgotPasswordQuestion": "Forget password?",
+        "loginButton": "LOGIN",
+        "registerButton": "REGISTER",
+        "resetPasswordButton": "RESET"
+    },
+
+    "topMenu": {
+        "search": "Search"
+    },
+
+    "menu": {
+        "docs": {
+            "main": "Docs"
+        },
+        "palletlabel": {
+            "main": "Palletlabel",
+            "create": "Create"
+        },
+        "article": {
+            "main": "Article",
+            "create": "Create"
+        }
+    },
+
+    "footer": {
+        "allRightReserved": "All rights reserved",
+        "madeBy": "Made by",
+        "handMade": "Hand-crafted & made with"
+    }
+}

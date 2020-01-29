@@ -1,4 +1,6 @@
 import { FarmerService } from "../../common/api.service";
+import jwtService from "../../common/jwt.service";
+import app from "../../app";
 
 // action names
 const FETCH_START = "setFarmerLoading";
@@ -42,7 +44,9 @@ export const getters = {
 };
 // Actions
 export const actions = {
-
+    setFarmer({ commit }, payload){
+        commit('changeFarmer', payload)
+    },
     //get all articles
     async getAllFarmers(context){
         context.commit(FETCH_START);
@@ -95,6 +99,9 @@ export const mutations = {
     },
     [SET_FARMER](state, farmer){
         state.farmer = farmer;
+    },
+    changeFarmer(state, payload){
+        jwtService.saveToken('authFarmer', payload)
     }
 };
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 Use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Farmer;
+use Illuminate\Support\Str;
 
 class UserTableSeeder extends Seeder
 {
@@ -18,6 +19,25 @@ class UserTableSeeder extends Seeder
     {
         $users = [
             [
+                'uid' => Str::uuid()->toString(),
+                'first_name' => 'Rik',
+                'insert_name' => null,
+                'last_name' => 'Peeters',
+                'email' => 'rik@limax.nl',
+                'photo' => 'https://microhealth.com/assets/images/illustrations/personal-user-illustration-@2x.png',
+                'password' => Hash::make('password')
+            ],
+            [
+                'uid' => Str::uuid()->toString(),
+                'first_name' => 'Tom',
+                'insert_name' => 'van',
+                'last_name' => 'Vegchel',
+                'email' => 'tom@limax.nl',
+                'photo' => 'https://microhealth.com/assets/images/illustrations/personal-user-illustration-@2x.png',
+                'password' => Hash::make('password')
+            ],
+            [
+                'uid' => Str::uuid()->toString(),
                 'first_name' => 'test',
                 'insert_name' => null,
                 'last_name' => 'admin',
@@ -26,6 +46,7 @@ class UserTableSeeder extends Seeder
                 'password' => Hash::make('password')
             ],
             [
+                'uid' => Str::uuid()->toString(),
                 'first_name' => 'test',
                 'insert_name' => null,
                 'last_name' => 'moderator',
@@ -34,6 +55,7 @@ class UserTableSeeder extends Seeder
                 'password' => Hash::make('password')
             ],
             [
+                'uid' => Str::uuid()->toString(),
                 'first_name' => 'test',
                 'insert_name' => null,
                 'last_name' => 'farmer',
@@ -51,10 +73,12 @@ class UserTableSeeder extends Seeder
         // Make RelationsShips
         User::findOrFail(1)->roles()->sync( [ 1 ] );
         User::findOrFail(2)->roles()->sync( [ 2 ] );
-        User::findOrFail(3)->roles()->sync( [ 3 ] );
+        User::findOrFail(3)->roles()->sync( [ 1 ] );
+        User::findOrFail(4)->roles()->sync( [ 2 ] );
+        User::findOrFail(5)->roles()->sync( [ 3 ] );
 
         $roles = Role::where('id', '>', '2')->get();
-        User::where('id', '>', '3')->each(function ($user) use ($roles) {
+        User::where('id', '>', '5')->each(function ($user) use ($roles) {
             $user->roles()->attach(
                 $roles->random(rand(1, 2))->pluck('id')->toArray()
             );
