@@ -23,7 +23,7 @@ class ShippingLabelController extends Controller
         $authUser = auth()->user();
 
 //        return ShippingLabelResource::collection(ShippingLabel::latest('id')->first());
-        return ShippingLabelResource::collection(ShippingLabel::where('farmer_id', $currentFarmer->id)->latest('id')->get());
+        return ShippingLabelResource::collection(ShippingLabel::where('farmer_id', $currentFarmer->id)->latest('id')->take(10)->get());
 
         //ctrlfFARMERID change farmer id to route
     }

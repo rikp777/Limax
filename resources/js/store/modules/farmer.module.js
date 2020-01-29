@@ -39,9 +39,16 @@ export const getters = {
     },
 
 
-    farmerById: (state) => (id) => {
-        return state.farmers.find(farmer => farmer.id === id)
+    // farmerById: (state) => (id) => {
+    //     return state.farmers.find(farmer => farmer.id === id)
+    // },
+
+    farmerById: (state) => (id) =>{
+        if(state.farmers.length) {
+            return state.farmers.find(farmer => farmer.id === id)
+        }
     },
+
     farmerByName: (state) => (name) => {
         return state.farmers.find(farmer => farmer.name === name)
     },
