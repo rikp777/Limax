@@ -1,83 +1,64 @@
 <template>
-    <div>
+    <div class="container">
         <div class="row">
-            <button v-for="(farmer, index) in farmers" type="button" class="btn btn-primary text-white" @click="getOverzicht(farmer.id)">{{farmer.name}}</button>
-        </div>
-        <hr v-if="planning.labels">
-        <div class="row" v-if="planning.labels">
-            <h5>Label Overview</h5>
-        </div>
-        <div class="row">
-            <table class="table" v-if="planning.labels">
-                <thead>
-                <tr>
-                    <th scope="col">Farmer</th>
-                    <th scope="col">PalletNr</th>
-                    <th scope="col">Crop Date</th>
-                    <th scope="col">Article</th>
-                    <th scope="col">Amount</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="plannings in planning.labels">
-<!--                    <td>{{plannings}}</td>-->
-                    <td>{{getFarmerById(plannings.farmerId).name}}</td>
-                    <td>{{plannings.id}}</td>
-                    <td>{{plannings.cropDate}}</td>
-                    <td>{{getArticlesById(plannings.articleId).name}}</td>
-                    <td>{{plannings.articleAmount}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <hr v-if="planning.labels">
-        <div class="row" v-if="planning.groupedarticles">
-            <h5>Statistics</h5>
-        </div>
-            <div class="row" v-if="planning.groupedarticles">
             <div class="col">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Amount of Labels</th>
-                        <th>{{planning.totalpallets}}</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <div class="col">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Article</th>
-                        <th scope="col">Total Amount</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="(value, id) in planning.groupedarticles">
-                        <td>
-                            {{getArticlesById(parseInt(id)).name}}
-                        </td>
-                        <td>
-                            {{value}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="card">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item" v-for="farmer in farmers">
+                                    <button type="button" class="btn btn-primary btn-lg nav-link"
+                                            @click="constructListOfIntervals(moment().subtract(4, 'days').format('YYYY-MM-DD'), moment().add(7, 'days').format('YYYY-MM-DD'), 'day')">
+                                        {{farmer.name}}
+                                    </button>
+<!--                                    <button type="button" class="btn btn-primary btn-lg nav-link"-->
+<!--                                            @click="loadFarmerPlanning(farmer.id, moment().format('YYYY-MM-DD'), moment().endOf('isoweek').format('YYYY-MM-DD'))">-->
+<!--                                        {{farmer.name}}-->
+<!--                                    </button>-->
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="card-body">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col" v-for="">First</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <ul>
+                            <li v-for="interval in intervals">
+                                {{ interval }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-
-
+    </div>
 </template>
 
 <script>
     import {mapGetters} from 'vuex';
+
     export default {
-        name: "planning-update",
+        name: "planningCreate",
         data() {
             return {
-                farmerId: 0
+                serverErrors: '',
+                intervals: {}
             }
         },
         computed: {
@@ -89,10 +70,8 @@
                 return this.$store.getters.planning;
             },
         },
-        mounted(){
-            this.getAllFarmers();
+        mounted() {
             this.getAllPlannings();
-            this.getAllArticles();
             this.getAllFarmers();
         },
         methods: {
@@ -102,22 +81,27 @@
             getAllPlannings() {
                 this.$store.dispatch("getAllPlannings");
             },
-            getArticlesById(id) {
-                return this.$store.getters.articleById(id);
-            },
             getFarmerById(id) {
                 return this.$store.getters.farmerById(id);
             },
-            getOverzicht(id){
-                this.$store.dispatch("getPlanning", id)
-                    .then(() => {
-                        // console.log('hoi');
-                        // this.form = this.palletLabel;
-                    });
+            loadFarmerPlanning(id) {
+
             },
-            getAllArticles() {
-                this.$store.dispatch("getAllArticles");
-            },
+            constructListOfIntervals(start, end, interval) {
+                //object
+                const intervals = {};
+                const diffUnitOfTime = `${interval}s`;
+
+                while (moment(end).diff(start, diffUnitOfTime) > 0) {
+                    const currentEnd = moment(moment(start).add(1, diffUnitOfTime)).format('YYYY-MM-DD');
+
+                    Object.assign(intervals, {[start]: currentEnd});
+
+                    start = currentEnd;
+                }
+                this.intervals = intervals;
+                console.log(intervals);
+            }
         }
     }
 </script>
