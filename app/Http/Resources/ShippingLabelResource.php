@@ -46,6 +46,7 @@ class ShippingLabelResource extends JsonResource
 
                 $totarray["detail"][] = [
                     'palletlabel_id' => $article["id"],
+                    'palletlabelfarmer_id' => $article["pallet_label_farmer_id"],
                     'article_id' => $article["article_id"],
                     'amount' => $article["article_amount"],
                 ];

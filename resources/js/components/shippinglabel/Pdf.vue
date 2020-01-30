@@ -218,6 +218,9 @@
                                         <thead>
                                         <tr>
                                             <th>
+                                                Nr Limax.:
+                                            </th>
+                                            <th>
                                                 Nr.:
                                             </th>
                                             <th>
@@ -233,6 +236,9 @@
                                             v-if="articles.length">
                                             <td>
                                                 {{ detail.palletlabelId }}
+                                            </td>
+                                            <td>
+                                                {{ detail.palletlabelfarmerId }}
                                             </td>
                                             <td>
                                                 {{ getArticlesById(detail.articleId).name }}
@@ -445,6 +451,9 @@
                                         <thead>
                                         <tr>
                                             <th>
+                                                Nr Limax.:
+                                            </th>
+                                            <th>
                                                 Nr.:
                                             </th>
                                             <th>
@@ -460,6 +469,9 @@
                                             v-if="articles.length">
                                             <td>
                                                 {{ detail.palletlabelId }}
+                                            </td>
+                                            <td>
+                                                {{ detail.palletlabelfarmerId }}
                                             </td>
                                             <td>
                                                 {{ getArticlesById(detail.articleId).name }}

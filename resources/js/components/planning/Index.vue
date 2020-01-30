@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Planning</h5>
-                        <planning-update></planning-update>
+                        <router-view></router-view>
                     </div>
                 </div>
             </div>
@@ -15,12 +15,9 @@
 </template>
 
 <script>
-    import PlanningUpdate from "./update";
 
     export default {
-        name: "Index",
-        components: {PlanningUpdate},
-        props: ['farmers'],
+        name: "planning-index",
     }
 </script>
 
