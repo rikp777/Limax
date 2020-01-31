@@ -1,104 +1,125 @@
-@ECHO OFF
-Title Limax FlowControl Setup
-mode con cols=64 lines=35 & color 0B
-REM You can change the variable PeriodTime as you needs here is set to (120 seconds = 2 minutes) as example
-Set "PeriodTime=2"
-echo(
-cls
-:::
-:::  _      _                         _____      _
-::: | |    (_)                       / ____|    | |
-::: | |     _ _ __ ___   __ ___  __ | (___   ___| |_ _   _ _ __
-::: | |    | | '_ ` _ \ / _` \ \/ /  \___ \ / _ | __| | | | '_ \
-::: | |____| | | | | | | (_| |>  <   ____) |  __| |_| |_| | |_) |
-::: |______|_|_| |_| |_|\__,_/_/\_\ |_____/ \___|\__|\__,_| .__/
-:::                                                       | |
-:::                                                       |_|
-:::
-:::              _ _,---._
-:::           ,-','       `-.___
-:::          /-;'               `._
-:::         /\/          ._   _,'o \
-:::        ( /\       _,--'\,','"`. )
-:::         |\      ,'o     \'    //\
-:::         |      \        /   ,--'""`-.
-:::         :       \_    _/ ,-'         `-._
-:::          \        `--'  /                )
-:::           `.  \`._    ,'     ________,','
-:::             .--`     ,'  ,--` __\___,;'
-:::              \`.,-- ,' ,`_)--'  /`.,'
-:::               \( ;  | | )      (`-/
-:::                 `--'| |)       |-/
-:::                   | | |        | |
-:::                   | | |,.,-.   | |_
-:::                   | `./ /   )---`  )
-:::                  _|  /    ,',   ,-'
-:::                 ,'|_(    /-<._,' |--,
-:::                 |    `--'---.     \/ \
-:::                 |          / \    /\  \
-:::               ,-^---._     |  \  /  \  \
-:::            ,-'        \----'   \/    \--`.
-:::           /            \              \   \
-:::
+<# : Batch portion
+@echo off & setlocal enabledelayedexpansion
 
-for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A
+set "menu[0]=Install Setup"
+set "menu[1]=composer install"
+set "menu[2]=php artisan key:generate"
+set "menu[3]=php artisan storage:link"
+set "menu[4]=npm install"
+set "menu[5]=npm run dev"
+set "menu[6]=php artisan migrate:fresh --seed"
+set "menu[7]=php artisan passport:install"
+set "menu[8]=composer dump-autoload"
+set "menu[9]=Start Server (Vue/Laravel)"
+set "menu[99]=CLOSE"
 
->NUL TIMEOUT /T %PeriodTime% /NOBREAK
+set "default=0"
 
-REM
-REM DEMO - how to launch several processes in parallel, and wait until all of them finish.
-REM
+powershell -noprofile "iex (gc \"%~f0\" | out-string)"
 
-@ECHO OFF
-start "!ComposerInstall!" call composer install
-:waittofinishComposerInstall
-echo Composer Install is still running...
-timeout /T 2 /nobreak >nul
-tasklist.exe /fi "WINDOWTITLE eq !ComposerInstall!" | find ":" >nul
-if errorlevel 1 goto waittofinishComposerInstall
-start "!KeyGenerate!" call php artisan key:generate
+IF !ERRORLEVEL! == 0 cmd /c Echo !menu[%ERRORLEVEL%]! && start test.bat && exit
+IF !ERRORLEVEL! == 1 cmd /c Call composer install && start test.bat && exit
+IF !ERRORLEVEL! == 2 cmd /c Call php artisan key:generate && start test.bat && exit
+IF !ERRORLEVEL! == 3 cmd /c Call php artisan storage:link && start test.bat && exit
+IF !ERRORLEVEL! == 4 cmd /c Call npm install --global cross-env&& start test.bat && exit
+IF !ERRORLEVEL! == 5 cmd /c Call npm run dev && start test.bat && exit
+IF !ERRORLEVEL! == 6 cmd /c Call php artisan migrate:fresh --seed && start test.bat && exit
+IF !ERRORLEVEL! == 7 cmd /c Call php artisan passport:install && start test.bat && exit
+IF !ERRORLEVEL! == 8 cmd /c Call composer dump-autoload && start test.bat && exit
+IF !ERRORLEVEL! == 9 cmd /c Echo !menu[%ERRORLEVEL%]! && start test.bat && exit
+IF !ERRORLEVEL! == 99 exit && exit
+: echo You chose !menu[%ERRORLEVEL%]!.
 
-:waittofinishKeyGenerate
-echo Key Generate is still running...
-timeout /T 2 /nobreak >nul
-tasklist.exe /fi "WINDOWTITLE eq !KeyGenerate!" | find ":" >nul
-if errorlevel 1 goto waittofinishKeyGenerate
-start "!StorageLink!" call php artisan storage:link
+goto :EOF
+: end batch / begin PowerShell hybrid chimera #>
 
-:waittofinishStorageLink
-echo Storage Link is still running...
-timeout /T 2 /nobreak >nul
-tasklist.exe /fi "WINDOWTITLE eq !StorageLink!" | find ":" >nul
-if errorlevel 1 goto waittofinishStorageLink
-start "!NpmInstall!" call npm install
+$menutitle = "=== MENU ==="
+$menuprompt = "Use the arrow keys.  Hit Enter to select."
 
-:waittofinishRunDev
-echo Npm Install is still running...
-timeout /T 2 /nobreak >nul
-tasklist.exe /fi "WINDOWTITLE eq !NpmInstall!" | find ":" >nul
-if errorlevel 1 goto waittofinishRunDev
-start "!RunDev!" call npm run dev
+$maxlen = $menuprompt.length + 6
+$menu = gci env: | ?{ $_.Name -match "^menu\[\d+\]$" } | %{
+    $_.Value.trim()
+    $len = $_.Value.trim().Length + 6
+    if ($len -gt $maxlen) { $maxlen = $len }
+}
+[int]$selection = $env:default
+$h = $Host.UI.RawUI.WindowSize.Height
+$w = $Host.UI.RawUI.WindowSize.Width
+$xpos = [math]::floor(($w - ($maxlen + 5)) / 2)
+$ypos = [math]::floor(($h - ($menu.Length + 4)) / 3)
 
-:waittofinishMigrateFreshSeed
-echo Run Dev is still running...
-timeout /T 2 /nobreak >nul
-tasklist.exe /fi "WINDOWTITLE eq !RunDev!" | find ":" >nul
-if errorlevel 1 goto waittofinishMigrateFreshSeed
-start "!MigrateFreshSeed!" call php artisan migrate:fresh --seed
+$offY = [console]::WindowTop;
+$rect = New-Object Management.Automation.Host.Rectangle `
+    0,$offY,($w - 1),($offY+$ypos+$menu.length+4)
+$buffer = $Host.UI.RawUI.GetBufferContents($rect)
 
-:waittofinishPassportInstall
-echo Migrate Fresh Seed is still running...
-timeout /T 2 /nobreak >nul
-tasklist.exe /fi "WINDOWTITLE eq !MigrateFreshSeed!" | find ":" >nul
-if errorlevel 1 goto waittofinishPassportInstall
-start "!PassportInstall!" call php artisan passport:install
+function destroy {
+    $coords = New-Object Management.Automation.Host.Coordinates 0,$offY
+    $Host.UI.RawUI.SetBufferContents($coords,$buffer)
+}
 
-:waittofinishDumpAutoload
-echo PassportInstall is still running...
-timeout /T 2 /nobreak >nul
-tasklist.exe /fi "WINDOWTITLE eq !PassportInstall!" | find ":" >nul
-if errorlevel 1 goto waittofinishDumpAutoload
-start "!DumpAutoload!" call composer dump-autoload
+function getKey {
+    while (-not ((37..40 + 13 + 48..(47 + $menu.length)) -contains $x)) {
+        $x = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown').VirtualKeyCode
+    }
+    $x
+}
 
-PAUSE
+# http://goo.gl/IAmdR6
+function WriteTo-Pos ([string]$str, [int]$x = 0, [int]$y = 0,
+    [string]$bgc = [console]::BackgroundColor, [string]$fgc = [Console]::ForegroundColor) {
+    if($x -ge 0 -and $y -ge 0 -and $x -le [Console]::WindowWidth -and
+        $y -le [Console]::WindowHeight) {
+        $saveY = [console]::CursorTop
+        $offY = [console]::WindowTop
+        [console]::setcursorposition($x,$offY+$y)
+        Write-Host $str -b $bgc -f $fgc -nonewline
+        [console]::setcursorposition(0,$saveY)
+    }
+}
 
+function center([string]$what) {
+    $what = "    $what  "
+    $lpad = " " * [math]::max([math]::floor(($maxlen - $what.length) / 2), 0)
+    $rpad = " " * [math]::max(($maxlen - $what.length - $lpad.length), 0)
+    WriteTo-Pos "$lpad   $what   $rpad" $xpos $line blue yellow
+}
+
+function menu {
+    $line = $ypos
+    center $menutitle
+    $line++
+    center " "
+    $line++
+
+    for ($i=0; $item = $menu[$i]; $i++) {
+        # write-host $xpad -nonewline
+        $rtpad = " " * ($maxlen - $item.length)
+        if ($i -eq $selection) {
+            WriteTo-Pos "  > $item <$rtpad" $xpos ($line++) yellow blue
+        } else {
+            WriteTo-Pos " $i`: $item  $rtpad" $xpos ($line++) blue yellow
+        }
+    }
+    center " "
+    $line++
+    center $menuprompt
+    1
+}
+
+while (menu) {
+
+    [int]$key = getKey
+
+    switch ($key) {
+
+        37 {}   # left or up
+        38 { if ($selection) { $selection-- }; break }
+
+        39 {}   # right or down
+        40 { if ($selection -lt ($menu.length - 1)) { $selection++ }; break }
+
+        # number or enter
+        default { if ($key -gt 13) {$selection = $key - 48}; destroy; exit($selection) }
+    }
+}
