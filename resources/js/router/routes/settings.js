@@ -5,7 +5,7 @@ import Overview from '../../views/farmer/settings/overview'
 
 export default [
     {
-        path: 'farmer/settings',
+        path: 'settings',
         component: Index,
         meta: {
             requiresAuth: true,

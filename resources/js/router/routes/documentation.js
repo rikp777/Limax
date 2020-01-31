@@ -5,7 +5,7 @@ import RightEnum from "../rights";
 export default [
     {
         name: 'docs',
-        path: 'farmer/docs',
+        path: 'docs',
         component: Index,
         meta: {
             requiresAuth: true

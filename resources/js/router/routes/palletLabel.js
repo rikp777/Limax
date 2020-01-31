@@ -7,7 +7,7 @@ import Create from '../../views/farmer/palletlabel/create'
 
 export default [
     {
-        path: 'farmer/palletlabel',
+        path: 'palletlabel',
         component: Index,
         meta: {
             requiresAuth: true,
