@@ -17,17 +17,17 @@ set "default=0"
 
 powershell -noprofile "iex (gc \"%~f0\" | out-string)"
 
-IF !ERRORLEVEL! == 0 cmd /c Echo !menu[%ERRORLEVEL%]! && start test.bat && exit
-IF !ERRORLEVEL! == 1 cmd /c Call composer install && start test.bat && exit
-IF !ERRORLEVEL! == 2 cmd /c Call php artisan key:generate && start test.bat && exit
-IF !ERRORLEVEL! == 3 cmd /c Call php artisan storage:link && start test.bat && exit
-IF !ERRORLEVEL! == 4 cmd /c Call npm install --global cross-env&& start test.bat && exit
-IF !ERRORLEVEL! == 5 cmd /c Call npm run dev && start test.bat && exit
-IF !ERRORLEVEL! == 6 cmd /c Call php artisan migrate:fresh --seed && start test.bat && exit
-IF !ERRORLEVEL! == 7 cmd /c Call php artisan passport:install && start test.bat && exit
-IF !ERRORLEVEL! == 8 cmd /c Call composer dump-autoload && start test.bat && exit
-IF !ERRORLEVEL! == 9 cmd /c Echo !menu[%ERRORLEVEL%]! && start test.bat && exit
-IF !ERRORLEVEL! == 99 exit && exit
+IF !ERRORLEVEL! == 0 cmd /c Echo !menu[%ERRORLEVEL%]! && start Setup.bat && exit
+IF !ERRORLEVEL! == 1 cmd /c Call composer install && start Setup.bat && exit
+IF !ERRORLEVEL! == 2 cmd /c Call php artisan key:generate && start Setup.bat && exit
+IF !ERRORLEVEL! == 3 cmd /c Call php artisan storage:link && start Setup.bat && exit
+IF !ERRORLEVEL! == 4 cmd /c Call npm install --global cross-env&& start Setup.bat && exit
+IF !ERRORLEVEL! == 5 cmd /c Call npm run dev && start Setup.bat && exit
+IF !ERRORLEVEL! == 6 cmd /c Call php artisan migrate:fresh --seed && start Setup.bat && exit
+IF !ERRORLEVEL! == 7 cmd /c Call php artisan passport:install && start Setup.bat && exit
+IF !ERRORLEVEL! == 8 cmd /c Call composer dump-autoload && start Setup.bat && exit
+IF !ERRORLEVEL! == 9 Start Call php artisan serve && TIMEOUT 1 && Start Call npm run watch && start Setup.bat && exit
+IF !ERRORLEVEL! == 99 goto :EOF
 : echo You chose !menu[%ERRORLEVEL%]!.
 
 goto :EOF
