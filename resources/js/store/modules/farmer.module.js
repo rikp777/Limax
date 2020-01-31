@@ -1,4 +1,7 @@
-import { FarmerArticleService, FarmerService} from "../../common/api.service";
+import {
+    FarmerArticleService,
+    FarmerService
+} from "../../common/api.service";
 import jwtService from "../../common/jwt.service";
 
 
@@ -30,6 +33,9 @@ export const getters = {
     },
     farmer(state) {
         return state.farmer
+    },
+    farmerArticles(state){
+        return state.farmerArticles
     },
     farmersCount(state) {
         return state.farmersCount
@@ -121,6 +127,9 @@ export const mutations = {
     },
     [SET_FARMER](state, farmer){
         state.farmer = farmer;
+    },
+    [SET_FARMER_ARTICLES](state, farmerArticles){
+        state.farmerArticles = farmerArticles;
     },
     changeFarmer(state, payload){
         jwtService.saveToken('authFarmer', JSON.stringify(payload));

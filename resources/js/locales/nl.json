@@ -4,7 +4,7 @@
     },
 
     "menu": {
-        "app": "homepagina",
+        "app": "Homepagina",
         "docs": {
             "main": "Docs"
         },
@@ -49,7 +49,7 @@
 
     "user": {
         "email": {
-            "title": "email",
+            "title": "Email",
             "validation": {
                 "notEntered": "Vul aub uw email in",
                 "notValid": "Vul aub een echt bestaand email adress in",
@@ -57,11 +57,46 @@
             }
         },
         "password": {
-            "title": "password",
+            "title": "Wachtwoord",
             "validation": {
                 "notEntered": "Vul aub uw wachtwoord in",
                 "minLength": "Uw wachtwoord moet minimaal 4 karakters lang zijn"
             }
+        }
+    },
+    "palletlabel": {
+        "create": {
+            "title": "Maak Palletlabel Aan",
+            "modeTitle": "Maak",
+            "actions": {
+                "title": "Bent u klaar?",
+                "buttonCreate": "Maak Palletlabel Aan",
+                "buttonClear": "Leeg Alle Velden"
+            }
+        },
+        "article": {
+            "title": "Artikel"
+        },
+        "palletType": {
+            "title": "Pallet Soort"
+        },
+        "cell": {
+            "title": "Cell"
+        },
+        "harvestCycle": {
+            "title": "Vlucht"
+        },
+        "harvestCycleDay": {
+            "title": "Vlucht Dag"
+        },
+        "cropDate": {
+            "title": "Pluk Dag"
+        },
+        "amount": {
+            "title": "Aantal"
+        },
+        "note": {
+            "title": "Opmerking"
         }
     }
 }

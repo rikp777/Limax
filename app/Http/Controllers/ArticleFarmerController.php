@@ -16,10 +16,11 @@ class ArticleFarmerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $farmerId = CookieRequest::header('farmerId');
-        $currentFarmer = Farmer::find($farmerId);
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+
+//        dd($currentFarmer);
 //        return $currentFarmer->articles()->get();
         return ArticleFarmerResource::collection($currentFarmer->articles()->get());
     }

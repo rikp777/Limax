@@ -16,7 +16,6 @@ import truck from './modules/truck.module'
 import article from './modules/article.module'
 import cell from './modules/cell.module'
 import role from './modules/role.module'
-import articlefarmer from './modules/articlefarmer.module'
 import department from './modules/department.module'
 import report from './modules/report.module'
 import planning from './modules/planning.module'
@@ -58,10 +57,10 @@ export default new Vuex.Store({
         palletLabel,
         // shippingLabel,
         // truck,
-        // palletType,
+        palletType,
         // cultivationCycle,
         // article,
-        // cell,
+        cell,
         // role,
         farmer,
         // report,

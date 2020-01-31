@@ -29,7 +29,6 @@ class PalletLabelController extends Controller
     public function index(Request $request)
     {
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-//        dd($request->header('authFarmer'));
         if($currentFarmer){
             $palletlabels = PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->get();
 

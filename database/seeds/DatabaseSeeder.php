@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DepartmentTableSeeder::class);
         $this->call(ArticleGroupTableSeeder::class);
         $this->call(UserTableSeeder::class);
-        $this->call(FarmerTableSeeder::class);
 
 
         $this->call(PalletTypeSeeder::class);
@@ -27,6 +26,10 @@ class DatabaseSeeder extends Seeder
         $this->call(StatusTableSeeder::class);
         $this->call(SortTypeTableSeeder::class);
         $this->call(ArticleTableSeeder::class);
+        $this->call(FarmerTableSeeder::class);
+
+
+
 
 
         $this->call(CellTableSeeder::class);

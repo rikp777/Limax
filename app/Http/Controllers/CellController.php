@@ -13,10 +13,9 @@ use Request as CookieRequest;
 class CellController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $farmerId = CookieRequest::header('farmerId');
-        $currentFarmer = Farmer::find($farmerId);
+        $currentFarmer = Farmer::where('uid', $request->header("authFarmer"))->first();
         return CellResource::collection(Cell::where('farmer_id', $currentFarmer->id)->get());
     }
 

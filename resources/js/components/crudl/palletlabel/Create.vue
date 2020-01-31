@@ -1,15 +1,209 @@
 <template>
     <b-row>
-        <b-colxx md="12" class="mb-4">
+        <b-colxx md="12" class="mb-4" v-if="setupItems.length">
             <b-card title="alerts">
-                <b-refresh-button @click="refreshButtonClick" />
-                <vue-perfect-scrollbar class="scroll dashboard-list-with-user" :settings="{ suppressScrollX: true, wheelPropagation: false }">
-                    <list-with-palletlabel-setup-item v-for="(item, index) in setupItems" :data="item" :key="index" />
+                <b-refresh-button/>
+                <vue-perfect-scrollbar class="scroll dashboard-list-with-user"
+                                       :settings="{ suppressScrollX: true, wheelPropagation: false }">
+                    <list-with-palletlabel-setup-item v-for="(item, index) in setupItems" :data="item" :key="index"/>
                 </vue-perfect-scrollbar>
             </b-card>
         </b-colxx>
-        <b-colxx md="12" class="mb-4">
-            <b-card title="Palletlabel Create" :class="{ 'updatemodeStyle': updateMode }">
+        <!--        <br><hr>-->
+        <!--        {{cells}}-->
+        <!--        <br><hr>-->
+        <!--        {{farmerArticles}}-->
+        <!--        <br><hr>-->
+        <!--        {{setupItems}}-->
+        <!--        <br><hr>-->
+        <b-colxx md="12" class="mb-4" v-if="!setupItems.length">
+
+            <b-card :title="$t('palletlabel.create.title')">
+                <div class="position-absolute card-top-buttons">
+                    <b-badge class="mb-1" pill variant="info">{{$t('palletlabel.create.modeTitle')}}</b-badge>
+                </div>
+                <b-form @submit.prevent="formSubmit()">
+                    <b-row>
+
+                        <!-- Articles  -->
+                        <b-colxx xs="12" xl="6">
+                            <b-form-group :label="$t('palletlabel.article.title')">
+                                <multiselect
+                                    v-if="farmerArticles"
+                                    v-model="form.article"
+                                    v-validate="'required'"
+                                    data-vv-validate-on="change|custom"
+                                    :options="farmerArticles"
+                                    :close-on-select="true"
+                                    :clear-on-select="false"
+                                    :preserve-search="true"
+                                    :allow-empty="false"
+                                    placeholder="Pick some"
+                                    label="name"
+                                    track-by="name"
+                                    name="article"
+                                    :class="errors.first('article') ? 'input-error' : ''"
+                                >
+                                    <template
+                                        slot="selection"
+                                        slot-scope="{ values, search, isOpen }">
+                                    <span
+                                        class="multiselect__single"
+                                        v-if="values.length &amp;&amp; !isOpen">
+                                      {{ values.length }} options selected
+                                    </span>
+                                    </template>
+                                </multiselect>
+                                <h6>{{ errors.first('article') }}</h6>
+                            </b-form-group>
+                        </b-colxx>
+
+
+                        <!-- PalletTypes  -->
+                        <b-colxx xs="12" xl="6">
+                            <b-form-group :label="$t('palletlabel.palletType.title')">
+                                <multiselect
+                                    v-if="form.palletType"
+                                    v-model="form.palletTypes"
+                                    :options="palletTypes"
+                                    :close-on-select="true"
+                                    :clear-on-select="false"
+                                    :preserve-search="true"
+                                    :allow-empty="false"
+                                    placeholder="Pick some"
+                                    label="name"
+                                    track-by="name"
+                                >
+                                    <template
+                                        slot="selection"
+                                        slot-scope="{ values, search, isOpen }">
+                                    <span
+                                        class="multiselect__single"
+                                        v-if="values.length &amp;&amp; !isOpen">
+                                      {{ values.length }} options selected
+                                    </span>
+                                    </template>
+                                </multiselect>
+                            </b-form-group>
+                        </b-colxx>
+
+
+                        <!-- Crop Date  -->
+                        <b-colxx xs="12" xl="6">
+                            <b-form-group :label="$t('palletlabel.cropDate.title')">
+                                <v-date-picker
+                                    :min-date="new Date()"
+                                    :dates="new Date()"
+                                    mode="single"
+                                    v-model="form.cropDate"
+                                    :input-props="{ class:'form-control' }"
+                                />
+                            </b-form-group>
+                            {{this.$moment(form.cropDate).format("YYYY-MM-DD")}}
+                        </b-colxx>
+
+
+                        <!-- Amount  -->
+                        <b-colxx xs="12" xl="6">
+                            <b-form-group :label="$t('palletlabel.amount.title')">
+                                <b-form-input
+                                    v-model="form.amount"
+                                    type="number"
+                                    min="0.00"/>
+                            </b-form-group>
+                        </b-colxx>
+
+
+                        <!-- Cell  -->
+                        <b-colxx xs="12" xl="4">
+                            <b-form-group :label="$t('palletlabel.cell.title')">
+                                <multiselect
+                                    v-if="form.cell"
+                                    v-model="form.cells"
+                                    :options="cells"
+                                    :close-on-select="true"
+                                    :clear-on-select="false"
+                                    :preserve-search="true"
+                                    :allow-empty="false"
+                                    placeholder="Pick some"
+                                    label="description"
+                                    track-by="description"
+                                >
+                                    <template
+                                        slot="selection"
+                                        slot-scope="{ values, search, isOpen }">
+                                    <span
+                                        class="multiselect__single"
+                                        v-if="values.length &amp;&amp; !isOpen">
+                                      {{ values.length }} options selected
+                                    </span>
+                                    </template>
+                                </multiselect>
+                            </b-form-group>
+                        </b-colxx>
+
+
+                        <!-- Flight  -->
+                        <b-colxx xs="12" xl="4">
+                            <b-form-group :label="$t('palletlabel.harvestCycle.title')">
+                                <b-form-input
+                                    v-model="form.harvestCycle"
+                                    type="number"
+                                    min="0.00"/>
+                            </b-form-group>
+                        </b-colxx>
+
+
+                        <!-- Flight Day -->
+                        <b-colxx xs="12" xl="4">
+                            <b-form-group :label="$t('palletlabel.harvestCycleDay.title')">
+                                <b-form-input
+                                    v-model="form.harvestCycleDay"
+                                    type="number"
+                                    min="0.00"/>
+                            </b-form-group>
+                        </b-colxx>
+
+
+                        <!-- Note -->
+                        <b-colxx xs="12">
+                            <b-form-group :label="$t('palletlabel.note.title')">
+                                <b-form-textarea
+                                    v-model="form.note"
+                                    id="note"
+                                    name="note"
+                                    type="text"
+                                    class="form-control"
+                                />
+                            </b-form-group>
+                        </b-colxx>
+
+
+                        <!-- Buttons -->
+                        <b-colxx xs="12">
+                            <b-form-group :label="$t('palletlabel.create.actions.title')" label-align="right">
+                                <div class="d-flex justify-content-end">
+                                    <b-button
+                                        type="submit"
+                                        variant="outline-danger"
+                                        class="ml-1"
+                                    >{{ $t('palletlabel.create.actions.buttonClear') }}</b-button>
+                                    <b-button
+                                        type="submit"
+                                        variant="primary"
+                                        class="ml-1"
+                                    >{{ $t('palletlabel.create.actions.buttonCreate') }}</b-button>
+                                </div>
+                            </b-form-group>
+
+                        </b-colxx>
+
+
+                    </b-row>
+
+
+
+                </b-form>
             </b-card>
         </b-colxx>
 
@@ -21,12 +215,27 @@
 <script>
     import ListWithPalletlabelSetupItem from "../../listing/ListWithPalletlabelSetupItem";
     import {mapActions, mapGetters} from "vuex";
+
     export default {
         name: "Create.vue",
-        components: {ListWithPalletlabelSetupItem},
+        components: {
+            ListWithPalletlabelSetupItem,
+        },
         data() {
             return {
-                setupItems: []
+
+                setupItems: [],
+                updateMode: false,
+                form: {
+                    article: [],
+                    palletType: [],
+                    cropDate: null,
+                    cell: [],
+                    harvestCycle: 0,
+                    harvestCycleDay: 0,
+                    amount: 0,
+                    note: null
+                },
             }
         },
         methods: {
@@ -34,30 +243,67 @@
                 'getAllFarmerArticles',
                 'getAllCells',
                 'getAllPalletlabels',
-                'getAllPalletTypes'
+                'getAllPalletTypes',
+                'createPalletLabel'
             ]),
-            checkSetup(){
-                if(this.articlesFromFarmer.length){
+            checkSetup() {
+                if (!this.farmerArticles.length) {
                     let data = {
-                        title: 'test',
-                        description: 'test'
+                        title: 'You do not have an article selection setup!',
+                        description: 'In order to make palletlabels you need to setup a personalized article ' +
+                            'selection for your account. So you will only see the articles you want to make labels ' +
+                            'for.',
+                        linkPath: '/'
                     };
                     this.setupItems.push(data);
                 }
+                if (!this.cells.length) {
+                    let data = {
+                        title: 'You do not have any cells setup!',
+                        description: 'In order to make palletlabels you need to setup the cells for your account. ' +
+                            'So you will only see the cells that you have..',
+                        linkPath: '/'
+                    };
+                    this.setupItems.push(data);
+                }
+            },
+            selectPalletType(selectedArticleId){
+                let filtered = this.articles.find(article => article.id === selectedArticleId);
+                this.form.palletTypeId = filtered.palletType.id;
+            },
+            formSubmit(){
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        this.create();
+                    }
+                })
+            },
+            create(){
+
             }
         },
         computed: {
             ...mapGetters({
-                articlesFromFarmer: 'articlesFromFarmer',
-            })
+                farmerArticles: 'farmerArticles',
+                cells: 'cells',
+                palletTypes: 'palletTypes'
+            }),
         },
         mounted() {
-            this.getAllFarmerArticles();
-            this.checkSetup()
+            Promise.all([
+                this.getAllFarmerArticles(),
+                this.getAllCells(),
+                this.getAllPalletTypes()
+            ]).finally(() => {
+                this.checkSetup()
+                this.form.cropDate = this.$moment().format('YYYY-MM-DD')
+            })
         }
     }
 </script>
 
 <style scoped>
-
+    .input-error{
+        border : 1px solid red;
+    }
 </style>

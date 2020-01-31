@@ -125,10 +125,15 @@ import VueLineClamp from 'vue-line-clamp'
 import VCalendar from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
 import VueScrollTo from 'vue-scrollto'
-import Vuelidate from "vuelidate";
 import Multiselect from 'vue-multiselect'
+import VueMoment from 'vue-moment'
+import moment from 'moment-timezone'
+import VeeValidate from 'vee-validate'
+
+
 
 //Vue Uses
+Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
 Vue.use(Notification);
@@ -151,7 +156,10 @@ Vue.use(VCalendar, {
     popoverDirection: 'bottom'
 });
 Vue.use(VueScrollTo);
-Vue.use(Vuelidate);
+Vue.use(VueMoment, {
+    moment,
+});
+
 
 
 //Vue Components

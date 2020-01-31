@@ -1,9 +1,9 @@
 <template>
     <b-row>
-        <b-colxx xl="6" lg="12" class="mb-4">
+        <b-colxx xl="7" lg="12" class="mb-4">
             <palletlabel-create />
         </b-colxx>
-        <b-colxx xl="6" lg="12" class="mb-4">
+        <b-colxx xl="5" lg="12" class="mb-4">
             <palletlabel-list />
         </b-colxx>
     </b-row>
