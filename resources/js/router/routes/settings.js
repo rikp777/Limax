@@ -1,11 +1,11 @@
 import RightEnum from '../rights'
 
-import Index from '../../components/settings/Index'
-import Read from '../../components/settings/Read'
+import Index from '../../views/farmer/settings/Index'
+import Overview from '../../views/farmer/settings/overview'
 
 export default [
     {
-        path: '/settings',
+        path: 'farmer/settings',
         component: Index,
         meta: {
             requiresAuth: true,
@@ -13,10 +13,9 @@ export default [
         },
         children: [
             {
-                name: 'settingsRead',
+                name: 'settingOverview',
                 path: '/',
-                props: true,
-                component: Read,
+                component: Overview,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]

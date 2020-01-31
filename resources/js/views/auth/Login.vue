@@ -82,10 +82,10 @@
         },
         methods: {
             ...mapActions(["login"]),
-            submitForm(){
-
+            formSubmit(){
+                this.check()
             },
-            login(){
+            check(){
                 this.login({
                     email: this.form.email,
                     password: this.form.password

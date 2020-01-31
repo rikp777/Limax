@@ -77,8 +77,8 @@
 // //
 // ApiService.initialize();
 // AccessControl.router(store, router);
-// const app = new Vue({
-//     el: '#app',
+// const farmer = new Vue({
+//     el: '#farmer',
 //     // router,
 //     // store,
 //     components: {

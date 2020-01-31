@@ -1,13 +1,13 @@
 import RightEnum from '../rights'
 
 
-import Index from '../../views/app/palletlabel/index'
-import Create from '../../views/app/palletlabel/create'
+import Index from '../../views/farmer/palletlabel/index'
+import Create from '../../views/farmer/palletlabel/create'
 
 
 export default [
     {
-        path: 'app/palletlabel',
+        path: 'farmer/palletlabel',
         component: Index,
         meta: {
             requiresAuth: true,
