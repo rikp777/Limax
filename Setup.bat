@@ -1,9 +1,16 @@
-composer install
-php artisan key:generate
-php arrtisan storage:link
-npm install
-npm run dev
-php artisan migrate:fresh --seed
-php artisan passport:install
-composer dump-autoload 
+call composer install
+ECHO =========================
+call php artisan key:generate
+ECHO =========================
+call php artisan storage:link
+ECHO =========================
+call npm install
+ECHO =========================
+call npm run dev
+ECHO =========================
+call php artisan migrate:fresh --seed
+ECHO =========================
+call php artisan passport:install
+ECHO =========================
+call composer dump-autoload
 PAUSE
