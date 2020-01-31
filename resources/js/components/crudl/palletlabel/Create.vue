@@ -184,9 +184,10 @@
                             <b-form-group :label="$t('palletlabel.create.actions.title')" label-align="right">
                                 <div class="d-flex justify-content-end">
                                     <b-button
-                                        type="submit"
+                                        type="button"
                                         variant="outline-danger"
                                         class="ml-1"
+                                        @click="clear"
                                     >{{ $t('palletlabel.create.actions.buttonClear') }}</b-button>
                                     <b-button
                                         type="submit"
@@ -279,6 +280,9 @@
                 })
             },
             create(){
+
+            },
+            clear(){
 
             }
         },
