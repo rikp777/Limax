@@ -12,8 +12,8 @@
 </template>
 
 <script>
-    import Sidebar from '../../containers/Sidebar'
-    import TopNav from '../../containers/TopNav'
+    import Sidebar from '../../containers/menu/admin/Sidebar'
+    import TopNav from '../../containers/menu/admin/TopNav'
     import Footer from '../../containers/Footer'
     import {
         mapGetters
@@ -35,7 +35,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

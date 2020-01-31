@@ -14,9 +14,9 @@ export const themeRadiusStorageKey = 'theme_radius';
 export const defaultColor = 'light.orange';
 export const isDemo = false;
 
-export const searchPath = '/app/pages/miscellaneous/search';
+export const searchPath = '/farmer/pages/miscellaneous/search';
 export const buyUrl = 'https://1.envato.market/nEyZa';
-export const defaultStartPath = '/app/docs';
+export const defaultStartPath = '/farmer/docs';
 
 
 export const subHiddenBreakpoint = 1440;

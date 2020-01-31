@@ -3,19 +3,25 @@ const data = [
         id: "docs",
         icon: "iconsminds-library",
         label: "menu.docs.main",
-        to: "/app/docs"
+        to: "/farmer/docs"
+    },
+    {
+        id: "settings",
+        icon: "simple-icon-settings",
+        label: "menu.settings.main",
+        to: "/farmer/settings"
     },
     {
         id: "palletlabel",
         icon: "simple-icon-tag",
         label: "menu.palletlabel.main",
-        to: "/app/palletlabel",
+        to: "/farmer/palletlabel",
         subs: [
             {
                 id: "palletlabelCreate",
                 icon: "iconsminds-add",
                 label: "menu.palletlabel.create",
-                to: "/app/palletlabel/create"
+                to: "/farmer/palletlabel/create"
             }
         ],
     },
@@ -23,12 +29,12 @@ const data = [
         id: "article",
         icon: "iconsminds-shop-4",
         label: "menu.article.main",
-        to: "/app/article",
+        to: "/farmer/article",
         subs: [
             {
                 icon: "iconsminds-add",
                 label: "menu.article.create",
-                to: "/app/article/create"
+                to: "/farmer/article/create"
             },
         ]
     }

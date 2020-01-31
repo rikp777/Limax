@@ -68,8 +68,8 @@ import {
 import {
     menuHiddenBreakpoint,
     subHiddenBreakpoint
-} from "../constants/config";
-import menuItems from "../constants/menu";
+} from "../../../constants/config";
+import menuItems from "../../../constants/menu.farmer";
 
 export default {
     data() {

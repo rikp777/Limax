@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import menuItems   from '../../constants/menu'
+    import menuItems   from '../../constants/menu.farmer'
     import { defaultStartPath } from "../../constants/config";
 
     export default {
@@ -23,7 +23,7 @@
         methods: {
             getUrl (path, sub, index) {
                 var pathToGo = '/' + path.split(sub)[0] + sub
-                if (pathToGo === '/app') {
+                if (pathToGo === '/farmer') {
                     pathToGo = '/'
                 }
                 return pathToGo
@@ -45,7 +45,7 @@
                 x => x.id === rawPaths[1]
             );
             this.items.push({
-                text: this.$t('menu.app'),
+                text: this.$t('menu.farmer'),
                 to: defaultStartPath
             });
             this.items.push({

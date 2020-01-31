@@ -1,11 +1,11 @@
-import Index from '../../views/app/docs/index'
-import Welcome from '../../views/app/docs/welcome'
+import Index from '../../views/farmer/docs/index'
+import Welcome from '../../views/farmer/docs/welcome'
 import RightEnum from "../rights";
 
 export default [
     {
         name: 'docs',
-        path: 'app/docs',
+        path: 'farmer/docs',
         component: Index,
         meta: {
             requiresAuth: true
