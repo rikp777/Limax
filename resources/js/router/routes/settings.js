@@ -1,7 +1,7 @@
 import RightEnum from '../rights'
 
 import Index from '../../views/farmer/settings/Index'
-import Overview from '../../views/farmer/settings/overview'
+import Overview from '../../views/farmer/settings/Overview'
 
 export default [
     {
