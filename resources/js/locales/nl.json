@@ -76,9 +76,25 @@
             "title": "Maak Cell Aan"
         }
     },
+    "article": {
+        "create": {
+            "title": "Maak een nieuw artikel"
+        },
+        "list": {
+            "title": "Lijst van artikelen"
+        }
+    },
+    "user": {
+        "create": {
+            "title": "Maak een nieuwe gebruiker"
+        },
+        "list": {
+            "title": "Lijst van alle gebruikers"
+        }
+    },
     "palletlabel": {
         "create": {
-            "title": "Maak Palletlabel Aan",
+            "title": "Maak een nieuw palletlabel",
             "modeTitle": "Maak",
             "actions": {
                 "title": "Bent u klaar?",

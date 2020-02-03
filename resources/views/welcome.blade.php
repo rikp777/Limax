@@ -56,5 +56,5 @@
     </body>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script type="module" src="{{ mix('js/app.js') }}" defer></script>
 </html>
