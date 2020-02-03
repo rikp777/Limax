@@ -9,8 +9,8 @@
     </b-row>
 </template>
 <script>
-    import PalletlabelCreate from "../../../components/crudl/palletlabel/Create";
-    import PalletlabelList from "../../../components/crudl/palletlabel/List"
+    import PalletlabelCreate from "../../../components/crudl/farmer/palletlabel/Create";
+    import PalletlabelList from "../../../components/crudl/farmer/palletlabel/List"
     export default {
         components: {
             PalletlabelCreate,

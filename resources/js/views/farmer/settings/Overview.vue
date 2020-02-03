@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import cellCreate from "../../../components/crudl/cell/Create";
+    import cellCreate from "../../../components/crudl/farmer/cell/Create";
     export default {
         name: "overview",
         components: {

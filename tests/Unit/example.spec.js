@@ -1,13 +1,13 @@
-import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+// Tom als je gewoon imports wil gebruiker inplaats van require dan moet je effe
+// naar deze link gaan https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest
+// onderaan staat tranform dependencies from /nodemodule
+// hier moet je kijken naar de usage of ES6 import / export
+
+const shallowMount = require('@vue/test-utils');
 
 describe('HelloWorld.vue', () => {
   it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    })
-    expect(wrapper.text()).to.include(msg)
+    const msg = 'new message';
+    expect(msg).toMatch(msg)
   })
 })

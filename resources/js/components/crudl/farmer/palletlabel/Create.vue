@@ -214,7 +214,7 @@
 </template>
 
 <script>
-    import ListWithPalletlabelSetupItem from "../../listing/ListWithPalletlabelSetupItem";
+    import ListWithPalletlabelSetupItem from "../../../listing/ListWithPalletlabelSetupItem";
     import {mapActions, mapGetters} from "vuex";
 
     export default {
