@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "test:unit": "vue-cli-service test:unit",
+        "test:unit": "vue-cli-service test:unit --watch cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js",
         "test:e2e": "vue-cli-service test:e2e",
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",

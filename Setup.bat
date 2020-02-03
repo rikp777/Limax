@@ -7,26 +7,26 @@ set "menu[2]=php artisan key:generate"
 set "menu[3]=php artisan storage:link"
 set "menu[4]=npm install"
 set "menu[5]=npm run dev"
-set "menu[6]=php artisan migrate:fresh --seed"
-set "menu[7]=php artisan passport:install"
-set "menu[8]=composer dump-autoload"
-set "menu[9]=Start Server (Vue/Laravel)"
+set "menu[6]=php artisan migrate:fresh --seed && php artisan passport:install"
+set "menu[7]=composer dump-autoload"
+set "menu[8]=npm run test:unit"
+set "menu[9]=Start Server (Vue/Laravel/Tests)"
 set "menu[99]=CLOSE"
 
 set "default=0"
 
 powershell -noprofile "iex (gc \"%~f0\" | out-string)"
 
-IF !ERRORLEVEL! == 0 cmd /c Call composer install && Call php artisan key:generate && Call php artisan storage:link && Call npm install --global cross-env && Call npm run dev && Call php artisan migrate:fresh --seed && Call php artisan passport:install && Call composer dump-autoload && Start Call php artisan serve && TIMEOUT 1 && Start Call npm run watch && start Setup.bat && exit
+IF !ERRORLEVEL! == 0 cmd /c Call composer install && Call php artisan key:generate && Call php artisan storage:link && Call npm install --global cross-env && Call npm run dev && Call php artisan migrate:fresh --seed && Call php artisan passport:install && Call composer dump-autoload && Start Call php artisan serve && TIMEOUT 1 && Start Call npm run hot && Start Call npm run test:unit && start Setup.bat && exit
 IF !ERRORLEVEL! == 1 cmd /c Call composer install && start Setup.bat && exit
 IF !ERRORLEVEL! == 2 cmd /c Call php artisan key:generate && start Setup.bat && exit
 IF !ERRORLEVEL! == 3 cmd /c Call php artisan storage:link && start Setup.bat && exit
 IF !ERRORLEVEL! == 4 cmd /c Call npm install --global cross-env && start Setup.bat && exit
 IF !ERRORLEVEL! == 5 cmd /c Call npm run dev && start Setup.bat && exit
-IF !ERRORLEVEL! == 6 cmd /c Call php artisan migrate:fresh --seed && start Setup.bat && exit
-IF !ERRORLEVEL! == 7 cmd /c Call php artisan passport:install && start Setup.bat && exit
-IF !ERRORLEVEL! == 8 cmd /c Call composer dump-autoload && start Setup.bat && exit
-IF !ERRORLEVEL! == 9 Start Call php artisan serve && TIMEOUT 1 && Start Call npm run watch && start Setup.bat && exit
+IF !ERRORLEVEL! == 6 cmd /c Call php artisan migrate:fresh --seed && Call php artisan passport:install && start Setup.bat && exit
+IF !ERRORLEVEL! == 7 cmd /c Call composer dump-autoload && start Setup.bat && exit
+IF !ERRORLEVEL! == 8 cmd /c Call npm run test:unit && start Setup.bat && exit
+IF !ERRORLEVEL! == 9 Start Call php artisan serve && TIMEOUT 1 && Start Call npm run hot && TIMEOUT 1 && Start Call npm run test:unit && start Setup.bat && exit
 IF !ERRORLEVEL! == 99 goto :EOF
 : echo You chose !menu[%ERRORLEVEL%]!.
 
