@@ -8,7 +8,7 @@
         // TODO
         // this component links a cell to a farmer so
         // the farmer gets a specific list of cells
-        name: "Create.vue"
+        name: "FarmerCellCreate"
     }
 </script>
 

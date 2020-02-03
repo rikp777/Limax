@@ -11,7 +11,7 @@
         // TODO
         // this component is global these
         // are all articles that are available in the application
-        name: "ArticleCreate.vue"
+        name: "ArticleList"
     }
 </script>
 

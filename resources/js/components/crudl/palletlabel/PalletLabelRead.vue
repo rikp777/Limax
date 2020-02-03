@@ -1,0 +1,26 @@
+<template>
+    <b-card :title="$t('palletlabel.read.title')">
+
+    </b-card>
+</template>
+
+<script>
+    import { mapState, mapActions } from 'vuex';
+    export default {
+        name: 'palletLabel-read',
+        computed: mapState({
+            palletLabel: state => state.palletLabel.single
+        }),
+        methods: {
+            ...mapActions('palletLabel',
+                [
+                    'getById'
+                ]
+            ),
+        },
+        mounted() {
+            this.getById(this.$route.params.id);
+        },
+
+    }
+</script>

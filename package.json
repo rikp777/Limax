@@ -109,7 +109,8 @@
         ],
         "collectCoverage": true,
         "collectCoverageFrom": [
-            "<rootDir>/resources/js/store/*.{js,vue}",
+            "<rootDir>/resources/js/components/**/*.{js,vue}",
+            "<rootDir>/resources/js/store/**/*.{js,vue}",
             "!**/node_modules/**"
         ],
         "preset": "@vue/cli-plugin-unit-jest",

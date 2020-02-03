@@ -8,7 +8,7 @@
     // TODO
     // This component has a list of all the articles for a specific farmer
     export default {
-        name: "FarmerArticleList.vue"
+        name: "FarmerArticleList"
     }
 </script>
 
