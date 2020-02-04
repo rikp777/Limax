@@ -37,32 +37,32 @@
                         <template slot="button-content">
                             <i class="simple-icon-grid" />
                         </template>
-                        <div>
-                            <router-link tag="a" to="/app/dashboards/default" class="icon-menu-item">
-                                <i class="iconsminds-shop-4 d-block" />
-                                {{$t('menu.dashboards')}}
-                            </router-link>
-                            <router-link tag="a" to="/app/ui" class="icon-menu-item">
-                                <i class="iconsminds-pantone d-block" />
-                                {{$t('menu.ui')}}
-                            </router-link>
-                            <router-link tag="a" to="/app/ui/components/charts" class="icon-menu-item">
-                                <i class="iconsminds-bar-chart-4 d-block" />
-                                {{$t('menu.charts')}}
-                            </router-link>
-                            <router-link tag="a" to="/app/applications/chat" class="icon-menu-item">
-                                <i class="iconsminds-speach-bubble d-block" />
-                                {{$t('menu.chat')}}
-                            </router-link>
-                            <router-link tag="a" to="/app/applications/survey" class="icon-menu-item">
-                                <i class="iconsminds-formula d-block" />
-                                {{$t('menu.survey')}}
-                            </router-link>
-                            <router-link tag="a" to="/app/applications/todo" class="icon-menu-item">
-                                <i class="iconsminds-check d-block" />
-                                {{$t('menu.todo')}}
-                            </router-link>
-                        </div>
+<!--                        <div>-->
+<!--                            <router-link tag="a" to="/app/dashboards/default" class="icon-menu-item">-->
+<!--                                <i class="iconsminds-shop-4 d-block" />-->
+<!--                                {{$t('menu.dashboards')}}-->
+<!--                            </router-link>-->
+<!--                            <router-link tag="a" to="/app/ui" class="icon-menu-item">-->
+<!--                                <i class="iconsminds-pantone d-block" />-->
+<!--                                {{$t('menu.ui')}}-->
+<!--                            </router-link>-->
+<!--                            <router-link tag="a" to="/app/ui/components/charts" class="icon-menu-item">-->
+<!--                                <i class="iconsminds-bar-chart-4 d-block" />-->
+<!--                                {{$t('menu.charts')}}-->
+<!--                            </router-link>-->
+<!--                            <router-link tag="a" to="/app/applications/chat" class="icon-menu-item">-->
+<!--                                <i class="iconsminds-speach-bubble d-block" />-->
+<!--                                {{$t('menu.chat')}}-->
+<!--                            </router-link>-->
+<!--                            <router-link tag="a" to="/app/applications/survey" class="icon-menu-item">-->
+<!--                                <i class="iconsminds-formula d-block" />-->
+<!--                                {{$t('menu.survey')}}-->
+<!--                            </router-link>-->
+<!--                            <router-link tag="a" to="/app/applications/todo" class="icon-menu-item">-->
+<!--                                <i class="iconsminds-check d-block" />-->
+<!--                                {{$t('menu.todo')}}-->
+<!--                            </router-link>-->
+<!--                        </div>-->
                     </b-dropdown>
                 </div>
                 <div class="position-relative d-none d-sm-inline-block ">

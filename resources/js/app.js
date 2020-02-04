@@ -123,7 +123,6 @@ import vuePerfectScrollbar from 'vue-perfect-scrollbar'
 import contentMenu from 'v-contextmenu'
 import VueLineClamp from 'vue-line-clamp'
 import VCalendar from 'v-calendar'
-import 'v-calendar/lib/v-calendar.min.css'
 import VueScrollTo from 'vue-scrollto'
 import Multiselect from 'vue-multiselect'
 import VueMoment from 'vue-moment'
@@ -143,24 +142,23 @@ Vue.use(VueLineClamp, {
     importCss: true
 });
 Vue.use(VCalendar, {
-    firstDayOfWeek: 2, // ...other defaults,
-    formats: {
-        title: 'MMM YY',
-        weekdays: 'WW',
-        navMonths: 'MMMM',
-        input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
-        dayPopover: 'L'
-    },
-    datePickerShowDayPopover: false,
-    popoverExpanded: true,
-    popoverDirection: 'bottom'
+    componentPrefix: 'vc',
+    // firstDayOfWeek: 2, // ...other defaults,
+    // formats: {
+    //     title: 'MMM YY',
+    //     weekdays: 'WW',
+    //     navMonths: 'MMMM',
+    //     input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
+    //     dayPopover: 'L'
+    // },
+    // datePickerShowDayPopover: false,
+    // popoverExpanded: true,
+    // popoverDirection: 'bottom'
 });
 Vue.use(VueScrollTo);
 Vue.use(VueMoment, {
     moment,
 });
-
-
 
 //Vue Components
 Vue.component('piaf-breadcrumb', Breadcrumb);
