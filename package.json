@@ -1,26 +1,16 @@
 {
     "private": true,
     "scripts": {
+        "test:unit": "vue-cli-service test:unit --watch cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js",
+        "test:e2e": "vue-cli-service test:e2e",
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js --disableHostCheck=true",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "devDependencies": {
-        "@vue/cli-plugin-babel": "^4.1.2",
-        "@vue/cli-plugin-router": "^4.1.2",
-        "@vue/cli-plugin-vuex": "^4.1.2",
-        "@vue/cli-service": "^4.1.2",
-        "copy-webpack-plugin": "^5.1.1",
-        "laravel-mix": "^4.1.2",
-        "node-sass": "^4.13.1",
-        "resolve-url-loader": "^3.1.0",
-        "sass-loader": "^7.2.0",
-        "vue-loader": "^15.8.3",
-        "vue-template-compiler": "^2.6.11"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "test": "jest --webpack-config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll"
     },
     "dependencies": {
         "@glidejs/glide": "^3.4.1",
@@ -33,11 +23,12 @@
         "jquery": "^3.4.1",
         "js-cookie": "^2.2.1",
         "moment-timezone": "^0.5.27",
+        "npm": "^6.13.7",
         "secure-ls": "^1.2.6",
         "v-calendar": "^0.9.7",
         "v-contextmenu": "^2.8.0",
         "vee-validate": "^2.2.15",
-        "video.js": "^7.4.1",
+        "video.js": "^7.7.4",
         "vue": "^2.6.11",
         "vue-autosuggest": "^2.0.4",
         "vue-axios": "^2.1.5",
@@ -65,7 +56,23 @@
         "vuedraggable": "^2.19.3",
         "vuetable-2": "^1.7.5",
         "vuex": "^3.1.2",
-        "vuex-persistedstate": "^2.7.0"
+        "vuex-persistedstate": "^2.7.0",
+        "webpack": "^4.41.5"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^4.1.2",
+        "@vue/cli-plugin-e2e-cypress": "^4.1.2",
+        "@vue/cli-plugin-router": "^4.1.2",
+        "@vue/cli-plugin-unit-jest": "^4.1.2",
+        "@vue/cli-plugin-vuex": "^4.1.2",
+        "@vue/cli-service": "^4.1.2",
+        "@vue/test-utils": "^1.0.0-beta.31",
+        "laravel-mix": "^4.1.2",
+        "node-sass": "^4.13.1",
+        "resolve-url-loader": "^3.1.0",
+        "sass-loader": "^7.2.0",
+        "vue-loader": "^15.8.3",
+        "vue-template-compiler": "^2.6.11"
     },
     "postcss": {
         "plugins": {
@@ -76,5 +83,42 @@
         "> 1%",
         "last 2 versions",
         "not ie <= 8"
-    ]
+    ],
+    "jest": {
+        "displayName": "Flowcontrol",
+        "notify": true,
+        "notifyMode": "always",
+        "moduleFileExtensions": [
+            "js",
+            "jsx",
+            "json",
+            "vue"
+        ],
+        "transform": {
+            "^.+\\.vue$": "vue-jest",
+            ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+            "^.+\\.(js|jsx)?$": "babel-jest"
+        },
+        "moduleNameMapper": {
+            "^@/(.*)$": "<rootDir>/resources/js/test/$1",
+            "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+            "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+        },
+        "snapshotSerializers": [
+            "jest-serializer-vue"
+        ],
+        "collectCoverage": true,
+        "collectCoverageFrom": [
+            "<rootDir>/resources/js/components/**/*.{js,vue}",
+            "<rootDir>/resources/js/store/**/*.{js,vue}",
+            "!**/node_modules/**"
+        ],
+        "preset": "@vue/cli-plugin-unit-jest",
+        "testMatch": [
+            "<rootDir>/resources/js/test/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)"
+        ],
+        "transformIgnorePatterns": [
+            "<rootDir>/node_modules/"
+        ]
+    }
 }
