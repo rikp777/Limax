@@ -2,7 +2,7 @@ import RightEnum from '../rights'
 
 
 import Index from '../../views/farmer/palletlabel/Index'
-import Create from '../../views/farmer/palletlabel/Create'
+import Create from '../../views/farmer/palletlabel/Create.View'
 
 
 export default [

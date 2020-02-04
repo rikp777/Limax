@@ -63,6 +63,11 @@
 </template>
 
 <script>
+    /*
+    TODO
+    #Bug login button delete state
+
+     */
     import {
         mapGetters,
         mapActions

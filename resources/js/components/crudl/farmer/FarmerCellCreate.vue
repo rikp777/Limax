@@ -1,6 +1,7 @@
 <template>
-    <b-card :title="$t('cell.create.title')">
-    </b-card>
+    <div>
+        <small>FarmerCellCreate-Component</small>
+    </div>
 </template>
 
 <script>

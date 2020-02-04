@@ -72,16 +72,28 @@
         }
     },
     "cell": {
+        "main": {
+            "title": "Cellen"
+        },
         "create": {
             "title": "Maak Cell Aan"
+        },
+        "list": {
+            "title": "Lijst van alle cellen"
         }
     },
     "article": {
+        "main": {
+            "title": "artikellen"
+        },
         "create": {
             "title": "Maak een nieuw artikel"
         },
         "list": {
             "title": "Lijst van artikelen"
+        },
+        "connect": {
+            "title": "Koppelen van artikelen"
         }
     },
     "user": {

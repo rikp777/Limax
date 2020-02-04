@@ -1,7 +1,7 @@
 <template>
-    <b-card :title="$t('cell.list.title')">
-
-    </b-card>
+    <div>
+        <small>farmerCellList-Component</small>
+    </div>
 </template>
 
 <script>

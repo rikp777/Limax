@@ -1,7 +1,7 @@
 <template>
-    <b-card :title="$t('article.list.title')">
-
-    </b-card>
+    <div>
+        <small>FarmerArticleList-Component</small>
+    </div>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
-    <b-card :title="$t('article.connect.title')">
-
-    </b-card>
+    <div>
+        <small>FarmerArticleConnect-Component</small>
+    </div>
 </template>
 
 <script>

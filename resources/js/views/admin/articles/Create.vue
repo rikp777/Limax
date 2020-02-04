@@ -10,8 +10,8 @@
 </template>
 
 <script>
-    import articleCreate from "../../../components/crudl/admin/article/ArticleCreate";
-    import articleList from "../../../components/crudl/admin/article/ArticleList";
+    import articleCreate from "../../../components/crudl/article/ArticleCreate";
+    import articleList from "../../../components/crudl/article/ArticleList";
     export default {
         name: "Create",
         components: {

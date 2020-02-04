@@ -1,5 +1,5 @@
 <template>
-    <b-card :title="$t('palletlabel.list.title')">
+    <div>
         <b-refresh-button @click="refreshButtonClick" />
         <vue-table
             ref="palletlabelList"
@@ -14,7 +14,7 @@
             ref="pagination"
             @vuetable-pagination:change-page="onChangePage"
         />
-    </b-card>
+    </div>
 
 
 
@@ -48,7 +48,7 @@
 
 <script>
     import VueTable from 'vuetable-2/src/components/Vuetable'
-    import VueTablePaginationBootstrap from '../../../../components/Common/VuetablePaginationBootstrap'
+    import VueTablePaginationBootstrap from '../../../components/Common/VuetablePaginationBootstrap'
 
     import { mapGetters } from 'vuex';
     export default {

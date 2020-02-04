@@ -1,5 +1,5 @@
 <template>
-    <div class="$t('palletlabel.create.title')">
+
         <b-row>
             <b-colxx md="12" class="mb-4" v-if="setupItems.length">
                 <b-card title="alerts">
@@ -210,11 +210,10 @@
             </b-colxx>
 
         </b-row>
-    </div>
 </template>
 
 <script>
-    import ListWithPalletlabelSetupItem from "../../../listing/ListWithPalletlabelSetupItem";
+    import ListWithPalletlabelSetupItem from "../../listing/ListWithPalletlabelSetupItem";
     import {mapActions, mapGetters} from "vuex";
 
     export default {
