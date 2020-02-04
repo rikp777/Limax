@@ -26,6 +26,20 @@ const data = [
         ],
     },
     {
+        id: "shippinglabel",
+        icon: "simple-icon-tag",
+        label: "menu.shippinglabel.main",
+        to: "/farmer/shippinglabel",
+        subs: [
+            {
+                id: "shippinglabelCreate",
+                icon: "iconsminds-add",
+                label: "menu.shippinglabel.create",
+                to: "/farmer/shippinglabel/create"
+            }
+        ],
+    },
+    {
         id: "article",
         icon: "iconsminds-shop-4",
         label: "menu.article.main",

@@ -18,10 +18,10 @@ const SET_FARMER_ARTICLES = "setFarmerArticles";
 
 // Initial State
 const state  = {
-    farmers: [],
-    farmer: {},
-    farmerArticles: [],
-    farmerArticle: {},
+    farmers: {},
+    farmer: [],
+    farmerArticles: {},
+    farmerArticle: [],
     isLoading: true,
     farmersCount: 0,
 };

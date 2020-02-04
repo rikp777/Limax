@@ -12,6 +12,10 @@
             "main": "Palletlabel's",
             "create": "Maak"
         },
+        "shippinglabel": {
+            "main": "Vrachtbrieven",
+            "create": "Maak"
+        },
         "article": {
             "main": "Artikellen",
             "create": "Aanmaken"
@@ -55,19 +59,21 @@
     },
 
     "user": {
-        "email": {
-            "title": "Email",
-            "validation": {
-                "notEntered": "Vul aub uw email in",
-                "notValid": "Vul aub een echt bestaand email adress in",
-                "minLength": "Uw email adress moet minimaal 4 karakters lang zijn"
-            }
-        },
-        "password": {
-            "title": "Wachtwoord",
-            "validation": {
-                "notEntered": "Vul aub uw wachtwoord in",
-                "minLength": "Uw wachtwoord moet minimaal 4 karakters lang zijn"
+        "attributes": {
+            "email": {
+                "title": "Email",
+                "validation": {
+                    "notEntered": "Vul aub uw email in",
+                    "notValid": "Vul aub een echt bestaand email adress in",
+                    "minLength": "Uw email adress moet minimaal 4 karakters lang zijn"
+                }
+            },
+            "password": {
+                "title": "Wachtwoord",
+                "validation": {
+                    "notEntered": "Vul aub uw wachtwoord in",
+                    "minLength": "Uw wachtwoord moet minimaal 4 karakters lang zijn"
+                }
             }
         }
     },
@@ -114,29 +120,49 @@
                 "buttonClear": "Leeg Alle Velden"
             }
         },
-        "article": {
-            "title": "Artikel"
+        "attributes": {
+            "article": {
+                "title": "Artikel"
+            },
+            "palletType": {
+                "title": "Pallet Soort"
+            },
+            "cell": {
+                "title": "Cell"
+            },
+            "harvestCycle": {
+                "title": "Vlucht"
+            },
+            "harvestCycleDay": {
+                "title": "Vlucht Dag"
+            },
+            "cropDate": {
+                "title": "Pluk Dag"
+            },
+            "amount": {
+                "title": "Aantal"
+            },
+            "note": {
+                "title": "Opmerking"
+            }
+        }
+
+    },
+    "shippinglabel": {
+        "create": {
+            "title": "Maak een nieuwe vrachtbrief",
+            "modeTitle": "Maak"
         },
-        "palletType": {
-            "title": "Pallet Soort"
+        "list": {
+            "title": "Lijst van vrachtbrieven"
         },
-        "cell": {
-            "title": "Cell"
-        },
-        "harvestCycle": {
-            "title": "Vlucht"
-        },
-        "harvestCycleDay": {
-            "title": "Vlucht Dag"
-        },
-        "cropDate": {
-            "title": "Pluk Dag"
-        },
-        "amount": {
-            "title": "Aantal"
-        },
-        "note": {
-            "title": "Opmerking"
+        "attributes": {
+            "trucker": {
+                "title": "Chauffeur"
+            },
+            "trucks": {
+                "title": "Kenteken"
+            }
         }
     }
 }

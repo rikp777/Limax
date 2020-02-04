@@ -141,6 +141,26 @@ export const TruckService  = {
     }
 };
 
+// Truck Module
+const TruckerApi = "trucker";
+export const TruckerService  = {
+    create(params){
+        return ApiService.post(TruckerApi, { trucker: params})
+    },
+    update(slug, params) {
+        return ApiService.update(TruckerApi, slug, { trucker: params });
+    },
+    delete(slug) {
+        return ApiService.delete(TruckerApi, slug);
+    },
+    get(slug){
+        return ApiService.get(TruckerApi, slug)
+    },
+    getAll() {
+        return ApiService.get(TruckerApi)
+    }
+};
+
 
 const PalletTypeApi = "pallettype";
 export const PalletTypeService = {

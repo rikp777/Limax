@@ -5,6 +5,7 @@ import documentation from "./routes/documentation";
 import auth from "./routes/auth"
 import settings from "./routes/settings"
 import article from "./routes/article"
+import shippingLabel from "./routes/shippingLabel";
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,7 @@ const router = new VueRouter({
                     component: () => import("../views/farmer/Index"),
                     children: [
                         ...palletLabel,
+                        ...shippingLabel,
                         ...documentation,
                         ...settings
                     ]
