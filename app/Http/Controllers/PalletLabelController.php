@@ -42,13 +42,13 @@ class PalletLabelController extends Controller
     {
 //        dd($request);
         $request->validate([
-            'crop_date' => 'required|date',
-            'article_amount' => 'required|int',
-            'article_id' => 'required',
-            'pallet_type_id' => 'required',
-            'cell_id' => 'required|int',
-            'harvest_cycle' => ' required|int',
-            'harvest_cycle_day' => ' required|int',
+            'cropDate' => 'required|date',
+            'amount' => 'required|int',
+            'article.id' => 'required',
+            'palletType.id' => 'required',
+            'cell.id' => 'required|int',
+            'harvestCycle' => ' required|int',
+            'harvestCycleDay' => ' required|int',
             'note' => 'max:500',
         ]);
 

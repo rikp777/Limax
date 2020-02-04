@@ -43,6 +43,7 @@
                                     track-by="name"
                                     name="article"
                                     :class="errors.first('article') ? 'input-error' : ''"
+                                    @input="selectPallettype()"
                                 >
                                     <template
                                         slot="selection"
@@ -64,7 +65,7 @@
                             <b-form-group :label="$t('palletlabel.palletType.title')">
                                 <multiselect
                                     v-if="form.palletType"
-                                    v-model="form.palletTypes"
+                                    v-model="form.palletType"
                                     :options="palletTypes"
                                     :close-on-select="true"
                                     :clear-on-select="false"
@@ -119,7 +120,7 @@
                             <b-form-group :label="$t('palletlabel.cell.title')">
                                 <multiselect
                                     v-if="form.cell"
-                                    v-model="form.cells"
+                                    v-model="form.cell"
                                     :options="cells"
                                     :close-on-select="true"
                                     :clear-on-select="false"
@@ -227,14 +228,15 @@
 
                 setupItems: [],
                 updateMode: false,
+                test: '',
                 form: {
                     article: [],
                     palletType: [],
-                    cropDate: null,
+                    cropDate: '',
                     cell: [],
-                    harvestCycle: 0,
-                    harvestCycleDay: 0,
-                    amount: 0,
+                    harvestCycle: '',
+                    harvestCycleDay: '',
+                    amount: '',
                     note: null
                 },
             }
@@ -268,14 +270,26 @@
                     this.setupItems.push(data);
                 }
             },
-            selectPalletType(selectedArticleId){
-                let filtered = this.articles.find(article => article.id === selectedArticleId);
-                this.form.palletTypeId = filtered.palletType.id;
+            selectPallettype() {
+                let filtered = this.farmerArticles.find(article => article.id === this.form.article.id);
+                this.form.palletType= filtered.palletType;
             },
+
             formSubmit(){
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.create();
+                        if(this.updateMode){
+                            this.$store.dispatch("updatePalletLabel", this.form)
+                                .then(()=>{
+                                    // console.log(this.palletLabel.id);
+                                    this.$router.push({ name: 'palletLabelPdf', params: { id: this.palletLabel.id } })
+                                });
+                        }else{
+                            this.$store.dispatch("createPalletLabel", this.form)
+                                .then(()=>{
+                                    this.$router.push({ name: 'palletLabelPdf', params: { id: this.palletLabel.id } })
+                                });
+                        }
                     }
                 })
             },
@@ -283,14 +297,21 @@
 
             },
             clear(){
-
+                this.form.article = [],
+                this.form.palletType = [],
+                this.form.cell = [],
+                this.form.harvestCycle = '',
+                this.form.harvestCycleDay = '',
+                this.form.amount = '',
+                this.form.note = null
             }
         },
         computed: {
             ...mapGetters({
                 farmerArticles: 'farmerArticles',
                 cells: 'cells',
-                palletTypes: 'palletTypes'
+                palletTypes: 'palletTypes',
+                palletLabel: 'palletLabel'
             }),
         },
         mounted() {
@@ -301,6 +322,7 @@
             ]).finally(() => {
                 this.checkSetup()
                 this.form.cropDate = this.$moment().format('YYYY-MM-DD')
+                this.test = this.$moment().format('YYYY-MM-DD')
             })
         }
     }
