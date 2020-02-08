@@ -1,7 +1,7 @@
 <template>
     <b-row>
         <b-colxx xl="7" lg="12" class="mb-4">
-            <b-card :title="$t('shippinglabel.create.title')">
+            <b-card :title="$t('shippinglabel.create.title')" style="border-left: 6px solid #f28125">
                 <shippinglabel-create />
             </b-card>
         </b-colxx>
@@ -22,4 +22,3 @@
         }
     }
 </script>
-

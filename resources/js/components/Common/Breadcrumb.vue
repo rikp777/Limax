@@ -3,6 +3,7 @@
       <h1 v-if="heading && heading.length>0">{{ heading }}</h1>
       <b-nav class="pt-0 breadcrumb-container d-none d-sm-block d-lg-inline-block">
           <b-breadcrumb :items="items"/>
+          <!-- {{items}} -->
       </b-nav>
     </span>
 </template>
@@ -30,6 +31,8 @@
             }
         },
         mounted () {
+          // console.log('hoi');
+          // console.log(this.$t('menu.farmer'));
             let path = this.$route.path.substr(1);
             let rawPaths = path.split('/');
             // console.log(path);
@@ -45,7 +48,7 @@
                 x => x.id === rawPaths[1]
             );
             this.items.push({
-                text: this.$t('menu.farmer'),
+                text: this.$t('menu.app'),
                 to: defaultStartPath
             });
             this.items.push({

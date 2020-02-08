@@ -60,8 +60,9 @@ const actions = {
             .then(({ data }) => {
                 // console.log(data.all);
                 // console.log(data.paginated.data);
-                context.commit(SET_PALLETLABELS, data.all);
-                context.commit(SET_LABELSPAGINATED, data.paginated.data);
+                context.commit(SET_PALLETLABELS, data.data);
+                // context.commit(SET_PALLETLABELS, data.all);
+                // context.commit(SET_LABELSPAGINATED, data.paginated.data);
                 context.commit(FETCH_END);
                 // console.log(state.palletLabels);
             })
@@ -129,10 +130,10 @@ const actions = {
 
     //update palletLabelStatus
     async updatePalletLabelStatus(context, payload) {
-        // console.log('updatePalletLabelStatus');
+        // console.log(payload);
         payload.forEach(function(palletLabelID) {
             // console.log(palletLabelID);
-            const { data } = PalletLabelStatusService.update(palletLabelID);
+            const { data } = PalletLabelStatusService.update(palletLabelID.id);
             context.commit(SET_PALLETLABEL, data);
             return data;
         });
@@ -188,5 +189,3 @@ export default {
     actions,
     mutations
 }
-
-

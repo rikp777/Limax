@@ -25,8 +25,7 @@ class ShippingLabelResource extends JsonResource
         $totarray = [];
         $totarray["palletlabelCount"] = sizeof(parent::toArray($request));
         $totarray["shippinglabelID"] = parent::toArray($request);
-        $farmerId = CookieRequest::header('farmerId');
-        $currentFarmer = Farmer::find($farmerId);
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
 //        $total = ShippingLabel::where('farmer_id', $currentFarmer->id)->latest('id')->get();
         $paginated = ShippingLabel::where('farmer_id', $currentFarmer->id)->latest('id')->paginate(10);
 

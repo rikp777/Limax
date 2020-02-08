@@ -1,5 +1,5 @@
 <template>
-    <b-dropdown id="farmer" class="ml-2" variant="light" size="sm" toggle-class="farmer-button">
+    <b-dropdown id="farmer" class="ml-2" variant="light" size="sm" toggle-class="language-button">
         <template slot="button-content">
             <span class="name">{{authFarmer.name}}</span>
         </template>

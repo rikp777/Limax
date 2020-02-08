@@ -120,6 +120,31 @@
                 "buttonClear": "Leeg Alle Velden"
             }
         },
+        "update": {
+            "title": "Update palletlabel : ",
+            "modeTitle": "Update",
+            "actions": {
+                "title": "Bent u klaar?",
+                "buttonUpdate": "Update Palletlabel",
+                "buttonCancel": "Cancel, Ga terug"
+            }
+        },
+        "delete": {
+            "title": "Weet je het zeker?",
+            "text": "Als je een palletlabel verwijderd kun je deze niet meer terug halen!",
+            "actions": {
+                "confirmButtonText": "Ja, Verwijder palletlabel",
+                "cancelButtonText": "Annuleren",
+                "buttonCancel": "Cancel, Ga terug"
+            },
+            "deleted": "Verwijderd!",
+            "deletedtext": "Palletlabel is verwijderd",
+            "cancelled": "Geannuleerd!",
+            "cancelledtext": "Palletlabel is niet verwijderd"
+        },
+        "list": {
+          "title": "Lijst van palletlabels"
+        },
         "attributes": {
             "article": {
                 "title": "Artikel"
@@ -151,7 +176,12 @@
     "shippinglabel": {
         "create": {
             "title": "Maak een nieuwe vrachtbrief",
-            "modeTitle": "Maak"
+            "modeTitle": "Maak",
+            "actions": {
+                "palletlabels": "Selecteer Palletlabels",
+                "buttonCreate": "Maak Shippinglabel Aan",
+                "palletlabelCreate": "Maak Palletlabel"
+            }
         },
         "list": {
             "title": "Lijst van vrachtbrieven"
@@ -163,6 +193,7 @@
             "trucks": {
                 "title": "Kenteken"
             }
+
         }
     }
 }

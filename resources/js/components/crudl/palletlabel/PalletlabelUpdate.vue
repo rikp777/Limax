@@ -9,13 +9,20 @@
                 </vue-perfect-scrollbar>
             </b-card>
         </b-colxx>
+        <!--        <br><hr>-->
+        <!--        {{cells}}-->
+        <!--        <br><hr>-->
+        <!--        {{farmerArticles}}-->
+        <!--        <br><hr>-->
+        <!--        {{setupItems}}-->
+        <!--        <br><hr>-->
         <b-colxx md="12" class="mb-4" v-if="!setupItems.length">
 
-            <b-card :title="$t('palletlabel.create.title')" style="border-left: 6px solid #f28125">
+            <b-card :title="$t('palletlabel.update.title') + ' ' + palletLabel.palletLabelFarmerId" style="border-left: 6px solid red">
+              <!-- <b-card :title="$t('palletlabel.update.title') + ' ' + id"> -->
                 <div class="position-absolute card-top-buttons">
-                    <b-badge class="mb-1" pill variant="info">{{$t('palletlabel.create.modeTitle')}}</b-badge>
+                    <b-badge class="mb-1" pill variant="danger">{{$t('palletlabel.update.modeTitle')}}</b-badge>
                 </div>
-
                 <validation-observer ref="observer" v-slot="{ invalid }">
                 <b-form @submit.prevent="formSubmit()">
                     <b-row>
@@ -255,15 +262,15 @@
                                         type="button"
                                         variant="outline-danger"
                                         class="ml-1"
-                                        @click="clear"
-                                    >{{ $t('palletlabel.create.actions.buttonClear') }}
+                                        @click="cancel"
+                                    >{{ $t('palletlabel.update.actions.buttonCancel') }}
                                     </b-button>
                                     <b-button
                                         type="submit"
                                         :disabled="invalid"
                                         variant="primary"
                                         class="ml-1"
-                                    >{{ $t('palletlabel.create.actions.buttonCreate') }}
+                                    >{{ $t('palletlabel.update.actions.buttonUpdate') }}
                                     </b-button>
                                 </div>
                             </b-form-group>
@@ -293,12 +300,15 @@
         components: {
             ListWithPalletlabelSetupItem,
         },
+        props: ['id'],
         data() {
             return {
 
                 setupItems: [],
+                updateMode: true,
                 test: '',
                 form: {
+                    id: this.id,
                     article: [],
                     palletType: [],
                     cropDate: '',
@@ -347,28 +357,27 @@
                 this.form.palletType = filtered.palletType;
             },
 
+            getPalletLabel() {
+                this.$store.dispatch("getPalletLabel", this.id)
+            },
+
             formSubmit() {
-              console.log(this.$validator)
                 // this.$validator.validateAll().then((result) => {
-                    // if (result) {
-                            this.$store.dispatch("createPalletLabel", this.form)
+                //     if (result) {
+                            this.$store.dispatch("updatePalletLabel", this.form)
                                 .then(() => {
-                                    this.$router.push({name: 'palletlabelPdf', params: {id: this.palletLabel.id}})
+                                    // console.log(this.palletLabel.id);
+                                    this.$router.push({name: 'palletlabelPdf', params: {id: this.id}})
                                 });
-                    // }
-                // })
+                    //     }
+                    // })
+
             },
             create() {
 
             },
-            clear() {
-                this.form.article = [],
-                this.form.palletType = [],
-                this.form.cell = [],
-                this.form.harvestCycle = '',
-                this.form.harvestCycleDay = '',
-                this.form.amount = '',
-                this.form.note = null
+            cancel() {
+                this.$emit('createMode')
             }
         },
         computed: {
@@ -381,13 +390,22 @@
         },
         mounted() {
             Promise.all([
-                this.getAllFarmerArticles(),
-                this.getAllCells(),
-                this.getAllPalletTypes()
+                // this.getAllFarmerArticles(),
+                // this.getAllCells(),
+                // this.getAllPalletTypes(),
+                this.getPalletLabel()
             ]).finally(() => {
-                this.checkSetup()
-                this.form.cropDate = this.$moment().format('YYYY-MM-DD')
-                this.test = this.$moment().format('YYYY-MM-DD')
+              this.form.article = this.palletLabel.article,
+              this.form.palletType = this.palletLabel.article.palletType,
+              this.form.cropDate = this.palletLabel.cropDate,
+              this.form.cell = this.palletLabel.cell,
+              this.form.harvestCycle = this.palletLabel.harvestCycle,
+              this.form.harvestCycleDay = this.palletLabel.harvestCycleDay,
+              this.form.amount = this.palletLabel.articleAmount,
+              this.form.note = this.palletLabel.note
+                // this.checkSetup()
+                // this.form.cropDate = this.$moment().format('YYYY-MM-DD')
+                // this.test = this.$moment().format('YYYY-MM-DD')
             })
         }
     }

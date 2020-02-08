@@ -9,7 +9,24 @@
             :per-page="6"
             pagination-path=""
             @vuetable:pagination-data="onPaginationData"
-        />
+        >
+        <template slot="actions" scope="props">
+          <div class="custom-actions">
+            <b-button class="btn-sm" variant="primary"
+              @click="onAction('edit-label', props.rowData, props.rowIndex)">
+              <i class="simple-icon-note"></i>
+            </b-button>
+            <b-button class="btn-sm" variant="primary"
+              @click="onAction('print-label', props.rowData, props.rowIndex)">
+              <i class="simple-icon-printer"></i>
+            </b-button>
+            <b-button class="btn-sm" variant="primary" data-toggle="modal"
+              @click="palletLabelDelete(props.rowData.id, props.rowIndex)">
+              <i class="simple-icon-trash"></i>
+            </b-button>
+          </div>
+        </template>
+        </vue-table>
         <vue-table-pagination-bootstrap
             ref="pagination"
             @vuetable-pagination:change-page="onChangePage"
@@ -67,22 +84,29 @@
                             sortField: 'id',
                             title: '#',
                             titleClass: '',
-                            dataClass: ''
+                            dataClass: 'center aligned'
                         },
                         {
                             name: 'article.name',
                             sortField: 'name',
                             title: 'Name',
                             titleClass: '',
-                            dataClass: ''
+                            dataClass: 'center aligned'
                         },
                         {
                             name: 'cropDate',
                             sortField: 'cropDate',
                             title: 'Crop Date',
                             titleClass: '',
-                            dataClass: ''
+                            dataClass: 'center aligned'
+                        },
+                        {
+                          name: '__slot:actions',
+                          title: 'Actions',
+                          titleClass: '',
+                          dataClass: 'center aligned'
                         }
+
                     ]
                 }
             }
@@ -99,6 +123,47 @@
             this.getAllPalletLabels();
         },
         methods: {
+            palletLabelDelete(id, index){
+                this.$swal({
+                    title: this.$t('palletlabel.delete.title'),
+                    text: this.$t('palletlabel.delete.text'),
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#f2ab59",
+                    confirmButtonText: this.$t('palletlabel.delete.actions.confirmButtonText'),
+                    cancelButtonText: this.$t('palletlabel.delete.actions.cancelButtonText'),
+                }).then((confirmed) => {
+                    if (confirmed.value) {
+                        this.$swal(
+                            this.$t('palletlabel.delete.deleted'),
+                            this.$t('palletlabel.delete.deletedtext'),
+                            'success'
+                        );
+                        Promise.all([
+                          this.$store.dispatch("deletePalletLabel", id)
+                        ]).finally(()=> {
+                          this.getAllPalletLabels();
+                        })
+                    } else {
+                        this.$swal(
+                          this.$t('palletlabel.delete.cancelled'),
+                          this.$t('palletlabel.delete.cancelledtext'),
+                          "error"
+                        );
+                    }
+                });
+            },
+            onAction (action, data, index) {
+              // console.log('slot) action: ' + action, data.id, index)
+              // console.log('id: ' + data.id + ' ' + 'action: ' + action)
+              if(action === 'print-label'){
+                this.$router.push({name: 'palletlabelPdf', params: {id: data.id}})
+              }
+              if(action === 'edit-label'){
+                this.$emit('updateMode', data.id)
+                console.log(action)
+              }
+            },
             getAllPalletLabels(){
                 this.$store.dispatch("getAllPalletLabels");
             },
@@ -115,5 +180,3 @@
         }
     }
 </script>
-
-

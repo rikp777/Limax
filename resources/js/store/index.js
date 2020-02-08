@@ -55,7 +55,7 @@ export default new Vuex.Store({
         auth,
         user,
         palletLabel,
-        // shippingLabel,
+        shippingLabel,
         truck,
         palletType,
         // cultivationCycle,

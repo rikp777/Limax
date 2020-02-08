@@ -43,7 +43,7 @@ class PalletLabelStatusController extends Controller
     public function update(Request $request, $id)
     {
 
-//        dd($id);
+       // dd($id);
 
 //        $request->validate([
 //            'crop_date' => 'required|date',
@@ -56,8 +56,7 @@ class PalletLabelStatusController extends Controller
 //            'note' => 'max:500',
 //        ]);
 
-        $farmerId = CookieRequest::header('farmerId');
-        $currentFarmer = Farmer::find($farmerId);
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
         $authUser = auth()->user();
 
         //insert palletLabel

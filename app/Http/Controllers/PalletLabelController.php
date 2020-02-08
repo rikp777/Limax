@@ -110,23 +110,22 @@ class PalletLabelController extends Controller
 //        dd($id);
 
         $request->validate([
-            'crop_date' => 'required|date',
-            'article_amount' => 'required|int',
-            'article_id' => 'required|int',
-            'pallet_type_id' => 'required|int',
-            'cell_id' => 'required|int',
-            'harvest_cycle' => ' required|int',
-            'harvest_cycle_day' => ' required|int',
-            'note' => 'max:500',
+          'crop_date' => 'required|date',
+          'amount' => 'required|int',
+          'article' => 'required',
+          'pallet_type' => 'required',
+          'cell' => 'required|',
+          'harvest_cycle' => ' required|int',
+          'harvest_cycle_day' => ' required|int',
+          'note' => 'max:500',
         ]);
 
         $authUser = auth()->user();
         //ctrlfFARMERID change farmer id to route
-        $farmerId = CookieRequest::header('farmerId');
-        $currentFarmer = Farmer::find($farmerId);
-        $article = Article::findOrFail($request->article_id);
-        $palletType = PalletType::findOrFail($request->pallet_type_id);
-        $cell = Cell::findOrFail($request->cell_id);
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+        $article = Article::findOrFail($request->article['id']);
+        $palletType = PalletType::findOrFail($request->pallet_type['id']);
+        $cell = Cell::findOrFail($request->cell['id']);
 
         //dd($cultivationCycleCalculation);
         //autoincrement unique palletlabel farmer id
@@ -139,8 +138,8 @@ class PalletLabelController extends Controller
 
         //insert palletLabel
         $palletlabel = Palletlabel::where('farmer_id', $currentFarmer->id)->where('id', $id)->first();
-        $palletlabel->crop_date = Carbon::parse($request->crop_date);
-        $palletlabel->article_amount = $request->article_amount;
+        $palletlabel->crop_date = $request->crop_date;
+        $palletlabel->article_amount = $request->amount;
         $palletlabel->note = $request->note;
         $palletlabel->made_by = $authUser->first_name;
         $palletlabel->user_id = $authUser->id;
@@ -151,7 +150,7 @@ class PalletLabelController extends Controller
         $palletlabel->harvest_cycle_day = $request->harvest_cycle_day;
         $palletlabel->cell_number = $cell->number;
         $palletlabel->cell_description = $cell->description;
-        $palletlabel->cell_id = $request->cell_id;
+        $palletlabel->cell_id = $cell->id;
 
 
         $palletlabel->save();

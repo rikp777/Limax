@@ -1,6 +1,6 @@
 <template>
-    <b-card :title="$t('palletlabel.pdf.title')">
-        <router-link :to="{ name: 'palletLabelCombine' }"  class="btn btn-light btn-block" style="position: relative; z-index: 3">New</router-link>
+    <b-card>
+        <!-- <router-link :to="{ name: 'palletlabelCreate' }"  class="btn btn-light btn-block" style="position: relative; z-index: 3">New</router-link> -->
 
         <template>
             <div class="card-body" v-on:click="checkPrint" id="printMe">
@@ -38,7 +38,8 @@
                         <!--                STATUS-->
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 16px;">
-                                <strong>Palletlabel: </strong>{{ moment().format("dddd, MMMM Do YYYY") + ' ' + moment().locale('nl').format('LTS') }}
+                                <!-- <strong>Palletlabel: </strong>{{ moment().format("dddd, MMMM Do YYYY") + ' ' + moment().locale('nl').format('LTS') }} -->
+                                <strong>Palletlabel: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}}
                             </div>
                             <div class="col-sm-6" style="font-size: 16px;">
                                 <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -94,7 +95,7 @@
                             <div class="row">
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Article</strong>
-                                    <div>{{ getArticlesById(palletLabel.articleId).name }}</div>
+                                    <div>{{ palletLabel.article.name }}</div>
                                 </div>
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Colli</strong>
@@ -110,7 +111,7 @@
                                 </div>
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Weight</strong>
-                                    <div>{{ getArticlesById(palletLabel.articleId).weight }} GR</div>
+                                    <div>{{ palletLabel.article.weight }} GR</div>
                                 </div>
                             </div>
 
@@ -128,7 +129,7 @@
                             <div class="row">
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Origin</strong>
-                                    <div>{{ getArticlesById(palletLabel.articleId).origin }}</div>
+                                    <div>{{ palletLabel.article.origin }}</div>
                                 </div>
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Note</strong>
@@ -160,9 +161,8 @@
                         <!--                STATUS-->
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 16px;">
-                                <strong>Palletlabel: </strong>{{ moment().format("dddd, MMMM Do YYYY") + ' ' + moment().locale('nl').format('LTS') }}
-<!--                                {{ moment().locale('nl').format('LTS') }}-->
-<!--                                <strong>Palletlabel: </strong>{{ moment().locale('nl').format('L') }} : {{ moment().locale('nl').format('LTS') }}-->
+                                <strong>Palletlabel: </strong>{{ $moment().format("dddd, MMMM Do YYYY") + ' ' + $moment().locale('nl').format('LTS') }}
+                                <!-- <strong>Palletlabel: </strong>dddd, MMMM Do YYYY -->
                             </div>
                             <div class="col-sm-6" style="font-size: 16px;">
                                 <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -218,7 +218,7 @@
                             <div class="row">
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Article</strong>
-                                    <div>{{ getArticlesById(palletLabel.articleId).name }}</div>
+                                    <div>{{ palletLabel.article.name }}</div>
                                 </div>
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Amount</strong>
@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Weight</strong>
-                                    <div>{{ getArticlesById(palletLabel.articleId).weight }} GR</div>
+                                    <div>{{ palletLabel.article.weight }} GR</div>
                                 </div>
                             </div>
 
@@ -252,7 +252,7 @@
                             <div class="row">
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Origin</strong>
-                                    <div>{{ getArticlesById(palletLabel.articleId).origin }}</div>
+                                    <div>{{ palletLabel.article.origin }}</div>
                                 </div>
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Note</strong>
@@ -284,13 +284,17 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
-    import palletLabel from "../../router/routes/palletLabel";
-    import {getToken} from '../../common/jwt.service';
+    // import palletLabel from "../../router/routes/palletLabel";
+    // import {getToken} from '../../common/jwt.service';
 
     export default {
         name: 'palletLabel-pdf',
         computed: {
-            ...mapGetters(["authUser"]),
+            // ...mapGetters(["authUser"]),
+            ...mapGetters({
+                authFarmer: 'authFarmer',
+                authUserFarmers: 'authUserFarmers',
+            }),
             article(){
                 return this.$store.getters.articles;
             },
@@ -328,10 +332,11 @@
         mounted() {
 
             Promise.all([
-               this.getFarmer(getToken('farmer')),
+               // this.getFarmer(getToken('farmer')),
+               // console.log(this.authFarmer.id),
+               this.getFarmer(this.authFarmer.id),
                this.getPalletlabel(this.$route.params.id),
                this.getAllArticles(),
-               // this.getArticle(1)
             ]).finally(() => {
                 // console.log(" nu ben ik klaar");
                 // this.checkPrint();
@@ -349,4 +354,3 @@
     }
 
 </style>
-

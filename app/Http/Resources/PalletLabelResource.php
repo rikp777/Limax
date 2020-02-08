@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Article;
 use App\Farmer;
+use App\Cell;
 use App\PalletType;
 use App\Status;
 use App\User;
@@ -19,12 +20,14 @@ class PalletLabelResource extends JsonResource
      */
     public function toArray($request)
     {
+      // dd($this);
 //        return parent::toArray($request);
         return [
             'id' => $this->id,
             'crop_date' => $this->crop_date,
             'article_amount' => $this->article_amount,
             'note' => $this->note,
+            'cell' => new CellResource(Cell::find($this->cell_id)),
             'palletLabelFarmerId' => $this->pallet_label_farmer_id,
             'harvestCycle' => $this->harvest_cycle,
             'harvestCycleDay' => $this->harvest_cycle_day,
