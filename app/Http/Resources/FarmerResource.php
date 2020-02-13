@@ -15,6 +15,7 @@ class FarmerResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'uid' => $this->uid,
             'name' => $this->name,
             'street' => $this->street,

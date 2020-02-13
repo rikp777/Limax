@@ -17,20 +17,21 @@
                     <h6 class="mb-4">{{ $t('auth.login.title')}}</h6>
 
                     <b-form @submit.prevent="formSubmit" class="av-tooltip tooltip-label-bottom">
-                        <b-form-group :label="$t('user.email.title')" class="has-float-label mb-4">
+                        <b-form-group :label="$t('user.attributes.email.title')" class="has-float-label mb-4">
                             <b-form-input type="text" v-model="form.email"/>
 <!--                            <b-form-invalid-feedback v-if="!$v.form.email.required">{{ $t('user.email.validation.notEntered')}}</b-form-invalid-feedback>-->
 <!--                            <b-form-invalid-feedback v-else-if="!$v.form.email.email">{{ $t('user.email.validation.notValid')}}</b-form-invalid-feedback>-->
 <!--                            <b-form-invalid-feedback v-else-if="!$v.form.email.minLength">{{ $t('user.email.validation.minLength')}}</b-form-invalid-feedback>-->
                         </b-form-group>
 
-                        <b-form-group :label="$t('user.password.title')" class="has-float-label mb-4">
+                        <b-form-group :label="$t('user.attributes.password.title')" class="has-float-label mb-4">
                             <b-form-input type="password" v-model="form.password" />
 <!--                            <b-form-invalid-feedback v-if="!$v.form.password.required">{{ $t('user.password.validation.notEntered')}}</b-form-invalid-feedback>-->
 <!--                            <b-form-invalid-feedback v-else-if="!$v.form.password.minLength || !$v.form.password.maxLength">{{ $t('user.password.validation.minLength')}}</b-form-invalid-feedback>-->
                         </b-form-group>
                         <div class="d-flex justify-content-between align-items-center">
-                            <router-link tag="a" to="/user/forgot-password">{{ $t('auth.login.forgot')}}</router-link>
+<!--                            <router-link tag="a" to="/user/forgot-password">{{ $t('auth.login.forgot')}}</router-link>-->
+                            <div></div>
                             <b-button
                                 type="submit"
                                 variant="primary"

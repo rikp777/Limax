@@ -33,8 +33,18 @@ class PalletLabelController extends Controller
             $palletlabels = PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->get();
 
             return PalletLabelResource::collection($palletlabels);
+
+//            $palletLabelAll = PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->get();
+//            $palletLabelPaginated = PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->paginate(10);
+//
+//            $collectionReturn = [
+//                "all" => PalletLabelResource::collection($palletLabelAll),
+//                "paginated" => $palletLabelPaginated,
+//            ];
+//            return $collectionReturn;
         }
         return null;
+
     }
 
 

@@ -5,6 +5,7 @@ import documentation from "./routes/documentation";
 import auth from "./routes/auth"
 import settings from "./routes/settings"
 import article from "./routes/article"
+import user from "./routes/user"
 import shippingLabel from "./routes/shippingLabel";
 
 Vue.use(VueRouter);
@@ -29,7 +30,9 @@ const router = new VueRouter({
                     path: "admin",
                     component: () => import("../views/admin/Index"),
                     children: [
-                        ...article,
+                        ...user,
+                        ...article
+
                     ]
                 },
                 {

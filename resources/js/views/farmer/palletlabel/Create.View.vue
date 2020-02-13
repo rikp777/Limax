@@ -2,7 +2,7 @@
     <b-row>
         <b-colxx xl="7" lg="12" class="mb-4" >
             <div v-if="!update">
-                <palletlabel-create />
+                <palletlabel-create/>
             </div>
             <div v-else>
                 <palletlabel-update
@@ -14,8 +14,9 @@
         </b-colxx>
         <b-colxx xl="5" lg="12" class="mb-4">
             <b-card :title="$t('palletlabel.list.title')">
-                <farmer-palletlabel-list
-                  @updateMode="updateListener"
+                <farmer-palletlabel-list :key="reloadComp"
+                     @updateMode="updateListener"
+                                         @deleteMode="reloadListener"
                  />
             </b-card>
         </b-colxx>
@@ -29,7 +30,8 @@
       data () {
         return {
           update: false,
-          labelId: null
+          labelId: null,
+          reloadComp: 0,
         }
       },
       components: {
@@ -43,6 +45,9 @@
           this.labelId = id
           this.update = true
         },
+          reloadListener() {
+              this.reloadComp += 1
+          },
         createListener() {
           console.log('create')
           this.update = false

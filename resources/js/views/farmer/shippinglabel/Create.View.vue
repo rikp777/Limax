@@ -7,7 +7,9 @@
         </b-colxx>
         <b-colxx xl="5" lg="12" class="mb-4">
             <b-card :title="$t('shippinglabel.list.title')">
-                <farmer-shippinglabel-list />
+                <farmer-shippinglabel-list :key="reloadComp"
+                    @refreshMode="reloadListener"
+                />
             </b-card>
         </b-colxx>
     </b-row>
@@ -15,10 +17,25 @@
 <script>
     import ShippinglabelCreate from "../../../components/crudl/shippinglabel/ShippinglabelCreate";
     import FarmerShippinglabelList from "../../../components/crudl/farmer/FarmerShippinglabelList";
+    import PalletlabelCreate from "../../../components/crudl/palletlabel/PalletlabelCreate";
+    import PalletlabelUpdate from "../../../components/crudl/palletlabel/PalletlabelUpdate";
+    import FarmerPalletlabelList from "../../../components/crudl/farmer/FarmerPalletlabelList";
     export default {
         components: {
             FarmerShippinglabelList,
             ShippinglabelCreate,
+        },
+        data () {
+            return {
+                update: false,
+                labelId: null,
+                reloadComp: 0,
+            }
+        },
+        methods: {
+            reloadListener() {
+                this.reloadComp += 1
+            },
         }
     }
 </script>

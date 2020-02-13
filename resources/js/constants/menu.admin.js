@@ -1,15 +1,15 @@
 const data = [
     {
-        id: "article",
-        icon: "simple-icon-tag",
-        label: "menu.article.main",
-        to: "/admin/article",
+        id: "user",
+        icon: "simple-icon-user-follow",
+        label: "menu.user.main",
+        to: "/admin/user",
         subs: [
             {
-                id: "articleCreate",
+                id: "userCreate",
                 icon: "iconsminds-add",
-                label: "menu.article.create",
-                to: "/admin/article/create"
+                label: "menu.user.create",
+                to: "/admin/user/create"
             }
         ],
     },
@@ -24,6 +24,20 @@ const data = [
                 icon: "iconsminds-add",
                 label: "menu.farmer.create",
                 to: "/admin/farmer/create"
+            }
+        ],
+    },
+    {
+        id: "article",
+        icon: "simple-icon-tag",
+        label: "menu.article.main",
+        to: "/admin/article",
+        subs: [
+            {
+                id: "articleCreate",
+                icon: "iconsminds-add",
+                label: "menu.article.create",
+                to: "/admin/article/create"
             }
         ],
     }

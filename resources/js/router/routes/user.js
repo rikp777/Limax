@@ -1,13 +1,11 @@
 import RightEnum from '../rights'
 
-import Index from '../../components/user/Index'
-import List from '../../components/user/List'
-import Create from '../../components/user/Create'
-import Read from '../../components/user/Read'
+import Index from '../../views/admin/users/Index'
+import Create from '../../views/admin/users/Create'
 
 export default [
     {
-        path: '/user',
+        path: 'user',
         component: Index,
         meta: {
             requiresAuth: true,
@@ -15,27 +13,9 @@ export default [
         },
         children: [
             {
-                name: 'userList',
-                path: '',
-                component: List,
-                meta: {
-                    requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
-                },
-            },
-            {
-                name: 'userCreate',
+                name: 'create',
                 path: 'create',
                 component: Create,
-                meta: {
-                    requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
-                },
-            },
-            {
-                name: 'userRead',
-                path: ':id',
-                component: Read,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]

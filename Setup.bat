@@ -26,7 +26,7 @@ IF !ERRORLEVEL! == 5 cmd /c Call npm run dev && start Setup.bat && exit
 IF !ERRORLEVEL! == 6 cmd /c Call php artisan migrate:fresh --seed && Call php artisan passport:install && start Setup.bat && exit
 IF !ERRORLEVEL! == 7 cmd /c Call composer dump-autoload && start Setup.bat && exit
 IF !ERRORLEVEL! == 8 cmd /c Call npm run test:unit && start Setup.bat && exit
-IF !ERRORLEVEL! == 9 Start Call php artisan serve && TIMEOUT 1 && Start Call npm run hot && TIMEOUT 1 && Start Call npm run test:unit && start Setup.bat && exit
+IF !ERRORLEVEL! == 9 Start Call php artisan serve && TIMEOUT 1 && Start Call npm run hot && TIMEOUT 1 && start Setup.bat && exit
 IF !ERRORLEVEL! == 99 goto :EOF
 : echo You chose !menu[%ERRORLEVEL%]!.
 

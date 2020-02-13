@@ -221,7 +221,7 @@
                                     <div>{{ palletLabel.article.name }}</div>
                                 </div>
                                 <div class="col-sm-6" style="font-size: 22px;">
-                                    <strong>Amount</strong>
+                                    <strong>Colli</strong>
                                     <div>{{ palletLabel.articleAmount }}</div>
                                 </div>
                             </div>

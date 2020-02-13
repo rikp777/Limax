@@ -1,5 +1,5 @@
 <template>
-    <b-card :title="$t('user.title')" style="border-left: 6px solid #f28125">
+    <b-card :title="$t('user.update.title') + ' ' + getUser.id" style="border-left: 6px solid red">
         <validation-observer ref="observer" v-slot="{ invalid }">
             <b-form @submit.prevent="validateBeforeSubmit">
 
@@ -48,20 +48,20 @@
                 </validation-provider>
 
 
-                <validation-provider
-                    :name="$t('user.attributes.password.title')"
-                    :rules="{ required: true }"
-                    v-slot="validationContext"
-                >
-                    <label class="form-group has-float-label mb-4">
-                        <input type="password" class="form-control" v-model="user.password" id="password"
-                               name="password" :state="getValidationState(validationContext)"
-                               aria-describedby="password-live-feedback">
-                        <span>{{ $t('user.attributes.password.title') }}</span>
-                    </label>
-                    <b-form-invalid-feedback id="password-live-feedback">{{ validationContext.errors[0] }}
-                    </b-form-invalid-feedback>
-                </validation-provider>
+<!--                <validation-provider-->
+<!--                    :name="$t('user.attributes.password.title')"-->
+<!--                    :rules="{ required: true }"-->
+<!--                    v-slot="validationContext"-->
+<!--                >-->
+<!--                    <label class="form-group has-float-label mb-4">-->
+<!--                        <input type="password" class="form-control" v-model="user.password" id="password"-->
+<!--                               name="password" :state="getValidationState(validationContext)"-->
+<!--                               aria-describedby="password-live-feedback">-->
+<!--                        <span>{{ $t('user.attributes.password.title') }}</span>-->
+<!--                    </label>-->
+<!--                    <b-form-invalid-feedback id="password-live-feedback">{{ validationContext.errors[0] }}-->
+<!--                    </b-form-invalid-feedback>-->
+<!--                </validation-provider>-->
 
 <!--                <div class="separator mb-5"/>-->
 
@@ -130,8 +130,23 @@
 
 
                 <div class="d-flex justify-content-end align-items-center">
-                    <b-button type="submit" variant="primary" size="lg" class="btn-shadow" :disabled="invalid">{{
-                        $t('user.actions.buttonRegister')}}
+<!--                    <b-button type="submit" variant="primary" size="lg" class="btn-shadow" :disabled="invalid">{{-->
+<!--                        $t('user.actions.buttonRegister')}}-->
+<!--                    </b-button>-->
+
+                    <b-button
+                        type="button"
+                        variant="outline-danger"
+                        class="ml-1"
+                        @click="cancel"
+                    >{{ $t('palletlabel.update.actions.buttonCancel') }}
+                    </b-button>
+                    <b-button
+                        type="submit"
+                        :disabled="invalid"
+                        variant="primary"
+                        class="ml-1"
+                    >{{ $t('user.actions.buttonUpdate') }}
                     </b-button>
                 </div>
             </b-form>
@@ -151,22 +166,27 @@
          *De User kan worden gekoppeld aan een of meerdere Departments
 
            */
-        name: "UserCreate",
+        name: "UserUpdate",
+        props: ['id'],
         data() {
             return {
                 user: {
+                    id: this.id,
                     email: '',
                     firstName: '',
                     lastName: '',
-                    password: '',
                     roles: [],
                     departments: [],
                     farmers: [],
                 },
                 serverErrors: '',
+                updateMode: true,
             }
         },
         computed: {
+            getUser() {
+                return this.$store.getters.user;
+            },
             authUser() {
                 return this.$store.getters.authUser;
             },
@@ -181,34 +201,24 @@
             },
         },
         methods: {
+            getUserMethod() {
+                this.$store.dispatch("getUser", this.id)
+            },
+            getAllUsers() {
+                this.$store.dispatch("getAllUsers");
+            },
             getValidationState({dirty, validated, valid = null}) {
                 return dirty || validated ? valid : null;
             },
             validateBeforeSubmit() {
-                this.create();
+                this.update();
             },
-            create() {
-                this.$store.dispatch('createUser', {
-                    email: this.user.email,
-                    first_name: this.user.firstName,
-                    last_name: this.user.lastName,
-                    password: this.user.password,
-                    roles: this.user.roles,
-                    departments: this.user.departments,
-                    farmers: this.user.farmers
-                }).then(response => {
-                    // this.$router.push({ name: 'userList'})
-                    this.user.email = '';
-                    this.user.firstName = '';
-                    this.user.lastName = '';
-                    this.user.password = '';
-                    this.user.roles = [];
-                    this.user.departments = [];
-                    this.user.farmers = [];
-                }).catch(error => {
-                    // console.log(error.response.data.errors);
-                    this.serverErrors = Object.values(error.response.data.errors)
-                })
+            update() {
+                this.$store.dispatch("updateUser", this.user)
+                    .then(()=> {
+                        this.getAllUsers();
+                        this.cancel()
+                    });
             },
             getAllRoles() {
                 this.$store.dispatch("getAllRoles");
@@ -218,15 +228,31 @@
             },
             getAllDepartments() {
                 this.$store.dispatch("getAllDepartments");
+            },
+            cancel() {
+                this.$emit('createMode')
             }
         },
         mounted() {
             Promise.all([
+                // this.getUserMethod(),
                 this.getAllRoles(),
                 this.getAllFarmers(),
                 this.getAllDepartments(),
+                this.$store.dispatch("getUser", this.id).then(()=>{
+                    console.log("nu dit");
+                })
             ]).finally(() => {
-                console.log(" nu ben ik klaar");
+                // console.log(" nu ben ik klaar");
+                // console.log(this.getUser);
+
+                this.user.email = this.getUser.email;
+                this.user.firstName = this.getUser.firstName;
+                this.user.lastName = this.getUser.lastName;
+                // this.user.password = this.getUser.password;
+                this.user.roles = this.getUser.roles;
+                this.user.departments = this.getUser.departments;
+                this.user.farmers = this.getUser.farmers;
             })
         },
     }

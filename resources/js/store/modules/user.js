@@ -51,7 +51,8 @@ const actions = {
         return UserService.getAll()
             .then(({ data }) => {
                 // console.log(data.data);
-                context.commit(SET_USERS, data.data);
+                // context.commit(SET_USERS, data.data); voor data
+                context.commit(SET_USERS, data); //voor paginated
                 context.commit(FETCH_END);
                 // console.log(state.palletLabels);
             })
@@ -78,7 +79,7 @@ const actions = {
     },
 
     updateUser(context, payload) {
-        // console.log(payload);
+        console.log(payload);
         return UserService.update(payload.id, payload)
             .then(({data}) => {
                 // console.log(data);

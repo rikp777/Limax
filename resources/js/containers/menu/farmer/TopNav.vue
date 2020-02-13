@@ -35,11 +35,11 @@
 
             <div class="header-icons d-inline-block align-middle">
 
-                <div class="position-relative d-none d-sm-inline-block">
-                    <b-dropdown variant="empty" size="sm" right toggle-class="header-icon" menu-class="position-absolute mt-3 iconMenuDropdown" no-caret>
-                        <template slot="button-content">
-                            <i class="simple-icon-grid" />
-                        </template>
+<!--                <div class="position-relative d-none d-sm-inline-block">-->
+<!--                    <b-dropdown variant="empty" size="sm" right toggle-class="header-icon" menu-class="position-absolute mt-3 iconMenuDropdown" no-caret>-->
+<!--                        <template slot="button-content">-->
+<!--                            <i class="simple-icon-grid" />-->
+<!--                        </template>-->
 <!--                        <div>-->
 <!--                            <router-link tag="a" to="/app/dashboards/default" class="icon-menu-item">-->
 <!--                                <i class="iconsminds-shop-4 d-block" />-->
@@ -66,8 +66,8 @@
 <!--                                {{$t('menu.todo')}}-->
 <!--                            </router-link>-->
 <!--                        </div>-->
-                    </b-dropdown>
-                </div>
+<!--                    </b-dropdown>-->
+<!--                </div>-->
                 <div class="position-relative d-none d-sm-inline-block ">
                     <full-screen />
                 </div>
@@ -133,8 +133,8 @@
         methods: {
             ...mapMutations(['changeSideMenuStatus', 'changeSideMenuForMobile']),
             search() {
-                this.$router.push(`${this.searchPath}?search=${this.searchKeyword}`)
-                this.searchKeyword = ''
+                // this.$router.push(`${this.searchPath}?search=${this.searchKeyword}`)
+                // this.searchKeyword = ''
             },
             searchClick() {
                 if (window.innerWidth < this.menuHiddenBreakpoint) {

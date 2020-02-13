@@ -393,8 +393,12 @@
                 // this.getAllFarmerArticles(),
                 // this.getAllCells(),
                 // this.getAllPalletTypes(),
-                this.getPalletLabel()
+                // this.getPalletLabel()
+                this.$store.dispatch("getPalletLabel", this.id).then(()=>{
+                    console.log("nu dit");
+                })
             ]).finally(() => {
+                // console.log(this.palletLabel)
               this.form.article = this.palletLabel.article,
               this.form.palletType = this.palletLabel.article.palletType,
               this.form.cropDate = this.palletLabel.cropDate,

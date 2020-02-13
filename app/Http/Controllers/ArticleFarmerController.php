@@ -78,12 +78,11 @@ class ArticleFarmerController extends Controller
     public function update(Request $request)
     {
 
-        $farmerid = Farmer::find($request->farmerid);
-        $idsArticles = array_column($request->articles, 'id');
-        $tom = $farmerid->articles()->sync($idsArticles);
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
 
-        $currentFarmer = Farmer::find($request->farmerid);
-//        return $currentFarmer->articles()->get();
+        $idsArticles = array_column($request->articles, 'id');
+        $tom = $currentFarmer->articles()->sync($idsArticles);
+
         return ArticleFarmerResource::collection($currentFarmer->articles()->get());
 
 //        return new ArticleFarmerResource($tom);

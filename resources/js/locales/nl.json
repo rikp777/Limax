@@ -26,6 +26,10 @@
         "farmer": {
             "main": "Kwekers",
             "create": "Aanmaken"
+        },
+        "user": {
+            "main": "Gebruikers",
+            "create": "Aanmaken"
         }
     },
 
@@ -59,6 +63,24 @@
     },
 
     "user": {
+        "title": "Gebruiker Registratie",
+        "actions": {
+            "title": "Gebruiker Configureren",
+            "buttonRegister": "Gebruiker registreren"
+        },
+        "delete": {
+            "title": "Weet je het zeker?",
+            "text": "Als je een gebruiker verwijderd kun je deze niet meer terug halen!",
+            "actions": {
+                "confirmButtonText": "Ja, Verwijder gebruiker",
+                "cancelButtonText": "Annuleren",
+                "buttonCancel": "Cancel, Ga terug"
+            },
+            "deleted": "Verwijderd!",
+            "deletedtext": "Gebruiker is verwijderd",
+            "cancelled": "Geannuleerd!",
+            "cancelledtext": "Gebruiker is niet verwijderd"
+        },
         "attributes": {
             "email": {
                 "title": "Email",
@@ -68,12 +90,48 @@
                     "minLength": "Uw email adress moet minimaal 4 karakters lang zijn"
                 }
             },
+            "roles": {
+                "title": "Recht",
+                "validation": {
+                    "notEntered": "Selecteer aub een recht"
+                }
+            },
+            "departments": {
+                "title": "Afdeling",
+                "validation": {
+                    "notEntered": "Selecteer aub een of meer afdelingen"
+                }
+            },
+            "farmers": {
+                "title": "Kweker",
+                "validation": {
+                    "notEntered": "Selecteer aub een of meer kwekers"
+                }
+            },
             "password": {
                 "title": "Wachtwoord",
                 "validation": {
                     "notEntered": "Vul aub uw wachtwoord in",
                     "minLength": "Uw wachtwoord moet minimaal 4 karakters lang zijn"
                 }
+            },
+            "firstname": {
+                "title": "Voornaam",
+                "validation": {
+                    "notEntered": "Vul aub uw voornaam in"
+                }
+            },
+            "lastname": {
+                "title": "Achternaam",
+                "validation": {
+                    "notEntered": "Vul aub uw achternaam in"
+                }
+            },
+            "create": {
+                "title": "Maak een nieuwe gebruiker"
+            },
+            "list": {
+                "title": "Lijst van alle gebruikers"
             }
         }
     },
@@ -82,7 +140,19 @@
             "title": "Cellen"
         },
         "create": {
-            "title": "Maak Cell Aan"
+            "title": "Maak Cell Aan",
+            "label": "Cell",
+            "actions": {
+                "buttonCreate": "Maak Cell Aan"
+            }
+        },
+        "update": {
+            "title": "Cell Aanpassen",
+            "label": "Cell",
+            "actions": {
+                "buttonUpdate": "Cell Aanpassen",
+                "buttonCancel": "Cancel, Ga Terug"
+            }
         },
         "list": {
             "title": "Lijst van alle cellen"
@@ -90,7 +160,7 @@
     },
     "article": {
         "main": {
-            "title": "artikellen"
+            "title": "Artikellen"
         },
         "create": {
             "title": "Maak een nieuw artikel"
@@ -99,15 +169,11 @@
             "title": "Lijst van artikelen"
         },
         "connect": {
-            "title": "Koppelen van artikelen"
-        }
-    },
-    "user": {
-        "create": {
-            "title": "Maak een nieuwe gebruiker"
-        },
-        "list": {
-            "title": "Lijst van alle gebruikers"
+            "title": "Koppelen van artikelen",
+            "label": "Artikelen",
+            "actions": {
+                "buttonUpdate": "Artikel Koppeling Aanpassen"
+            }
         }
     },
     "palletlabel": {
@@ -192,8 +258,10 @@
             },
             "trucks": {
                 "title": "Kenteken"
+            },
+            "deliveryDate": {
+                "title": "Transport Datum"
             }
-
         }
     }
 }

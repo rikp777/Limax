@@ -1,245 +1,256 @@
 <template>
     <b-row>
         <b-colxx md="12" class="mb-4">
-          <validation-observer ref="observer" v-slot="{ invalid }">
-            <b-form @submit.prevent="validateBeforeSubmit()">
-                <b-row>
-                    <!--                        //trucker-->
-                    <b-colxx xs="12" xl="6">
-                      <validation-provider
-                             :name="$t('shippinglabel.attributes.trucker.title')"
-                             :rules="{ required: true }"
-                             v-slot="validationContext"
-                           >
-                        <b-form-group :label="$t('shippinglabel.attributes.trucker.title')">
-                            <!--                                {{trucks}}-->
-                            <multiselect
-                                v-model="form.trucker"
-                                :options="truckers"
-                                :close-on-select="true"
-                                :clear-on-select="false"
-                                :preserve-search="true"
-                                :allow-empty="false"
-                                placeholder="Pick some"
-                                label="fullName"
-                                track-by="fullName"
-                                id="fullName"
-                                name="fullName"
-                                :state="getValidationState(validationContext)"
-                                aria-describedby="fullName-live-feedback"
-                                @input="selectTruck()"
+            <validation-observer ref="observer" v-slot="{ invalid }">
+                <b-form @submit.prevent="validateBeforeSubmit()">
+                    <b-row>
+                        <!--                        //trucker-->
+                        <b-colxx xs="12" xl="6">
+                            <validation-provider
+                                :name="$t('shippinglabel.attributes.trucker.title')"
+                                :rules="{ required: true }"
+                                v-slot="validationContext"
                             >
+                                <b-form-group :label="$t('shippinglabel.attributes.trucker.title')" id="trucker-group" label-for="trucker">
+                                    <!--                                {{trucks}}-->
+                                    <multiselect
+                                        v-model="form.trucker"
+                                        :options="truckers"
+                                        :close-on-select="true"
+                                        :clear-on-select="false"
+                                        :preserve-search="true"
+                                        :allow-empty="false"
+                                        placeholder="Pick some"
+                                        label="fullName"
+                                        track-by="fullName"
+                                        id="trucker"
+                                        name="trucker"
+                                        :state="getValidationState(validationContext)"
+                                        aria-describedby="trucker-live-feedback"
+                                        @input="selectTruck()"
+                                    >
 
-                                <template
-                                    slot="selection"
-                                    slot-scope="{ values, search, isOpen }">
+                                        <template
+                                            slot="selection"
+                                            slot-scope="{ values, search, isOpen }">
                                     <span
                                         class="multiselect__single"
                                         v-if="values.length &amp;&amp; !isOpen">
                                       {{ values.length }} options selected
                                     </span>
-                                </template>
-                            </multiselect>
-                             <b-form-invalid-feedback id="fullName-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                        </b-form-group>
-                        </validation-provider>
+                                        </template>
+                                    </multiselect>
+                                    <b-form-invalid-feedback id="trucker-live-feedback">{{ validationContext.errors[0]
+                                        }}
+                                    </b-form-invalid-feedback>
+                                </b-form-group>
+                            </validation-provider>
 
-                    </b-colxx>
-                    <!--                        //truck-->
-                    <b-colxx xs="12" xl="6">
-                      <validation-provider
-                             :name="$t('shippinglabel.attributes.trucks.title')"
-                             :rules="{ required: true }"
-                             v-slot="validationContext"
-                           >
-                        <b-form-group :label="$t('shippinglabel.attributes.trucks.title')">
-                            <!--                                {{trucks}}-->
-                            <multiselect
-                                v-model="form.truck"
-                                :options="trucks"
-                                :close-on-select="true"
-                                :clear-on-select="false"
-                                :preserve-search="true"
-                                :allow-empty="false"
-                                placeholder="Pick some"
-                                label="licensePlate"
-                                track-by="licensePlate"
-                                id="licensePlate"
-                                name="licensePlate"
-                                :state="getValidationState(validationContext)"
-                                aria-describedby="licensePlate-live-feedback"
+                        </b-colxx>
+                        <!--                        //truck-->
+                        <b-colxx xs="12" xl="6">
+                            <validation-provider
+                                :name="$t('shippinglabel.attributes.trucks.title')"
+                                :rules="{ required: true }"
+                                v-slot="validationContext"
                             >
-                                <template
-                                    slot="selection"
-                                    slot-scope="{ values, search, isOpen }">
+                                <b-form-group :label="$t('shippinglabel.attributes.trucks.title')">
+                                    <!--                                {{trucks}}-->
+                                    <multiselect
+                                        v-model="form.truck"
+                                        :options="trucks"
+                                        :close-on-select="true"
+                                        :clear-on-select="false"
+                                        :preserve-search="true"
+                                        :allow-empty="false"
+                                        placeholder="Pick some"
+                                        label="licensePlate"
+                                        track-by="licensePlate"
+                                        id="licensePlate"
+                                        name="licensePlate"
+                                        :state="getValidationState(validationContext)"
+                                        aria-describedby="licensePlate-live-feedback"
+                                    >
+                                        <template
+                                            slot="selection"
+                                            slot-scope="{ values, search, isOpen }">
                                     <span
                                         class="multiselect__single"
                                         v-if="values.length &amp;&amp; !isOpen">
                                       {{ values.length }} options selected
                                     </span>
-                                </template>
-                            </multiselect>
-                            <b-form-invalid-feedback id="licensePlate-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                        </b-form-group>
-                      </validation-provider>
-                    </b-colxx>
-                    <!--                        //date-->
-                    <!--                        //palletlabelSelect-->
-                </b-row>
-                <b-row>
-                    <!--                        //truck-->
-                    <b-colxx xs="12" xl="6">
-                      <validation-provider
-                             :name="$t('shippinglabel.attributes.deliverydate.title')"
-                             :rules="{ required: true }"
-                             v-slot="validationContext"
-                           >
-                        <b-form-group :label="$t('shippinglabel.attributes.deliverydate.title')">
-                            <!--                                {{trucks}}-->
-                            <vue-flatpickr-component
-                              v-model="form.deliveryDate"
-                              name="deliveryDate"
-                              id="deliveryDate"
-                              class="form-control"
-                              static='true'
-                              :state="getValidationState(validationContext)"
-                              aria-describedby="deliveryDate-live-feedback"
-                            />
-                            <b-form-invalid-feedback id="deliveryDate-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                        </b-form-group>
-                      </validation-provider>
+                                        </template>
+                                    </multiselect>
+                                    <b-form-invalid-feedback id="licensePlate-live-feedback">{{
+                                        validationContext.errors[0] }}
+                                    </b-form-invalid-feedback>
+                                </b-form-group>
+                            </validation-provider>
+                        </b-colxx>
+                        <!--                        //date-->
+                        <!--                        //palletlabelSelect-->
+                    </b-row>
+                    <b-row>
+                        <!--                        //truck-->
+                        <b-colxx xs="12" xl="6">
+                            <validation-provider
+                                :name="$t('shippinglabel.attributes.deliveryDate.title')"
+                                :rules="{ required: true }"
+                                v-slot="validationContext"
+                            >
+                                <b-form-group :label="$t('shippinglabel.attributes.deliveryDate.title')">
+                                    <!--                                {{trucks}}-->
+                                    <vue-flatpickr-component
+                                        v-model="form.deliveryDate"
+                                        name="deliveryDate"
+                                        id="deliveryDate"
+                                        class="form-control"
+                                        static='true'
+                                        :state="getValidationState(validationContext)"
+                                        aria-describedby="deliveryDate-live-feedback"
+                                    />
+                                    <b-form-invalid-feedback id="deliveryDate-live-feedback">{{
+                                        validationContext.errors[0] }}
+                                    </b-form-invalid-feedback>
+                                </b-form-group>
+                            </validation-provider>
 
-                    </b-colxx>
-                </b-row>
-                <div class="separator mb-5"/>
+                        </b-colxx>
+                    </b-row>
+                    <div class="separator mb-5"/>
 
-                <div class="disable-text-selection">
-                    <!--    <b-row class="app-row survey-app">-->
-                    <b-colxx xxs="12">
-                        <div class="mb-2">
-                            <!--                            <h4>{{ $t('menu.todo') }}</h4>-->
-                            <div class="top-right-button-container">
-                                <b-button v-b-modal.modalright variant="primary" size="ml-1" class="top-right-button">
-                                    {{$t('shippinglabel.create.actions.palletlabelCreate') }}
-                                </b-button>
-                                <b-button-group v-if="isLoading">
-                                    <b-dropdown split right @click="selectAll(true)" class="check-button"
-                                                variant="primary">
-                                        <label class="custom-control custom-checkbox pl-4 mb-0 d-inline-block"
-                                               slot="button-content">
-                                            <input class="custom-control-input" type="checkbox"
-                                                   :checked="isSelectedAll()"
-                                                   v-shortkey="{select: ['ctrl','a'], undo: ['ctrl','d']}"
-                                                   @shortkey="keymap"/>
-                                            <span :class="{
+                    <div class="disable-text-selection" v-if="next === true">
+                        <!--    <b-row class="app-row survey-app">-->
+                        <b-colxx xxs="12">
+                            <div class="mb-2">
+                                <!--                            <h4>{{ $t('menu.todo') }}</h4>-->
+                                <div class="top-right-button-container">
+                                    <b-button variant="primary" size="ml-1"
+                                              class="top-right-button">
+                                        <router-link :to="{ name: 'palletlabelCreate' }" class="text-white"> {{$t('shippinglabel.create.actions.palletlabelCreate') }}</router-link>
+                                    </b-button>
+
+                                    <b-button-group v-if="isLoading">
+                                        <b-dropdown split right @click="selectAll(true)" class="check-button"
+                                                    variant="primary">
+                                            <label class="custom-control custom-checkbox pl-4 mb-0 d-inline-block"
+                                                   slot="button-content">
+                                                <input class="custom-control-input" type="checkbox"
+                                                       :checked="isSelectedAll()"
+                                                       v-shortkey="{select: ['ctrl','a'], undo: ['ctrl','d']}"
+                                                       @shortkey="keymap"/>
+                                                <span :class="{
                       'custom-control-label' :true,
                       'indeterminate' : isAnyItemSelected()
                     }">&nbsp;</span>
-                                        </label>
-                                        <!--                                        <b-dropdown-item>{{$t('todo.action')}}</b-dropdown-item>-->
-                                        <!--                                        <b-dropdown-item>{{$t('todo.another-action')}}</b-dropdown-item>-->
-                                    </b-dropdown>
-                                </b-button-group>
+                                            </label>
+                                            <!--                                        <b-dropdown-item>{{$t('todo.action')}}</b-dropdown-item>-->
+                                            <!--                                        <b-dropdown-item>{{$t('todo.another-action')}}</b-dropdown-item>-->
+                                        </b-dropdown>
+                                    </b-button-group>
 
-                            </div>
-                            <!--                            <piaf-breadcrumb />-->
-                            <div class="breadcrumb"><h4>{{ $t('shippinglabel.create.actions.palletlabels') }}</h4></div>
-                        </div>
-                        <div class="mb-2">
-                            <b-button variant="empty" class="pt-0 pl-0 d-inline-block d-md-none"
-                                      v-b-toggle.displayOptions>
-                                {{ $t('todo.display-options') }} <i class="simple-icon-arrow-down align-middle"/>
-                            </b-button>
-                            <b-collapse id="displayOptions" class="d-md-block">
-                                <div class="d-block d-md-inline-block pt-1">
-                                    <!--                                    <b-dropdown id="ddown1" :text="`${$t('todo.orderby')} ${sort.label}`"-->
-                                    <!--                                                variant="outline-dark" class="mr-1 float-md-left btn-group " size="xs">-->
-                                    <!--                                        <b-dropdown-item v-for="(order,index) in sortOptions" :key="`order${index}`"-->
-                                    <!--                                                         @click="changeOrderBy(order)">{{ order.label }}-->
-                                    <!--                                        </b-dropdown-item>-->
-                                    <!--                                    </b-dropdown>-->
-                                    <!--                                    <div class="search-sm d-inline-block float-md-left mr-1 align-top">-->
-                                    <!--                                        <b-input :placeholder="$t('menu.search')" v-model="search"/>-->
-                                    <!--                                    </div>-->
                                 </div>
-                            </b-collapse>
-                        </div>
-                        <div class="separator mb-5"/>
+                                <!--                            <piaf-breadcrumb />-->
+                                <div class="breadcrumb"><h4>{{ $t('shippinglabel.create.actions.palletlabels') }}</h4>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <b-button variant="empty" class="pt-0 pl-0 d-inline-block d-md-none"
+                                          v-b-toggle.displayOptions>
+                                    {{ $t('todo.display-options') }} <i class="simple-icon-arrow-down align-middle"/>
+                                </b-button>
+                                <b-collapse id="displayOptions" class="d-md-block">
+                                    <div class="d-block d-md-inline-block pt-1">
+                                        <!--                                    <b-dropdown id="ddown1" :text="`${$t('todo.orderby')} ${sort.label}`"-->
+                                        <!--                                                variant="outline-dark" class="mr-1 float-md-left btn-group " size="xs">-->
+                                        <!--                                        <b-dropdown-item v-for="(order,index) in sortOptions" :key="`order${index}`"-->
+                                        <!--                                                         @click="changeOrderBy(order)">{{ order.label }}-->
+                                        <!--                                        </b-dropdown-item>-->
+                                        <!--                                    </b-dropdown>-->
+                                        <!--                                    <div class="search-sm d-inline-block float-md-left mr-1 align-top">-->
+                                        <!--                                        <b-input :placeholder="$t('menu.search')" v-model="search"/>-->
+                                        <!--                                    </div>-->
+                                    </div>
+                                </b-collapse>
+                            </div>
+                            <div class="separator mb-5"/>
 
-                        <b-row v-if="isLoading" key="itemList">
-                            <b-colxx xxs="12" v-for="(item,index) in palletLabels" :key="`item${index}`"
-                                     v-contextmenu:contextmenu>
-                                <!--                                //start comp-->
-                                <b-card @click.prevent="toggleItem($event,item)"
-                                        :class="{'d-flex mb-3':true,'active' : form.palletLabels.includes(item)}"
-                                        no-body>
-                                    <div class="d-flex flex-grow-1 min-width-zero">
-                                        <b-card-body
-                                            class="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center pb-2">
-                                            <a href="#" class="list-item-heading mb-0 truncate w-50 w-xs-100  mb-1 mt-1"
-                                               @click.prevent="">
-                                                <i :class="{'heading-icon':true,
+                            <b-row v-if="isLoading" key="itemList">
+                                <b-colxx xxs="12" v-for="(item,index) in palletLabels" :key="`item${index}`"
+                                         v-contextmenu:contextmenu>
+                                    <!--                                //start comp-->
+                                    <b-card @click.prevent="toggleItem($event,item)"
+                                            :class="{'d-flex mb-3':true,'active' : form.palletLabels.includes(item)}"
+                                            no-body>
+                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                            <b-card-body
+                                                class="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center pb-2">
+                                                <a href="#"
+                                                   class="list-item-heading mb-0 truncate w-50 w-xs-100  mb-1 mt-1"
+                                                   @click.prevent="">
+                                                    <i :class="{'heading-icon':true,
                                 'simple-icon-check' : 'COMPLETED' === 'COMPLETED',
                                 'simple-icon-refresh' : 'PENDING' !== 'COMPLETED'
                             }"/>
-                                                <span class="align-middle d-inline-block">{{item.article.name}}</span>
-                                            </a>
-                                            <p class="mb-1 text-muted text-small w-15 w-xs-100">{{item.id}}</p>
-                                            <p class="mb-1 text-muted text-small w-15 w-xs-100">{{item.cropDate}}</p>
-                                            <p class="mb-1 text-muted text-small w-15 w-xs-100">
-                                                {{item.articleAmount}}</p>
-                                            <!--                                            <div class="w-15 w-xs-100"><b-badge :variant="'green'" pill>label</b-badge></div>-->
-                                        </b-card-body>
-                                        <div
-                                            class="custom-control custom-checkbox pl-1 align-self-md-center align-self-start mr-4 pt-4">
-                                            <b-form-checkbox :checked="form.palletLabels.includes(item)"
-                                                             class="itemCheck mb-0"/>
+                                                    <span
+                                                        class="align-middle d-inline-block">{{item.article.name}}</span>
+                                                </a>
+                                                <p class="mb-1 text-muted text-small w-15 w-xs-100">{{item.id}}</p>
+                                                <p class="mb-1 text-muted text-small w-15 w-xs-100">
+                                                    {{item.cropDate}}</p>
+                                                <p class="mb-1 text-muted text-small w-15 w-xs-100">
+                                                    {{item.articleAmount}}</p>
+                                                <!--                                            <div class="w-15 w-xs-100"><b-badge :variant="'green'" pill>label</b-badge></div>-->
+                                            </b-card-body>
+                                            <div
+                                                class="custom-control custom-checkbox pl-1 align-self-md-center align-self-start mr-4 pt-4">
+                                                <b-form-checkbox :checked="form.palletLabels.includes(item)"
+                                                                 class="itemCheck mb-0"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="card-body pt-1"><p class="mb-0"></p></div>
-                                </b-card>
-                                <!--                                //end comp-->
-                            </b-colxx>
-                        </b-row>
-                        <div v-else class="loading" key="itemLoading"></div>
-                    </b-colxx>
-                    <!--    </b-row>-->
-                    <v-contextmenu ref="contextmenu" @contextmenu="handleContextmenu">
-                        <v-contextmenu-item @click="onContextCopy()"><i class="simple-icon-docs"/> <span>Copy</span>
-                        </v-contextmenu-item>
-                        <v-contextmenu-item @click="onContextArchive()"><i class="simple-icon-drawer"/> <span>Move to archive</span>
-                        </v-contextmenu-item>
-                        <v-contextmenu-item @click="onContextDelete()"><i class="simple-icon-trash"/>
-                            <span>Delete</span></v-contextmenu-item>
-                    </v-contextmenu>
+                                        <div class="card-body pt-1"><p class="mb-0"></p></div>
+                                    </b-card>
+                                    <!--                                //end comp-->
+                                </b-colxx>
+                            </b-row>
+                            <div v-else class="loading" key="itemLoading"></div>
+                        </b-colxx>
+                        <!--    </b-row>-->
+                        <v-contextmenu ref="contextmenu" @contextmenu="handleContextmenu">
+<!--                            <v-contextmenu-item @click="onContextCopy()"><i class="simple-icon-docs"/> <span>Copy</span>-->
+<!--                            </v-contextmenu-item>-->
+<!--                            <v-contextmenu-item @click="onContextArchive()"><i class="simple-icon-drawer"/> <span>Move to archive</span>-->
+<!--                            </v-contextmenu-item>-->
+<!--                            <v-contextmenu-item @click="onContextDelete()"><i class="simple-icon-trash"/>-->
+<!--                                <span>Delete</span></v-contextmenu-item>-->
+                        </v-contextmenu>
 
-                    <!-- Buttons -->
-                    <b-colxx xs="12">
-                        <b-form-group :label="$t('palletlabel.create.actions.title')" label-align="right">
-                            <div class="d-flex justify-content-end">
-                                <b-button
-                                    type="button"
-                                    variant="outline-danger"
-                                    class="ml-1"
-                                    @click="clear"
-                                >{{ $t('palletlabel.create.actions.buttonClear') }}
-                                </b-button>
-                                <b-button
-                                    type="submit"
-                                    variant="primary"
-                                    class="ml-1"
-                                    :disabled="invalid"
-                                >{{ $t('shippinglabel.create.actions.buttonCreate') }}
-                                </b-button>
-                            </div>
-                        </b-form-group>
+                        <!-- Buttons -->
+                        <b-colxx xs="12">
+                            <b-form-group :label="$t('palletlabel.create.actions.title')" label-align="right">
+                                <div class="d-flex justify-content-end">
+                                    <b-button
+                                        type="button"
+                                        variant="outline-danger"
+                                        class="ml-1"
+                                        @click="clear"
+                                    >{{ $t('palletlabel.create.actions.buttonClear') }}
+                                    </b-button>
+                                    <b-button
+                                        type="submit"
+                                        variant="primary"
+                                        class="ml-1"
+                                        :disabled="invalid"
+                                    >{{ $t('shippinglabel.create.actions.buttonCreate') }}
+                                    </b-button>
+                                </div>
+                            </b-form-group>
 
-                    </b-colxx>
-                </div>
+                        </b-colxx>
+                    </div>
 
-
-            </b-form>
-          </validation-observer>
+                </b-form>
+            </validation-observer>
         </b-colxx>
     </b-row>
 </template>
@@ -265,9 +276,10 @@
                 form: {
                     palletLabels: [],
                     deliveryDate: '',
-                    trucker: [],
-                    truck: [],
+                    trucker: {},
+                    truck: {},
                 },
+                next: false,
                 serverErrors: '',
                 updateMode: false,
                 selected: []
@@ -336,16 +348,19 @@
             this.getAllTrucks();
             this.getAllTruckers();
             this.getAllShippingLabels();
+            this.form.deliveryDate = this.$moment().format('YYYY-MM-DD')
         },
 
         methods: {
-            getValidationState({ dirty, validated, valid = null }) {
-              return dirty || validated ? valid : null;
+            getValidationState({dirty, validated, valid = null}) {
+                return dirty || validated ? valid : null;
             },
             selectTruck() {
                 let filtered = this.trucks.find(trucks => trucks.userId === this.form.trucker.id);
                 console.log(filtered);
                 this.form.truck = filtered;
+
+                this.next = true;
             },
             isSelectedAll() {
                 return this.form.palletLabels.length >= this.palletLabels.length
@@ -486,31 +501,32 @@
             },
             clear() {
                 this.form.palletLabels = [],
-                this.form.deliveryDate = '',
-                this.form.trucker = [],
-                this.form.truck = []
+                    this.form.deliveryDate = '',
+                    this.form.trucker = [],
+                    this.form.truck = []
             },
             validateBeforeSubmit() {
 
 
-              this.updatePalletLabelStatus();
-              // this.createShippingLabel();
-              this.$store.dispatch("createShippingLabel", this.form)
-                 .then(() => {
-                     this.$router.push({
-                         name: 'shippinglabelPdf',
-                         params: {id: this.shippingLabel.id}
-                     })
-                  });
+                this.updatePalletLabelStatus();
+                // this.createShippingLabel();
+                this.$store.dispatch("createShippingLabel", this.form)
+                    .then(() => {
+                        this.$router.push({
+                            name: 'shippinglabelPdf',
+                            params: {id: this.shippingLabel.id}
+                        })
+                    });
             },
         }
     }
 </script>
 <style>
     .form-control[readonly] {
-      background-color: transparent !important;
-      opacity: 1 !important;
+        background-color: transparent !important;
+        opacity: 1 !important;
     }
+
     .noselect {
         -webkit-touch-callout: none; /* iOS Safari */
         -webkit-user-select: none; /* Safari */
