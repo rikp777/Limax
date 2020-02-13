@@ -230,6 +230,7 @@
                 this.$store.dispatch("getAllDepartments");
             },
             cancel() {
+                this.$emit('refreshMode')
                 this.$emit('createMode')
             }
         },

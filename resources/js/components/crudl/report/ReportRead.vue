@@ -127,7 +127,7 @@
                         {
                             name: 'weight',
                             sortField: 'weight',
-                            title: 'Weight',
+                            title: 'Weight (kg)',
                             titleClass: '',
                             dataClass: 'center aligned'
                         },

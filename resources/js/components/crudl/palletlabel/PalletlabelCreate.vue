@@ -348,7 +348,7 @@
             },
 
             formSubmit() {
-              console.log(this.$validator)
+              // console.log(this.$validator)
                 // this.$validator.validateAll().then((result) => {
                     // if (result) {
                             this.$store.dispatch("createPalletLabel", this.form)

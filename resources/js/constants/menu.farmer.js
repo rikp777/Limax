@@ -28,6 +28,12 @@ const data = [
         ],
     },
     {
+        id: "report",
+        icon: "simple-icon-chart",
+        label: "menu.report.main",
+        to: "/farmer/report/overview"
+    },
+    {
         id: "settings",
         icon: "simple-icon-settings",
         label: "menu.settings.main",

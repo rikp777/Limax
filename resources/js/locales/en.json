@@ -192,7 +192,7 @@
         "avgweight": "Average weight per pallet",
         "totalweight": "Total weight",
         "chart": {
-            "title": "Sorts Information"
+            "title": "Weight sorts (kg)"
         }
     },
     "palletlabel": {

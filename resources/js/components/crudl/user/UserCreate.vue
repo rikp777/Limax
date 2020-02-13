@@ -198,16 +198,14 @@
                     farmers: this.user.farmers
                 }).then(response => {
                     // this.$router.push({ name: 'userList'})
-                    this.user.email = '';
-                    this.user.firstName = '';
-                    this.user.lastName = '';
-                    this.user.password = '';
-                    this.user.roles = [];
-                    this.user.departments = [];
-                    this.user.farmers = [];
-                }).catch(error => {
-                    // console.log(error.response.data.errors);
-                    this.serverErrors = Object.values(error.response.data.errors)
+                    this.$emit('refreshMode');
+                        this.user.email = '';
+                        this.user.firstName = '';
+                        this.user.lastName = '';
+                        this.user.password = '';
+                        this.user.roles = [];
+                        this.user.departments = [];
+                        this.user.farmers = [];
                 })
             },
             getAllRoles() {

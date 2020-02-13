@@ -24,6 +24,7 @@ const router = new VueRouter({
                     children: [
                         ...palletLabel,
                         ...shippingLabel,
+                        ...report,
                         ...documentation,
                         ...settings
                     ]
@@ -35,6 +36,9 @@ const router = new VueRouter({
                         ...user,
                         ...article,
                         ...report,
+                        ...palletLabel,
+                        ...shippingLabel,
+                        ...settings,
                         ...planning
 
                     ]

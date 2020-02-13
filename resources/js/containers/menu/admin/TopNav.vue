@@ -7,12 +7,12 @@
             <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none" @click.prevent.stop="changeSideMenuForMobile(menuType)">
                 <mobile-menu-icon />
             </a>
-            <div :class="{'search':true, 'mobile-view':isMobileSearch}" ref="searchContainer" @mouseenter="isSearchOver=true" @mouseleave="isSearchOver=false">
-                <b-input :placeholder="$t('topMenu.search')" @keypress.native.enter="search" v-model="searchKeyword" />
-                <span class="search-icon" @click="searchClick">
-                <i class="simple-icon-magnifier"></i>
-            </span>
-            </div>
+<!--            <div :class="{'search':true, 'mobile-view':isMobileSearch}" ref="searchContainer" @mouseenter="isSearchOver=true" @mouseleave="isSearchOver=false">-->
+<!--                <b-input :placeholder="$t('topMenu.search')" @keypress.native.enter="search" v-model="searchKeyword" />-->
+<!--                <span class="search-icon" @click="searchClick">-->
+<!--                <i class="simple-icon-magnifier"></i>-->
+<!--            </span>-->
+<!--            </div>-->
             <div class="d-inline-block">
                 <change-lang />
             </div>
@@ -20,12 +20,12 @@
                 <select-farmer />
             </div>
         </div>
-        <router-link class="navbar-logo" tag="a" to="/app">
+        <router-link class="navbar-logo" tag="a" to="/admin">
 
-            <!--            <img class="logo d-none d-xs-block" src="https://www.limax.nl/images/limax-logo.png" />-->
-            <!--            <img class="logo-mobile d-block d-xs-non" src="https://www.limax.nl/images/limax-logo.png" />-->
-            <!--            <span class="logo d-none d-xs-block"></span>-->
-            <!--            <span class="logo-mobile d-block d-xs-none"></span>-->
+                        <img class="logo d-none d-xs-block" src="https://www.limax.nl/images/limax-logo.png" />
+<!--                        <img class="logo-mobile d-block d-xs-non" src="https://www.limax.nl/images/limax-logo.png" />-->
+                        <span class="logo d-none d-xs-block"></span>
+<!--                        <span class="logo-mobile d-block d-xs-none"></span>-->
         </router-link>
 
         <div class="navbar-right">

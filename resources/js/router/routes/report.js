@@ -10,7 +10,7 @@ export default [
         component: Index,
         meta: {
             requiresAuth: true,
-            requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+            requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
         },
         children: [
             {
@@ -20,7 +20,7 @@ export default [
                 component: Read,
                 meta: {
                     requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
                 },
             }
         ]

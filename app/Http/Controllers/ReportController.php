@@ -25,8 +25,8 @@ class ReportController extends Controller
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
         $article = article::all();
         $statuses = status::all();
-//        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->where('crop_date', date('Y-m-d'))->get();
-        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->get();
+        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->where('crop_date', date('Y-m-d'))->get();
+//        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->get();
         $sorts = SortType::all();
 //        dd($palletlabels);
 

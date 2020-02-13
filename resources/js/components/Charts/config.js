@@ -241,7 +241,7 @@ export const doughnutChartOptions = {
       bottom: 20
     }
   },
-  // tooltips: chartTooltip
+  tooltips: chartTooltip
 }
 
 export const smallLineChartOptions = {

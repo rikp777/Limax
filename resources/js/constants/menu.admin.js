@@ -1,4 +1,38 @@
 const data = [
+    // {
+    //     id: "palletlabel",
+    //     icon: "simple-icon-tag",
+    //     label: "menu.palletlabel.main",
+    //     to: "/admin/palletlabel",
+    //     subs: [
+    //         {
+    //             id: "palletlabelCreate",
+    //             icon: "iconsminds-add",
+    //             label: "menu.palletlabel.create",
+    //             to: "/admin/palletlabel/create"
+    //         }
+    //     ],
+    // },
+    // {
+    //     id: "shippinglabel",
+    //     icon: "simple-icon-tag",
+    //     label: "menu.shippinglabel.main",
+    //     to: "/admin/shippinglabel",
+    //     subs: [
+    //         {
+    //             id: "shippinglabelCreate",
+    //             icon: "iconsminds-add",
+    //             label: "menu.shippinglabel.create",
+    //             to: "/admin/shippinglabel/create"
+    //         }
+    //     ],
+    // },
+    {
+        id: "settings",
+        icon: "simple-icon-settings",
+        label: "menu.settings.main",
+        to: "/admin/settings"
+    },
     {
         id: "user",
         icon: "simple-icon-user-follow",

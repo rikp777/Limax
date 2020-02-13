@@ -130,6 +130,7 @@
                             'success'
                         );
                         Promise.all([
+                            this.$emit('refreshMode'),
                             this.$store.dispatch("deleteUser", id)
                         ]).finally(() => {
                             this.$store.dispatch("getAllUsers").then((response) => {

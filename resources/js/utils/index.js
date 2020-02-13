@@ -49,43 +49,61 @@ export const ThemeColors = () => {
     // console.log(localStorage.getItem('themeColor'))
     if (localStorage.getItem('themeColor') === 'light.orange') {
         // console.log('light.orange')
-            return {
-                themeColor1: "#f18024",
-                themeColor2: "#e7523e",
-                themeColor3: "#d6a779",
-                themeColor4: "#dba070",
-                themeColor5: "#f6c797",
-                themeColor6: "#d6cdca",
-                themeColor1_10: "rgba(241, 128, 36, 0.1)",
-                themeColor2_10: "rgba(231, 82, 62, 0.1)",
-                themeColor3_10: "rgba(214, 167, 121, 0.1)",
-                themeColor4_10: "rgba(214, 167, 121, 0.1)",
-                themeColor5_10: "rgba(214, 167, 121, 0.1)",
-                themeColor6_10: "rgba(214, 167, 121, 0.1)",
-                primaryColor: "#212121",
-                foregroundColor: "white",
-                separatorColor: "#d7d7d7",
-            }
+        return {
+            themeColor1: "#f18024",
+            themeColor2: "#e7523e",
+            themeColor3: "#d6a779",
+            themeColor4: "#dba070",
+            themeColor5: "#f6c797",
+            themeColor6: "#d6cdca",
+            themeColor1_10: "rgba(241, 128, 36, 0.1)",
+            themeColor2_10: "rgba(231, 82, 62, 0.1)",
+            themeColor3_10: "rgba(214, 167, 121, 0.1)",
+            themeColor4_10: "rgba(214, 167, 121, 0.1)",
+            themeColor5_10: "rgba(214, 167, 121, 0.1)",
+            themeColor6_10: "rgba(214, 167, 121, 0.1)",
+            primaryColor: "#212121",
+            foregroundColor: "white",
+            separatorColor: "#d7d7d7",
+        }
     }
     if (localStorage.getItem('themeColor') === 'dark.orange') {
         // console.log('dark.orange')
-            return {
-                themeColor1: "#c0702f",
-                themeColor2: "#aa4f43",
-                themeColor3: "#d6a779",
-                themeColor4: "#dba070",
-                themeColor5: "#f6c797",
-                themeColor6: "#d6cdca",
-                themeColor1_10: "rgba(192, 112, 47, 0.1)",
-                themeColor2_10: "rgba(170, 79, 67, 0.1)",
-                themeColor3_10: "rgba(214, 167, 121, 0.1)",
-                themeColor4_10: "rgba(214, 167, 121, 0.1)",
-                themeColor5_10: "rgba(214, 167, 121, 0.1)",
-                themeColor6_10: "rgba(214, 167, 121, 0.1)",
-                primaryColor: "#969696",
-                foregroundColor: "#232223",
-                separatorColor: "#424242",
-            }
+        return {
+            themeColor1: "#c0702f",
+            themeColor2: "#aa4f43",
+            themeColor3: "#d6a779",
+            themeColor4: "#dba070",
+            themeColor5: "#f6c797",
+            themeColor6: "#d6cdca",
+            themeColor1_10: "rgba(192, 112, 47, 0.1)",
+            themeColor2_10: "rgba(170, 79, 67, 0.1)",
+            themeColor3_10: "rgba(214, 167, 121, 0.1)",
+            themeColor4_10: "rgba(214, 167, 121, 0.1)",
+            themeColor5_10: "rgba(214, 167, 121, 0.1)",
+            themeColor6_10: "rgba(214, 167, 121, 0.1)",
+            primaryColor: "#969696",
+            foregroundColor: "#232223",
+            separatorColor: "#424242",
+        }
+    } else {
+        return {
+            themeColor1: "#f18024",
+            themeColor2: "#e7523e",
+            themeColor3: "#d6a779",
+            themeColor4: "#dba070",
+            themeColor5: "#f6c797",
+            themeColor6: "#d6cdca",
+            themeColor1_10: "rgba(241, 128, 36, 0.1)",
+            themeColor2_10: "rgba(231, 82, 62, 0.1)",
+            themeColor3_10: "rgba(214, 167, 121, 0.1)",
+            themeColor4_10: "rgba(214, 167, 121, 0.1)",
+            themeColor5_10: "rgba(214, 167, 121, 0.1)",
+            themeColor6_10: "rgba(214, 167, 121, 0.1)",
+            primaryColor: "#212121",
+            foregroundColor: "white",
+            separatorColor: "#d7d7d7",
+        }
     }
 
 
@@ -110,11 +128,11 @@ export const ThemeColors = () => {
 };
 
 export const chartTooltip = {
-    backgroundColor: ThemeColors().foregroundColor,
-    titleFontColor: ThemeColors().primaryColor,
-    borderColor: ThemeColors().separatorColor,
+    backgroundColor: "#232223",
+    titleFontColor: "#969696",
+    borderColor: "#424242",
     borderWidth: 0.5,
-    bodyFontColor: ThemeColors().primaryColor,
+    bodyFontColor: "#969696",
     bodySpacing: 10,
     xPadding: 15,
     yPadding: 15,
@@ -122,7 +140,8 @@ export const chartTooltip = {
 }
 
 export const centerTextPlugin = {
-    afterDatasetsUpdate: function (chart) {},
+    afterDatasetsUpdate: function (chart) {
+    },
     beforeDraw: function (chart) {
         var width = chart.chartArea.right
         var height = chart.chartArea.bottom
