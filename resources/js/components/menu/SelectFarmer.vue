@@ -18,6 +18,9 @@
             changeFarmer(farmer){
                 this.setFarmer(farmer.uid);
                 this.changeAuthFarmer(farmer);
+                setTimeout(() => {
+                    window.location.reload()
+                }, 100)
             },
         },
         computed: {

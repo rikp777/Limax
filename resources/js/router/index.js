@@ -6,6 +6,8 @@ import auth from "./routes/auth"
 import settings from "./routes/settings"
 import article from "./routes/article"
 import user from "./routes/user"
+import report from "./routes/report"
+import planning from "./routes/planning"
 import shippingLabel from "./routes/shippingLabel";
 
 Vue.use(VueRouter);
@@ -31,7 +33,9 @@ const router = new VueRouter({
                     component: () => import("../views/admin/Index"),
                     children: [
                         ...user,
-                        ...article
+                        ...article,
+                        ...report,
+                        ...planning
 
                     ]
                 },

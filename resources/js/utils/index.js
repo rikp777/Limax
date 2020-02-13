@@ -45,23 +45,68 @@ export const getCurrentTime = () => {
 
 export const ThemeColors = () => {
     let rootStyle = getComputedStyle(document.body)
-    return {
-        themeColor1: rootStyle.getPropertyValue('--theme-color-1').trim(),
-        themeColor2: rootStyle.getPropertyValue('--theme-color-2').trim(),
-        themeColor3: rootStyle.getPropertyValue('--theme-color-3').trim(),
-        themeColor4: rootStyle.getPropertyValue('--theme-color-4').trim(),
-        themeColor5: rootStyle.getPropertyValue('--theme-color-5').trim(),
-        themeColor6: rootStyle.getPropertyValue('--theme-color-6').trim(),
-        themeColor1_10: rootStyle.getPropertyValue('--theme-color-1-10').trim(),
-        themeColor2_10: rootStyle.getPropertyValue('--theme-color-2-10').trim(),
-        themeColor3_10: rootStyle.getPropertyValue('--theme-color-3-10').trim(),
-        themeColor4_10: rootStyle.getPropertyValue('--theme-color-3-10').trim(),
-        themeColor5_10: rootStyle.getPropertyValue('--theme-color-3-10').trim(),
-        themeColor6_10: rootStyle.getPropertyValue('--theme-color-3-10').trim(),
-        primaryColor: rootStyle.getPropertyValue('--primary-color').trim(),
-        foregroundColor: rootStyle.getPropertyValue('--foreground-color').trim(),
-        separatorColor: rootStyle.getPropertyValue('--separator-color').trim()
+    // console.log('start')
+    // console.log(localStorage.getItem('themeColor'))
+    if (localStorage.getItem('themeColor') === 'light.orange') {
+        // console.log('light.orange')
+            return {
+                themeColor1: "#f18024",
+                themeColor2: "#e7523e",
+                themeColor3: "#d6a779",
+                themeColor4: "#dba070",
+                themeColor5: "#f6c797",
+                themeColor6: "#d6cdca",
+                themeColor1_10: "rgba(241, 128, 36, 0.1)",
+                themeColor2_10: "rgba(231, 82, 62, 0.1)",
+                themeColor3_10: "rgba(214, 167, 121, 0.1)",
+                themeColor4_10: "rgba(214, 167, 121, 0.1)",
+                themeColor5_10: "rgba(214, 167, 121, 0.1)",
+                themeColor6_10: "rgba(214, 167, 121, 0.1)",
+                primaryColor: "#212121",
+                foregroundColor: "white",
+                separatorColor: "#d7d7d7",
+            }
     }
+    if (localStorage.getItem('themeColor') === 'dark.orange') {
+        // console.log('dark.orange')
+            return {
+                themeColor1: "#c0702f",
+                themeColor2: "#aa4f43",
+                themeColor3: "#d6a779",
+                themeColor4: "#dba070",
+                themeColor5: "#f6c797",
+                themeColor6: "#d6cdca",
+                themeColor1_10: "rgba(192, 112, 47, 0.1)",
+                themeColor2_10: "rgba(170, 79, 67, 0.1)",
+                themeColor3_10: "rgba(214, 167, 121, 0.1)",
+                themeColor4_10: "rgba(214, 167, 121, 0.1)",
+                themeColor5_10: "rgba(214, 167, 121, 0.1)",
+                themeColor6_10: "rgba(214, 167, 121, 0.1)",
+                primaryColor: "#969696",
+                foregroundColor: "#232223",
+                separatorColor: "#424242",
+            }
+    }
+
+
+    // console.log(rootStyle.getPropertyValue('--primary-color').trim())
+    // return {
+    //     themeColor1: rootStyle.getPropertyValue('--theme-color-1').trim(),
+    //     themeColor2: rootStyle.getPropertyValue('--theme-color-2').trim(),
+    //     themeColor3: rootStyle.getPropertyValue('--theme-color-3').trim(),
+    //     themeColor4: rootStyle.getPropertyValue('--theme-color-4').trim(),
+    //     themeColor5: rootStyle.getPropertyValue('--theme-color-5').trim(),
+    //     themeColor6: rootStyle.getPropertyValue('--theme-color-6').trim(),
+    //     themeColor1_10: rootStyle.getPropertyValue('--theme-color-1-10').trim(),
+    //     themeColor2_10: rootStyle.getPropertyValue('--theme-color-2-10').trim(),
+    //     themeColor3_10: rootStyle.getPropertyValue('--theme-color-3-10').trim(),
+    //     themeColor4_10: rootStyle.getPropertyValue('--theme-color-3-10').trim(),
+    //     themeColor5_10: rootStyle.getPropertyValue('--theme-color-3-10').trim(),
+    //     themeColor6_10: rootStyle.getPropertyValue('--theme-color-3-10').trim(),
+    //     primaryColor: rootStyle.getPropertyValue('--primary-color').trim(),
+    //     foregroundColor: rootStyle.getPropertyValue('--foreground-color').trim(),
+    //     separatorColor: rootStyle.getPropertyValue('--separator-color').trim()
+    // }
 };
 
 export const chartTooltip = {

@@ -33,9 +33,9 @@ const getters = {
         return state.isLoading
     },
 
-    calculation(state){
-        return state.calculation
-    },
+    // calculation(state){
+    //     return state.calculation
+    // },
 
 
     planningById: (state) => (id) => {

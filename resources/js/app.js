@@ -118,6 +118,9 @@ import RefreshButton from './components/Common/RefreshButton';
 // Colxx Component Add
 import Colxx from './components/Common/Colxx';
 
+// Charts
+import VueCharts from "vue-chartjs";
+
 // Perfect Scrollbar Add
 import vuePerfectScrollbar from 'vue-perfect-scrollbar';
 import contentMenu from 'v-contextmenu';
@@ -155,6 +158,7 @@ Vue.component("ValidationProvider", ValidationProvider);
 
 //Vue Uses
 // Vue.use(VeeValidate);
+Vue.use(VueCharts);
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
 Vue.use(Notification);

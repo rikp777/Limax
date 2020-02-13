@@ -30,13 +30,19 @@
         "user": {
             "main": "Gebruikers",
             "create": "Aanmaken"
+        },
+        "report": {
+            "main": "Rapportage"
+        },
+        "planning": {
+            "main": "Planning"
         }
     },
 
     "footer": {
         "allRightReserved": "Alle rechten voorbehouden",
         "madeBy": "Gemaakt door",
-        "handMade": "Handgemaakt en gemaakt met"
+        "handMade": "Handgemaakt met"
     },
 
     "docs": {
@@ -52,7 +58,7 @@
 
     "auth": {
         "intro": {
-            "title": "Welkom bij Limax",
+            "title": "Welkom",
             "text": "Log aub in met uw inlog gegevens. Als u nog geen inlog gegevens heeft neem contact op"
         },
         "login": {
@@ -63,10 +69,14 @@
     },
 
     "user": {
-        "title": "Gebruiker Registratie",
+        "title": "Gebruiker registratie",
         "actions": {
-            "title": "Gebruiker Configureren",
-            "buttonRegister": "Gebruiker registreren"
+            "title": "Gebruiker configureren",
+            "buttonRegister": "Gebruiker registreren",
+            "buttonUpdate": "Gebruiker aanpassen"
+        },
+        "update": {
+            "title": "Gebruiker aanpassen"
         },
         "delete": {
             "title": "Weet je het zeker?",
@@ -140,18 +150,18 @@
             "title": "Cellen"
         },
         "create": {
-            "title": "Maak Cell Aan",
+            "title": "Maak cell aan",
             "label": "Cell",
             "actions": {
-                "buttonCreate": "Maak Cell Aan"
+                "buttonCreate": "Maak cell aan"
             }
         },
         "update": {
             "title": "Cell Aanpassen",
             "label": "Cell",
             "actions": {
-                "buttonUpdate": "Cell Aanpassen",
-                "buttonCancel": "Cancel, Ga Terug"
+                "buttonUpdate": "Cell aanpassen",
+                "buttonCancel": "Cancel, Ga terug"
             }
         },
         "list": {
@@ -172,18 +182,27 @@
             "title": "Koppelen van artikelen",
             "label": "Artikelen",
             "actions": {
-                "buttonUpdate": "Artikel Koppeling Aanpassen"
+                "buttonUpdate": "Artikel koppeling aanpassen"
             }
         }
     },
+    "report": {
+        "title": "Rapportage",
+        "totalpallets": "Totaal pallets",
+        "avgweight": "Gemiddeld gewicht per pallet",
+        "totalweight": "Totaal gewicht",
+        "chart": {
+            "title": "Sortering Informatie"
+        }
+        },
     "palletlabel": {
         "create": {
             "title": "Maak een nieuw palletlabel",
             "modeTitle": "Maak",
             "actions": {
                 "title": "Bent u klaar?",
-                "buttonCreate": "Maak Palletlabel Aan",
-                "buttonClear": "Leeg Alle Velden"
+                "buttonCreate": "Maak palletlabel aan",
+                "buttonClear": "Leeg alle velden"
             }
         },
         "update": {
@@ -191,7 +210,7 @@
             "modeTitle": "Update",
             "actions": {
                 "title": "Bent u klaar?",
-                "buttonUpdate": "Update Palletlabel",
+                "buttonUpdate": "Update palletlabel",
                 "buttonCancel": "Cancel, Ga terug"
             }
         },
@@ -216,7 +235,7 @@
                 "title": "Artikel"
             },
             "palletType": {
-                "title": "Pallet Soort"
+                "title": "Pallet soort"
             },
             "cell": {
                 "title": "Cell"
@@ -225,10 +244,10 @@
                 "title": "Vlucht"
             },
             "harvestCycleDay": {
-                "title": "Vlucht Dag"
+                "title": "Vlucht dag"
             },
             "cropDate": {
-                "title": "Pluk Dag"
+                "title": "Pluk dag"
             },
             "amount": {
                 "title": "Aantal"
@@ -244,9 +263,9 @@
             "title": "Maak een nieuwe vrachtbrief",
             "modeTitle": "Maak",
             "actions": {
-                "palletlabels": "Selecteer Palletlabels",
-                "buttonCreate": "Maak Shippinglabel Aan",
-                "palletlabelCreate": "Maak Palletlabel"
+                "palletlabels": "Selecteer palletlabels",
+                "buttonCreate": "Maak shippinglabel aan",
+                "palletlabelCreate": "Maak palletlabel"
             }
         },
         "list": {
@@ -260,7 +279,7 @@
                 "title": "Kenteken"
             },
             "deliveryDate": {
-                "title": "Transport Datum"
+                "title": "Transport datum"
             }
         }
     }

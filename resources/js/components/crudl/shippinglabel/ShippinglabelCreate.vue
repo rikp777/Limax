@@ -188,10 +188,10 @@
                                                 <a href="#"
                                                    class="list-item-heading mb-0 truncate w-50 w-xs-100  mb-1 mt-1"
                                                    @click.prevent="">
-                                                    <i :class="{'heading-icon':true,
-                                'simple-icon-check' : 'COMPLETED' === 'COMPLETED',
-                                'simple-icon-refresh' : 'PENDING' !== 'COMPLETED'
-                            }"/>
+<!--                                                    <i :class="{'heading-icon':true,-->
+<!--                                'simple-icon-check' : 'COMPLETED' === 'COMPLETED',-->
+<!--                                'simple-icon-refresh' : 'PENDING' !== 'COMPLETED'-->
+<!--                            }"/>-->
                                                     <span
                                                         class="align-middle d-inline-block">{{item.article.name}}</span>
                                                 </a>
