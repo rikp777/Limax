@@ -32,8 +32,9 @@ const AccessControl = {
                     console.log('authorized');
                     next()
                 } else {
+                    store.dispatch('logout');
                     console.log('unauthorized');
-                    next('/')
+                    next('/auth/login')
                 }
             }else{
                 next()
@@ -42,10 +43,10 @@ const AccessControl = {
         axios.interceptors.response.use(null, (error) =>{
             if(error.response.status === 401){
                 store.dispatch('logout');
-                router.push('/');
+                router.push('/auth/login');
             }
             if (error.response.status === 403){
-                router.push('/');
+                router.push('/auth/login');
             }
 
             return Promise.reject(error);

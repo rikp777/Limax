@@ -2,7 +2,7 @@
     <div>
     <b-row>
         <b-colxx xl="12" lg="12" md="12" class="mb-4">
-            <b-card class="h-100">
+            <b-card>
                 <div class="dashboard-donut-chart">
                     <b-refresh-button @click="refreshButtonClick"/>
                     <vue-table
