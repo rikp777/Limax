@@ -71,7 +71,7 @@ const actions = {
         context.commit(FETCH_START);
         return PlanningService.get(planningSlug)
             .then(({data}) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_PLANNING, data);
                 context.commit(FETCH_END);
             })

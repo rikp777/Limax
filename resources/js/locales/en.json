@@ -195,6 +195,14 @@
             "title": "Weight sorts (kg)"
         }
     },
+    "planning": {
+        "overview": {
+            "title": "Stock"
+        },
+        "totalpallets": "Total pallets",
+        "avgpalletweight": "Average weight per pallet",
+        "totalpalletweight": "Total weight"
+    },
     "palletlabel": {
         "create": {
             "title": "Create new palletlabel",

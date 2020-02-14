@@ -16,16 +16,17 @@ class PlanningController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection|null
      */
-    public function index()
+    public function index(Request $request)
     {
-        $farmerId = CookieRequest::header('farmerId');
-
-        $authUser = auth()->user();
-        $currentFarmer = Farmer::find($farmerId);
-
-        return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('crop_date', date('Y-m-d'))->get());
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+        if($currentFarmer) {
+            return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->get());
+//            return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('crop_date', date('Y-m-d'))->get());
+        }
+        return null;
     }
 
     /**
@@ -108,10 +109,15 @@ class PlanningController extends Controller
 
             $articleid = $pallet["article_id"];
             $palletweight = 0;
+
             if(!isset($articlesList[$articleid])){
                 $articlesList[$articleid] = 0;
             }
             $articlesList[$articleid] += $pallet["article_amount"];
+//            $articlesList[$articleid] += [
+//                "id" => $articleid,
+//                "amount" => $pallet["article_amount"]
+//            ];
             foreach ($article as $index => $art) {
 
 

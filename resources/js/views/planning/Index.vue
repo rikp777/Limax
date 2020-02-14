@@ -1,5 +1,5 @@
 <template>
-    <h1>Planning</h1>
+    <router-view/>
 </template>
 
 <script>

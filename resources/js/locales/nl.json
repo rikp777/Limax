@@ -195,6 +195,14 @@
             "title": "Gewicht sortering (kg)"
         }
         },
+    "planning": {
+        "overview": {
+            "title": "Voorraad"
+        },
+        "totalpallets": "Totaal pallets",
+        "avgpalletweight": "Gemiddeld gewicht per pallet",
+        "totalpalletweight": "Totaal gewicht"
+    },
     "palletlabel": {
         "create": {
             "title": "Maak een nieuw palletlabel",
