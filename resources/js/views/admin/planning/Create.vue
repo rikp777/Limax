@@ -1,41 +1,40 @@
 <template>
     <b-row>
-        <b-colxx xl="7" lg="12" class="mb-4">
-            <div v-if="!update">
-            <user-create />
-            </div>
-            <div v-else>
-                <user-update
-                    :id="userId"
-                    @createMode="createListener"
-                />
-            </div>
-        </b-colxx>
-        <b-colxx xl="5" lg="12" class="mb-4">
-            <b-card :title="$t('user.attributes.list.title')">
-            <user-list
-                @updateMode="updateListener"
-            />
+        <b-colxx xl="12" lg="12" class="mb-4">
+            <b-card :title="$t('planning.create.title') + ' - ' + authFarmer.name"
+                    style="border-left: 6px solid #f28125">
+                <div v-if="!update">
+                    <planning-create/>
+                </div>
+<!--                <div v-else>-->
+<!--                    <planning-update/>-->
+<!--                </div>-->
             </b-card>
         </b-colxx>
     </b-row>
 </template>
 
 <script>
-    import userCreate from "../../../components/crudl/user/userCreate";
-    import userUpdate from "../../../components/crudl/user/userUpdate";
-    import userList from "../../../components/crudl/user/userList";
+    import planningCreate from "../../../components/crudl/planning/PlanningCreate";
+    import {mapGetters} from "vuex";
+    // import planningUpdate from "../../../components/crudl/user/planningUpdate";
+
     export default {
-        data () {
+        data() {
             return {
                 update: false,
                 userId: null
             }
         },
         components: {
-            userCreate,
-            userUpdate,
-            userList
+            planningCreate,
+            // planningUpdate,
+        },
+        computed: {
+            ...mapGetters({
+                authFarmer: 'authFarmer',
+                authUserFarmers: 'authUserFarmers',
+            }),
         },
         methods: {
             updateListener(id) {

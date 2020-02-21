@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Farmer;
 use App\Http\Resources\PalletLabelResource;
+use App\Http\Resources\PlanningResource;
 use App\PalletLabel;
 use App\SortType;
 use App\Status;
+use App\Planning;
+use App\PlanningAmount;
 use Illuminate\Http\Request;
 use Request as CookieRequest;
 
@@ -22,7 +25,7 @@ class PlanningController extends Controller
     public function index(Request $request)
     {
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-        if($currentFarmer) {
+        if ($currentFarmer) {
             return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->get());
 //            return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('crop_date', date('Y-m-d'))->get());
         }
@@ -34,26 +37,75 @@ class PlanningController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'planning.cell' => ' required',
+            'planning.sort' => ' required',
+            'planning.date' => ' required',
+            'planning.amount' => ' required',
+        ]);
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+
+        $sort = SortType::where('name', $request->planning['sort'])->first();
+//        date, cell, farmer, status
+        $planning = Planning::where('cell_id', $request->planning['cell']['id'])
+            ->where('farmer_id', $currentFarmer->id)
+            ->where('status_id', '!=', 10)
+            ->where('date', $request->planning['date'])->first();
+//        dd($sort->id);
+        $planningAmountQry = PlanningAmount::where('planning_id', $planning['id'])->where('sort_type_id', $sort['id'])->first();
+
+        if ($planning) {
+//                dd($planning['id']);
+            if ($planningAmountQry) {
+                $planningAmount = $planningAmountQry;
+                $planningAmount->amount = $request->planning['amount'];
+                $planningAmount->update();
+            } else {
+                $planningWeight = new PlanningAmount();
+                $planningWeight->planning_id = $planning->id;
+                $planningWeight->sort_type_id = $sort->id;
+                $planningWeight->amount = $request->planning['amount'];
+
+                $planningWeight->save();
+            }
+        } else {
+            $planning = new Planning();
+            $planning->date = $request->planning['date'];
+            $planning->cell_id = $request->planning['cell']['id'];
+            $planning->farmer_id = $currentFarmer->id;
+            $planning->status_id = 9;
+
+            $planning->save();
+
+            $planningWeight = new PlanningAmount();
+            $planningWeight->planning_id = $planning->id;
+            $planningWeight->sort_type_id = $sort->id;
+            $planningWeight->amount = $request->planning['amount'];
+
+            $planningWeight->save();
+        }
+
+
+        return new PlanningResource($planning);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -74,20 +126,48 @@ class PlanningController extends Controller
 //        dd($article);
 
 
+//        $sort = SortType::where('name', $request->planning['sort'])->first();
+
+        $planning = Planning::where('status_id', '!=', 10)->where('farmer_id', $id)->get();
+
+        foreach ($planning as $plan) {
+            $planningAmount = PlanningAmount::where('planning_id', $plan->id)->get();
+            foreach ($planningAmount as $planningAm) {
+//                $planningArr = [
+//                    "date" => $plan['date'],
+//                    "cell_id" => $plan['cell_id'],
+//                    "sortTypeId" => $planningAm['sort_type_id'],
+//                    "amount" => $planningAm['amount']
+//                ];
+//                $planningsArr[] = $planningArr;
+                $planningsArr[$plan["cell_id"]][$plan["date"]][$planningAm["sort_type_id"]][] = $planningAm;
+
+
+            }
+        }
+
+//        $planning = Planning::where('cell_id', $request->planning['cell']['id']
+//        )
+//            ->where('farmer_id', $currentFarmer->id)
+//            ->where('status_id', '!=', 10)
+//            ->where('date', $request->planning['date'])->first();
+//        dd($sort->id);
+//        $planningAmountQry = PlanningAmount::where('planning_id', $planning['id'])->where('sort_type_id', $sort['id'])->first();
+
+
 //        $palletweight = 0;
         $reportLabels = [];
         $totpalletweight = 0;
-        if (!sizeof($palletlabels)){
+        if (!sizeof($palletlabels)) {
             return [];
         }
         foreach ($palletlabels as $pallet) {
 
-            foreach ($statuses as $status){
-                if($status["id"] === $pallet["status_id"]){
+            foreach ($statuses as $status) {
+                if ($status["id"] === $pallet["status_id"]) {
                     $statusdesc = $status["name"];
                 }
             }
-
 
 
             $reportLabel = [
@@ -110,7 +190,7 @@ class PlanningController extends Controller
             $articleid = $pallet["article_id"];
             $palletweight = 0;
 
-            if(!isset($articlesList[$articleid])){
+            if (!isset($articlesList[$articleid])) {
                 $articlesList[$articleid] = 0;
             }
             $articlesList[$articleid] += $pallet["article_amount"];
@@ -119,7 +199,6 @@ class PlanningController extends Controller
 //                "amount" => $pallet["article_amount"]
 //            ];
             foreach ($article as $index => $art) {
-
 
 
                 $artSortType = $art["sort_type_id"];
@@ -137,7 +216,7 @@ class PlanningController extends Controller
                                 $uniqueSort[$sortDesc] = 0;
                             }
                             $uniqueSort[$sortDesc] += round(($art["inset_gram"] * $pallet["article_amount"]) / 1000, 2);
-                            $reportLabel["sort"] =  $sortDesc;
+                            $reportLabel["sort"] = $sortDesc;
                         }
 
                     }
@@ -150,10 +229,8 @@ class PlanningController extends Controller
             $reportLabels[] = $reportLabel;
 
 
-
         }
-//        dd($reportLabels);
-//        dd($reportLabels);
+
         $totalpallets = sizeof($palletlabels);
         $avgpalletweight = round(($totpalletweight / sizeof($palletlabels)) / 1000, 2);
         $totalpalletweight = round(($totpalletweight) / 1000, 2);
@@ -178,6 +255,7 @@ class PlanningController extends Controller
             "sortchartarr" => $sortChartArr,
             "groupedarticles" => $articlesList,
             "labels" => $reportLabels,
+            "planning" => $planningsArr,
         ];
 
         return $totArr;
@@ -186,7 +264,7 @@ class PlanningController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -197,19 +275,58 @@ class PlanningController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return PlanningResource
      */
     public function update(Request $request, $id)
     {
-        //
+//        dd($request);
+//
+//        $request->validate([
+//            'cell' => ' required',
+//            'sort' => ' required',
+//            'date' => ' required',
+//            'amount' => ' required',
+//        ]);
+//        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+//
+////        date, cell, farmer, status
+//        $planning = Planning::where('cell_id', $request->cell['id'])
+//            ->where('farmer_id', $currentFarmer->id)
+//            ->where('status_id', '!=', 10)
+//            ->where('date', $request->date);
+//
+//        if ($planning) {
+//            dd($planning);
+//        } else {
+//            $planning = new Planning();
+//            $planning->date = $request->date;
+//            $planning->cell_id = $request->cell['id'];
+//            $planning->farmer_id = $currentFarmer->id;
+//            $planning->status_id = 9;
+//
+//            $planning->save();
+//        }
+//
+//        return new PlanningResource($planning);
+
+//        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+//
+//        $cell = Cell::where('farmer_id', $currentFarmer->id)->where('id', $request->cell['id'])->first();
+////        dd($cell);
+//        $cell->description = $request->cell['description'];
+//        $cell->save();
+//
+//        //return
+//        return new CellResource($cell);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

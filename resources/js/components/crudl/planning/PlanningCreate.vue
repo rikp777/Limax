@@ -1,232 +1,362 @@
 <template>
-    <b-card :title="$t('user.title')" style="border-left: 6px solid #f28125">
-        <validation-observer ref="observer" v-slot="{ invalid }">
-            <b-form @submit.prevent="validateBeforeSubmit">
-
-                <validation-provider
-                    :name="$t('user.attributes.firstname.title')"
-                    :rules="{ required: true }"
-                    v-slot="validationContext"
-                >
-                    <label class="form-group has-float-label mb-4">
-                        <input type="text" class="form-control" v-model="user.firstName" id="firstName" name="firstName"
-                               :state="getValidationState(validationContext)"
-                               aria-describedby="firstName-live-feedback">
-                        <span>{{ $t('user.attributes.firstname.title') }}</span>
-                    </label>
-                    <b-form-invalid-feedback id="firstName-live-feedback">{{ validationContext.errors[0] }}
-                    </b-form-invalid-feedback>
-                </validation-provider>
-
-                <validation-provider
-                    :name="$t('user.attributes.lastname.title')"
-                    :rules="{ required: true }"
-                    v-slot="validationContext"
-                >
-                    <label class="form-group has-float-label mb-4">
-                        <input type="text" class="form-control" v-model="user.lastName" id="lastName" name="lastName"
-                               :state="getValidationState(validationContext)" aria-describedby="lastName-live-feedback">
-                        <span>{{ $t('user.attributes.lastname.title') }}</span>
-                    </label>
-                    <b-form-invalid-feedback id="lastName-live-feedback">{{ validationContext.errors[0] }}
-                    </b-form-invalid-feedback>
-                </validation-provider>
-
-
-                <validation-provider
-                    :name="$t('user.attributes.email.title')"
-                    :rules="{ required: true }"
-                    v-slot="validationContext"
-                >
-                    <label class="form-group has-float-label mb-4">
-                        <input type="email" class="form-control" v-model="user.email" id="email" name="email"
-                               :state="getValidationState(validationContext)" aria-describedby="email-live-feedback">
-                        <span>{{ $t('user.attributes.email.title') }}</span>
-                    </label>
-                    <b-form-invalid-feedback id="email-live-feedback">{{ validationContext.errors[0] }}
-                    </b-form-invalid-feedback>
-                </validation-provider>
-
-
-                <validation-provider
-                    :name="$t('user.attributes.password.title')"
-                    :rules="{ required: true }"
-                    v-slot="validationContext"
-                >
-                    <label class="form-group has-float-label mb-4">
-                        <input type="password" class="form-control" v-model="user.password" id="password"
-                               name="password" :state="getValidationState(validationContext)"
-                               aria-describedby="password-live-feedback">
-                        <span>{{ $t('user.attributes.password.title') }}</span>
-                    </label>
-                    <b-form-invalid-feedback id="password-live-feedback">{{ validationContext.errors[0] }}
-                    </b-form-invalid-feedback>
-                </validation-provider>
-
-<!--                <div class="separator mb-5"/>-->
-
-                <h4>{{$t('user.actions.title')}}</h4>
-                <br>
-
-                <validation-provider
-                    :name="$t('user.attributes.role.title')"
-                    :rules="{ required: true }"
-                    v-slot="validationContext"
-                >
-                    <label class="form-group has-float-label mb-4">
-                        <multiselect v-model="user.roles" :options="roles" :multiple="false"
-                                     :close-on-select="true" :clear-on-select="false" :preserve-search="true"
-                                     placeholder="Select role" label="name" track-by="name"
-                                     :preselect-first="false">
-                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span
-                                class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} role(s) selected</span>
-                            </template>
-                        </multiselect>
-                        <span>{{ $t('user.attributes.roles.title') }}</span>
-                    </label>
-                    <b-form-invalid-feedback id="password-live-feedback">{{ validationContext.errors[0] }}
-                    </b-form-invalid-feedback>
-                </validation-provider>
-
-                <validation-provider
-                    :name="$t('user.attributes.departments.title')"
-                    :rules="{ required: true }"
-                    v-slot="validationContext"
-                >
-                    <label class="form-group has-float-label mb-4">
-                        <multiselect v-model="user.departments" :options="departments" :multiple="true"
-                                     :close-on-select="false" :clear-on-select="false" :preserve-search="true"
-                                     placeholder="Select department" label="name" track-by="name"
-                                     :preselect-first="false">
-                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span
-                                class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} department(s) selected</span>
-                            </template>
-                        </multiselect>
-                        <span>{{ $t('user.attributes.departments.title') }}</span>
-                    </label>
-                    <b-form-invalid-feedback id="password-live-feedback">{{ validationContext.errors[0] }}
-                    </b-form-invalid-feedback>
-                </validation-provider>
-
-                <validation-provider
-                    :name="$t('user.attributes.farmers.title')"
-                    :rules="{ required: true }"
-                    v-slot="validationContext"
-                >
-                    <label class="form-group has-float-label mb-4">
-                        <multiselect v-model="user.farmers" :options="farmers" :multiple="true"
-                                     :close-on-select="false" :clear-on-select="false" :preserve-search="false"
-                                     placeholder="Select farmers" label="name" track-by="name"
-                                     :preselect-first="false">
-                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span
-                                class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} farmer(s) selected</span>
-                            </template>
-                        </multiselect>
-                        <span>{{ $t('user.attributes.farmers.title') }}</span>
-                    </label>
-                    <b-form-invalid-feedback id="password-live-feedback">{{ validationContext.errors[0] }}
-                    </b-form-invalid-feedback>
-                </validation-provider>
-
-
-                <div class="d-flex justify-content-end align-items-center">
-                    <b-button type="submit" variant="primary" size="lg" class="btn-shadow" :disabled="invalid">{{
-                        $t('user.actions.buttonRegister')}}
-                    </b-button>
+    <div>
+        <b-row>
+            <b-colxx xl="12" lg="12">
+                <div class="icon-cards-row">
+                    <div data-glide-el="track" class="glide__track">
+                        <div class="glide__slides">
+                            <div class="icon-row-item">
+                                <b-card class="mb-4 text-center">
+                                    <i class="iconsminds-clock"/>
+                                    <p class="card-text font-weight-semibold mb-0">Article Group</p>
+                                    <p class="lead text-center">{{articlegroup}}</p>
+                                </b-card>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </b-form>
-        </validation-observer>
-    </b-card>
+            </b-colxx>
+            <!--            <b-colxx xl="3" lg="6">-->
+            <!--                <div class="icon-cards-row">-->
+            <!--                    <div data-glide-el="track" class="glide__track">-->
+            <!--                        <div class="glide__slides">-->
+            <!--                            <div class="icon-row-item">-->
+            <!--                                <b-card class="mb-4 text-center">-->
+            <!--                                    <i class="iconsminds-basket-coins"/>-->
+            <!--                                    <p class="card-text font-weight-semibold mb-0">Completed Orders</p>-->
+            <!--                                    <p class="lead text-center">32</p>-->
+            <!--                                </b-card>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </b-colxx>-->
+            <!--            <b-colxx xl="3" lg="6">-->
+            <!--                <div class="icon-cards-row">-->
+            <!--                    <div data-glide-el="track" class="glide__track">-->
+            <!--                        <div class="glide__slides">-->
+            <!--                            <div class="icon-row-item">-->
+            <!--                                <b-card class="mb-4 text-center">-->
+            <!--                                    <i class="iconsminds-arrow-refresh"/>-->
+            <!--                                    <p class="card-text font-weight-semibold mb-0">Refund Requests</p>-->
+            <!--                                    <p class="lead text-center">74</p>-->
+            <!--                                </b-card>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </b-colxx>-->
+            <!--            <b-colxx xl="3" lg="6">-->
+            <!--                <div class="icon-cards-row">-->
+            <!--                    <div data-glide-el="track" class="glide__track">-->
+            <!--                        <div class="glide__slides">-->
+            <!--                            <div class="icon-row-item">-->
+            <!--                                <b-card class="mb-4 text-center">-->
+            <!--                                    <i class="iconsminds-mail-read"/>-->
+            <!--                                    <p class="card-text font-weight-semibold mb-0">New Comments</p>-->
+            <!--                                    <p class="lead text-center">25</p>-->
+            <!--                                </b-card>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </b-colxx>-->
+        </b-row>
+        <div class="separator mb-5"></div>
+        <b-row>
+            <b-colxx xl="12" lg="12" md="12" class="mb-4">
+                <b-card>
+                    <b-card-header>
+
+                        <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary" block>
+                            <template slot="button-content">
+                                <span class="name" v-if="cell">{{ cell.number + ' - ' + cell.description }}</span>
+                                <span class="name" v-else>Select Cell</span>
+                            </template>
+                            <b-dropdown-item v-for="(cell,index) in cells" :key="index" v-bind="cell"
+                                             @click="constructListOfIntervals($moment().subtract(4, 'days').format('YYYY-MM-DD'), $moment().add(7, 'days').format('YYYY-MM-DD'), 'day', cell)">
+                                {{ cell.number + ' - ' + cell.description }}
+                            </b-dropdown-item>
+                        </b-dropdown>
+
+                        <!--                        <b-dropdown id="ddown1" :text="" variant="outline-primary">-->
+                        <!--                            <b-dropdown-item v-for="(cell,index) in cells" :key="index" @click="constructListOfIntervals($moment().subtract(4, 'days').format('YYYY-MM-DD'), $moment().add(7, 'days').format('YYYY-MM-DD'), 'day')">{{ cell.number + ' - ' + cell.description }}</b-dropdown-item>-->
+                        <!--                        </b-dropdown>-->
+                    </b-card-header>
+                    <b-card-body>
+                        <b-row>
+                            <b-colxx>
+                                <!--                            <b-form inline>-->
+                                <!--                                <b-colxx xxs="6">-->
+                                <!--                                    <b-card class="mb-4" :title="$t('table.bootstrap-responsive')">-->
+                                <!--                                        <b-table responsive :items="items" :fields="fields" />-->
+                                <!--                                    </b-card>-->
+                                <!--                                </b-colxx>-->
+                                <!--                                <b-form-group v-for="interval in intervals" label-cols="2" horizontal :label="interval">-->
+                                <!--                                    <b-input-group>-->
+                                <!--                                        <b-form-input placeholder="placeholder" class="mb-2 mr-sm-2 mb-sm-2" />-->
+                                <!--                                        <b-form-input placeholder="placeholder" class="mb-2 mr-sm-2 mb-sm-2" />-->
+                                <!--                                        <b-form-input placeholder="placeholder" class="mb-2 mr-sm-2 mb-sm-2" />-->
+                                <!--                                        <b-form-input placeholder="placeholder" class="mb-2 mr-sm-2 mb-sm-2" />-->
+                                <!--                                        <b-form-input placeholder="status" class="mb-2 mr-sm-2 mb-sm-2" />-->
+                                <!--                                    </b-input-group>-->
+
+                                <!--                                </b-form-group>-->
+                                <!--                            </b-form>-->
+
+
+<!--                                <b-form>-->
+<!--                                    <b-form-row v-for="(interval, key, index) in intervals">-->
+<!--                                        <b-col>-->
+<!--                                            <b-form-input readonly class="mb-2 mr-sm-2 mb-sm-2" :value="key"-->
+<!--                                                          :disabled="index < 3" style="border-style: hidden"/>-->
+<!--                                        </b-col>-->
+
+<!--                                        <b-col v-for="sort in sorts">-->
+<!--                                            <b-input-group :prepend="sort" class="mb-2 mr-sm-2 mb-sm-2">-->
+<!--                                                <b-form-input type="number" class="mb-2 mr-sm-2 mb-sm-0"-->
+<!--                                                              :value="interval"-->
+<!--                                                              @blur="updatePlanning(sort, key, $event)"-->
+<!--                                                              :disabled="index < 3"/>-->
+<!--                                            </b-input-group>-->
+<!--                                        </b-col>-->
+
+<!--                                        <b-col>-->
+<!--                                            <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary"-->
+<!--                                                        :disabled="index < 3">-->
+<!--                                                <template slot="button-content">-->
+<!--                                                    <span class="name">Prognose</span>-->
+<!--                                                </template>-->
+<!--                                                <b-dropdown-item>Prognose</b-dropdown-item>-->
+<!--                                                <b-dropdown-item>Definitief</b-dropdown-item>-->
+<!--                                            </b-dropdown>-->
+<!--                                        </b-col>-->
+
+<!--                                    </b-form-row>-->
+<!--                                    <div v-for="(planning, key) in planning.planning"><br>-->
+
+<!--                                    <div v-for="(plan, key) in planning">date = {{key}}-->
+
+<!--                                    <div v-for="(sort, key) in plan">sortid = {{key}}-->
+
+<!--                                    <div v-for="data in sort">amount = {{data.amount}} <hr></div>-->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                </b-form>-->
+
+                                <b-form>
+                                    <div v-for="(planning, key, index) in planning.planning">
+                                    <b-form-row v-for="(plan, key, index) in planning">
+                                        <b-col>
+                                            <b-form-input readonly class="mb-2 mr-sm-2 mb-sm-2" :value="key"
+                                                          :disabled="index < 3" style="border-style: hidden"/>
+                                        </b-col>
+
+                                        <b-col v-for="(sort, key, index) in plan">
+                                            <b-input-group :prepend="key" class="mb-2 mr-sm-2 mb-sm-2">
+                                                <div v-for="(data, key, index) in sort">
+                                                <b-form-input type="number" class="mb-2 mr-sm-2 mb-sm-0"
+                                                              :value="data.amount"
+                                                              @blur="updatePlanning(sort, key, $event)"
+                                                              :disabled="index < 3"/>
+                                                </div>
+                                            </b-input-group>
+                                        </b-col>
+
+                                        <b-col>
+                                            <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary"
+                                                        :disabled="index < 3">
+                                                <template slot="button-content">
+                                                    <span class="name">Prognose</span>
+                                                </template>
+                                                <b-dropdown-item>Prognose</b-dropdown-item>
+                                                <b-dropdown-item>Definitief</b-dropdown-item>
+                                            </b-dropdown>
+                                        </b-col>
+
+                                    </b-form-row>
+                                    </div>
+                                    <div v-for="(planning, key) in planning.planning"><br>
+
+                                        <div v-for="(plan, key) in planning">date = {{key}}
+
+                                            <div v-for="(sort, key) in plan">sortid = {{key}}
+
+                                                <div v-for="data in sort">amount = {{data.amount}} <hr></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </b-form>
+
+                            </b-colxx>
+                        </b-row>
+
+                    </b-card-body>
+                </b-card>
+            </b-colxx>
+        </b-row>
+    </div>
 </template>
 
+
 <script>
+
+    // TODO
+    // change disabled style for today -3 days for darkmode. this does not work properly yet!
+
+    import vSelect from "vue-select";
+    import Vuetable from "vuetable-2/src/components/Vuetable";
+    import {mapGetters} from "vuex";
+
     export default {
-        /*
-          TODO
-
-           Hier kan een User worden aangemaakt
-
-         *De User kan worden gekoppeld aan een of meerdere Farmers *optioneel*
-         *De User kan worden gekoppeld aan een of meerdere Rights
-         *De User kan worden gekoppeld aan een of meerdere Departments
-
-           */
-        name: "UserCreate",
+        name: "PlanningCreate",
+        components: {},
         data() {
             return {
-                user: {
-                    email: '',
-                    firstName: '',
-                    lastName: '',
-                    password: '',
-                    roles: [],
-                    departments: [],
-                    farmers: [],
-                },
-                serverErrors: '',
+                // fields: [],
+                // items: [],
+                cell: null,
+                // sortTest: ['fijn', 'giant', 'industrie', 'groot', 'total'],
+                sorts: null,
+                articlegroup: null,
+                intervals: null,
+                disabledCount: 0,
             }
         },
         computed: {
-            authUser() {
-                return this.$store.getters.authUser;
+            ...mapGetters({
+                authFarmer: 'authFarmer',
+                authUserFarmers: 'authUserFarmers',
+            }),
+            articlefarmers() {
+                return this.$store.getters.articlefarmers;
             },
-            roles() {
-                return this.$store.getters.roles;
+            cells() {
+                return this.$store.getters.cells;
             },
-            farmers() {
-                return this.$store.getters.farmers;
-            },
-            departments() {
-                return this.$store.getters.departments;
+            planning() {
+                return this.$store.getters.planning;
             },
         },
         methods: {
-            getValidationState({dirty, validated, valid = null}) {
-                return dirty || validated ? valid : null;
+            getAllArticleFarmers() {
+                this.$store.dispatch("getAllArticleFarmers");
             },
-            validateBeforeSubmit() {
-                this.create();
+            getAllCells() {
+                this.$store.dispatch("getAllCells");
             },
-            create() {
-                this.$store.dispatch('createUser', {
-                    email: this.user.email,
-                    first_name: this.user.firstName,
-                    last_name: this.user.lastName,
-                    password: this.user.password,
-                    roles: this.user.roles,
-                    departments: this.user.departments,
-                    farmers: this.user.farmers
-                }).then(response => {
-                    // this.$router.push({ name: 'userList'})
-                    this.user.email = '';
-                    this.user.firstName = '';
-                    this.user.lastName = '';
-                    this.user.password = '';
-                    this.user.roles = [];
-                    this.user.departments = [];
-                    this.user.farmers = [];
-                }).catch(error => {
-                    // console.log(error.response.data.errors);
-                    this.serverErrors = Object.values(error.response.data.errors)
+            CellPlanning(cell) {
+                // console.log(cell);
+                this.cell = cell;
+            },
+            loadPlanning() {
+                Promise.all([
+                    this.$store.dispatch("getPlanning", this.authFarmer.id).then((response) => {
+                        console.log('hiernaar planning console loggen')
+                    })
+                ]).finally(() => {
+                    // console.log(this.planning.planning)
+                });
+            },
+            updatePlanning(sort, interval, e) {
+                //if has value, do update
+                //if no value (so misclick on cell) dont do anything
+                if (e.target.value) {
+                    console.log('sortering : ' + sort);
+                    console.log('date : ' + interval);
+                    console.log('cell : ' + this.cell.description);
+                    console.log('value : ' + e.target.value);
+
+                    const planningArr = {
+                        cell: this.cell,
+                        sort: sort,
+                        date: interval,
+                        amount: e.target.value
+                    };
+
+                    this.$store.dispatch("createPlanning", planningArr)
+                        .then(() => {
+                            this.$swal({
+                                position: 'top-end',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        });
+                    this.loadPlanning()
+                } else {
+                    console.log('value = empty');
+                }
+
+
+            },
+            constructListOfIntervals(start, end, interval, cell) {
+                Promise.all([
+                    this.intervals = null,
+                    this.CellPlanning(cell),
+                    this.loadPlanning()
+                ]).finally(() => {
+                    let intervals = {};
+                    let intervalsAll = {};
+                    const diffUnitOfTime = `${interval}`;
+
+                    while (this.$moment(end).diff(start, diffUnitOfTime) > 0) {
+                        const currentEnd = this.$moment(this.$moment(start).add(1, diffUnitOfTime)).format('YYYY-MM-DD');
+
+                        for (const key in this.planning.planning) {
+                            if (this.$moment(this.planning.planning[key].date).format('YYYY-MM-DD') === currentEnd) {
+                                if (this.planning.planning[key].cellId === this.cell.id) {
+                                    console.log('date =')
+                                    console.log(this.$moment(this.planning.planning[key].date).format('YYYY-MM-DD'))
+                                    console.log('currentEnd =')
+                                    console.log(currentEnd)
+                                    console.log('amount =')
+                                    console.log(this.planning.planning[key].planningAmount[0].sortTypeId)
+                                    console.log(this.planning.planning[key].planningAmount[0].amount)
+                                    console.log('===================')
+                                    Object.assign(intervals, {[currentEnd]: this.planning.planning[key].planningAmount[0].amount});
+                                }
+                            }
+                        }
+                        Object.assign(intervalsAll, {[currentEnd]: 0});
+                        start = currentEnd;
+                    }
+                    let finalGrouped = {...intervalsAll, ...intervals}
+                    this.intervals = finalGrouped;
                 })
-            },
-            getAllRoles() {
-                this.$store.dispatch("getAllRoles");
-            },
-            getAllFarmers() {
-                this.$store.dispatch("getAllFarmers");
-            },
-            getAllDepartments() {
-                this.$store.dispatch("getAllDepartments");
+
             }
         },
         mounted() {
             Promise.all([
-                this.getAllRoles(),
-                this.getAllFarmers(),
-                this.getAllDepartments(),
+                // this.$store.dispatch("getPlanning", this.authFarmer.id).then((response) => {}),
+                this.$store.dispatch("getAllArticleFarmers").then((response) => {
+                    console.log("nu ben ik klaar")
+                })
             ]).finally(() => {
-                console.log(" nu ben ik klaar");
+                const SortdataArr = [];
+                const GroupdataArr = [];
+                for (const key in this.articlefarmers) {
+                    if (!SortdataArr.includes(this.articlefarmers[key].sortType.name)) {
+                        SortdataArr.push(
+                            this.articlefarmers[key].sortType.name
+                        );
+                    }
+                }
+                this.sorts = SortdataArr;
+                console.log(SortdataArr)
+
+
+                for (const key in this.articlefarmers) {
+                    if (!GroupdataArr.includes(this.articlefarmers[key].articleGroup.name)) {
+                        // GroupdataArr.push(
+                        this.articlegroup = this.articlefarmers[key].articleGroup.name
+                        // );
+                    }
+                }
+                // this.articlegroup = GroupdataArr;
+                // console.log(GroupdataArr)
             })
         },
     }

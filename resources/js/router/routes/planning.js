@@ -1,8 +1,8 @@
 import RightEnum from '../rights'
 
-import Index from '../../views/planning/Index'
-import Create from '../../views/planning/Create'
-import Read from '../../views/planning/Read'
+import Index from '../../views/admin/planning/Index'
+import Create from '../../views/admin/planning/Create'
+import Read from '../../views/admin/planning/Read'
 
 export default [
     {
@@ -21,17 +21,16 @@ export default [
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Planning]
                 },
-            }
-            // ,
-            // {
-            //     name: 'planningCreate',
-            //     path: 'create',
-            //     component: Update,
-            //     meta: {
-            //         requiresAuth: true,
-            //         requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Planning]
-            //     },
-            // },
+            },
+            {
+                name: 'planningCreate',
+                path: 'create',
+                component: Create,
+                meta: {
+                    requiresAuth: true,
+                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Planning]
+                },
+            },
         ]
     }
 ];

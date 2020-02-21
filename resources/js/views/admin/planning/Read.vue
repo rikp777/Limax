@@ -1,7 +1,7 @@
 <template>
     <b-row>
         <b-colxx xl="12" lg="12" class="mb-4">
-            <b-card :title="$t('report.title') + ' ' + authFarmer.name + ' : ' + $moment().locale('nl').format('L')" style="border-left: 6px solid #f28125">
+            <b-card :title="$t('planning.overview.title') + ' - ' + authFarmer.name" style="border-left: 6px solid #f28125">
             <planning-read />
             </b-card>
         </b-colxx>

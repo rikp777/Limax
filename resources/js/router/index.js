@@ -44,9 +44,10 @@ const router = new VueRouter({
                     ]
                 },
                 {
-                    path: "planning",
+                    path: "planner",
                     component: () => import("../views/planning/Index"),
                     children: [
+                        ...planning
                     ]
                 }
             ]

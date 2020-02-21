@@ -81,8 +81,9 @@ const actions = {
     },
 
     //create cell
-    createPlanning(context) {
-        return PlanningService.create()
+    createPlanning(context, payload) {
+        console.log(payload)
+        return PlanningService.create(payload)
             .then(({data}) => {
                 // console.log(data.data);
                 context.commit(SET_PLANNING, data.data);
