@@ -32,10 +32,6 @@
         },
         computed: {
             ...mapGetters(['getMenuType'])
-        },
-        mounted() {
-            console.log(this.$router.options.routes)
         }
     }
 </script>
-

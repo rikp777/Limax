@@ -31,7 +31,9 @@ class PalletLabelResource extends JsonResource
             'palletLabelFarmerId' => $this->pallet_label_farmer_id,
             'harvestCycle' => $this->harvest_cycle,
             'harvestCycleDay' => $this->harvest_cycle_day,
-            'article' => new ArticleResource(Article::find($this->article_id)),
+            'article' => new ArticleResource($this->article),
+            'palletType' => $this->palletType,
+            'weight' =>(($this->article->inset_gram * $this->article_amount) + $this->palletType->weight)
         ];
     }
 //    public function toArray($request)

@@ -9,6 +9,7 @@ import user from "./routes/user"
 import report from "./routes/report"
 import planning from "./routes/planning"
 import shippingLabel from "./routes/shippingLabel";
+import weight from "./routes/weight";
 
 Vue.use(VueRouter);
 
@@ -48,6 +49,13 @@ const router = new VueRouter({
                     component: () => import("../views/planning/Index"),
                     children: [
                         ...planning
+                    ]
+                },
+                {
+                    path: "production",
+                    component: () => import('../views/production/Index'),
+                    children: [
+                        ...weight
                     ]
                 }
             ]

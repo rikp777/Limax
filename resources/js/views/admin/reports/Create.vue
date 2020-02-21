@@ -23,7 +23,7 @@
 
 <script>
     import userCreate from "../../../components/crudl/user/userCreate";
-    import userUpdate from "../../../components/crudl/user/userUpdate";
+    import userUpdate from "../../../components/crudl/user/UserUpdate.component";
     import userList from "../../../components/crudl/user/userList";
     export default {
         data () {
