@@ -73,7 +73,7 @@ class UserController extends Controller
             'first_name' => 'required|string|min:2|max:25',
             'last_name' => 'required|string|min:2|max:35',
             'email' => 'required|email|max:255'. $user->id,
-        ]);a
+        ]);
 //        $request->request->add(['password' => Hash::make($request->password)]);
 
 

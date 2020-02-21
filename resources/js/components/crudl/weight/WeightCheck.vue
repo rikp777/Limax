@@ -21,7 +21,8 @@
                 <b-colxx xxs="4" class="mb-4">
                     <b-card no-body>
                         <b-card-body>
-                            <p class="lead color-theme-1 mb-1 value">{{((palletlabel.weight * margin).toFixed(2) / 1000)}}</p>
+                            <p class="lead color-theme-1 mb-1 value">{{((palletlabel.weight * margin).toFixed(2) /
+                                1000)}}</p>
                             <p class="mb-0 label text-small">{{$t('report.avgweight')}} | 4%</p>
                         </b-card-body>
                     </b-card>
@@ -76,6 +77,23 @@
                     </validation-provider>
                 </b-colxx>
             </b-row>
+            <b-form-group :label="$t('palletlabel.create.actions.title')" label-align="right">
+                <div class="d-flex justify-content-end">
+<!--                    <b-button-->
+<!--                        type="button"-->
+<!--                        variant="outline-danger"-->
+<!--                        class="ml-1"-->
+<!--                    >{{ $t('palletlabel.create.actions.buttonClear') }}-->
+<!--                    </b-button>-->
+                    <b-button
+                        type="submit"
+                        variant="primary"
+                        class="ml-1"
+                        :disabled="invalid"
+                    >{{ $t('shippinglabel.create.actions.buttonCreate') }}
+                    </b-button>
+                </div>
+            </b-form-group>
         </b-form>
     </validation-observer>
 </template>
@@ -95,7 +113,7 @@
                 percentage: 0,
                 form: {
                     palletlabelId: '',
-                    weight: 0,
+                    weight: null,
                 }
             }
         },
@@ -107,23 +125,40 @@
         methods: {
             ...mapActions([
                 'getPalletLabel',
+                'createPalletLabelWeightCheck'
             ]),
+            create() {
+                let data = {
+                    'palletlabel_id': this.form.palletlabelId,
+                    'actual_weight': (this.form.weight * 1000)
+                };
+                console.log(data);
+                this.createPalletLabelWeightCheck(data).then(() => {
+                    this.$swal({
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    this.form.palletlabelId = '';
+                    this.form.weight = null;
+                });
+            },
             getValidationState({dirty, validated, valid = null}) {
                 return dirty || validated ? valid : null;
             },
             validateBeforeSubmit() {
                 this.create();
             },
-            check(){
-                console.log(this.palletlabel.weight * this.margin);
-                if(this.form.weight < (this.palletlabel.weight * this.margin)){
-                    this.valid = false;
-                }else{
-                    this.valid = true;
-                }
+            check() {
+                this.valid = this.form.weight >= (this.palletlabel.weight * this.margin) / 1000;
                 this.percentage = ((((this.form.weight)) / ((this.palletlabel.weight * this.margin) / 1000) * 100) - 100).toFixed(2);
+
                 this.$emit('valid', this.valid)
             }
         },
+        mounted() {
+            this.palletlabel = null;
+        }
     }
 </script>

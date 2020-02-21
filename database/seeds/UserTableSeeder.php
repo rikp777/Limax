@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
                 'first_name' => 'Rik',
                 'insert_name' => null,
                 'last_name' => 'Peeters',
-                'email' => 'rik@limax.nl',
+                'email' => 'rikpeeters11@hotmail.com',
                 'photo' => 'https://microhealth.com/assets/images/illustrations/personal-user-illustration-@2x.png',
                 'password' => Hash::make('password')
             ],

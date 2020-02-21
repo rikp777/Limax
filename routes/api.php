@@ -74,6 +74,9 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::apiResource('/cultivationcycleflight', 'CultivationCycleFlightController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/palletlabelweightcheck', 'PalletLabelWeightCheckController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
 });
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {

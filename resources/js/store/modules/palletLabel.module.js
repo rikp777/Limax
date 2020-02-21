@@ -1,4 +1,4 @@
-import {ArticleService, PalletLabelService, PalletLabelStatusService, UserService} from "../../common/api.service";
+import ApiService, {ArticleService, PalletLabelService, PalletLabelStatusService, UserService} from "../../common/api.service";
 import palletLabel from "../../router/routes/palletLabel";
 
 
@@ -152,6 +152,9 @@ const actions = {
             context.commit(SET_PALLETLABEL, data);
             return data;
         // });
+    },
+    async createPalletLabelWeightCheck(context, payload) {
+        const {data} = ApiService.post('/palletlabelweightcheck', payload);
     },
 
     //delete palletlabel
