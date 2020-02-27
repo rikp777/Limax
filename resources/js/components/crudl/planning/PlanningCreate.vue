@@ -6,11 +6,11 @@
                     <div data-glide-el="track" class="glide__track">
                         <div class="glide__slides">
                             <div class="icon-row-item">
-                                <b-card class="mb-4 text-center">
-                                    <i class="iconsminds-clock"/>
-                                    <p class="card-text font-weight-semibold mb-0">Article Group</p>
-                                    <p class="lead text-center">{{articlegroup}}</p>
-                                </b-card>
+<!--                                <b-card class="mb-4 text-center">-->
+<!--                                    <i class="iconsminds-clock"/>-->
+<!--                                    <p class="card-text font-weight-semibold mb-0">Article Group</p>-->
+<!--                                    <p class="lead text-center">{{articlegroup}}</p>-->
+<!--                                </b-card>-->
                             </div>
                         </div>
                     </div>
@@ -86,6 +86,7 @@
                     <b-card-body>
                         <b-row>
                             <b-colxx>
+                                <div><!-- throw away div for all the comment blocks -->
                                 <!--                            <b-form inline>-->
                                 <!--                                <b-colxx xxs="6">-->
                                 <!--                                    <b-card class="mb-4" :title="$t('table.bootstrap-responsive')">-->
@@ -105,90 +106,109 @@
                                 <!--                            </b-form>-->
 
 
-<!--                                <b-form>-->
-<!--                                    <b-form-row v-for="(interval, key, index) in intervals">-->
-<!--                                        <b-col>-->
-<!--                                            <b-form-input readonly class="mb-2 mr-sm-2 mb-sm-2" :value="key"-->
-<!--                                                          :disabled="index < 3" style="border-style: hidden"/>-->
-<!--                                        </b-col>-->
+                                <!--                                <b-form>-->
+                                <!--                                    <b-form-row v-for="(interval, key, index) in intervals">-->
+                                <!--                                        <b-col>-->
+                                <!--                                            <b-form-input readonly class="mb-2 mr-sm-2 mb-sm-2" :value="key"-->
+                                <!--                                                          :disabled="index < 3" style="border-style: hidden"/>-->
+                                <!--                                        </b-col>-->
 
-<!--                                        <b-col v-for="sort in sorts">-->
-<!--                                            <b-input-group :prepend="sort" class="mb-2 mr-sm-2 mb-sm-2">-->
-<!--                                                <b-form-input type="number" class="mb-2 mr-sm-2 mb-sm-0"-->
-<!--                                                              :value="interval"-->
-<!--                                                              @blur="updatePlanning(sort, key, $event)"-->
-<!--                                                              :disabled="index < 3"/>-->
-<!--                                            </b-input-group>-->
-<!--                                        </b-col>-->
+                                <!--                                        <b-col v-for="sort in sorts">-->
+                                <!--                                            <b-input-group :prepend="sort" class="mb-2 mr-sm-2 mb-sm-2">-->
+                                <!--                                                <b-form-input type="number" class="mb-2 mr-sm-2 mb-sm-0"-->
+                                <!--                                                              :value="interval"-->
+                                <!--                                                              @blur="updatePlanning(sort, key, $event)"-->
+                                <!--                                                              :disabled="index < 3"/>-->
+                                <!--                                            </b-input-group>-->
+                                <!--                                        </b-col>-->
 
-<!--                                        <b-col>-->
-<!--                                            <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary"-->
-<!--                                                        :disabled="index < 3">-->
-<!--                                                <template slot="button-content">-->
-<!--                                                    <span class="name">Prognose</span>-->
-<!--                                                </template>-->
-<!--                                                <b-dropdown-item>Prognose</b-dropdown-item>-->
-<!--                                                <b-dropdown-item>Definitief</b-dropdown-item>-->
-<!--                                            </b-dropdown>-->
-<!--                                        </b-col>-->
+                                <!--                                        <b-col>-->
+                                <!--                                            <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary"-->
+                                <!--                                                        :disabled="index < 3">-->
+                                <!--                                                <template slot="button-content">-->
+                                <!--                                                    <span class="name">Prognose</span>-->
+                                <!--                                                </template>-->
+                                <!--                                                <b-dropdown-item>Prognose</b-dropdown-item>-->
+                                <!--                                                <b-dropdown-item>Definitief</b-dropdown-item>-->
+                                <!--                                            </b-dropdown>-->
+                                <!--                                        </b-col>-->
 
-<!--                                    </b-form-row>-->
-<!--                                    <div v-for="(planning, key) in planning.planning"><br>-->
+                                <!--                                    </b-form-row>-->
+                                <!--                                    <div v-for="(planning, key) in planning.planning"><br>-->
 
-<!--                                    <div v-for="(plan, key) in planning">date = {{key}}-->
+                                <!--                                    <div v-for="(plan, key) in planning">date = {{key}}-->
 
-<!--                                    <div v-for="(sort, key) in plan">sortid = {{key}}-->
+                                <!--                                    <div v-for="(sort, key) in plan">sortid = {{key}}-->
 
-<!--                                    <div v-for="data in sort">amount = {{data.amount}} <hr></div>-->
-<!--                                    </div>-->
-<!--                                    </div>-->
-<!--                                    </div>-->
-<!--                                </b-form>-->
+                                <!--                                    <div v-for="data in sort">amount = {{data.amount}} <hr></div>-->
+                                <!--                                    </div>-->
+                                <!--                                    </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </b-form>-->
 
-                                <b-form>
-                                    <div v-for="(planning, key, index) in planning.planning">
-                                    <b-form-row v-for="(plan, key, index) in planning">
-                                        <b-col>
-                                            <b-form-input readonly class="mb-2 mr-sm-2 mb-sm-2" :value="key"
-                                                          :disabled="index < 3" style="border-style: hidden"/>
-                                        </b-col>
+                                <!--                                27-02-2020 last working version-->
+                                                                <b-form v-if="planningArr">
+                                                                    <div >
+                                <!--                                        {{key}}-->
+                                                                    <b-form-row v-for="(planning, key, index) in planningArr">
+                                                                        <b-col>
+                                                                            <b-form-input readonly class="mb-2 mr-sm-2 mb-sm-2" :value="key"
+                                                                                          :disabled="index < 3" style="border-style: hidden"/>
+                                                                        </b-col>
 
-                                        <b-col v-for="(sort, key, index) in plan">
-                                            <b-input-group :prepend="key" class="mb-2 mr-sm-2 mb-sm-2">
-                                                <div v-for="(data, key, index) in sort">
-                                                <b-form-input type="number" class="mb-2 mr-sm-2 mb-sm-0"
-                                                              :value="data.amount"
-                                                              @blur="updatePlanning(sort, key, $event)"
-                                                              :disabled="index < 3"/>
-                                                </div>
-                                            </b-input-group>
-                                        </b-col>
+                                                                        <b-col v-for="(sort, key2) in planning">
+                                                                            <b-input-group :prepend="key2" class="mb-2 mr-sm-2 mb-sm-2">
+                                                                                <b-form-input v-if="sort" type="number" class="mb-2 mr-sm-2 mb-sm-0"
+                                                                                              :value="sort"
+                                                                                              @blur="updatePlanning(key2, key, $event)"
+                                                                                              :disabled="index < 3"/>
+                                                                                <b-form-input v-else type="number" class="mb-2 mr-sm-2 mb-sm-0"
+                                                                                              value=""
+                                                                                              @blur="updatePlanning(key2, key, $event)"
+                                                                                              :disabled="index < 3"/>
+                                                                            </b-input-group>
+                                                                        </b-col>
 
-                                        <b-col>
-                                            <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary"
-                                                        :disabled="index < 3">
-                                                <template slot="button-content">
-                                                    <span class="name">Prognose</span>
-                                                </template>
-                                                <b-dropdown-item>Prognose</b-dropdown-item>
-                                                <b-dropdown-item>Definitief</b-dropdown-item>
-                                            </b-dropdown>
-                                        </b-col>
+                                                                        <b-col>
+                                                                            <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary"
+                                                                                        :disabled="index < 3">
+                                                                                <template slot="button-content">
+                                                                                    <span class="name">Prognose</span>
+                                                                                </template>
+                                                                                <b-dropdown-item>Prognose</b-dropdown-item>
+                                                                                <b-dropdown-item>Definitief</b-dropdown-item>
+                                                                            </b-dropdown>
+                                                                        </b-col>
 
-                                    </b-form-row>
-                                    </div>
-                                    <div v-for="(planning, key) in planning.planning"><br>
+                                                                    </b-form-row>
+                                                                    </div>
+                                <!--&lt;!&ndash;                                    <div v-for="(planning, key) in planning.planning"><br>&ndash;&gt;-->
 
-                                        <div v-for="(plan, key) in planning">date = {{key}}
+                                <!--&lt;!&ndash;                                        <div v-for="(plan, key) in planning">date = {{key}}&ndash;&gt;-->
 
-                                            <div v-for="(sort, key) in plan">sortid = {{key}}
+                                <!--&lt;!&ndash;                                            <div v-for="(sort, key) in plan">sortid = {{key}}&ndash;&gt;-->
 
-                                                <div v-for="data in sort">amount = {{data.amount}} <hr></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </b-form>
-
+                                <!--&lt;!&ndash;                                                <div v-for="data in sort">amount = {{data.amount}} <hr></div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+                                                                </b-form>
+                                <!--27-02-2020 last working version-->
+                                </div><!-- throw away div for all the comment blocks -->
+<!--                                <table id="planningTable">-->
+<!--                                    <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th></th>-->
+<!--                                        <th v-for="(sorts, key, index) in planning.sorts">{{sorts.name}}</th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    <tr v-for="(dates, key, index) in planning.datesInterval">-->
+<!--                                        <td>{{ $moment(dates).format('YYYY-MM-DD') }}</td>-->
+<!--                                        <td v-for="(amount, key, index) in planning.planning"></td>-->
+<!--                                    </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
                             </b-colxx>
                         </b-row>
 
@@ -214,7 +234,7 @@
         components: {},
         data() {
             return {
-                // fields: [],
+                planningArr: null,
                 // items: [],
                 cell: null,
                 // sortTest: ['fijn', 'giant', 'industrie', 'groot', 'total'],
@@ -250,13 +270,16 @@
                 // console.log(cell);
                 this.cell = cell;
             },
-            loadPlanning() {
+            loadPlanning(id) {
                 Promise.all([
                     this.$store.dispatch("getPlanning", this.authFarmer.id).then((response) => {
                         console.log('hiernaar planning console loggen')
                     })
                 ]).finally(() => {
                     // console.log(this.planning.planning)
+                    // console.log(id.id)
+                    // console.log(this.planning.planning[id.id])
+                    this.planningArr = this.planning.planning[id.id];
                 });
             },
             updatePlanning(sort, interval, e) {
@@ -284,7 +307,7 @@
                                 timer: 1500
                             });
                         });
-                    this.loadPlanning()
+                    this.loadPlanning(this.cell)
                 } else {
                     console.log('value = empty');
                 }
@@ -295,7 +318,7 @@
                 Promise.all([
                     this.intervals = null,
                     this.CellPlanning(cell),
-                    this.loadPlanning()
+                    this.loadPlanning(cell)
                 ]).finally(() => {
                     let intervals = {};
                     let intervalsAll = {};
@@ -307,15 +330,7 @@
                         for (const key in this.planning.planning) {
                             if (this.$moment(this.planning.planning[key].date).format('YYYY-MM-DD') === currentEnd) {
                                 if (this.planning.planning[key].cellId === this.cell.id) {
-                                    console.log('date =')
-                                    console.log(this.$moment(this.planning.planning[key].date).format('YYYY-MM-DD'))
-                                    console.log('currentEnd =')
-                                    console.log(currentEnd)
-                                    console.log('amount =')
-                                    console.log(this.planning.planning[key].planningAmount[0].sortTypeId)
-                                    console.log(this.planning.planning[key].planningAmount[0].amount)
-                                    console.log('===================')
-                                    Object.assign(intervals, {[currentEnd]: this.planning.planning[key].planningAmount[0].amount});
+                                    Object.assign(intervals, {[currentEnd]: this.planning.planning[key].amount});
                                 }
                             }
                         }
@@ -324,9 +339,46 @@
                     }
                     let finalGrouped = {...intervalsAll, ...intervals}
                     this.intervals = finalGrouped;
+                    console.log(this.intervals)
                 })
 
             }
+            // constructListOfIntervals(start, end, interval, cell) {
+            //     Promise.all([
+            //         this.intervals = null,
+            //         this.CellPlanning(cell),
+            //         this.loadPlanning()
+            //     ]).finally(() => {
+            //         let intervals = {};
+            //         let intervalsAll = {};
+            //         const diffUnitOfTime = `${interval}`;
+            //
+            //         while (this.$moment(end).diff(start, diffUnitOfTime) > 0) {
+            //             const currentEnd = this.$moment(this.$moment(start).add(1, diffUnitOfTime)).format('YYYY-MM-DD');
+            //
+            //             for (const key in this.planning.planning) {
+            //                 if (this.$moment(this.planning.planning[key].date).format('YYYY-MM-DD') === currentEnd) {
+            //                     if (this.planning.planning[key].cellId === this.cell.id) {
+            //                         console.log('date =')
+            //                         console.log(this.$moment(this.planning.planning[key].date).format('YYYY-MM-DD'))
+            //                         console.log('currentEnd =')
+            //                         console.log(currentEnd)
+            //                         console.log('amount =')
+            //                         console.log(this.planning.planning[key].planningAmount[0].sortTypeId)
+            //                         console.log(this.planning.planning[key].planningAmount[0].amount)
+            //                         console.log('===================')
+            //                         Object.assign(intervals, {[currentEnd]: this.planning.planning[key].planningAmount[0].amount});
+            //                     }
+            //                 }
+            //             }
+            //             Object.assign(intervalsAll, {[currentEnd]: 0});
+            //             start = currentEnd;
+            //         }
+            //         let finalGrouped = {...intervalsAll, ...intervals}
+            //         this.intervals = finalGrouped;
+            //     })
+            //
+            // }
         },
         mounted() {
             Promise.all([
