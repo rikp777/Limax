@@ -152,10 +152,9 @@
                                 <!--                                        {{key}}-->
                                                                     <b-form-row v-for="(planning, key, index) in planningArr">
                                                                         <b-col>
-                                                                            <b-form-input readonly class="mb-2 mr-sm-2 mb-sm-2" :value="key"
+                                                                            <b-form-input readonly class="mb-2 mr-sm-2 mb-sm-2" :value="key.replace(/_/g, `-`).slice(0, 10)"
                                                                                           :disabled="index < 3" style="border-style: hidden"/>
                                                                         </b-col>
-
                                                                         <b-col v-for="(sort, key2) in planning">
                                                                             <b-input-group :prepend="key2" class="mb-2 mr-sm-2 mb-sm-2">
                                                                                 <b-form-input v-if="sort" type="number" class="mb-2 mr-sm-2 mb-sm-0"
@@ -168,17 +167,16 @@
                                                                                               :disabled="index < 3"/>
                                                                             </b-input-group>
                                                                         </b-col>
-
-                                                                        <b-col>
-                                                                            <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary"
-                                                                                        :disabled="index < 3">
-                                                                                <template slot="button-content">
-                                                                                    <span class="name">Prognose</span>
-                                                                                </template>
-                                                                                <b-dropdown-item>Prognose</b-dropdown-item>
-                                                                                <b-dropdown-item>Definitief</b-dropdown-item>
-                                                                            </b-dropdown>
-                                                                        </b-col>
+<!--                                                                        <b-col>-->
+<!--                                                                            <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary"-->
+<!--                                                                                        :disabled="index < 3">-->
+<!--                                                                                <template slot="button-content">-->
+<!--                                                                                    <span class="name">Prognose</span>-->
+<!--                                                                                </template>-->
+<!--                                                                                <b-dropdown-item>Prognose</b-dropdown-item>-->
+<!--                                                                                <b-dropdown-item>Definitief</b-dropdown-item>-->
+<!--                                                                            </b-dropdown>-->
+<!--                                                                        </b-col>-->
 
                                                                     </b-form-row>
                                                                     </div>
@@ -300,12 +298,12 @@
 
                     this.$store.dispatch("createPlanning", planningArr)
                         .then(() => {
-                            this.$swal({
-                                position: 'top-end',
-                                icon: 'success',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
+                            // this.$swal({
+                            //     position: 'top-end',
+                            //     icon: 'success',
+                            //     showConfirmButton: false,
+                            //     timer: 300
+                            // });
                         });
                     this.loadPlanning(this.cell)
                 } else {
@@ -383,6 +381,7 @@
         mounted() {
             Promise.all([
                 // this.$store.dispatch("getPlanning", this.authFarmer.id).then((response) => {}),
+                this.getAllCells(),
                 this.$store.dispatch("getAllArticleFarmers").then((response) => {
                     console.log("nu ben ik klaar")
                 })

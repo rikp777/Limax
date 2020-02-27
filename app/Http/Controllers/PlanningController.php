@@ -135,24 +135,28 @@ class PlanningController extends Controller
 //        $sort = SortType::where('name', $request->planning['sort'])->first();
         foreach ($cells as $cell) {
 //            dd($cell);
-            $planning = Planning::where('status_id', '!=', 10)->where('farmer_id', $id)->where('cell_id', $cell["id"])->get();
+            foreach ($sorts as $sortAll) {
+                $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
+                foreach ($period as $date) {
+                $tom1[$cell["id"]][$date->toDateTimeString()][$sortAll["description"]] = null;
+                $tom[$cell["id"]][$date->toDateTimeString()][$sortAll["description"]] = null;
+                $planning = Planning::where('status_id', '!=', 10)->where('farmer_id', $id)->where('cell_id', $cell["id"])->get();
 
-            foreach ($planning as $plan) {
-                $planningAmount = PlanningAmount::where('planning_id', $plan->id)->get();
+                foreach ($planning as $plan) {
+                    $planningAmount = PlanningAmount::where('planning_id', $plan->id)->get();
 
-                foreach ($planningAmount as $planningAm) {
-                    $sort = SortType::where('id', $planningAm["sort_type_id"])->first();
-                    $planningArr = [
-                        "cell_id" => $plan["cell_id"],
-                        "date" => $plan["date"],
-                        "sort" => $sort->description,
-                        "sort_type_id" => $planningAm["sort_type_id"],
-                        "amount" => $planningAm["amount"]
-                    ];
+                    foreach ($planningAmount as $planningAm) {
+                        $sort = SortType::where('id', $planningAm["sort_type_id"])->first();
+                        $planningArr = [
+                            "cell_id" => $plan["cell_id"],
+                            "date" => $plan["date"],
+                            "sort" => $sort->description,
+                            "sort_type_id" => $planningAm["sort_type_id"],
+                            "amount" => $planningAm["amount"]
+                        ];
 
 //                { id: 1, name: "Chandler Bing", phone: '305-917-1301', profession: 'IT Manager' },
-                    $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
-                    foreach ($period as $date) {
+
 
 //                    $planningsArr[$date->toDateTimeString()][$sort->description] = [
 //                        "cell_id" => null,
@@ -161,28 +165,28 @@ class PlanningController extends Controller
 //                        "sort_type_id" => null,
 //                        "amount" => null
 //                    ];
-                        foreach ($sorts as $sortAll) {
-                            $tom1[$cell["id"]][$date->toDateTimeString()][$sortAll["description"]] = null;
-                            if ($date->toDateTimeString() === $plan["date"]) {
+
+                        if ($date->toDateTimeString() === $plan["date"]) {
 //                            if ($sortAll["description"] === $sort->description) {
-                                $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
+                            $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
 
-                                $sortAmount = PlanningAmount::where('planning_id', $plan->id)->where('sort_type_id', $sortAll["id"])->first();
+                            $sortAmount = PlanningAmount::where('planning_id', $plan->id)->where('sort_type_id', $sortAll["id"])->first();
 
-                                $tom2[$cell["id"]][$date->toDateTimeString()][$sortAll["description"]] = $sortAmount["amount"];
-                                $tom = (array_replace_recursive($tom1, $tom2));
+                            $tom2[$cell["id"]][$date->toDateTimeString()][$sortAll["description"]] = $sortAmount["amount"];
+                            $tom = (array_replace_recursive($tom1, $tom2));
 //                                $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
 //                            }
-                            }
-
                         }
 
+
 //                    $datesFormatted = $date->format('Y-m-d');
-                    }
-                    $dates = $period->toArray();
+
+                        $dates = $period->toArray();
 //                $planningsArr[$plan["cell_id"]][$plan["date"]][$planningAm["sort_type_id"]][] = $planningAm;
+                    }
                 }
             }
+        }
         }
 //        $planning = Planning::where('cell_id', $request->planning['cell']['id']
 //        )
@@ -292,8 +296,8 @@ class PlanningController extends Controller
             "sortchartarr" => $sortChartArr,
             "groupedarticles" => $articlesList,
             "labels" => $reportLabels,
-            "datesInterval" => $dates,
-            "sorts" => $sorts,
+//            "datesInterval" => $dates,
+//            "sorts" => $sorts,
             "planning" => $tom,
 //            "planning" => $planningsArr,
 //            "planning" => $res,
