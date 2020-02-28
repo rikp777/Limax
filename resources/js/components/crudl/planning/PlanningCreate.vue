@@ -89,7 +89,7 @@
                                     <b-form v-if="planningArr">
                                         <b-form-row v-for="(planning, key, index) in planningArr">
                                             <b-col>
-                                                <b-form-input readonly class="mb-2 mr-sm-2 mb-sm-2"
+                                                <b-form-input readonly
                                                               :value="key.replace(/_/g, `-`).slice(0, 10)"
                                                               style="border-style: hidden"/>
                                             </b-col>
