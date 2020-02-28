@@ -134,7 +134,7 @@ class PlanningController extends Controller
                 foreach ($period as $date) {
                     $tom1[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = null;
                     $tom[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = null;
-                    $planning = Planning::where('status_id', '!=', 10)->where('farmer_id', $id)->where('cell_id', $cell["id"])->get();
+                    $planning = Planning::where('farmer_id', $id)->where('cell_id', $cell["id"])->get();
 
                     foreach ($planning as $plan) {
                         $planningAmount = PlanningAmount::where('planning_id', $plan->id)->get();
@@ -170,6 +170,34 @@ class PlanningController extends Controller
                     }
                 }
             }
+
+
+
+                $prognoseRay = Planning::whereIn('status_id', [9, 10])->where('farmer_id', $id)->where('cell_id', $cell["id"])->get();
+
+                $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
+                foreach ($period as $date) {
+                    $prognoseArray[$cell["id"]][$date->toDateTimeString()] = false;
+                }
+
+                if ($prognoseRay) {
+                    foreach ($prognoseRay as $item) {
+//                    $testtomtom[$item["cell_id"]][$item["date"]] = $item["status_id"];
+                        $statusesasdf = Status::where('id', '=', $item["status_id"])->first();
+                        if ($item["status_id"] === 9) {
+                            $prognoseArr = false;
+                        } elseif ($item["status_id"] === 10) {
+                            $prognoseArr = true;
+                        }
+
+                        $prognoseArray[$item["cell_id"]][$item["date"]] = $prognoseArr;
+
+//                        $prognoseArray[$cell["id"][$date->toDateTimeString()]] = $prognoseArr;
+                    }
+                }
+
+//            $prognoseArray[] = $prognoseArr;
+
         }
 
         $reportLabels = [];
@@ -249,6 +277,7 @@ class PlanningController extends Controller
             "groupedarticles" => $articlesList,
             "labels" => $reportLabels,
             "planning" => $tom,
+            "prognose" => $prognoseArray,
         ];
 
         return $totArr;
@@ -270,50 +299,30 @@ class PlanningController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
+     * @param string $date
      * @return PlanningResource
      */
     public function update(Request $request, $id)
     {
-//        dd($request);
-//
-//        $request->validate([
-//            'cell' => ' required',
-//            'sort' => ' required',
-//            'date' => ' required',
-//            'amount' => ' required',
-//        ]);
-//        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-//
-////        date, cell, farmer, status
-//        $planning = Planning::where('cell_id', $request->cell['id'])
-//            ->where('farmer_id', $currentFarmer->id)
-//            ->where('status_id', '!=', 10)
-//            ->where('date', $request->date);
-//
-//        if ($planning) {
-//            dd($planning);
-//        } else {
-//            $planning = new Planning();
-//            $planning->date = $request->date;
-//            $planning->cell_id = $request->cell['id'];
-//            $planning->farmer_id = $currentFarmer->id;
-//            $planning->status_id = 9;
-//
-//            $planning->save();
-//        }
-//
-//        return new PlanningResource($planning);
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+        $planningQry = Planning::where('cell_id', '=', $request["planning"]["cell_id"])->whereDate('date', Carbon::parse($request["planning"]["date"]))->where('farmer_id', $currentFarmer->id)->first();
+//        dd($planningQry->status_id);
 
-//        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-//
-//        $cell = Cell::where('farmer_id', $currentFarmer->id)->where('id', $request->cell['id'])->first();
-////        dd($cell);
-//        $cell->description = $request->cell['description'];
-//        $cell->save();
-//
-//        //return
-//        return new CellResource($cell);
+        if($planningQry) {
+            $planning = $planningQry;
+            $planning->status_id = 10;
+            $planning->update();
+        } else {
+            $planningNew = new Planning();
+            $planningNew->date = Carbon::parse($request["planning"]["date"]);
+            $planningNew->cell_id = $request["planning"]["cell_id"];
+            $planningNew->farmer_id = $currentFarmer->id;
+            $planningNew->status_id = 10;
+            $planningNew->save();
+        }
 
+
+        return new PlanningResource($planningQry);
     }
 
     /**

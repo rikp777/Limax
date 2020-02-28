@@ -87,23 +87,28 @@
                             <b-colxx v-if="isLoad">
                                 <div>
                                     <b-form v-if="planningArr">
-                                        <b-form-row v-for="(planning, key, index) in planningArr">
-                                            <b-col>
+                                        <b-form-row v-for="(planning, key, index) in planningArr" :key="index" v-bind:class="{'text-success' : switches[key] === true}">
+                                            <b-colxx cols="auto">
                                                 <b-form-input readonly
                                                               :value="key.replace(/_/g, `-`).slice(0, 10)"
                                                               style="border-style: hidden"/>
-                                            </b-col>
+                                            </b-colxx>
                                             <b-col v-for="(sort, key2) in planning">
                                                 <b-input-group :prepend="key2" class="mb-2 mr-sm-2 mb-sm-2">
                                                     <b-form-input v-if="sort" type="number" class="mb-2 mr-sm-2 mb-sm-0"
                                                                   :value="sort"
                                                                   @blur="updatePlanning(key2, key, $event)"
-                                                                  :disabled="index < 3"/>
+                                                                  :disabled="index < 3 || switches[key] === true" />
                                                     <b-form-input v-else type="number" class="mb-2 mr-sm-2 mb-sm-0"
                                                                   value=""
                                                                   @blur="updatePlanning(key2, key, $event)"
-                                                                  :disabled="index < 3"/>
+                                                                  :disabled="index < 3 || switches[key] === true" />
                                                 </b-input-group>
+                                            </b-col>
+
+                                            <b-col class="mb-2 mr-sm-2 mb-sm-0" >
+                                                <switches :disabled="index < 3" v-if="switches[key] === true" textDisabled="Prognose" textEnabled="Definitief" :emit-on-mount="false" disabled="true" v-model="switches[key]" theme="custom" color="primary"></switches>
+                                                <switches :disabled="index < 3" v-else v-model="switches[key]" textDisabled="Prognose" textEnabled="Definitief" :emit-on-mount="false" @input="progToDef(key)" theme="custom" color="primary"></switches>
                                             </b-col>
 
                                         </b-form-row>
@@ -129,12 +134,16 @@
     import vSelect from "vue-select";
     import Vuetable from "vuetable-2/src/components/Vuetable";
     import {mapGetters} from "vuex";
+    import Switches from "vue-switches";
 
     export default {
         name: "PlanningCreate",
-        components: {},
+        components: {
+            'switches': Switches,
+        },
         data() {
             return {
+                switches: null,
                 isLoad: false,
                 planningArr: null,
                 cell: null,
@@ -160,6 +169,14 @@
             },
         },
         methods: {
+            progToDef(date) {
+                const cellDateKey = {
+                    cell_id: this.cell.id,
+                    date: date.replace(/_/g, `-`).slice(0, 10)
+                };
+                // console.log(this.cell.id + ' ' + date.replace(/_/g, `-`).slice(0, 10));
+                this.$store.dispatch("updatePlanningStatus", cellDateKey)
+            },
             getAllArticleFarmers() {
                 this.$store.dispatch("getAllArticleFarmers");
             },
@@ -177,6 +194,8 @@
                     })
                 ]).finally(() => {
                     this.planningArr = this.planning.planning[id.id];
+                    this.switches = this.planning.prognose[id.id];
+                    // console.log(this.switches);
                     this.isLoad = true
                 });
             },
@@ -205,7 +224,7 @@
                             //     timer: 300
                             // });
                         });
-                    this.loadPlanning(this.cell)
+                    // this.loadPlanning(this.cell)
                 } else {
                     console.log('value = empty');
                 }

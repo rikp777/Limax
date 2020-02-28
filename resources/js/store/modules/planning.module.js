@@ -100,6 +100,15 @@ const actions = {
                 throw error
             })
     },
+    updatePlanningStatus(context, payload) {
+        return PlanningService.update(payload.cell_id, payload)
+            .then(({data}) => {
+                // console.log(data);
+                context.commit(SET_PLANNING, data);
+            }).catch( (error) => {
+                throw error
+            })
+    },
 };
 
 // Mutations
