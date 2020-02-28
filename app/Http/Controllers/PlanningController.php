@@ -62,16 +62,16 @@ class PlanningController extends Controller
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
 
         $sort = SortType::where('name', $request->planning['sort'])->first();
-//        date, cell, farmer, status
+
         $planning = Planning::where('cell_id', $request->planning['cell']['id'])
             ->where('farmer_id', $currentFarmer->id)
             ->where('status_id', '!=', 10)
             ->where('date', $request->planning['date'])->first();
-//        dd($sort->id);
+
         $planningAmountQry = PlanningAmount::where('planning_id', $planning['id'])->where('sort_type_id', $sort['id'])->first();
 
         if ($planning) {
-//                dd($planning['id']);
+
             if ($planningAmountQry) {
                 $planningAmount = $planningAmountQry;
                 $planningAmount->amount = $request->planning['amount'];
@@ -111,93 +111,67 @@ class PlanningController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-//        $farmerId = CookieRequest::header('farmerId');
-//
-//        $authUser = auth()->user();
-//        $currentFarmer = Farmer::find($farmerId);
-//
-//        return PalletLabelResource::collection(PalletLabel::where('status_id', 1)->where('farmer_id', $id)->where('crop_date', date('Y-m-d'))->latest('id')->get());
-
-        $farmerId = CookieRequest::header('farmerId');
-        $currentFarmer = Farmer::find($farmerId);
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
         $article = article::all();
         $statuses = status::all();
         $palletlabels = PalletLabel::where('status_id', 1)->where('farmer_id', $id)->latest('id')->get();
 
-        $sorts = SortType::all();
+        //get the articles that have sort id's from the article selection the farmer made.
+        $sorts = $currentFarmer->articles()->get();
+
+//     $sorts = SortType::all();
         $cells = cell::where('farmer_id', $id)->get();
 
-//        dd($article);
-
-
-//        $sort = SortType::where('name', $request->planning['sort'])->first();
         foreach ($cells as $cell) {
-//            dd($cell);
+
             foreach ($sorts as $sortAll) {
+                //get the description of the sorts based on article selection made by farmer
+                $sortDesc = SortType::where('id', $sortAll["sort_type_id"])->first();
+
                 $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
                 foreach ($period as $date) {
-                $tom1[$cell["id"]][$date->toDateTimeString()][$sortAll["description"]] = null;
-                $tom[$cell["id"]][$date->toDateTimeString()][$sortAll["description"]] = null;
-                $planning = Planning::where('status_id', '!=', 10)->where('farmer_id', $id)->where('cell_id', $cell["id"])->get();
+                    $tom1[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = null;
+                    $tom[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = null;
+                    $planning = Planning::where('status_id', '!=', 10)->where('farmer_id', $id)->where('cell_id', $cell["id"])->get();
 
-                foreach ($planning as $plan) {
-                    $planningAmount = PlanningAmount::where('planning_id', $plan->id)->get();
+                    foreach ($planning as $plan) {
+                        $planningAmount = PlanningAmount::where('planning_id', $plan->id)->get();
 
-                    foreach ($planningAmount as $planningAm) {
-                        $sort = SortType::where('id', $planningAm["sort_type_id"])->first();
-                        $planningArr = [
-                            "cell_id" => $plan["cell_id"],
-                            "date" => $plan["date"],
-                            "sort" => $sort->description,
-                            "sort_type_id" => $planningAm["sort_type_id"],
-                            "amount" => $planningAm["amount"]
-                        ];
+                        foreach ($planningAmount as $planningAm) {
+                            $sort = SortType::where('id', $planningAm["sort_type_id"])->first();
+                            $planningArr = [
+                                "cell_id" => $plan["cell_id"],
+                                "date" => $plan["date"],
+                                "sort" => $sort->description,
+                                "sort_type_id" => $planningAm["sort_type_id"],
+                                "amount" => $planningAm["amount"]
+                            ];
 
-//                { id: 1, name: "Chandler Bing", phone: '305-917-1301', profession: 'IT Manager' },
-
-
-//                    $planningsArr[$date->toDateTimeString()][$sort->description] = [
-//                        "cell_id" => null,
-//                        "date" => null,
-//                        "sort" => null,
-//                        "sort_type_id" => null,
-//                        "amount" => null
-//                    ];
-
-                        if ($date->toDateTimeString() === $plan["date"]) {
+                            if ($date->toDateTimeString() === $plan["date"]) {
 //                            if ($sortAll["description"] === $sort->description) {
-                            $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
+                                $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
 
-                            $sortAmount = PlanningAmount::where('planning_id', $plan->id)->where('sort_type_id', $sortAll["id"])->first();
+                                $sortAmount = PlanningAmount::where('planning_id', $plan->id)->where('sort_type_id', $sortAll["id"])->first();
 
-                            $tom2[$cell["id"]][$date->toDateTimeString()][$sortAll["description"]] = $sortAmount["amount"];
-                            $tom = (array_replace_recursive($tom1, $tom2));
-//                                $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
+                                $tom2[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = $sortAmount["amount"];
+                                $tom = (array_replace_recursive($tom1, $tom2));
+//                             $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
 //                            }
+                            }
+
+
+//                         $datesFormatted = $date->format('Y-m-d');
+
+                            $dates = $period->toArray();
+//                         $planningsArr[$plan["cell_id"]][$plan["date"]][$planningAm["sort_type_id"]][] = $planningAm;
                         }
-
-
-//                    $datesFormatted = $date->format('Y-m-d');
-
-                        $dates = $period->toArray();
-//                $planningsArr[$plan["cell_id"]][$plan["date"]][$planningAm["sort_type_id"]][] = $planningAm;
                     }
                 }
             }
         }
-        }
-//        $planning = Planning::where('cell_id', $request->planning['cell']['id']
-//        )
-//            ->where('farmer_id', $currentFarmer->id)
-//            ->where('status_id', '!=', 10)
-//            ->where('date', $request->planning['date'])->first();
-//        dd($sort->id);
-//        $planningAmountQry = PlanningAmount::where('planning_id', $planning['id'])->where('sort_type_id', $sort['id'])->first();
 
-
-//        $palletweight = 0;
         $reportLabels = [];
         $totpalletweight = 0;
         if (!sizeof($palletlabels)) {
@@ -222,11 +196,6 @@ class PlanningController extends Controller
                 "status_description" => $statusdesc,
                 "farmer_id" => $pallet['farmer_id'],
                 "article_id" => $pallet['article_id'],
-//                "status_id" => 1
-//                "article_id" => 1
-                //weight
-                //sort
-                //statusdescpriton
             ];
 
             $articleid = $pallet["article_id"];
@@ -236,12 +205,8 @@ class PlanningController extends Controller
                 $articlesList[$articleid] = 0;
             }
             $articlesList[$articleid] += $pallet["article_amount"];
-//            $articlesList[$articleid] += [
-//                "id" => $articleid,
-//                "amount" => $pallet["article_amount"]
-//            ];
-            foreach ($article as $index => $art) {
 
+            foreach ($article as $index => $art) {
 
                 $artSortType = $art["sort_type_id"];
                 foreach ($sorts as $sort) {
@@ -265,11 +230,9 @@ class PlanningController extends Controller
 
                 }
 
-
             }
             $reportLabel["weight"] = round(($palletweight) / 1000, 2);
             $reportLabels[] = $reportLabel;
-
 
         }
 
@@ -278,17 +241,6 @@ class PlanningController extends Controller
         $totalpalletweight = round(($totpalletweight) / 1000, 2);
         $sortChartArr = $uniqueSort;
 
-//        $sortChartArr = [
-//            "test" => 20,
-//            "test2" => 20,
-//            "test3" => 20,
-//            "test4" => 20,
-//            "test5" => 20,
-//            "test6" => 20,
-//            "test7" => 20,
-//            "test8" => 20,
-//            "test9" => 20,
-//        ];
         $totArr = [
             "totalpallets" => $totalpallets,
             "avgpalletweight" => $avgpalletweight,
@@ -296,11 +248,7 @@ class PlanningController extends Controller
             "sortchartarr" => $sortChartArr,
             "groupedarticles" => $articlesList,
             "labels" => $reportLabels,
-//            "datesInterval" => $dates,
-//            "sorts" => $sorts,
             "planning" => $tom,
-//            "planning" => $planningsArr,
-//            "planning" => $res,
         ];
 
         return $totArr;
