@@ -35,7 +35,9 @@
             "main": "Rapportage"
         },
         "planning": {
-            "main": "Planning"
+            "main": "Planning",
+            "create": "Planning",
+            "overview": "Voorraad"
         }
     },
 
@@ -198,6 +200,9 @@
     "planning": {
         "overview": {
             "title": "Voorraad"
+        },
+        "create": {
+            "title": "Planning"
         },
         "totalpallets": "Totaal pallets",
         "avgpalletweight": "Gemiddeld gewicht per pallet",

@@ -4156,6 +4156,9 @@ div[data-notify="container"] {
     background: $input-background !important;
     color: $primary-color !important;
 }
+.form-control:disabled {
+    background-color: $disabledForm-color !important;
+}
 
 .bootstrap-tagsinput {
     width: 100%;

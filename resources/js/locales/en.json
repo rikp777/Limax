@@ -35,7 +35,9 @@
             "main": "Reports"
         },
         "planning": {
-            "main": "Planning"
+            "main": "Planning",
+            "create": "Planning",
+            "overview": "Stock"
         }
     },
 
@@ -198,6 +200,9 @@
     "planning": {
         "overview": {
             "title": "Stock"
+        },
+        "create": {
+            "title": "Planning"
         },
         "totalpallets": "Total pallets",
         "avgpalletweight": "Average weight per pallet",
