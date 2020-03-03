@@ -240,7 +240,7 @@
                 this.getAllFarmers(),
                 this.getAllDepartments(),
                 this.$store.dispatch("getUser", this.id).then(()=>{
-                    console.log("nu dit");
+                    //console.log("nu dit");
                 })
             ]).finally(() => {
                 // console.log(" nu ben ik klaar");

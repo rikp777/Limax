@@ -178,7 +178,7 @@
             // this.getAllReports();
             this.$store.dispatch("getAllReports").then((response) => {
                 this.data = this.reports.labels;
-                console.log(this.data);
+                //console.log(this.data);
             });
         },
         methods: {
@@ -201,7 +201,7 @@
             },
 
             refreshButtonClick() {
-                console.log("refresh")
+                //console.log("refresh")
                 // this.$emit('refreshMode')
             },
             onPaginationData(paginationData) {

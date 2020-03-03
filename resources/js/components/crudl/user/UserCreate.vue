@@ -224,7 +224,7 @@
                 this.getAllFarmers(),
                 this.getAllDepartments(),
             ]).finally(() => {
-                console.log(" nu ben ik klaar");
+                //console.log(" nu ben ik klaar");
             })
         },
     }

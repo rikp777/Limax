@@ -357,7 +357,7 @@
             },
             selectTruck() {
                 let filtered = this.trucks.find(trucks => trucks.userId === this.form.trucker.id);
-                console.log(filtered);
+                //console.log(filtered);
                 this.form.truck = filtered;
 
                 this.next = true;
@@ -444,13 +444,13 @@
                 }
             },
             onContextCopy() {
-                console.log('context menu item clicked - Copy Items: ', this.form.palletLabels)
+                //console.log('context menu item clicked - Copy Items: ', this.form.palletLabels)
             },
             onContextArchive() {
-                console.log('context menu item clicked - Move to Archive Items: ', this.form.palletLabels)
+                //console.log('context menu item clicked - Move to Archive Items: ', this.form.palletLabels)
             },
             onContextDelete() {
-                console.log('context menu item clicked - Delete Items: ', this.form.palletLabels)
+                //console.log('context menu item clicked - Delete Items: ', this.form.palletLabels)
             },
             isLoading() {
                 return false;

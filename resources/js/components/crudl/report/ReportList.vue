@@ -152,7 +152,7 @@
             onAction(action, data, index) {
                 if (action === 'edit-user') {
                     this.$emit('updateMode', data.id)
-                    console.log(action)
+                    //console.log(action)
                 }
             },
             getAllUsers() {
@@ -160,7 +160,7 @@
             },
 
             refreshButtonClick() {
-                console.log("refresh")
+                //console.log("refresh")
             },
             onPaginationData(paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)

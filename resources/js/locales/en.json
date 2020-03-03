@@ -34,6 +34,9 @@
         "report": {
             "main": "Reports"
         },
+        "weightcheck": {
+            "main": "Weight Check"
+        },
         "planning": {
             "main": "Planning",
             "create": "Planning",
@@ -293,6 +296,19 @@
             },
             "deliveryDate": {
                 "title": "Delivery date"
+            }
+        }
+    },
+    "production": {
+        "dashboard": {
+            "title": "Weight Check",
+            "weight":  "Weight (scan)",
+            "id":  "ID (scan)",
+            "expectedNoTax":  "Expected weight without marge",
+            "tax":  "Difference in %",
+            "expectedWithTax":  "Expected weight with marge",
+            "actions": {
+                "buttonCreate": "Register weight check"
             }
         }
     }

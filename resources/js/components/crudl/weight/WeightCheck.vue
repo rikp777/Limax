@@ -6,7 +6,7 @@
                     <b-card no-body>
                         <b-card-body>
                             <p class="lead color-theme-1 mb-1 value">{{palletlabel.weight / 1000}} KG</p>
-                            <p class="mb-0 label text-small">{{$t('report.totalpallets')}}</p>
+                            <p class="mb-0 label text-small">{{$t('production.dashboard.expectedNoTax')}}</p>
                         </b-card-body>
                     </b-card>
                 </b-colxx>
@@ -14,7 +14,7 @@
                     <b-card no-body>
                         <b-card-body>
                             <p class="lead color-theme-1 mb-1 value">{{percentage}} %</p>
-                            <p class="mb-0 label text-small">{{$t('report.avgweight')}}</p>
+                            <p class="mb-0 label text-small">{{$t('production.dashboard.tax')}}</p>
                         </b-card-body>
                     </b-card>
                 </b-colxx>
@@ -23,7 +23,7 @@
                         <b-card-body>
                             <p class="lead color-theme-1 mb-1 value">{{((palletlabel.weight * margin).toFixed(2) /
                                 1000)}}</p>
-                            <p class="mb-0 label text-small">{{$t('report.avgweight')}} | 4%</p>
+                            <p class="mb-0 label text-small">{{$t('production.dashboard.expectedWithTax')}} | 4%</p>
                         </b-card-body>
                     </b-card>
                 </b-colxx>
@@ -39,7 +39,7 @@
                                 }"
                         v-slot="validationContext"
                     >
-                        <b-form-group label="id">
+                        <b-form-group :label="$t('production.dashboard.id')">
                             <b-form-input
                                 type="text"
                                 class="form-control"
@@ -62,7 +62,7 @@
                                 }"
                         v-slot="validationContext"
                     >
-                        <b-form-group label="gewicht">
+                        <b-form-group :label="$t('production.dashboard.weight')">
                             <b-form-input
                                 type="text"
                                 class="form-control"
@@ -79,18 +79,18 @@
             </b-row>
             <b-form-group :label="$t('palletlabel.create.actions.title')" label-align="right">
                 <div class="d-flex justify-content-end">
-<!--                    <b-button-->
-<!--                        type="button"-->
-<!--                        variant="outline-danger"-->
-<!--                        class="ml-1"-->
-<!--                    >{{ $t('palletlabel.create.actions.buttonClear') }}-->
-<!--                    </b-button>-->
+                    <!--                    <b-button-->
+                    <!--                        type="button"-->
+                    <!--                        variant="outline-danger"-->
+                    <!--                        class="ml-1"-->
+                    <!--                    >{{ $t('palletlabel.create.actions.buttonClear') }}-->
+                    <!--                    </b-button>-->
                     <b-button
                         type="submit"
                         variant="primary"
                         class="ml-1"
                         :disabled="invalid"
-                    >{{ $t('shippinglabel.create.actions.buttonCreate') }}
+                    >{{ $t('production.dashboard.actions.buttonCreate') }}
                     </b-button>
                 </div>
             </b-form-group>
@@ -132,7 +132,7 @@
                     'palletlabel_id': this.form.palletlabelId,
                     'actual_weight': (this.form.weight * 1000)
                 };
-                console.log(data);
+                //console.log(data);
                 this.createPalletLabelWeightCheck(data).then(() => {
                     this.$swal({
                         position: 'top-end',

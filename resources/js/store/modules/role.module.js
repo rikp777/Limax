@@ -92,7 +92,7 @@ const actions = {
     updateRole(context, payload) {
         return RoleService.update(payload.id, payload)
             .then(({data}) => {
-                console.log(data);
+                //console.log(data);
                 context.commit(SET_ROLE, data);
             }).catch( (error) => {
                 throw error

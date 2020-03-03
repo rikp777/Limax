@@ -101,7 +101,7 @@ export default {
                 .split("/")
                 .filter(x => x !== "")[1];
             if (currentParentUrl !== undefined) {
-                console.log(currentParentUrl)
+                //console.log(currentParentUrl)
                 this.selectedParentMenu = currentParentUrl.toLowerCase();
             } else {
                 this.selectedParentMenu = "dashboards";

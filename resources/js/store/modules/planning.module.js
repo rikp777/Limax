@@ -82,7 +82,7 @@ const actions = {
 
     //create cell
     createPlanning(context, payload) {
-        console.log(payload)
+        //console.log(payload)
         return PlanningService.create(payload)
             .then(({data}) => {
                 // console.log(data.data);

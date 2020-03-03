@@ -80,7 +80,7 @@
         },
         methods: {
             updateListener(id) {
-                console.log('update: ' + id)
+                //console.log('update: ' + id)
                 this.cellId = id
                 this.update = true
             },
@@ -91,7 +91,7 @@
                 this.reloadCompArticle += 1
             },
             createListener() {
-                console.log('create')
+                //console.log('create')
                 this.update = false
             }
         }

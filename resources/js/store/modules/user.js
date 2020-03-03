@@ -79,7 +79,7 @@ const actions = {
     },
 
     updateUser(context, payload) {
-        console.log(payload);
+        //console.log(payload);
         return UserService.update(payload.id, payload)
             .then(({data}) => {
                 // console.log(data);

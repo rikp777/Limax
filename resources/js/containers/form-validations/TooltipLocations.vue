@@ -228,10 +228,10 @@ export default {
 
     },
     methods: {
-        
+
         onValitadeFormSubmit() {
             this.$v.$touch();
-            console.log("ok");
+            //console.log("ok");
         }
     }
 };

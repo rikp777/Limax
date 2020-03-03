@@ -36,12 +36,20 @@
                                 type="submit"
                                 variant="primary"
                                 size="lg"
-                                :disabled="processing"
                                 :class="{'btn-multiple-state btn-shadow': true,
-                                            'show-spinner': processing,
                                             'show-success': !processing && loginError===false,
                                             'show-fail': !processing && loginError
                                 }">
+<!--                                <b-button-->
+<!--                                    type="submit"-->
+<!--                                    variant="primary"-->
+<!--                                    size="lg"-->
+<!--                                    :disabled="processing"-->
+<!--                                    :class="{'btn-multiple-state btn-shadow': true,-->
+<!--                                            'show-spinner': processing,-->
+<!--                                            'show-success': !processing && loginError===false,-->
+<!--                                            'show-fail': !processing && loginError-->
+<!--                                }">-->
                             <span class="spinner d-inline-block">
                                 <span class="bounce1"/>
                                 <span class="bounce2"/>
@@ -78,7 +86,7 @@
         data() {
             return {
                 form: {
-                    email: "rik@limax.nl",
+                    email: "rikpeeters11@hotmail.com",
                     password: "password"
                 }
             }
@@ -103,7 +111,7 @@
         watch: {
             loginError(val){
                 if(val != null) {
-                    console.log(val);
+                    //console.log(val);
                     // this.$notify("error", "Login Error", val, {
                     //     duration: 3000,
                     //     permanent: false

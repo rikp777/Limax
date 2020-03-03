@@ -49,7 +49,7 @@ const ApiService  = {
    get(resource, slug = "") {
         // console.log('resource = ' + resource);
         // console.log('slug = ' + slug);
-       console.log("get: "+ resource +  " " + slug)
+       //console.log("get: "+ resource +  " " + slug)
         const request = applyConverters(Vue.axios)
             .get(`${resource}/${slug}`)
             .catch(error => {

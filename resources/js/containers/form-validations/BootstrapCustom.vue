@@ -126,7 +126,7 @@ export default {
     methods: {
         onValitadeFormSubmit() {
             this.$v.$touch();
-            console.log(
+            //console.log(
                 JSON.stringify({
                     name: this.name,
                     email: this.email,

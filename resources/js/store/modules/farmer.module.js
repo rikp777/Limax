@@ -68,7 +68,7 @@ export const actions = {
         context.commit(FETCH_START);
         return FarmerArticleService.getAll()
             .then(({ data }) => {
-                console.log(data);
+                //console.log(data);
                 context.commit(SET_FARMER_ARTICLES, data.data);
                 context.commit(FETCH_END);
             })

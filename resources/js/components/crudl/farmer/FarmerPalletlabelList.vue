@@ -146,7 +146,7 @@
         mounted() {
             Promise.all([
                 this.$store.dispatch("getAllPalletLabels").then((response) => {
-                    console.log('en nu data vullen');
+                    //console.log('en nu data vullen');
                 })
             ]).finally(() => {
                 // console.log('ik kom naar de data gevuld is');

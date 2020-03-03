@@ -15,25 +15,25 @@ const AccessControl = {
             if (store.getters.authUser.uid !== undefined) {
                 authUser = store.getters.authUser;
                 store.dispatch("checkAuth");
-                console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' requiredRoles=' + requiresRoles + " userRoles= ");
+                //console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' requiredRoles=' + requiresRoles + " userRoles= ");
                 // authUser.roles.forEach(item => {
                 //     console.log("Right: " + item.id +  " " + item.name)
                 // })
             }
 
             if (requiresAuth && authUser.uid === undefined) {
-                console.log('not logged in');
+                //console.log('not logged in');
                 next('/auth/login');
             } else if (to.path === '/auth/login' && authUser.uid) {
-                console.log('already logged in');
+                //console.log('already logged in');
                 next('/');
             } else if (requiresRoles && authUser) {
                 if (this.hasRight(requiresRoles, authUser)) {
-                    console.log('authorized');
+                    //console.log('authorized');
                     next()
                 } else {
                     store.dispatch('logout');
-                    console.log('unauthorized');
+                    //console.log('unauthorized');
                     next('/auth/login')
                 }
             }else{

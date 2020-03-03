@@ -43,12 +43,12 @@
         },
         methods: {
             updateListener(id) {
-                console.log('update: ' + id)
+                //console.log('update: ' + id)
                 this.userId = id
                 this.update = true
             },
             createListener() {
-                console.log('create')
+                //console.log('create')
                 this.update = false
             },
             refreshListener() {

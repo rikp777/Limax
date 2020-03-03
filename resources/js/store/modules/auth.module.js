@@ -104,14 +104,15 @@ const mutations = {
         state.loginError = null;
     },
     [AUTH_PURGE](state) {
-        console.log("Destroy all states");
+        //console.log("Destroy all states");
+        state.isAuthenticated = false;
+        state.authUser = [];
+        state.loginError = null;
         jwtService.destroyToken('authToken');
         jwtService.destroyToken('authUser');
         jwtService.destroyToken('authFarmer');
 
-        state.isAuthenticated = false;
-        state.authUser = [];
-        state.loginError = null;
+
     },
     changeAuthFarmer(state, payload){
         state.authFarmer = payload;

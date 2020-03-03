@@ -104,7 +104,7 @@
             },
 
             refreshButtonClick(){
-                console.log("refresh")
+                //console.log("refresh")
             },
             onPaginationData(paginationData){
                 this.$refs.pagination.setPaginationData(paginationData)

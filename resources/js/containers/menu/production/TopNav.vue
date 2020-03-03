@@ -114,7 +114,6 @@
 
                     </b-dropdown>
                 </div>
-
                 <div class="position-relative d-inline-block">
                     <b-dropdown variant="empty" size="sm" right toggle-class="header-icon notificationButton" menu-class="position-absolute mt-3 notificationDropdown" no-caret>
                         <template slot="button-content">
@@ -200,21 +199,6 @@
         },
         methods: {
             ...mapMutations(['changeSideMenuStatus', 'changeSideMenuForMobile']),
-            admin() {
-                this.$router.push({path: "/admin"})
-            },
-            farmer() {
-                this.$router.push({path: "/farmer"})
-            },
-            planner() {
-                this.$router.push({path: "/planner"})
-            },
-            production() {
-                this.$router.push({path: "/production"})
-            },
-            trucker() {
-                //console.log('not yet');
-            },
             search() {
                 // this.$router.push(`${this.searchPath}?search=${this.searchKeyword}`)
                 // this.searchKeyword = ''

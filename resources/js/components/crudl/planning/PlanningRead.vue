@@ -240,7 +240,7 @@
                 this.$store.dispatch("getAllFarmers");
             },
             refreshButtonClick() {
-                console.log("refresh")
+                //console.log("refresh")
                 // this.$emit('refreshMode')
             },
             onPaginationDataArticles(paginationData) {

@@ -36,7 +36,7 @@
             let path = this.$route.path.substr(1);
             let rawPaths = path.split('/');
             // console.log(path);
-            console.log(rawPaths);
+            //console.log(rawPaths);
             // console.log(this.$route.params);
 
             for (var pName in this.$route.params) {
@@ -61,7 +61,7 @@
                 const item = menuItem.subs.find(
                     x => x.id === path
                 );
-                console.log(item);
+                //console.log(item);
                 if (item) {
                     this.items.push({
                         text: this.$t(item.label),

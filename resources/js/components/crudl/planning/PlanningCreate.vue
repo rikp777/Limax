@@ -83,11 +83,11 @@
                         <div v-if="!isLoad" class="loading"></div>
                     </b-card-header>
                     <b-card-body>
-                        <b-row>
+                        <b-row align-v="center">
                             <b-colxx v-if="isLoad">
-                                <div>
                                     <b-form v-if="planningArr">
-                                        <b-form-row v-for="(planning, key, index) in planningArr" :key="index" v-bind:class="{'text-success' : switches[key] === true}">
+                                        <b-form-row v-for="(planning, key, index) in planningArr" :key="index">
+<!--                                        <b-form-row v-for="(planning, key, index) in planningArr" :key="index" v-bind:class="{'text-success' : switches[key] === true}">-->
                                             <b-colxx cols="auto">
                                                 <b-form-input readonly
                                                               :value="key.replace(/_/g, `-`).slice(0, 10)"
@@ -114,8 +114,6 @@
                                         </b-form-row>
 
                                     </b-form>
-
-                                </div>
                             </b-colxx>
                         </b-row>
                     </b-card-body>
@@ -190,7 +188,7 @@
                 this.isLoad = false
                 Promise.all([
                     this.$store.dispatch("getPlanning", this.authFarmer.id).then((response) => {
-                        console.log('hiernaar planning console loggen')
+                        //console.log('hiernaar planning console loggen')
                     })
                 ]).finally(() => {
                     this.planningArr = this.planning.planning[id.id];
@@ -203,10 +201,10 @@
                 //if has value, do update
                 //if no value (so misclick on cell) dont do anything
                 if (e.target.value) {
-                    console.log('sortering : ' + sort);
-                    console.log('date : ' + interval);
-                    console.log('cell : ' + this.cell.description);
-                    console.log('value : ' + e.target.value);
+                    //console.log('sortering : ' + sort);
+                    //console.log('date : ' + interval);
+                    //console.log('cell : ' + this.cell.description);
+                    //console.log('value : ' + e.target.value);
 
                     const planningArr = {
                         cell: this.cell,
@@ -226,7 +224,7 @@
                         });
                     // this.loadPlanning(this.cell)
                 } else {
-                    console.log('value = empty');
+                    //console.log('value = empty');
                 }
 
 
@@ -256,7 +254,7 @@
                     }
                     let finalGrouped = {...intervalsAll, ...intervals}
                     this.intervals = finalGrouped;
-                    console.log(this.intervals)
+                    //console.log(this.intervals)
                 })
 
             }
@@ -265,7 +263,7 @@
             Promise.all([
                 this.getAllCells(),
                 this.$store.dispatch("getAllArticleFarmers").then((response) => {
-                    console.log("nu ben ik klaar")
+                    //console.log("nu ben ik klaar")
                 })
             ]).finally(() => {
                 const SortdataArr = [];
@@ -278,7 +276,7 @@
                     }
                 }
                 this.sorts = SortdataArr;
-                console.log(SortdataArr)
+                //console.log(SortdataArr)
 
 
                 for (const key in this.articlefarmers) {

@@ -4,6 +4,12 @@
         <sidebar />
         <main>
             <div class="container-fluid">
+                <div>
+                    <b-jumbotron header="Production panel" lead="">
+                        <p>For more information visit the documentation</p>
+                        <b-button variant="primary" href="#">Documentation</b-button>
+                    </b-jumbotron>
+                </div>
                 <router-view />
             </div>
         </main>
@@ -12,8 +18,8 @@
 </template>
 
 <script>
-    import Sidebar from '../../containers/menu/farmer/Sidebar'
-    import TopNav from '../../containers/menu/farmer/TopNav'
+    import Sidebar from '../../containers/menu/production/Sidebar'
+    import TopNav from '../../containers/menu/production/TopNav'
     import Footer from '../../containers/Footer'
     import {
         mapGetters

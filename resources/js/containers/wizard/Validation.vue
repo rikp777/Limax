@@ -108,14 +108,14 @@ export default {
             return !this.$v.formStep1.$anyError;
         },
         submitStep1() {
-            console.log("step-1-submit")
+            //console.log("step-1-submit")
         },
         validateStep2() {
             this.$v.formStep2.$touch();
             return !this.$v.formStep2.$anyError;
         },
         submitStep2() {
-            console.log("step-2-submit")
+            //console.log("step-2-submit")
         },
         validateStep3() {
             this.$v.formStep3.$touch();
@@ -127,7 +127,7 @@ export default {
                 email: this.formStep2.email,
                 password: this.formStep3.password
             };
-            console.log("form submitting : ", form)
+            //console.log("form submitting : ", form)
             setTimeout(() => {
                 this.isProcessing = false;
             }, 3000)

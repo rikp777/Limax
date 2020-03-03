@@ -37,9 +37,13 @@
 
                     </template>
 <!--                    <b-dropdown-item><router-link :to="{ name: 'profileRead'}" style="color: #eb5b65">Profile</router-link></b-dropdown-item>-->
+
+
                     <b-dropdown-item :to="{ name: 'authLogout' }">
                         <router-link :to="{ name: 'authLogout' }" style="color: #eb5b65"><nav>Logout</nav></router-link>
                     </b-dropdown-item>
+
+
                 </b-nav-item-dropdown>
             </b-navbar-nav>
         </b-collapse>
