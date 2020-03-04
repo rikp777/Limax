@@ -149,6 +149,7 @@
             },
             validateBeforeSubmit() {
                 this.create();
+                this.$emit('valid', false)
             },
             check() {
                 this.valid = this.form.weight >= (this.palletlabel.weight * this.margin) / 1000;
