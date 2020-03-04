@@ -4,13 +4,13 @@
         <sidebar />
         <main>
             <div class="container-fluid">
-                <div>
+                <div v-if="$route.path === '/admin'">
                     <b-jumbotron header="Admin panel" lead="">
                         <p>For more information visit the documentation</p>
-                        <b-button variant="primary" href="#">Documentation</b-button>
+                        <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>
                     </b-jumbotron>
                 </div>
-                <router-view />
+                <router-view v-else />
             </div>
         </main>
         <footer-component />

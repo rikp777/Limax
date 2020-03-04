@@ -4,13 +4,13 @@
         <sidebar />
         <main>
             <div class="container-fluid">
-                <div>
+                <div v-if="$route.path === '/farmer'">
                     <b-jumbotron header="Farmer panel" lead="">
                         <p>For more information visit the documentation</p>
-                        <b-button variant="primary" href="#">Documentation</b-button>
+                        <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>
                     </b-jumbotron>
                 </div>
-                <router-view />
+                <router-view v-else />
             </div>
         </main>
         <footer-component />
@@ -40,7 +40,8 @@
             ...mapGetters(['getMenuType'])
         },
         mounted() {
-            //console.log(this.$router.options.routes)
+            // console.log(this.$router.options.routes)
+            // console.log(this.$route.path)
         }
     }
 </script>

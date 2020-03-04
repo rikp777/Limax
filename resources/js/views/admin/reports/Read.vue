@@ -2,7 +2,8 @@
     <b-row>
         <b-colxx xl="12" lg="12" class="mb-4">
             <b-card :title="$t('report.title') + ' ' + authFarmer.name + ' : ' + $moment().locale('nl').format('L')" style="border-left: 6px solid #f28125">
-            <report-read />
+                <b-refresh-button @click="refreshButtonClick"/>
+                <report-read :key="refresh" />
             </b-card>
         </b-colxx>
     </b-row>
@@ -19,7 +20,8 @@
         data () {
             return {
                 update: false,
-                userId: null
+                userId: null,
+                refresh: null
             }
         },
         components: {
@@ -29,6 +31,9 @@
             reportRead
         },
         methods: {
+            refreshButtonClick() {
+                this.refresh += 1;
+            }
         },
         computed: {
             ...mapGetters({

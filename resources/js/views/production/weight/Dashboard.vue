@@ -1,5 +1,5 @@
 <template>
-    <b-card :title="$t('production.dashboard.title')" v-bind:class="[!valid ? 'bg-danger' : 'bg-success']">
+    <b-card :title="$t('production.dashboard.title')" v-bind:class="[!valid ? 'bg-danger text-white' : 'bg-success text-dark']">
         <weight-check @valid="changeBackground"></weight-check>
     </b-card>
 </template>

@@ -16,6 +16,8 @@
                     </router-link>
                     <h6 class="mb-4">{{ $t('auth.login.title')}}</h6>
 
+                    <b-alert show dismissible variant="danger" v-if="errorLog">{{errorLog}}</b-alert>
+
                     <b-form @submit.prevent="formSubmit" class="av-tooltip tooltip-label-bottom">
                         <b-form-group :label="$t('user.attributes.email.title')" class="has-float-label mb-4">
                             <b-form-input type="text" v-model="form.email"/>
@@ -88,7 +90,8 @@
                 form: {
                     email: "rikpeeters11@hotmail.com",
                     password: "password"
-                }
+                },
+                errorLog: null
             }
         },
         computed: {
@@ -104,14 +107,45 @@
                     email: this.form.email,
                     password: this.form.password
                 }).then(() => {
-                    this.$router.push({ name: "docs"})
+                    // console.log(this.authUser.roles[0].name);
+
+                    // IF NEW ROLE ADD HERE!
+
+                    if(this.authUser.roles[0].name === "Admin"){
+                        this.$router.push({ path: "/admin"})
+                    }
+                    if(this.authUser.roles[0].name === "Moderator"){
+                        this.$router.push({ path: "/admin"})
+                    }
+                    if(this.authUser.roles[0].name === "Planning"){
+                        this.$router.push({ path: "/planner"})
+                    }
+                    if(this.authUser.roles[0].name === "Production"){
+                        this.$router.push({ path: "/production"})
+                    }
+                    if(this.authUser.roles[0].name === "Farmer"){
+                        this.$router.push({ path: "/farmer"})
+                    }
+                    // else {
+                    //     this.$router.push({ path: "/farmer"})
+                    // }
+
                 })
             }
         },
         watch: {
             loginError(val){
                 if(val != null) {
-                    //console.log(val);
+                    console.log(val);
+                    this.form.email = null;
+                    this.form.password = null;
+                    this.errorLog = "Something went wrong, try again!"
+                    // this.$swal({
+                    //     position: 'top-end',
+                    //     icon: 'error',
+                    //     showConfirmButton: false,
+                    //     timer: 1500
+                    // });
                     // this.$notify("error", "Login Error", val, {
                     //     duration: 3000,
                     //     permanent: false

@@ -27,6 +27,15 @@
                 if (pathToGo === '/farmer') {
                     pathToGo = '/'
                 }
+                // if (pathToGo === '/admin') {
+                //     pathToGo = '/'
+                // }
+                // if (pathToGo === '/planner') {
+                //     pathToGo = '/'
+                // }
+                // if (pathToGo === '/production') {
+                //     pathToGo = '/'
+                // }
                 return pathToGo
             }
         },

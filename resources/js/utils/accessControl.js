@@ -9,6 +9,7 @@ const AccessControl = {
         router.beforeEach((to, from, next) => {
             const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
             const requiresRoles = to.meta.requiresRoles;
+            // console.log(requiresRoles);
             const farmerId =   jwtService.getToken('farmer');
 
             let authUser = [];
@@ -22,18 +23,40 @@ const AccessControl = {
             }
 
             if (requiresAuth && authUser.uid === undefined) {
-                //console.log('not logged in');
+                // console.log('not logged in');
                 next('/auth/login');
             } else if (to.path === '/auth/login' && authUser.uid) {
-                //console.log('already logged in');
-                next('/');
+                // console.log(authUser)
+                if(authUser.roles[0].name === "Admin"){
+                    // console.log('already logged in admin');
+                    next("/admin")
+                }
+                if(authUser.roles[0].name === "Moderator"){
+                    // console.log('already logged in Moderator');
+                    next("/admin")
+                }
+                if(authUser.roles[0].name === "Planning"){
+                    // console.log('already logged in Planning');
+                    next("/planner")
+                }
+                if(authUser.roles[0].name === "Production"){
+                    // console.log('already logged in Production');
+                    next("/production")
+                }
+                if(authUser.roles[0].name === "Farmer"){
+                    // console.log('already logged in Farmer');
+                    next("/farmer")
+                }
+
+                // console.log('already logged in');
+                // next();
             } else if (requiresRoles && authUser) {
                 if (this.hasRight(requiresRoles, authUser)) {
-                    //console.log('authorized');
+                    // console.log('authorized');
                     next()
                 } else {
                     store.dispatch('logout');
-                    //console.log('unauthorized');
+                    // console.log('unauthorized');
                     next('/auth/login')
                 }
             }else{
@@ -53,8 +76,15 @@ const AccessControl = {
         });
     },
     hasRight(requiresRoles, authUser) {
-        let check = true;
+        let check = false;
         // console.log(authUser);
+
+        requiresRoles.forEach(role =>{
+            if(role === authUser.roles[0].id){
+                check = true
+            }
+        })
+
         // authUser.roles.forEach((item) => {
         //     requiresRoles.forEach(role =>{
         //         if(role === item.id){

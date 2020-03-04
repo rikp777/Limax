@@ -18,7 +18,7 @@ export const searchPath = '/farmer/pages/miscellaneous/search';
 export const buyUrl = 'https://1.envato.market/nEyZa';
 
 //start after login
-export const defaultStartPath = '/farmer/docs';
+export const defaultStartPath = '/farmer';
 
 
 export const subHiddenBreakpoint = 1440;

@@ -10,6 +10,7 @@ import report from "./routes/report"
 import planning from "./routes/planning"
 import shippingLabel from "./routes/shippingLabel";
 import weight from "./routes/weight";
+import RightEnum from "./rights";
 
 Vue.use(VueRouter);
 
@@ -22,8 +23,12 @@ const router = new VueRouter({
                 {
                     path: "farmer",
                     component: () => import("../views/farmer/Index"),
+                    meta: {
+                        requiresAuth: true,
+                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
+                    },
                     children: [
-                        ...palletLabel,
+                        ...palletLabel ,
                         ...shippingLabel,
                         ...report,
                         ...documentation,
@@ -33,6 +38,10 @@ const router = new VueRouter({
                 {
                     path: "admin",
                     component: () => import("../views/admin/Index"),
+                    meta: {
+                        requiresAuth: true,
+                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    },
                     children: [
                         ...user,
                         ...article,
@@ -47,6 +56,10 @@ const router = new VueRouter({
                 {
                     path: "planner",
                     component: () => import("../views/planning/Index"),
+                    meta: {
+                        requiresAuth: true,
+                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    },
                     children: [
                         ...planning
                     ]
@@ -54,6 +67,10 @@ const router = new VueRouter({
                 {
                     path: "production",
                     component: () => import('../views/production/Index'),
+                    meta: {
+                        requiresAuth: true,
+                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                    },
                     children: [
                         ...weight
                     ]

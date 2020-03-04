@@ -20,7 +20,7 @@
                 <select-farmer />
             </div>
         </div>
-        <router-link class="navbar-logo" tag="a" to="/farmer/docs">
+        <router-link class="navbar-logo" tag="a" to="/farmer">
 
             <img class="logo d-none d-xs-block" src="https://www.limax.nl/images/limax-logo.png" />
 <!--            <img class="logo-mobile d-block d-xs-non" src="https://www.limax.nl/images/limax-logo.png" />-->

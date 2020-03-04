@@ -6,7 +6,7 @@
                     <b-card no-body>
                         <b-card-body>
                             <p class="lead color-theme-1 mb-1 value">{{palletlabel.weight / 1000}} KG</p>
-                            <p class="mb-0 label text-small">{{$t('production.dashboard.expectedNoTax')}}</p>
+                            <p class="mb-0 label text-small text-secondary">{{$t('production.dashboard.expectedNoTax')}}</p>
                         </b-card-body>
                     </b-card>
                 </b-colxx>
@@ -14,7 +14,7 @@
                     <b-card no-body>
                         <b-card-body>
                             <p class="lead color-theme-1 mb-1 value">{{percentage}} %</p>
-                            <p class="mb-0 label text-small">{{$t('production.dashboard.tax')}}</p>
+                            <p class="mb-0 label text-small text-secondary">{{$t('production.dashboard.tax')}}</p>
                         </b-card-body>
                     </b-card>
                 </b-colxx>
@@ -23,7 +23,7 @@
                         <b-card-body>
                             <p class="lead color-theme-1 mb-1 value">{{((palletlabel.weight * margin).toFixed(2) /
                                 1000)}}</p>
-                            <p class="mb-0 label text-small">{{$t('production.dashboard.expectedWithTax')}} | 4%</p>
+                            <p class="mb-0 label text-small text-secondary">{{$t('production.dashboard.expectedWithTax')}} | 4%</p>
                         </b-card-body>
                     </b-card>
                 </b-colxx>
