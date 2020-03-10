@@ -28,7 +28,7 @@ export const menuHiddenBreakpoint = 768;
 export const defaultMenuType = 'menu-default';
 
 
-export const defaultLocale = 'en';
+export const defaultLocale = 'nl';
 export const localeOptions = [
     { id: 'en', name: 'English' },
     { id: 'nl', name: 'Nederlands' },

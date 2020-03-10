@@ -42,7 +42,7 @@
     //
     //  */
     import VueTable from 'vuetable-2/src/components/Vuetable'
-    import VueTablePaginationBootstrap from '../../../components/Common/VuetablePaginationBootstrap'
+    import VueTablePaginationBootstrap from '../../../components/Common/vuetablePaginationBootstrap'
 
     import {mapGetters} from 'vuex';
 
