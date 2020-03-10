@@ -1,5 +1,5 @@
 import Index from '../../views/farmer/docs/index'
-import Welcome from '../../views/farmer/docs/welcome'
+import Welcome from '../../views/farmer/docs/Welcome'
 import RightEnum from "../rights";
 
 export default [
