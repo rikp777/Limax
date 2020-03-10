@@ -10,10 +10,10 @@
 </template>
 
 <script>
-    import reportCreate from "../../../components/crudl/report/reportCreate";
-    import reportUpdate from "../../../components/crudl/report/reportUpdate";
-    import reportList from "../../../components/crudl/report/reportList";
-    import reportRead from "../../../components/crudl/report/reportRead";
+    import reportCreate from "../../../components/crudl/report/ReportCreate";
+    import reportUpdate from "../../../components/crudl/report/ReportUpdate";
+    import reportList from "../../../components/crudl/report/ReportList";
+    import reportRead from "../../../components/crudl/report/ReportRead";
     import {mapGetters} from "vuex";
 
     export default {

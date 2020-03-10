@@ -10,10 +10,10 @@
 </template>
 
 <script>
-    import planningCreate from "../../../components/crudl/planning/planningCreate";
-    import planningUpdate from "../../../components/crudl/planning/planningUpdate";
-    import planningList from "../../../components/crudl/planning/planningList";
-    import planningRead from "../../../components/crudl/planning/planningRead";
+    import planningCreate from "../../../components/crudl/planning/PlanningCreate";
+    import planningUpdate from "../../../components/crudl/planning/PlanningUpdate";
+    import planningList from "../../../components/crudl/planning/PlanningList";
+    import planningRead from "../../../components/crudl/planning/PlanningRead";
     import {mapGetters} from "vuex";
 
     export default {

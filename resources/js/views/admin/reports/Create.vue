@@ -22,9 +22,9 @@
 </template>
 
 <script>
-    import userCreate from "../../../components/crudl/user/userCreate";
+    import userCreate from "../../../components/crudl/user/UserCreate";
     import userUpdate from "../../../components/crudl/user/UserUpdate.component";
-    import userList from "../../../components/crudl/user/userList";
+    import userList from "../../../components/crudl/user/UserList";
     export default {
         data () {
             return {
