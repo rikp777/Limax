@@ -31,6 +31,10 @@ export const defaultMenuType = 'menu-default';
 export const defaultLocale = 'nl';
 export const localeOptions = [
     { id: 'en', name: 'English' },
-    { id: 'nl', name: 'Nederlands' },
-    { id: 'pl', name: 'Polish'}
+    { id: 'nl', name: 'Nederlands' }
 ];
+// export const localeOptions = [
+//     { id: 'en', name: 'English' },
+//     { id: 'nl', name: 'Nederlands' },
+//     { id: 'pl', name: 'Polish'}
+// ];
