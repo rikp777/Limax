@@ -247,6 +247,7 @@ class PlanningController extends Controller
                             $totpalletweight += ($art["inset_gram"] * $pallet["article_amount"]);
 
                             $sortDesc = $sort["description"];
+                            dd($sortDesc);
                             if (!isset($uniqueSort[$sortDesc])) {
                                 $uniqueSort[$sortDesc] = 0;
                             }
@@ -267,12 +268,7 @@ class PlanningController extends Controller
         $totalpallets = sizeof($palletlabels);
         $avgpalletweight = round(($totpalletweight / sizeof($palletlabels)) / 1000, 2);
         $totalpalletweight = round(($totpalletweight) / 1000, 2);
-        if($uniqueSort) {
-            $sortChartArr = $uniqueSort;
-        } else {
-            $sortChartArr = [];
-        }
-
+        $sortChartArr = $uniqueSort;
 
         $totArr = [
             "totalpallets" => $totalpallets,
