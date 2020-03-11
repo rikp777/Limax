@@ -240,10 +240,10 @@ class PlanningController extends Controller
 
                 foreach ($sorts as $sort) {
                     if ($articleid === $art["id"]) {
-                        var_dump($articleid . '===' . $art["id"]);
+//                        var_dump($articleid . '===' . $art["id"]);
                         $sortid = $sort["sort_type_id"];
                         if ($artSortType === $sortid) {
-                            var_dump($artSortType . ' ' . $sortid);
+//                            var_dump($artSortType . ' ' . $sortid);
                             $indexes[] = $index;
                             $palletweight += ($art["inset_gram"] * $pallet["article_amount"]);
                             $totpalletweight += ($art["inset_gram"] * $pallet["article_amount"]);
@@ -256,7 +256,7 @@ class PlanningController extends Controller
                             }
                             $uniqueSort[$sortDesc] += round(($art["inset_gram"] * $pallet["article_amount"]) / 1000, 2);
                             $reportLabel["sort"] = $sortDesc;
-                            var_dump($uniqueSort);
+//                            var_dump($uniqueSort);
                         }
 
                     }
