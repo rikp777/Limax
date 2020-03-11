@@ -19,6 +19,9 @@ const router = new VueRouter({
         {
             path: "/",
             component: () => import("../views/Index"),
+            meta: {
+                requiresAuth: true
+            },
             children: [
                 {
                     path: "farmer",
