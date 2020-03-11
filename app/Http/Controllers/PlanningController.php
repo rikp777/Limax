@@ -243,7 +243,7 @@ class PlanningController extends Controller
 //                        dd("articleid === artid");
                         $sortid = $sort["sort_type_id"];
 //                        $sortid = $sort["id"];
-//                        var_dump($artSortType . ' === ' . $sortid);
+                        var_dump($artSortType . ' === ' . $sortid);
                         if ($artSortType === $sortid) {
 //                            dd($artSortType === $sortid);
                             $indexes[] = $index;
