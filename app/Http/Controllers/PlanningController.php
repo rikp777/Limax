@@ -268,7 +268,7 @@ class PlanningController extends Controller
         $totalpallets = sizeof($palletlabels);
         $avgpalletweight = round(($totpalletweight / sizeof($palletlabels)) / 1000, 2);
         $totalpalletweight = round(($totpalletweight) / 1000, 2);
-        if($uniquesortFix){
+        if(isset($uniquesortFix)){
             $sortChartArr = $uniqueSort;
         } else {
             $sortChartArr = [];
