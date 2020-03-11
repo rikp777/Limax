@@ -240,10 +240,10 @@ class PlanningController extends Controller
                 foreach ($sorts as $sort) {
 
                     if ($articleid === $art["id"]) {
-                        dd("articleid === artid");
+//                        dd("articleid === artid");
                         $sortid = $sort["id"];
                         if ($artSortType === $sortid) {
-                            dd("artSortType === sortid");
+                            dd($artSortType === $sortid);
                             $indexes[] = $index;
                             $palletweight += ($art["inset_gram"] * $pallet["article_amount"]);
                             $totpalletweight += ($art["inset_gram"] * $pallet["article_amount"]);
