@@ -244,8 +244,9 @@ class PlanningController extends Controller
                     if ($articleid === $art["id"]) {
                         var_dump($articleid . '===' . $art["id"]);
                         $sortid = $sort["sort_type_id"];
+                        var_dump($artSortType . ' ' . $sortid);
                         if ($artSortType === $sortid) {
-                            var_dump($artSortType . ' ' . $sortid);
+
                             $indexes[] = $index;
                             $palletweight += ($art["inset_gram"] * $pallet["article_amount"]);
                             $totpalletweight += ($art["inset_gram"] * $pallet["article_amount"]);
