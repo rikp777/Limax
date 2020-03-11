@@ -88,8 +88,8 @@
         data() {
             return {
                 form: {
-                    email: "rikpeeters11@hotmail.com",
-                    password: "password"
+                    email: null,
+                    password: null
                 },
                 errorLog: null
             }
