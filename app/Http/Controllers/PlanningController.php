@@ -238,14 +238,10 @@ class PlanningController extends Controller
 
                 $artSortType = $art["sort_type_id"];
                 foreach ($sorts as $sort) {
-//                    var_dump($artSortType);
                     if ($articleid === $art["id"]) {
-//                        dd("articleid === artid");
-                        $sortid = $sort["sort_type_id"];
-//                        $sortid = $sort["id"];
-//                        var_dump($artSortType . ' === ' . $sortid);
+                        $sortid = $sort["id"];
+//                        $sortid = $sort["sort_type_id"];
                         if ($artSortType === $sortid) {
-//                            dd($artSortType === $sortid);
                             $indexes[] = $index;
                             $palletweight += ($art["inset_gram"] * $pallet["article_amount"]);
                             $totpalletweight += ($art["inset_gram"] * $pallet["article_amount"]);
@@ -256,7 +252,6 @@ class PlanningController extends Controller
                             }
                             $uniqueSort[$sortDesc] += round(($art["inset_gram"] * $pallet["article_amount"]) / 1000, 2);
                             $reportLabel["sort"] = $sortDesc;
-//                            $uniquesortFix = $uniqueSort;
                         }
 
                     }
@@ -272,11 +267,6 @@ class PlanningController extends Controller
         $totalpallets = sizeof($palletlabels);
         $avgpalletweight = round(($totpalletweight / sizeof($palletlabels)) / 1000, 2);
         $totalpalletweight = round(($totpalletweight) / 1000, 2);
-//        if(isset($uniquesortFix)){
-//            $sortChartArr = $uniqueSort;
-//        } else {
-//            $sortChartArr = [];
-//        }
 
         $sortChartArr = $uniqueSort;
 
