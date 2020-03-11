@@ -248,14 +248,15 @@ class PlanningController extends Controller
                             $palletweight += ($art["inset_gram"] * $pallet["article_amount"]);
                             $totpalletweight += ($art["inset_gram"] * $pallet["article_amount"]);
 
-                            $sortDesc = $sort["sort_type_id"];
+//                            $sortDesc = $sort["sort_type_id"];
+                            $sortDesc = SortType::where('id', $sort["sort_type_id"])->first();
 //                            dd($sort);
-                            if (!isset($uniqueSort[$sortDesc])) {
-                                $uniqueSort[$sortDesc] = 0;
+                            if (!isset($uniqueSort[$sortDesc["description"]])) {
+                                $uniqueSort[$sortDesc["description"]] = 0;
 //                                var_dump($uniqueSort);
                             }
-                            $uniqueSort[$sortDesc] += round(($art["inset_gram"] * $pallet["article_amount"]) / 1000, 2);
-                            $reportLabel["sort"] = $sortDesc;
+                            $uniqueSort[$sortDesc["description"]] += round(($art["inset_gram"] * $pallet["article_amount"]) / 1000, 2);
+                            $reportLabel["sort"] = $sortDesc["description"];
 //                            var_dump($uniqueSort);
                         }
 
