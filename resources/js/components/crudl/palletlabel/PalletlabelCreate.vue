@@ -387,9 +387,9 @@
             Promise.all([
                 this.getAllFarmerArticles(),
                 this.getAllCells(),
-                this.getAllPalletTypes(),
-                this.checkSetup()
+                this.getAllPalletTypes()
             ]).finally(() => {
+                this.checkSetup()
                 this.form.cropDate = this.$moment().format('YYYY-MM-DD')
                 this.test = this.$moment().format('YYYY-MM-DD')
             })

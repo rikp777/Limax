@@ -296,6 +296,7 @@
             Promise.all([
                 this.getAllCells(),
                 this.getAllPalletLabels(),
+                this.checkSetup(),
                 this.$store.dispatch("getAllArticleFarmers").then((response) => {
                     //console.log("nu ben ik klaar")
                 })
@@ -318,7 +319,7 @@
                         this.articlegroup = this.articlefarmers[key].articleGroup.name
                     }
                 }
-                this.checkSetup();
+
             })
         },
     }
