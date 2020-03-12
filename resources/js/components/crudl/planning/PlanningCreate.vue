@@ -288,8 +288,7 @@
                 this.$store.dispatch("getAllPalletLabels").then(()=> {
                     // if (this.palletLabel){}
                     this.palletLabelLength.push(this.palletLabel);
-                    console.log(this.palletLabel);
-                    console.log(this.palletLabelLength);
+                    // console.log(this.palletLabel);
                 });
             }
         },

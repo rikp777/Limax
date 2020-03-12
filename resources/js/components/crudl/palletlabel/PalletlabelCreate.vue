@@ -318,6 +318,9 @@
                 'getAllPalletTypes',
                 'createPalletLabel'
             ]),
+            getAllPalletLabels() {
+                this.$store.dispatch("getAllPalletLabels");
+            },
             getValidationState({ dirty, validated, valid = null }) {
               return dirty || validated ? valid : null;
             },
@@ -353,7 +356,8 @@
                     // if (result) {
                             this.$store.dispatch("createPalletLabel", this.form)
                                 .then(() => {
-                                    this.$router.push({name: 'palletlabelPdf', params: {id: this.palletLabel.id}})
+                                    this.$router.push({name: 'palletlabelPdf', params: {id: this.palletLabel.id}});
+                                    this.getAllPalletLabels();
                                 });
                     // }
                 // })
