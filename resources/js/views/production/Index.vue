@@ -6,8 +6,8 @@
             <div class="container-fluid">
                 <div v-if="$route.path === '/production'">
                     <b-jumbotron header="Production panel" lead="">
-                        <p>For more information visit the documentation</p>
-                        <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>
+<!--                        <p>For more information visit the documentation</p>-->
+<!--                        <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>-->
                     </b-jumbotron>
                 </div>
                 <router-view v-else />

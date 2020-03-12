@@ -52,11 +52,11 @@ const data = [
     //         },
     //     ]
     // },
-    {
-        id: "docs",
-        icon: "iconsminds-library",
-        label: "menu.docs.main",
-        to: "/farmer/docs"
-    }
+    // {
+    //     id: "docs",
+    //     icon: "iconsminds-library",
+    //     label: "menu.docs.main",
+    //     to: "/farmer/docs"
+    // }
 ];
 export default data;

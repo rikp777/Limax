@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h1 class="bd-title" id="content">{{$t('docs.introduction.title')}}</h1>
-        <p class="bd-lead">{{$t('docs.introduction.text')}}</p>
+        <h1 class="bd-title" id="content">Introduction</h1>
+        <p class="bd-lead">Get started using the FlowControl application.</p>
 
         <h2 id="quick-start"><span class="bd-content-title">Get started<a class="anchorjs-link "
                                                                           href="#quick-start"
