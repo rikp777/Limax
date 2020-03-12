@@ -191,6 +191,7 @@
                         //console.log('hiernaar planning console loggen')
                     })
                 ]).finally(() => {
+                    console.log(this.planning.planning);
                     this.planningArr = this.planning.planning[id.id];
                     this.switches = this.planning.prognose[id.id];
                     // console.log(this.switches);
