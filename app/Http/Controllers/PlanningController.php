@@ -132,6 +132,7 @@ class PlanningController extends Controller
 
                 $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
                 foreach ($period as $date) {
+//                    dd($sortDesc["description"]);
                     $tom1[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = null;
                     $tom[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = null;
                     $planning = Planning::where('farmer_id', $id)->where('cell_id', $cell["id"])->get();
@@ -158,6 +159,7 @@ class PlanningController extends Controller
                                 $tom2[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = $sortAmount["amount"];
 //                                var_dump($tom2);
                                 $tom = (array_replace_recursive($tom1, $tom2));
+//                                dd($tom);
 //                                var_dump($tom);
 //                             $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
 //                            }

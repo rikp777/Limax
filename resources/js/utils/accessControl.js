@@ -26,7 +26,7 @@ const AccessControl = {
                 // console.log('not logged in');
                 next('/auth/login');
             } else if (to.path === '/auth/login' && authUser.uid) {
-                // console.log(authUser)
+                console.log(authUser)
                 if(authUser.roles[0].name === "Admin"){
                     // console.log('already logged in admin');
                     next("/admin")
