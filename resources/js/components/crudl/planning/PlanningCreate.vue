@@ -1,7 +1,16 @@
 <template>
     <div>
         <b-row>
-            <b-colxx xl="12" lg="12">
+            <b-colxx md="12" class="mb-4" v-if="setupItems.length">
+                <b-card title="alerts">
+                    <b-refresh-button/>
+                    <vue-perfect-scrollbar class="scroll dashboard-list-with-user"
+                                           :settings="{ suppressScrollX: true, wheelPropagation: false }">
+                        <list-with-palletlabel-setup-item v-for="(item, index) in setupItems" :data="item" :key="index"/>
+                    </vue-perfect-scrollbar>
+                </b-card>
+            </b-colxx>
+            <b-colxx xl="12" lg="12" v-if="!setupItems.length">
                 <div class="icon-cards-row">
                     <div data-glide-el="track" class="glide__track">
                         <div class="glide__slides">
@@ -62,8 +71,8 @@
             <!--                </div>-->
             <!--            </b-colxx>-->
         </b-row>
-        <div class="separator mb-5"></div>
-        <b-row>
+        <div class="separator mb-5" v-if="!setupItems.length"></div>
+        <b-row v-if="!setupItems.length">
             <b-colxx xl="12" lg="12" md="12" class="mb-4">
                 <b-card>
                     <b-card-header>
@@ -131,6 +140,7 @@
 
     import vSelect from "vue-select";
     import Vuetable from "vuetable-2/src/components/Vuetable";
+    import ListWithPalletlabelSetupItem from "../../listing/ListWithPalletlabelSetupItem";
     import {mapGetters} from "vuex";
     import Switches from "vue-switches";
 
@@ -138,9 +148,11 @@
         name: "PlanningCreate",
         components: {
             'switches': Switches,
+            ListWithPalletlabelSetupItem,
         },
         data() {
             return {
+                setupItems: [],
                 switches: null,
                 isLoad: false,
                 planningArr: null,
@@ -155,6 +167,7 @@
             ...mapGetters({
                 authFarmer: 'authFarmer',
                 authUserFarmers: 'authUserFarmers',
+                palletLabel: 'palletLabel',
             }),
             articlefarmers() {
                 return this.$store.getters.articlefarmers;
@@ -167,6 +180,16 @@
             },
         },
         methods: {
+            checkSetup() {
+                // console.log(this.palletLabel);
+                if (!this.palletLabel) {
+                    let data = {
+                        title: 'You need atleast 1 palletlabel made before you can start planning!',
+                        description: 'In order to start planning you need to create atleast 1 palletlabel.'
+                    };
+                    this.setupItems.push(data);
+                }
+            },
             progToDef(date) {
                 const cellDateKey = {
                     cell_id: this.cell.id,
@@ -191,7 +214,7 @@
                         //console.log('hiernaar planning console loggen')
                     })
                 ]).finally(() => {
-                    console.log(this.planning.planning);
+                    // console.log(this.planning.planning);
                     this.planningArr = this.planning.planning[id.id];
                     this.switches = this.planning.prognose[id.id];
                     // console.log(this.switches);
@@ -258,17 +281,22 @@
                     //console.log(this.intervals)
                 })
 
+            },
+            getAllPalletLabels() {
+                this.$store.dispatch("getAllPalletLabels");
             }
         },
         mounted() {
             Promise.all([
                 this.getAllCells(),
+                this.getAllPalletLabels(),
                 this.$store.dispatch("getAllArticleFarmers").then((response) => {
                     //console.log("nu ben ik klaar")
                 })
             ]).finally(() => {
                 const SortdataArr = [];
                 const GroupdataArr = [];
+                this.checkSetup();
                 for (const key in this.articlefarmers) {
                     if (!SortdataArr.includes(this.articlefarmers[key].sortType.name)) {
                         SortdataArr.push(
