@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="waitLoad === true">
     <b-row>
         <b-colxx xl="12" lg="12" md="12" class="mb-4">
             <b-card>
@@ -78,6 +78,7 @@
         name: "PlanningRead",
         data() {
             return {
+                waitLoad: false,
                 form: {
                     cells: [],
                 },
@@ -173,6 +174,7 @@
         },
         mounted() {
             // this.getAllReports();
+            Promise.all([
             this.$store.dispatch("getPlanning", this.authFarmer.id).then((response) => {
                 var ArticlesdataArr = [];
                 for (var key in this.planning.groupedarticles) {
@@ -201,9 +203,11 @@
                 this.dataPlanningLabels = LabelsdataArr;
                 // this.dataPlanningLabels = this.planning.labels;
                 // console.log(this.dataPlanningArticles);
-            });
-            this.getAllFarmers();
-            this.getAllArticles();
+            }),
+            this.getAllFarmers(),
+            this.getAllArticles(),
+        ]).finally(() => {});
+            this.waitLoad = true;
         },
         methods: {
             ...mapMutations(['changeAuthFarmer']),

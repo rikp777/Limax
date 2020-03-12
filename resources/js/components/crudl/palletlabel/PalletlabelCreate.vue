@@ -328,7 +328,7 @@
                         description: 'In order to make palletlabels you need to setup a personalized article ' +
                             'selection for your account. So you will only see the articles you want to make labels ' +
                             'for.',
-                        linkPath: '/'
+                        linkPath: '/farmer/settings'
                     };
                     this.setupItems.push(data);
                 }
@@ -337,7 +337,7 @@
                         title: 'You do not have any cells setup!',
                         description: 'In order to make palletlabels you need to setup the cells for your account. ' +
                             'So you will only see the cells that you have..',
-                        linkPath: '/'
+                        linkPath: '/farmer/settings'
                     };
                     this.setupItems.push(data);
                 }

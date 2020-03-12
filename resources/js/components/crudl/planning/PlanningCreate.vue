@@ -71,7 +71,7 @@
             <!--                </div>-->
             <!--            </b-colxx>-->
         </b-row>
-        <div class="separator mb-5" v-if="!setupItems.length"></div>
+<!--        <div class="separator mb-5" v-if="!setupItems.length"></div>-->
         <b-row v-if="!setupItems.length">
             <b-colxx xl="12" lg="12" md="12" class="mb-4">
                 <b-card>
@@ -152,6 +152,7 @@
         },
         data() {
             return {
+                palletLabelLength: [],
                 setupItems: [],
                 switches: null,
                 isLoad: false,
@@ -182,10 +183,11 @@
         methods: {
             checkSetup() {
                 // console.log(this.palletLabel);
-                if (!this.palletLabel.length) {
+                if (!this.palletLabelLength.length) {
                     let data = {
                         title: 'You need atleast 1 palletlabel made before you can start planning!',
-                        description: 'In order to start planning you need to create atleast 1 palletlabel.'
+                        description: 'In order to start planning you need to create atleast 1 palletlabel.',
+                        linkPath: '/planner/planning/create'
                     };
                     this.setupItems.push(data);
                 }
@@ -283,7 +285,11 @@
 
             },
             getAllPalletLabels() {
-                this.$store.dispatch("getAllPalletLabels");
+                this.$store.dispatch("getAllPalletLabels").then(()=> {
+                    // if (this.palletLabel){}
+                    this.palletLabelLength.push(this.palletLabel);
+                    // console.log(this.palletLabel);
+                });
             }
         },
         mounted() {
@@ -296,7 +302,6 @@
             ]).finally(() => {
                 const SortdataArr = [];
                 const GroupdataArr = [];
-                this.checkSetup();
                 for (const key in this.articlefarmers) {
                     if (!SortdataArr.includes(this.articlefarmers[key].sortType.name)) {
                         SortdataArr.push(
@@ -313,6 +318,7 @@
                         this.articlegroup = this.articlefarmers[key].articleGroup.name
                     }
                 }
+                this.checkSetup();
             })
         },
     }
