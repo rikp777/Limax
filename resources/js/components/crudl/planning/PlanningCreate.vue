@@ -152,7 +152,7 @@
         },
         data() {
             return {
-                palletLabelLength: [],
+                palletLabelLength: null,
                 setupItems: [],
                 switches: null,
                 isLoad: false,
@@ -288,8 +288,8 @@
             },
             getAllPalletLabels() {
                 this.$store.dispatch("getAllPalletLabels").then(()=> {
-                    // if (this.palletLabel){}
-                    this.palletLabelLength.push(this.palletLabel);
+                    if (this.palletLabel.length){this.palletLabelLength.push(this.palletLabel)}
+                    // this.palletLabelLength.push(this.palletLabel);
                     // console.log(this.palletLabel);
                 });
             }
