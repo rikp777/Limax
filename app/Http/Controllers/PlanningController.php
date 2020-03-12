@@ -151,6 +151,7 @@ class PlanningController extends Controller
                             ];
 
                             if ($date->toDateTimeString() === $plan["date"]) {
+                                var_dump($date->toDateTimeString() === $plan["date"]);
 //                            if ($sortAll["description"] === $sort->description) {
                                 $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
 
