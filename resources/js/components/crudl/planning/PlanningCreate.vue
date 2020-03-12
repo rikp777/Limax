@@ -1,16 +1,16 @@
 <template>
     <div>
         <b-row>
-            <b-colxx md="12" class="mb-4" v-if="setupItems.length">
-                <b-card title="alerts">
-                    <b-refresh-button/>
-                    <vue-perfect-scrollbar class="scroll dashboard-list-with-user"
-                                           :settings="{ suppressScrollX: true, wheelPropagation: false }">
-                        <list-with-palletlabel-setup-item v-for="(item, index) in setupItems" :data="item" :key="index"/>
-                    </vue-perfect-scrollbar>
-                </b-card>
-            </b-colxx>
-            <b-colxx xl="12" lg="12" v-if="!setupItems.length">
+<!--            <b-colxx md="12" class="mb-4" v-if="setupItems.length">-->
+<!--                <b-card title="alerts">-->
+<!--                    <b-refresh-button/>-->
+<!--                    <vue-perfect-scrollbar class="scroll dashboard-list-with-user"-->
+<!--                                           :settings="{ suppressScrollX: true, wheelPropagation: false }">-->
+<!--                        <list-with-palletlabel-setup-item v-for="(item, index) in setupItems" :data="item" :key="index"/>-->
+<!--                    </vue-perfect-scrollbar>-->
+<!--                </b-card>-->
+<!--            </b-colxx>-->
+            <b-colxx xl="12" lg="12">
                 <div class="icon-cards-row">
                     <div data-glide-el="track" class="glide__track">
                         <div class="glide__slides">
@@ -72,7 +72,7 @@
             <!--            </b-colxx>-->
         </b-row>
 <!--        <div class="separator mb-5" v-if="!setupItems.length"></div>-->
-        <b-row v-if="!setupItems.length">
+        <b-row>
             <b-colxx xl="12" lg="12" md="12" class="mb-4">
                 <b-card>
                     <b-card-header>
@@ -152,8 +152,8 @@
         },
         data() {
             return {
-                palletLabelLength: null,
-                setupItems: [],
+                // palletLabelLength: null,
+                // setupItems: [],
                 switches: null,
                 isLoad: false,
                 planningArr: null,
@@ -167,11 +167,13 @@
         computed: {
             ...mapGetters({
                 authFarmer: 'authFarmer',
-                authUserFarmers: 'authUserFarmers',
-                palletLabel: 'palletLabel',
+                authUserFarmers: 'authUserFarmers'
             }),
             articlefarmers() {
                 return this.$store.getters.articlefarmers;
+            },
+            palletLabel() {
+                return this.$store.getters.palletLabel;
             },
             cells() {
                 return this.$store.getters.cells;
@@ -181,19 +183,19 @@
             },
         },
         methods: {
-            checkSetup() {
-                // console.log(this.palletLabel);
-                if (!this.palletLabelLength.length) {
-                    let data = {
-                        title: 'You need atleast 1 palletlabel made before you can start planning!',
-                        description: 'In order to start planning you need to create atleast 1 palletlabel.',
-                        linkPath: '/planner/planning/create'
-                    };
-                    console.log("pushing to palletLabelLength");
-                    console.log(this.setupItems);
-                    this.setupItems.push(data);
-                }
-            },
+            // checkSetup() {
+            //     // console.log(this.palletLabel);
+            //     if (!this.palletLabelLength) {
+            //         let data = {
+            //             title: 'You need atleast 1 palletlabel made before you can start planning!',
+            //             description: 'In order to start planning you need to create atleast 1 palletlabel.',
+            //             linkPath: '/planner/planning/create'
+            //         };
+            //         console.log("pushing to palletLabelLength");
+            //         console.log(this.setupItems);
+            //         this.setupItems.push(data);
+            //     }
+            // },
             progToDef(date) {
                 const cellDateKey = {
                     cell_id: this.cell.id,
@@ -302,7 +304,7 @@
                     //console.log("nu ben ik klaar")
                 })
             ]).finally(() => {
-                this.checkSetup();
+                // this.checkSetup();
                 const SortdataArr = [];
                 const GroupdataArr = [];
                 for (const key in this.articlefarmers) {
