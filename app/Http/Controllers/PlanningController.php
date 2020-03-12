@@ -154,8 +154,8 @@ class PlanningController extends Controller
 //                                var_dump($date->toDateTimeString() === $plan["date"]);
 //                            if ($sortAll["description"] === $sort->description) {
                                 $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
-dd($sortAll["id"]);
-                                $sortAmount = PlanningAmount::where('planning_id', $plan->id)->where('sort_type_id', $sortAll["id"])->first();
+//dd($sortAll["id"]);
+                                $sortAmount = PlanningAmount::where('planning_id', $plan->id)->where('sort_type_id', $sortAll["sort_type_id"])->first();
 //                                dd($sortAmount);
                                 $tom2[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = $sortAmount["amount"];
 //                                dd($tom2);
