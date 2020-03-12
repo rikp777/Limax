@@ -156,9 +156,9 @@ class PlanningController extends Controller
                                 $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
 
                                 $sortAmount = PlanningAmount::where('planning_id', $plan->id)->where('sort_type_id', $sortAll["id"])->first();
-//                                dd($sortAmount);
+                                dd($sortAmount);
                                 $tom2[$cell["id"]][$date->toDateTimeString()][$sortDesc["description"]] = $sortAmount["amount"];
-                                dd($tom2);
+//                                dd($tom2);
 
                                 $tom = (array_replace_recursive($tom1, $tom2));
 //                                dd($tom);
