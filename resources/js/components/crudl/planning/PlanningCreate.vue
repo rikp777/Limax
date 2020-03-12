@@ -189,6 +189,8 @@
                         description: 'In order to start planning you need to create atleast 1 palletlabel.',
                         linkPath: '/planner/planning/create'
                     };
+                    console.log("pushing to palletLabelLength");
+                    console.log(this.setupItems);
                     this.setupItems.push(data);
                 }
             },
@@ -296,11 +298,11 @@
             Promise.all([
                 this.getAllCells(),
                 this.getAllPalletLabels(),
-                this.checkSetup(),
                 this.$store.dispatch("getAllArticleFarmers").then((response) => {
                     //console.log("nu ben ik klaar")
                 })
             ]).finally(() => {
+                this.checkSetup();
                 const SortdataArr = [];
                 const GroupdataArr = [];
                 for (const key in this.articlefarmers) {
