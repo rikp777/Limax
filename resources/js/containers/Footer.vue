@@ -10,12 +10,12 @@
                         . {{ $t("footer.allRightReserved") }}
 
                     </span>
-                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
-                        {{ $t("footer.madeBy") }}
-                        <a href="http://www.linkedin.com/in/rikpeeters-nl" target="_blank">Rik Peeters</a>
-                        &
-                        <a href="https://www.linkedin.com/in/tomvvegchel/" target="_blank">Tom van Vegchel</a>
-                    </span>
+<!--                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">-->
+<!--                        {{ $t("footer.madeBy") }}-->
+<!--                        <a href="http://www.linkedin.com/in/rikpeeters-nl" target="_blank">Rik Peeters</a>-->
+<!--                        &-->
+<!--                        <a href="https://www.linkedin.com/in/tomvvegchel/" target="_blank">Tom van Vegchel</a>-->
+<!--                    </span>-->
 
                 </div>
                 <div class="col-sm-6 d-none d-sm-block">
