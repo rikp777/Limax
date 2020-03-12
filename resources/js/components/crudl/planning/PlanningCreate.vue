@@ -182,7 +182,7 @@
         methods: {
             checkSetup() {
                 // console.log(this.palletLabel);
-                if (!this.palletLabel) {
+                if (!this.palletLabel.length) {
                     let data = {
                         title: 'You need atleast 1 palletlabel made before you can start planning!',
                         description: 'In order to start planning you need to create atleast 1 palletlabel.'
