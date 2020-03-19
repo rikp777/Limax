@@ -21,12 +21,15 @@ const AccessControl = {
                 //     console.log("Right: " + item.id +  " " + item.name)
                 // })
             }
-
+            // console.log(authUser);
+            // console.log(to.path);
+            // console.log(requiresAuth);
+            // console.log(authUser.uid);
             if (requiresAuth && authUser.uid === undefined) {
                 // console.log('not logged in');
                 next('/auth/login');
-            } else if (to.path === '/auth/login' && authUser.uid) {
-                console.log(authUser)
+            } else if ((to.path === '/auth/login' || to.path === '/') && authUser.uid) {
+                // console.log(authUser);
                 if(authUser.roles[0].name === "Admin"){
                     // console.log('already logged in admin');
                     next("/admin")
