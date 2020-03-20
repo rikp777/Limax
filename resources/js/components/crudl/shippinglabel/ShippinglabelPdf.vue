@@ -35,9 +35,6 @@
                                src='https://www.limax.nl/images/limax-logo@3x.png' alt="Card image cap">
                       </div>
                       <br>
-                      <br>
-                      <br>
-                      <br>
                       <!--                STATUS-->
                       <div class="row">
                           <div class="col-sm-6" style="font-size: 16px;">
@@ -331,9 +328,6 @@
                           <img class="card-img-top" style="width: 400px; height: auto; margin-bottom: 10px"
                                src='https://www.limax.nl/images/limax-logo@3x.png' alt="Card image cap">
                       </div>
-                      <br>
-                      <br>
-                      <br>
                       <br>
                       <!--                STATUS-->
                       <div class="row">
