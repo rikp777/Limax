@@ -71,16 +71,14 @@
 
                       <div class="row">
                           <template>
-                              <div class="col-sm-6" style="font-size: 22px;">
-                                  <h6 class="mb-3" style="font-size: 26px;">FROM :</h6>
+                              <div class="col-sm-6" style="font-size: 18px;">
+                                  <h6 class="mb-3" style="font-size: 22px;">FROM :</h6>
                                   <div>
                                       <strong>{{ farmer.name }}</strong>
                                       <div>{{ farmer.street }}, {{ farmer.houseNumber }}</div>
                                       <div>{{ farmer.place }}, {{ farmer.zipCode }}</div>
                                       <div>Email: {{ farmer.email }}</div>
                                       <div>Phone: {{ farmer.phone }}</div>
-                                      <br>
-
                                       <strong>Certificates</strong>
                                       <div v-for="certificate in farmer.certificates">
                                           {{certificate.certificate.name}}: {{certificate.code}}
@@ -89,8 +87,8 @@
                               </div>
                           </template>
                           <template>
-                              <div class="col-sm-6" style="font-size: 22px;">
-                                  <h6 class="mb-3" style="font-size: 26px;">TO :</h6>
+                              <div class="col-sm-6" style="font-size: 18px;">
+                                  <h6 class="mb-3" style="font-size: 22px;">TO :</h6>
                                   <strong>Limax Horst</strong>
                                   <div>Venrayseweg, 126b</div>
                                   <div>Horst, 5961 AJ</div>
@@ -179,16 +177,16 @@
 <!--                            <hr>-->
                           <div class="row mt-4">
                               <div class="col-sm-6">
-                                  <h6 class="mb-3" style="font-size: 26px;">Total</h6>
+                                  <h6 class="mb-3" style="font-size: 22px;">Total</h6>
                               </div>
 
                               <div class="col-sm-6">
-                                  <h6 class="mb-3" style="font-size: 26px;">Detail</h6>
+                                  <h6 class="mb-3" style="font-size: 22px;">Detail</h6>
                               </div>
                           </div>
 
                           <div class="row">
-                              <div class="col-sm-6" style="font-size: 22px;">
+                              <div class="col-sm-6" style="font-size: 20px;">
                                   <table style="width: 100%">
                                       <thead>
                                       <tr>
@@ -212,7 +210,7 @@
                                       </tbody>
                                   </table>
                               </div>
-                              <div class="col-sm-6" style="font-size: 22px;">
+                              <div class="col-sm-6" style="font-size: 20px;">
                                   <table style="width: 100%">
                                       <thead>
                                       <tr>
@@ -254,15 +252,15 @@
                           <hr>
                           <div class="row mt-4">
                               <div class="col-sm-6" style="font-size: 22px;">
-                                  <h6 class="mb-3" style="font-size: 26px;">Total Pallets</h6>
+                                  <h6 class="mb-3" style="font-size: 22px;">Total Pallets</h6>
                               </div>
 
                               <div class="col-sm-6" style="font-size: 22px;">
-                                  <h6 class="mb-3" style="font-size: 26px;">Pallet Types</h6>
+                                  <h6 class="mb-3" style="font-size: 22px;">Pallet Types</h6>
                               </div>
                           </div>
                           <div class="row">
-                              <div class="col-sm-6" style="font-size: 22px;">
+                              <div class="col-sm-6" style="font-size: 18px;">
                                   <table style="width: 100%">
                                       <thead>
                                       <tr>
@@ -280,7 +278,7 @@
                                       </tbody>
                                   </table>
                               </div>
-                              <div class="col-sm-6" style="font-size: 22px;">
+                              <div class="col-sm-6" style="font-size: 18px;">
 <!--                                    {{ShippingLabelPalletLabels['palletTypes']}}-->
 <!--                                    <div v-for="(value, name) in ShippingLabelPalletLabels['palletTypes']">-->
 <!--                                        {{name}} : {{value}}-->
@@ -370,16 +368,14 @@
 
                       <div class="row">
                           <template>
-                              <div class="col-sm-6" style="font-size: 22px;">
-                                  <h6 class="mb-3" style="font-size: 26px;">FROM :</h6>
+                              <div class="col-sm-6" style="font-size: 18px;">
+                                  <h6 class="mb-3" style="font-size: 22px;">FROM :</h6>
                                   <div>
                                       <strong>{{ farmer.name }}</strong>
                                       <div>{{ farmer.street }}, {{ farmer.houseNumber }}</div>
                                       <div>{{ farmer.place }}, {{ farmer.zipCode }}</div>
                                       <div>Email: {{ farmer.email }}</div>
                                       <div>Phone: {{ farmer.phone }}</div>
-                                      <br>
-
                                       <strong>Certificates</strong>
                                       <div v-for="certificate in farmer.certificates">
                                           {{certificate.certificate.name}}: {{certificate.code}}
@@ -388,8 +384,8 @@
                               </div>
                           </template>
                           <template>
-                              <div class="col-sm-6" style="font-size: 22px;">
-                                  <h6 class="mb-3" style="font-size: 26px;">TO :</h6>
+                              <div class="col-sm-6" style="font-size: 18px;">
+                                  <h6 class="mb-3" style="font-size: 22px;">TO :</h6>
                                   <strong>Limax Horst</strong>
                                   <div>Venrayseweg, 126b</div>
                                   <div>Horst, 5961 AJ</div>
@@ -412,16 +408,16 @@
 
                           <div class="row mt-4">
                               <div class="col-sm-6">
-                                  <h6 class="mb-3" style="font-size: 26px;">Total</h6>
+                                  <h6 class="mb-3" style="font-size: 22px;">Total</h6>
                               </div>
 
                               <div class="col-sm-6">
-                                  <h6 class="mb-3" style="font-size: 26px;">Detail</h6>
+                                  <h6 class="mb-3" style="font-size: 22px;">Detail</h6>
                               </div>
                           </div>
 
                           <div class="row">
-                              <div class="col-sm-6" style="font-size: 22px;">
+                              <div class="col-sm-6" style="font-size: 20px;">
                                   <table style="width: 100%">
                                       <thead>
                                       <tr>
@@ -445,7 +441,7 @@
                                       </tbody>
                                   </table>
                               </div>
-                              <div class="col-sm-6" style="font-size: 22px;">
+                              <div class="col-sm-6" style="font-size: 20px;">
                                   <table style="width: 100%">
                                       <thead>
                                       <tr>
@@ -487,15 +483,15 @@
                           <hr>
                           <div class="row mt-4">
                               <div class="col-sm-6" style="font-size: 22px;">
-                                  <h6 class="mb-3" style="font-size: 26px;">Total Pallets</h6>
+                                  <h6 class="mb-3" style="font-size: 22px;">Total Pallets</h6>
                               </div>
 
                               <div class="col-sm-6" style="font-size: 22px;">
-                                  <h6 class="mb-3" style="font-size: 26px;">Pallet Types</h6>
+                                  <h6 class="mb-3" style="font-size: 22px;">Pallet Types</h6>
                               </div>
                           </div>
                           <div class="row">
-                              <div class="col-sm-6" style="font-size: 22px;">
+                              <div class="col-sm-6" style="font-size: 18px;">
                                   <table style="width: 100%">
                                       <thead>
                                       <tr>
@@ -513,7 +509,7 @@
                                       </tbody>
                                   </table>
                               </div>
-                              <div class="col-sm-6" style="font-size: 22px;">
+                              <div class="col-sm-6" style="font-size: 18px;">
                                   <!--                                    {{ShippingLabelPalletLabels['palletTypes']}}-->
                                   <!--                                    <div v-for="(value, name) in ShippingLabelPalletLabels['palletTypes']">-->
                                   <!--                                        {{name}} : {{value}}-->
