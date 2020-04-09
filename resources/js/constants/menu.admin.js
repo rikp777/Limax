@@ -56,7 +56,7 @@ const data = [
     {
         id: "planningOverview",
         icon: "simple-icon-organization",
-        label: "menu.planning.main",
+        label: "menu.planning.overview",
         to: "/admin/planning/overview"
     }
     // {

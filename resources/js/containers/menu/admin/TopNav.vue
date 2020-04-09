@@ -69,10 +69,10 @@
                                     <i class="iconsminds-administrator d-block" />
                                     Moderator
                                 </router-link>
-                                <router-link tag="a" :to="{ path: '/farmer' }" class="icon-menu-item">
-                                    <i class="iconsminds-tractor d-block" />
-                                    Farmer
-                                </router-link>
+<!--                                <router-link tag="a" :to="{ path: '/farmer' }" class="icon-menu-item">-->
+<!--                                    <i class="iconsminds-tractor d-block" />-->
+<!--                                    Farmer-->
+<!--                                </router-link>-->
                                 <router-link tag="a" :to="{ path: '/planner' }" class="icon-menu-item">
                                     <i class="simple-icon-organization d-block" />
                                     Planner

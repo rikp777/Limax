@@ -28,7 +28,7 @@ const router = new VueRouter({
                     component: () => import("../views/farmer/Index"),
                     meta: {
                         requiresAuth: true,
-                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
+                        requiresRoles: [ RightEnum.Admin, RightEnum.Farmer]
                     },
                     children: [
                         ...palletLabel ,
@@ -61,7 +61,7 @@ const router = new VueRouter({
                     component: () => import("../views/planning/Index"),
                     meta: {
                         requiresAuth: true,
-                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Planning]
                     },
                     children: [
                         ...planning
@@ -72,7 +72,7 @@ const router = new VueRouter({
                     component: () => import('../views/production/Index'),
                     meta: {
                         requiresAuth: true,
-                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator]
+                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Production]
                     },
                     children: [
                         ...weight
