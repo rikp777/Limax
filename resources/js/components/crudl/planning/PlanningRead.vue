@@ -30,14 +30,14 @@
                         <p class="lead color-theme-1 mb-1 value">{{ planning.totalpallets }} X</p>
                         <p class="mb-0 label text-small">{{$t('planning.totalpallets')}}</p>
                     </b-card-body>
-                    <b-card-body>
-                        <p class="lead color-theme-1 mb-1 value">{{ planning.avgpalletweight }} KG</p>
-                        <p class="mb-0 label text-small">{{$t('planning.avgpalletweight')}}</p>
-                    </b-card-body>
-                    <b-card-body>
-                        <p class="lead color-theme-1 mb-1 value">{{ planning.totalpalletweight }} KG</p>
-                        <p class="mb-0 label text-small">{{$t('planning.totalpalletweight')}}</p>
-                    </b-card-body>
+<!--                    <b-card-body>-->
+<!--                        <p class="lead color-theme-1 mb-1 value">{{ planning.avgpalletweight }} KG</p>-->
+<!--                        <p class="mb-0 label text-small">{{$t('planning.avgpalletweight')}}</p>-->
+<!--                    </b-card-body>-->
+<!--                    <b-card-body>-->
+<!--                        <p class="lead color-theme-1 mb-1 value">{{ planning.totalpalletweight }} KG</p>-->
+<!--                        <p class="mb-0 label text-small">{{$t('planning.totalpalletweight')}}</p>-->
+<!--                    </b-card-body>-->
                 </b-card>
             </b-colxx>
             <b-colxx xl="8" lg="8" md="12" class="mb-4">
@@ -69,9 +69,11 @@
     import {mapActions, mapGetters, mapMutations} from "vuex";
     import VueTable from 'vuetable-2/src/components/Vuetable'
     import VueTablePaginationBootstrap from '../../../components/Common/vuetablePaginationBootstrap'
+    import DoughnutShadowChart from "../../Charts/DoughnutShadow";
 
     export default {
         components: {
+            'doughnut-shadow-chart': DoughnutShadowChart,
             VueTable,
             VueTablePaginationBootstrap
         },
