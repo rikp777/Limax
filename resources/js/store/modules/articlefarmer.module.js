@@ -1,4 +1,4 @@
-import {ArticleService, ArticleFarmerService, PalletLabelService, UserService} from "../../common/api.service";
+import {ArticleService, FarmerArticleService, PalletLabelService, UserService} from "../../common/api.service";
 
 // action names
 const FETCH_START = "setArticleFarmerLoading";
@@ -33,9 +33,6 @@ const getters = {
         return state.isLoading
     },
 
-    calculation(state){
-        return state.calculation
-    },
 
 
     articlefarmerById: (state) => (id) => {
@@ -51,7 +48,7 @@ const getters = {
 const actions = {
     async getAllArticleFarmers(context){
         context.commit(FETCH_START);
-        return ArticleFarmerService.getAll()
+        return FarmerArticleService.getAll()
             .then(({ data }) => {
                 // console.log(data.data);
                 context.commit(SET_ARTICLEFARMERS, data.data);
@@ -69,7 +66,7 @@ const actions = {
         }
 
         context.commit(FETCH_START);
-        return ArticleFarmerService.get(articlefarmerSlug)
+        return FarmerArticleService.get(articlefarmerSlug)
             .then(({data}) => {
                 context.commit(SET_ARTICLEFARMER, data.data);
                 context.commit(FETCH_END);
@@ -80,7 +77,7 @@ const actions = {
     },
 
     createArticleFarmer(context, payload) {
-        return ArticleFarmerService.create(payload)
+        return FarmerArticleService.create(payload)
             .then(({data}) => {
                 // console.log(data.data);
                 context.commit(SET_ARTICLEFARMER, data.data);
@@ -91,7 +88,7 @@ const actions = {
 
     updateArticleFarmer(context, payload) {
         // console.log(payload.farmerid);
-        return ArticleFarmerService.update(payload.farmerid, payload)
+        return FarmerArticleService.update(payload, payload)
             .then(({data}) => {
                 // console.log(data);
                 context.commit(SET_ARTICLEFARMER, data);

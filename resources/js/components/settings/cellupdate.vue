@@ -128,7 +128,7 @@
             },
             cellUpdate(cell) {
                 this.$store.dispatch("updateCell", cell);
-                console.log(cell);
+                //console.log(cell);
             },
             routeHistory() {
                 this.$router.go(-1);

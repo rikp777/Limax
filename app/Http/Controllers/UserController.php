@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -20,7 +21,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return UserResource::collection(User::paginate(10));
+        return UserResource::collection(User::get());
     }
 
 
@@ -34,13 +35,24 @@ class UserController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
+        $request->request->add(['uid' => Str::uuid()->toString()]);
         $request->request->add(['password' => Hash::make($request->password)]);
 
 
+//        dd($request->all());
         $user = User::create($request->all());
 
-        $user->roles()->sync($request->roles);
-        $user->departments()->sync($request->departments);
+//        $user->roles()->sync($request->roles);
+//        $user->departments()->sync($request->departments);
+
+        $user->roles()->sync($request['roles']['id']);
+
+        $idsDepartments = array_column($request->departments, 'id');
+
+        $user->departments()->sync($idsDepartments);
+
+        $idsFarmers = array_column($request->farmers, 'id');
+        $user->farmers()->sync($idsFarmers);
 
 
         return new UserResource($user);

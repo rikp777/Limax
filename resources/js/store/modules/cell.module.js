@@ -70,6 +70,7 @@ const actions = {
         context.commit(FETCH_START);
         return CellService.get(cellSlug)
             .then(({data}) => {
+                //console.log(data.data);
                 context.commit(SET_CELL, data.data);
                 context.commit(FETCH_END);
             })
@@ -92,8 +93,8 @@ const actions = {
     },
 
     //create cell
-    createCell(context) {
-        return CellService.create()
+    createCell(context, payload) {
+        return CellService.create(payload)
             .then(({data}) => {
                 // console.log(data.data);
                 context.commit(SET_CELL, data.data);
@@ -102,6 +103,7 @@ const actions = {
             })
     },
     updateCell(context, payload) {
+        //console.log(payload)
         return CellService.update(payload.id, payload)
             .then(({data}) => {
                 // console.log(data);

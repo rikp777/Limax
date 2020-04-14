@@ -13,10 +13,9 @@ use Request as CookieRequest;
 class CellController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $farmerId = CookieRequest::header('farmerId');
-        $currentFarmer = Farmer::find($farmerId);
+        $currentFarmer = Farmer::where('uid', $request->header("authFarmer"))->first();
         return CellResource::collection(Cell::where('farmer_id', $currentFarmer->id)->get());
     }
 
@@ -28,8 +27,14 @@ class CellController extends Controller
      */
     public function store(Request $request)
     {
-        $farmerId = CookieRequest::header('farmerId');
-        $currentFarmer = Farmer::find($farmerId);
+
+        $request->validate([
+            'cell' => ' required',
+        ]);
+
+
+
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
         $number = Cell::where('farmer_id', $currentFarmer->id)->orderBy('id', 'desc')->first();
 //        dd($number);
 
@@ -40,10 +45,11 @@ class CellController extends Controller
             $cell->number = $number->number + 1;
         }
         $cell->farmer_id = $currentFarmer->id;
+        $cell->description = $request->cell;
         $cell->save();
 
         $cultivationcycle = new CultivationCycle();
-        $cultivationcycle->cell_description = 'lmao spaghetti';
+        $cultivationcycle->cell_description = $request->cell;
         $cultivationcycle->fill_date = '2019-01-03';
         $cultivationcycle->cell_id = $cell->id;
         $cultivationcycle->farmer_id = $currentFarmer->id;
@@ -67,12 +73,14 @@ class CellController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Cell $cell
+     * @return CellResource
      */
-    public function show($id)
+    public function show(Cell $cell) : CellResource
     {
-        //
+//        $currentFarmer = Farmer::where('uid', $request->header("authFarmer"))->first();
+//        return CellResource(Cell::where('farmer_id', $currentFarmer->id)->where('id', $id)->get());
+        return new CellResource($cell);
     }
 
     /**
@@ -90,8 +98,7 @@ class CellController extends Controller
             'cell.description' => ' required',
         ]);
 //        dd($request->cell['description']);
-        $farmerId = CookieRequest::header('farmerId');
-        $currentFarmer = Farmer::find($farmerId);
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
 
         $cell = Cell::where('farmer_id', $currentFarmer->id)->where('id', $request->cell['id'])->first();
 //        dd($cell);

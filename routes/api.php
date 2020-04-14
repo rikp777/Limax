@@ -14,14 +14,18 @@ use Illuminate\Http\Request;
 */
 Route::post('/login', 'AuthController@login');
 
+
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/logout', 'AuthController@logout');
-
+    Route::get('/authuser', 'AuthController@authUser');
 
     Route::apiResource('/user', 'UserController')
     ->only(['index', 'show', 'destroy', 'update', 'store']);
 
     Route::apiResource('/truck', 'TruckController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/trucker', 'TruckerController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
     Route::apiResource('/article', 'ArticleController')
@@ -69,6 +73,9 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
     Route::apiResource('/cultivationcycleflight', 'CultivationCycleFlightController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/palletlabelweightcheck', 'PalletLabelWeightCheckController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 });
 

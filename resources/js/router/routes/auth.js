@@ -2,9 +2,9 @@ import RightEnum from '../rights'
 
 import Home from '../../components/Home'
 import Pricelist from '../../components/pricelist/Read'
-import Index from '../../components/auth/Index'
-import Login from '../../components/auth/Login'
-import Logout from '../../components/auth/Logout'
+import Index from '../../views/auth/index'
+import Login from '../../views/auth/Login'
+import Logout from '../../views/auth/Logout'
 import Forgot from '../../components/auth/Forgot'
 
 export default [
@@ -21,17 +21,17 @@ export default [
         component: Index,
         children: [
             {
-                name: 'authLogin',
+                name: 'login',
                 path: 'login',
                 component: Login
             },
             {
-                name: 'authLogout',
+                name: 'logout',
                 path: 'logout',
                 component: Logout
             },
             {
-                name: 'authForgot',
+                name: 'forgot',
                 path: 'forgot',
                 component: Forgot
             }

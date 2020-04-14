@@ -21,16 +21,40 @@
         <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
 
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        <style>
+            .loading {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                border: 2px solid rgba(0,0,0,.2 );
+                border-radius: 50%;
+                border-top-color: rgba(0,0,0,.4 );
+                animation: spin 1s ease-in-out infinite;
+                -webkit-animation: spin 1s ease-in-out infinite;
+                left: calc(50%);
+                top: calc(50%);
+                position: fixed;
+                z-index: 1;
+            }
 
-
+            @keyframes spin {
+                to { -webkit-transform: rotate(360deg); }
+            }
+            @-webkit-keyframes spin {
+                to { -webkit-transform: rotate(360deg); }
+            }
+        </style>
     </head>
     <body>
+        <noscript>
+            You need to enable JavaScript to run this app.
+        </noscript>
         <div id="app" class="notranslate">
-            <main-app></main-app>
+            <div class="loading "></div>
         </div>
     </body>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 </html>

@@ -14,8 +14,16 @@ const ApiService  = {
     },
 
     setHeader() {
-        Vue.axios.defaults.headers.common["Authorization"] = `Bearer ${JwtService.getToken('user')}`;
-        Vue.axios.defaults.headers.common["farmerId"] = `${JwtService.getToken('farmer')}`;
+        const authToken = JwtService.getToken('authToken');
+        const authUser = JwtService.getToken('authUser');
+        const authFarmer = JwtService.getToken('authFarmer');
+        if(authUser && authToken){
+            Vue.axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(authToken)}`;
+            Vue.axios.defaults.headers.common["AuthUser"] = `${JSON.parse(authUser)}`;
+        }
+        if(authFarmer){
+            Vue.axios.defaults.headers.common["AuthFarmer"] = `${JSON.parse(authFarmer)}` ;
+        }
     },
 
     query(resource, params) {
@@ -41,6 +49,7 @@ const ApiService  = {
    get(resource, slug = "") {
         // console.log('resource = ' + resource);
         // console.log('slug = ' + slug);
+       //console.log("get: "+ resource +  " " + slug)
         const request = applyConverters(Vue.axios)
             .get(`${resource}/${slug}`)
             .catch(error => {
@@ -129,6 +138,26 @@ export const TruckService  = {
     getAll() {
         // console.log("getAll(slug) - TruckApi");
         return ApiService.get(TruckApi)
+    }
+};
+
+// Truck Module
+const TruckerApi = "trucker";
+export const TruckerService  = {
+    create(params){
+        return ApiService.post(TruckerApi, { trucker: params})
+    },
+    update(slug, params) {
+        return ApiService.update(TruckerApi, slug, { trucker: params });
+    },
+    delete(slug) {
+        return ApiService.delete(TruckerApi, slug);
+    },
+    get(slug){
+        return ApiService.get(TruckerApi, slug)
+    },
+    getAll() {
+        return ApiService.get(TruckerApi)
     }
 };
 
@@ -237,7 +266,7 @@ export const DepartmentService = {
 
 //ArticleUserService
 const ArticleFarmerApi = "articlefarmer";
-export const ArticleFarmerService = {
+export const FarmerArticleService = {
     create(params){
         return ApiService.post(ArticleFarmerApi, params)
     },

@@ -1,4 +1,9 @@
-import { FarmerService } from "../../common/api.service";
+import {
+    FarmerArticleService,
+    FarmerService
+} from "../../common/api.service";
+import jwtService from "../../common/jwt.service";
+
 
 // action names
 const FETCH_START = "setFarmerLoading";
@@ -7,12 +12,16 @@ const FETCH_END =  "resetFarmerLoading";
 // mutation names
 const SET_FARMER = "setFarmer";
 const SET_FARMERS = "setAllFarmers";
+const SET_FARMER_ARTICLE = "setFarmerArticle";
+const SET_FARMER_ARTICLES = "setFarmerArticles";
 
 
 // Initial State
 const state  = {
     farmers: {},
     farmer: [],
+    farmerArticles: {},
+    farmerArticle: [],
     isLoading: true,
     farmersCount: 0,
 };
@@ -24,6 +33,9 @@ export const getters = {
     },
     farmer(state) {
         return state.farmer
+    },
+    farmerArticles(state){
+        return state.farmerArticles
     },
     farmersCount(state) {
         return state.farmersCount
@@ -49,9 +61,22 @@ export const getters = {
 };
 // Actions
 export const actions = {
-
-    //get all articles
-    async getAllFarmers(context){
+    setFarmer({ commit }, payload){
+        commit('changeFarmer', payload)
+    },
+    getAllFarmerArticles(context){
+        context.commit(FETCH_START);
+        return FarmerArticleService.getAll()
+            .then(({ data }) => {
+                //console.log(data);
+                context.commit(SET_FARMER_ARTICLES, data.data);
+                context.commit(FETCH_END);
+            })
+            .catch(error => {
+                throw new Error(error)
+            })
+    },
+    getAllFarmers(context){
         context.commit(FETCH_START);
         return FarmerService.getAll()
             .then(({ data }) => {
@@ -102,6 +127,12 @@ export const mutations = {
     },
     [SET_FARMER](state, farmer){
         state.farmer = farmer;
+    },
+    [SET_FARMER_ARTICLES](state, farmerArticles){
+        state.farmerArticles = farmerArticles;
+    },
+    changeFarmer(state, payload){
+        jwtService.saveToken('authFarmer', JSON.stringify(payload));
     }
 };
 

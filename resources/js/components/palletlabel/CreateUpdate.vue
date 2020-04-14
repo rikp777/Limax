@@ -181,14 +181,14 @@
                 <div class="form-row">
                     <div class="form-group col" v-if="form.harvestCycleDay">
                         <label for="cropDate">Crop Date</label>
-                        <flat-pickr
-                            v-model="form.cropDate"
-                            name="cropDate"
-                            id="cropDate"
-                            v-validate="'required'"
-                            :class="{ 'is-invalid': errors.has('cropDate') }"
-                            class="form-control"
-                        ></flat-pickr>
+<!--                        <flat-pickr-->
+<!--                            v-model="form.cropDate"-->
+<!--                            name="cropDate"-->
+<!--                            id="cropDate"-->
+<!--                            v-validate="'required'"-->
+<!--                            :class="{ 'is-invalid': errors.has('cropDate') }"-->
+<!--                            class="form-control"-->
+<!--                        ></flat-pickr>-->
                         <span class="invalid-feedback">{{ errors.first('cropDate') }}</span>
                     </div>
                     <div class="form-group col" v-if="form.harvestCycleDay">
@@ -239,13 +239,13 @@
 </template>
 
 <script>
-    import FlatPickr from "vue-flatpickr-component/src/component";
+    // import FlatPickr from "vue-flatpickr-component/src/component";
     import router from "../../router";
     import palletLabel from "../../router/routes/palletLabel";
 
     export default {
         name: "palletlabel-create",
-        components: {FlatPickr},
+        // components: {FlatPickr},
         props: ['updateId'],
 
 

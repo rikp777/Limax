@@ -33,9 +33,9 @@ const getters = {
         return state.isLoading
     },
 
-    calculation(state){
-        return state.calculation
-    },
+    // calculation(state){
+    //     return state.calculation
+    // },
 
 
     planningById: (state) => (id) => {
@@ -71,7 +71,7 @@ const actions = {
         context.commit(FETCH_START);
         return PlanningService.get(planningSlug)
             .then(({data}) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_PLANNING, data);
                 context.commit(FETCH_END);
             })
@@ -81,8 +81,9 @@ const actions = {
     },
 
     //create cell
-    createPlanning(context) {
-        return PlanningService.create()
+    createPlanning(context, payload) {
+        //console.log(payload)
+        return PlanningService.create(payload)
             .then(({data}) => {
                 // console.log(data.data);
                 context.commit(SET_PLANNING, data.data);
@@ -92,6 +93,15 @@ const actions = {
     },
     updatePlanning(context, payload) {
         return PlanningService.update(payload.id, payload)
+            .then(({data}) => {
+                // console.log(data);
+                context.commit(SET_PLANNING, data);
+            }).catch( (error) => {
+                throw error
+            })
+    },
+    updatePlanningStatus(context, payload) {
+        return PlanningService.update(payload.cell_id, payload)
             .then(({data}) => {
                 // console.log(data);
                 context.commit(SET_PLANNING, data);

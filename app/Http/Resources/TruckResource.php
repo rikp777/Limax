@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TruckResource extends JsonResource
@@ -23,7 +24,8 @@ class TruckResource extends JsonResource
             "updated_at" => $this->updated_at,
             "status_id" => $this->status_id,
             "user_id" => $this->user_id,
-            "trucker" => $this->user()->first(),
+//            "trucker" => new UserResource(User::find($this->user_id)),
+            "trucker" => $this->user,
         ];
     }
 }

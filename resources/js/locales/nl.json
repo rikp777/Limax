@@ -1,0 +1,315 @@
+{
+    "topMenu": {
+        "search": "Search"
+    },
+
+    "menu": {
+        "app": "Homepagina",
+        "docs": {
+            "main": "Docs"
+        },
+        "palletlabel": {
+            "main": "Palletlabel's",
+            "create": "Maak"
+        },
+        "shippinglabel": {
+            "main": "Vrachtbrieven",
+            "create": "Maak"
+        },
+        "article": {
+            "main": "Artikellen",
+            "create": "Aanmaken"
+        },
+        "settings": {
+            "main": "Instellingen"
+        },
+        "farmer": {
+            "main": "Kwekers",
+            "create": "Aanmaken"
+        },
+        "user": {
+            "main": "Gebruikers",
+            "create": "Aanmaken"
+        },
+        "report": {
+            "main": "Rapportage"
+        },
+        "weightcheck": {
+            "main": "Gewicht Controle"
+        },
+        "planning": {
+            "main": "Planning",
+            "create": "Planning",
+            "overview": "Voorraad"
+        }
+    },
+
+    "footer": {
+        "allRightReserved": "Alle rechten voorbehouden",
+        "madeBy": "Gemaakt door",
+        "handMade": "Handgemaakt met"
+    },
+
+    "docs": {
+        "introduction": {
+                "title": "Introductie",
+                "text": "Start met het gebruik van de flowcontrol applicatie"
+        },
+        "getStarted": {
+            "title": "Start met gebruik",
+            "howToGetReady": "How to get your application ready?"
+        }
+    },
+
+    "auth": {
+        "intro": {
+            "title": "Welkom",
+            "text": "Log aub in met uw inlog gegevens. Als u nog geen inlog gegevens heeft neem contact op"
+        },
+        "login": {
+            "title": "Login",
+            "forgot": "wachtwoord vergeten?",
+            "loginButton": "Login"
+        }
+    },
+
+    "user": {
+        "title": "Gebruiker registratie",
+        "actions": {
+            "title": "Gebruiker configureren",
+            "buttonRegister": "Gebruiker registreren",
+            "buttonUpdate": "Gebruiker aanpassen"
+        },
+        "update": {
+            "title": "Gebruiker aanpassen"
+        },
+        "delete": {
+            "title": "Weet je het zeker?",
+            "text": "Als je een gebruiker verwijderd kun je deze niet meer terug halen!",
+            "actions": {
+                "confirmButtonText": "Ja, Verwijder gebruiker",
+                "cancelButtonText": "Annuleren",
+                "buttonCancel": "Cancel, Ga terug"
+            },
+            "deleted": "Verwijderd!",
+            "deletedtext": "Gebruiker is verwijderd",
+            "cancelled": "Geannuleerd!",
+            "cancelledtext": "Gebruiker is niet verwijderd"
+        },
+        "attributes": {
+            "email": {
+                "title": "Email",
+                "validation": {
+                    "notEntered": "Vul aub uw email in",
+                    "notValid": "Vul aub een echt bestaand email adress in",
+                    "minLength": "Uw email adress moet minimaal 4 karakters lang zijn"
+                }
+            },
+            "roles": {
+                "title": "Recht",
+                "validation": {
+                    "notEntered": "Selecteer aub een recht"
+                }
+            },
+            "departments": {
+                "title": "Afdeling",
+                "validation": {
+                    "notEntered": "Selecteer aub een of meer afdelingen"
+                }
+            },
+            "farmers": {
+                "title": "Kweker",
+                "validation": {
+                    "notEntered": "Selecteer aub een of meer kwekers"
+                }
+            },
+            "password": {
+                "title": "Wachtwoord",
+                "validation": {
+                    "notEntered": "Vul aub uw wachtwoord in",
+                    "minLength": "Uw wachtwoord moet minimaal 4 karakters lang zijn"
+                }
+            },
+            "firstname": {
+                "title": "Voornaam",
+                "validation": {
+                    "notEntered": "Vul aub uw voornaam in"
+                }
+            },
+            "lastname": {
+                "title": "Achternaam",
+                "validation": {
+                    "notEntered": "Vul aub uw achternaam in"
+                }
+            },
+            "create": {
+                "title": "Maak een nieuwe gebruiker"
+            },
+            "list": {
+                "title": "Lijst van alle gebruikers"
+            }
+        }
+    },
+    "cell": {
+        "main": {
+            "title": "Cellen"
+        },
+        "create": {
+            "title": "Maak cell aan",
+            "label": "Cell",
+            "actions": {
+                "buttonCreate": "Maak cell aan"
+            }
+        },
+        "update": {
+            "title": "Cell Aanpassen",
+            "label": "Cell",
+            "actions": {
+                "buttonUpdate": "Cell aanpassen",
+                "buttonCancel": "Cancel, Ga terug"
+            }
+        },
+        "list": {
+            "title": "Lijst van alle cellen"
+        }
+    },
+    "article": {
+        "main": {
+            "title": "Artikellen"
+        },
+        "create": {
+            "title": "Maak een nieuw artikel"
+        },
+        "list": {
+            "title": "Lijst van artikelen"
+        },
+        "connect": {
+            "title": "Koppelen van artikelen",
+            "label": "Artikelen",
+            "actions": {
+                "buttonUpdate": "Artikel koppeling aanpassen"
+            }
+        }
+    },
+    "report": {
+        "title": "Rapportage",
+        "totalpallets": "Totaal pallets",
+        "avgweight": "Gemiddeld gewicht per pallet",
+        "totalweight": "Totaal gewicht",
+        "chart": {
+            "title": "Gewicht sortering (kg)"
+        }
+        },
+    "planning": {
+        "overview": {
+            "title": "Voorraad"
+        },
+        "create": {
+            "title": "Planning"
+        },
+        "totalpallets": "Totaal pallets",
+        "avgpalletweight": "Gemiddeld gewicht per pallet",
+        "totalpalletweight": "Totaal gewicht"
+    },
+    "palletlabel": {
+        "create": {
+            "title": "Maak een nieuw palletlabel",
+            "modeTitle": "Maak",
+            "actions": {
+                "title": "Bent u klaar?",
+                "buttonCreate": "Maak palletlabel aan",
+                "buttonClear": "Leeg alle velden"
+            }
+        },
+        "update": {
+            "title": "Update palletlabel : ",
+            "modeTitle": "Update",
+            "actions": {
+                "title": "Bent u klaar?",
+                "buttonUpdate": "Update palletlabel",
+                "buttonCancel": "Cancel, Ga terug"
+            }
+        },
+        "delete": {
+            "title": "Weet je het zeker?",
+            "text": "Als je een palletlabel verwijderd kun je deze niet meer terug halen!",
+            "actions": {
+                "confirmButtonText": "Ja, Verwijder palletlabel",
+                "cancelButtonText": "Annuleren",
+                "buttonCancel": "Cancel, Ga terug"
+            },
+            "deleted": "Verwijderd!",
+            "deletedtext": "Palletlabel is verwijderd",
+            "cancelled": "Geannuleerd!",
+            "cancelledtext": "Palletlabel is niet verwijderd"
+        },
+        "list": {
+          "title": "Lijst van palletlabels"
+        },
+        "attributes": {
+            "article": {
+                "title": "Artikel"
+            },
+            "palletType": {
+                "title": "Pallet soort"
+            },
+            "cell": {
+                "title": "Cell"
+            },
+            "harvestCycle": {
+                "title": "Vlucht"
+            },
+            "harvestCycleDay": {
+                "title": "Vlucht dag"
+            },
+            "cropDate": {
+                "title": "Pluk dag"
+            },
+            "amount": {
+                "title": "Aantal"
+            },
+            "note": {
+                "title": "Opmerking"
+            }
+        }
+
+    },
+    "shippinglabel": {
+        "create": {
+            "title": "Maak een nieuwe vrachtbrief",
+            "modeTitle": "Maak",
+            "actions": {
+                "palletlabels": "Selecteer palletlabels",
+                "buttonCreate": "Maak shippinglabel aan",
+                "palletlabelCreate": "Maak palletlabel"
+            }
+        },
+        "list": {
+            "title": "Lijst van vrachtbrieven"
+        },
+        "attributes": {
+            "trucker": {
+                "title": "Chauffeur"
+            },
+            "trucks": {
+                "title": "Kenteken"
+            },
+            "deliveryDate": {
+                "title": "Transport datum"
+            }
+        }
+    },
+    "production": {
+        "dashboard": {
+            "title": "Gewicht Controle",
+            "weight":  "Gewicht (scan)",
+            "id":  "ID (scan)",
+            "expectedNoTax":  "Verwachte gewicht zonder marge",
+            "tax":  "Verschil in %",
+            "expectedWithTax":  "Verwachte gewicht met marge",
+            "actions": {
+                "buttonCreate": "Registreer controlle"
+            }
+        }
+    }
+}

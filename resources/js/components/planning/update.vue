@@ -100,7 +100,7 @@
                     start = currentEnd;
                 }
                 this.intervals = intervals;
-                console.log(intervals);
+                //console.log(intervals);
             }
         }
     }

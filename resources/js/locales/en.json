@@ -1,0 +1,315 @@
+{
+    "topMenu": {
+        "search": "Search"
+    },
+
+    "menu": {
+        "app": "Homepage",
+        "docs": {
+            "main": "Docs"
+        },
+        "palletlabel": {
+            "main": "Palletlabels",
+            "create": "Create"
+        },
+        "shippinglabel": {
+            "main": "Shippinglabels",
+            "create": "Create"
+        },
+        "article": {
+            "main": "Articles",
+            "create": "Create"
+        },
+        "settings": {
+            "main": "Settings"
+        },
+        "farmer": {
+            "main": "Farmers",
+            "create": "Create"
+        },
+        "user": {
+            "main": "Users",
+            "create": "Create"
+        },
+        "report": {
+            "main": "Reports"
+        },
+        "weightcheck": {
+            "main": "Weight Check"
+        },
+        "planning": {
+            "main": "Planning",
+            "create": "Planning",
+            "overview": "Stock"
+        }
+    },
+
+    "footer": {
+        "allRightReserved": "All rights reserved",
+        "madeBy": "Made by",
+        "handMade": "Handmade with"
+    },
+
+    "docs": {
+        "introduction": {
+            "title": "Introduction",
+            "text": "Start met het gebruik van de flowcontrol applicatie"
+        },
+        "getStarted": {
+            "title": "Start met gebruik",
+            "howToGetReady": "How to get your application ready?"
+        }
+    },
+
+    "auth": {
+        "intro": {
+            "title": "Welcome",
+            "text": "Please login using the provided login credentials. If you have not received login credentials, please contact us"
+        },
+        "login": {
+            "title": "Login",
+            "forgot": "Forgot password?",
+            "loginButton": "Login"
+        }
+    },
+
+    "user": {
+        "title": "User registration",
+        "actions": {
+            "title": "Configure user",
+            "buttonRegister": "Register user",
+            "buttonUpdate": "Edit user"
+        },
+        "update": {
+            "title": "Edit user"
+        },
+        "delete": {
+            "title": "Are you sure?",
+            "text": "Once an user is deleted you can not recover this.",
+            "actions": {
+                "confirmButtonText": "Yes, Delete user",
+                "cancelButtonText": "Cancel",
+                "buttonCancel": "Cancel, Go back"
+            },
+            "deleted": "Deleted!",
+            "deletedtext": "User is deleted",
+            "cancelled": "Cancelled!",
+            "cancelledtext": "User hasn't been deleted"
+        },
+        "attributes": {
+            "email": {
+                "title": "Email",
+                "validation": {
+                    "notEntered": "Please fill in your email",
+                    "notValid": "Please make sure your email is correct and exists",
+                    "minLength": "Email has to be atleast 4 characters long"
+                }
+            },
+            "roles": {
+                "title": "Role",
+                "validation": {
+                    "notEntered": "Please select a role"
+                }
+            },
+            "departments": {
+                "title": "Department",
+                "validation": {
+                    "notEntered": "Please select one or more departments"
+                }
+            },
+            "farmers": {
+                "title": "Farmer",
+                "validation": {
+                    "notEntered": "Please select one or more departments"
+                }
+            },
+            "password": {
+                "title": "Password",
+                "validation": {
+                    "notEntered": "Please fill in your password",
+                    "minLength": "Password has to be atleast 4 characters long"
+                }
+            },
+            "firstname": {
+                "title": "First name",
+                "validation": {
+                    "notEntered": "Please fill in your first name"
+                }
+            },
+            "lastname": {
+                "title": "Last name",
+                "validation": {
+                    "notEntered": "Please fill in your last name"
+                }
+            },
+            "create": {
+                "title": "Create new user"
+            },
+            "list": {
+                "title": "List of all users"
+            }
+        }
+    },
+    "cell": {
+        "main": {
+            "title": "Cells"
+        },
+        "create": {
+            "title": "Create cell",
+            "label": "Cell",
+            "actions": {
+                "buttonCreate": "Create cell"
+            }
+        },
+        "update": {
+            "title": "Edit cell",
+            "label": "Cell",
+            "actions": {
+                "buttonUpdate": "Edit cell",
+                "buttonCancel": "Cancel, Go back"
+            }
+        },
+        "list": {
+            "title": "List of all cells"
+        }
+    },
+    "article": {
+        "main": {
+            "title": "Articles"
+        },
+        "create": {
+            "title": "Create article"
+        },
+        "list": {
+            "title": "List of all articles"
+        },
+        "connect": {
+            "title": "Assign articles",
+            "label": "Articles",
+            "actions": {
+                "buttonUpdate": "Submit article selection"
+            }
+        }
+    },
+    "report": {
+        "title": "Report",
+        "totalpallets": "Total pallets",
+        "avgweight": "Average weight per pallet",
+        "totalweight": "Total weight",
+        "chart": {
+            "title": "Weight sorts (kg)"
+        }
+    },
+    "planning": {
+        "overview": {
+            "title": "Stock"
+        },
+        "create": {
+            "title": "Planning"
+        },
+        "totalpallets": "Total pallets",
+        "avgpalletweight": "Average weight per pallet",
+        "totalpalletweight": "Total weight"
+    },
+    "palletlabel": {
+        "create": {
+            "title": "Create new palletlabel",
+            "modeTitle": "Create",
+            "actions": {
+                "title": "Are you finished?",
+                "buttonCreate": "Create palletlabel",
+                "buttonClear": "Empty all fields"
+            }
+        },
+        "update": {
+            "title": "Edit palletlabel : ",
+            "modeTitle": "Edit",
+            "actions": {
+                "title": "Are you finished?",
+                "buttonUpdate": "Edit palletlabel",
+                "buttonCancel": "Cancel, Go back"
+            }
+        },
+        "delete": {
+            "title": "Are you sure?",
+            "text": "Once a palletlabel is deleted you can not recover this.",
+            "actions": {
+                "confirmButtonText": "Yes, Delete palletlabel",
+                "cancelButtonText": "Cancel",
+                "buttonCancel": "Cancel, Go back"
+            },
+            "deleted": "Deleted!",
+            "deletedtext": "Palletlabel is deleted",
+            "cancelled": "Cancelled!",
+            "cancelledtext": "Palletlabel hasn't been deleted"
+        },
+        "list": {
+            "title": "List of all palletlabels"
+        },
+        "attributes": {
+            "article": {
+                "title": "Article"
+            },
+            "palletType": {
+                "title": "Pallet type"
+            },
+            "cell": {
+                "title": "Cell"
+            },
+            "harvestCycle": {
+                "title": "Flight"
+            },
+            "harvestCycleDay": {
+                "title": "Flight day"
+            },
+            "cropDate": {
+                "title": "Crop date"
+            },
+            "amount": {
+                "title": "Amount"
+            },
+            "note": {
+                "title": "Note"
+            }
+        }
+
+    },
+    "shippinglabel": {
+        "create": {
+            "title": "Create new shippinglabel",
+            "modeTitle": "Create",
+            "actions": {
+                "palletlabels": "Select palletlabels",
+                "buttonCreate": "Create shippinglabel",
+                "palletlabelCreate": "Create palletlabel"
+            }
+        },
+        "list": {
+            "title": "List of all shippinglabels"
+        },
+        "attributes": {
+            "trucker": {
+                "title": "Trucker"
+            },
+            "trucks": {
+                "title": "License plate"
+            },
+            "deliveryDate": {
+                "title": "Delivery date"
+            }
+        }
+    },
+    "production": {
+        "dashboard": {
+            "title": "Weight Check",
+            "weight":  "Weight (scan)",
+            "id":  "ID (scan)",
+            "expectedNoTax":  "Expected weight without marge",
+            "tax":  "Difference in %",
+            "expectedWithTax":  "Expected weight with marge",
+            "actions": {
+                "buttonCreate": "Register weight check"
+            }
+        }
+    }
+}

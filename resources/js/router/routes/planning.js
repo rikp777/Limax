@@ -1,12 +1,12 @@
 import RightEnum from '../rights'
 
-import Index from '../../components/planning/Index'
-import Read from '../../components/planning/Read'
-import Update from "../../components/planning/update";
+import Index from '../../views/admin/planning/Index'
+import Create from '../../views/admin/planning/Create'
+import Read from '../../views/admin/planning/Read'
 
 export default [
     {
-        path: '/planning',
+        path: 'planning',
         component: Index,
         meta: {
             requiresAuth: true,
@@ -14,7 +14,7 @@ export default [
         },
         children: [
             {
-                name: 'planningRead',
+                name: 'overview',
                 path: 'overview',
                 component: Read,
                 meta: {
@@ -25,7 +25,7 @@ export default [
             {
                 name: 'planningCreate',
                 path: 'create',
-                component: Update,
+                component: Create,
                 meta: {
                     requiresAuth: true,
                     requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Planning]

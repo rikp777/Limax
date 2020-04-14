@@ -1,4 +1,4 @@
-import {ArticleService, PalletLabelService, PalletLabelStatusService, UserService} from "../../common/api.service";
+import ApiService, {ArticleService, PalletLabelService, PalletLabelStatusService, UserService} from "../../common/api.service";
 import palletLabel from "../../router/routes/palletLabel";
 
 
@@ -60,8 +60,9 @@ const actions = {
             .then(({ data }) => {
                 // console.log(data.all);
                 // console.log(data.paginated.data);
-                context.commit(SET_PALLETLABELS, data.all);
-                context.commit(SET_LABELSPAGINATED, data.paginated.data);
+                context.commit(SET_PALLETLABELS, data.data);
+                // context.commit(SET_PALLETLABELS, data.all);
+                // context.commit(SET_LABELSPAGINATED, data.paginated.data);
                 context.commit(FETCH_END);
                 // console.log(state.palletLabels);
             })
@@ -79,7 +80,7 @@ const actions = {
         context.commit(FETCH_START);
         return PalletLabelService.get(palletLabelSlug)
             .then(({ data }) => {
-                console.log(data);
+                //console.log(data);
                 context.commit(SET_PALLETLABEL, data.data);
                 context.commit(FETCH_END);
             })
@@ -129,10 +130,10 @@ const actions = {
 
     //update palletLabelStatus
     async updatePalletLabelStatus(context, payload) {
-        // console.log('updatePalletLabelStatus');
+        // console.log(payload);
         payload.forEach(function(palletLabelID) {
             // console.log(palletLabelID);
-            const { data } = PalletLabelStatusService.update(palletLabelID);
+            const { data } = PalletLabelStatusService.update(palletLabelID.id);
             context.commit(SET_PALLETLABEL, data);
             return data;
         });
@@ -151,6 +152,9 @@ const actions = {
             context.commit(SET_PALLETLABEL, data);
             return data;
         // });
+    },
+    async createPalletLabelWeightCheck(context, payload) {
+        const {data} = ApiService.post('/palletlabelweightcheck', payload);
     },
 
     //delete palletlabel
@@ -188,5 +192,3 @@ export default {
     actions,
     mutations
 }
-
-
