@@ -42,7 +42,8 @@ class ReportController extends Controller
             foreach ($statuses as $status){
 //                dd($pallet["status_id"]);
                 if($status["id"] === $pallet["status_id"]){
-                    $statusdesc = $status["name"];
+//                    $statusdesc = $status["name"];
+                    $reportLabel["status_description"] = $status["name"];
                 }
             }
 
@@ -55,7 +56,7 @@ class ReportController extends Controller
                 "note" => $pallet['note'],
                 "cell_number" => $pallet['cell_number'],
                 "cell_description" => $pallet['cell_description'],
-                "status_description" => $statusdesc,
+//                "status_description" => $statusdesc,
 //                "status_id" => 1
 //                "article_id" => 1
                 //weight
