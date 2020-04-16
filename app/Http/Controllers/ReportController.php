@@ -23,12 +23,12 @@ class ReportController extends Controller
     {
 //        dd('hoi');
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-        $article = article::all();
-        $statuses = status::all();
+        $article = Article::all();
+        $statuses = Status::all();
         $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->where('crop_date', date('Y-m-d'))->get();
 //        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->get();
         $sorts = SortType::all();
-        dd($article);
+//        dd($article);
 
 
 //        $palletweight = 0;
