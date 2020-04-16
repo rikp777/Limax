@@ -40,6 +40,7 @@ class ReportController extends Controller
         foreach ($palletlabels as $pallet) {
 
             foreach ($statuses as $status){
+                dd($status);
                 if($status["id"] === $pallet["status_id"]){
                     $statusdesc = $status["name"];
                 }
