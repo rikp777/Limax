@@ -28,7 +28,7 @@ class ReportController extends Controller
         $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->where('crop_date', date('Y-m-d'))->get();
 //        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->get();
         $sorts = SortType::all();
-//        dd($palletlabels);
+        dd($palletlabels);
 
 
 //        $palletweight = 0;
