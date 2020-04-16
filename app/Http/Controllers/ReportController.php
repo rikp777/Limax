@@ -23,7 +23,7 @@ class ReportController extends Controller
     {
 //        dd('hoi');
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-        $article = Article::all();
+        $article = Article::where('status_id', 8)->get();
         $statuses = Status::all();
         $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->where('crop_date', date('Y-m-d'))->get();
 //        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->get();
