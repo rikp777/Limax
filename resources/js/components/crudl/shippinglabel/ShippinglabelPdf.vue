@@ -38,7 +38,7 @@
                       <!--                STATUS-->
                       <div class="row">
                           <div class="col-sm-6" style="font-size: 16px;">
-                              <strong>Shippinglabel: </strong>{{ $moment().format("dddd, MMMM Do YYYY") }}
+                              <strong>Shippinglabel - {{uniqueshippingid}}: </strong>{{ $moment().format("dddd, MMMM Do YYYY") }}
                           </div>
                           <div class="col-sm-6" style="font-size: 16px;">
                               <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -76,6 +76,7 @@
                                       <div>{{ farmer.place }}, {{ farmer.zipCode }}</div>
                                       <div>Email: {{ farmer.email }}</div>
                                       <div>Phone: {{ farmer.phone }}</div>
+                                      <br>
                                       <strong>Certificates</strong>
                                       <div v-for="certificate in farmer.certificates">
                                           {{certificate.certificate.name}}: {{certificate.code}}
@@ -91,6 +92,35 @@
                                   <div>Horst, 5961 AJ</div>
                                   <div>Email: info@limax.nl</div>
                                   <div>Phone: 773999660</div>
+                                  <br>
+<!--                                  <strong>Driver</strong>-->
+                                  <div>
+                                      <table style="width: 50%">
+                                          <thead>
+                                          <tr>
+                                              <th>
+                                                 Driver name:
+                                              </th>
+                                              <th>
+                                                  Driver signature:
+                                              </th>
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+                                          <tr>
+                                              <td>
+                                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
+                                              </td>
+                                              <td>
+                                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
+                                              </td>
+                                          </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+<!--                                  <div>-->
+<!--                                      <div style="border-style: groove; width: 300px; height: 54px"></div>-->
+<!--                                  </div>-->
                               </div>
                           </template>
                           <!--                        <template>-->
@@ -198,7 +228,7 @@
                                       <tbody>
                                       <tr v-for="total in ShippingLabelPalletLabels['total']" v-if="articles.length">
                                           <td>
-                                              {{ getArticlesById(total.articleId).name }}
+                                              {{ getArticlesById(Number(total.articleId)).name }}
                                           </td>
                                           <td>
                                               {{ total.amount }}
@@ -235,7 +265,7 @@
                                               {{ detail.palletlabelfarmerId }}
                                           </td>
                                           <td>
-                                              {{ getArticlesById(detail.articleId).name }}
+                                              {{ getArticlesById(Number(detail.articleId)).name }}
                                           </td>
                                           <td>
                                               {{ detail.amount }}
@@ -332,7 +362,7 @@
                       <!--                STATUS-->
                       <div class="row">
                           <div class="col-sm-6" style="font-size: 16px;">
-                              <strong>Shippinglabel: </strong>{{ $moment().format("dddd, MMMM Do YYYY") }}
+                              <strong>Shippinglabel - {{uniqueshippingid}}: </strong>{{ $moment().format("dddd, MMMM Do YYYY") }}
                           </div>
                           <div class="col-sm-6" style="font-size: 16px;">
                               <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -370,6 +400,7 @@
                                       <div>{{ farmer.place }}, {{ farmer.zipCode }}</div>
                                       <div>Email: {{ farmer.email }}</div>
                                       <div>Phone: {{ farmer.phone }}</div>
+                                      <br>
                                       <strong>Certificates</strong>
                                       <div v-for="certificate in farmer.certificates">
                                           {{certificate.certificate.name}}: {{certificate.code}}
@@ -385,6 +416,35 @@
                                   <div>Horst, 5961 AJ</div>
                                   <div>Email: info@limax.nl</div>
                                   <div>Phone: 773999660</div>
+                                  <br>
+                                  <!--                                  <strong>Driver</strong>-->
+                                  <div>
+                                      <table style="width: 50%">
+                                          <thead>
+                                          <tr>
+                                              <th>
+                                                  Driver name:
+                                              </th>
+                                              <th>
+                                                  Driver signature:
+                                              </th>
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+                                          <tr>
+                                              <td>
+                                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
+                                              </td>
+                                              <td>
+                                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
+                                              </td>
+                                          </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                                  <!--                                  <div>-->
+                                  <!--                                      <div style="border-style: groove; width: 300px; height: 54px"></div>-->
+                                  <!--                                  </div>-->
                               </div>
                           </template>
                           <!--                        <template>-->
@@ -426,7 +486,7 @@
                                       <tbody>
                                       <tr v-for="total in ShippingLabelPalletLabels['total']" v-if="articles.length">
                                           <td>
-                                              {{ getArticlesById(total.articleId).name }}
+                                              {{ getArticlesById(Number(total.articleId)).name }}
                                           </td>
                                           <td>
                                               {{ total.amount }}
@@ -463,7 +523,7 @@
                                               {{ detail.palletlabelfarmerId }}
                                           </td>
                                           <td>
-                                              {{ getArticlesById(detail.articleId).name }}
+                                              {{ getArticlesById(Number(detail.articleId)).name }}
                                           </td>
                                           <td>
                                               {{ detail.amount }}
@@ -570,6 +630,11 @@
 
     export default {
         name: 'shippingLabel-pdf',
+        data() {
+            return {
+                uniqueshippingid: this.$route.params.id
+            }
+        },
         computed: {
             // ...mapGetters(["authUser"]),
             ...mapGetters({
@@ -629,6 +694,7 @@
             },
         },
         mounted() {
+            // console.log(this.$route.params.id),
             Promise.all([
                 this.getFarmer(this.authFarmer.id),
                 // console.log(this.$route.params.id),

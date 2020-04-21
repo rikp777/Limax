@@ -217,10 +217,11 @@
                 this.isLoad = false
                 Promise.all([
                     this.$store.dispatch("getPlanning", this.authFarmer.id).then((response) => {
-                        //console.log('hiernaar planning console loggen')
+                        // console.log('hiernaar planning console loggen')
                     })
                 ]).finally(() => {
-                    // console.log(this.planning.planning);
+                    // console.log(this.planning)
+                    // console.log(id.id);
                     this.planningArr = this.planning.planning[id.id];
                     this.switches = this.planning.prognose[id.id];
                     // console.log(this.switches);
@@ -239,9 +240,11 @@
                     const planningArr = {
                         cell: this.cell,
                         sort: sort,
-                        date: interval,
+                        date: interval.replace(/_/g, `-`).slice(0, 10),
                         amount: e.target.value
                     };
+
+                    // console.log(interval.replace(/_/g, `-`).slice(0, 10));
 
                     this.$store.dispatch("createPlanning", planningArr)
                         .then(() => {
@@ -262,6 +265,7 @@
             constructListOfIntervals(start, end, interval, cell) {
                 Promise.all([
                     this.intervals = null,
+                    // console.log(cell),
                     this.CellPlanning(cell),
                     this.loadPlanning(cell)
                 ]).finally(() => {

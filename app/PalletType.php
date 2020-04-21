@@ -15,4 +15,15 @@ class PalletType extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'description' => 'string',
+        'weight' => 'string',
+//        'price' => 'decimal(8, 2)',
+        'created_at' =>'datetime',
+        'updated_at'=>'datetime',
+        'deleted_at'=>'datetime',
+    ];
 }

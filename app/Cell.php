@@ -15,4 +15,14 @@ class Cell extends Model
     public function cultivationCycles(){
         return $this->hasMany(CultivationCycle::class);
     }
+
+    protected $casts = [
+        'id' => 'integer',
+        'number' => 'integer',
+        'description' => 'string',
+        'created_at'=>'datetime',
+        'updated_at'=>'datetime',
+        'deleted_at' =>'datetime',
+        'farmer_id' => 'integer',
+    ];
 }

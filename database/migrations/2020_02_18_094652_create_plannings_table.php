@@ -15,7 +15,7 @@ class CreatePlanningsTable extends Migration
     {
         Schema::create('plannings', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('date');
+            $table->date('date');
 
             // relation to cell table
             $table->unsignedInteger('cell_id');

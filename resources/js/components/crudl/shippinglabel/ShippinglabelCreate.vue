@@ -357,7 +357,7 @@
             },
             selectTruck() {
                 let filtered = this.trucks.find(trucks => trucks.userId === this.form.trucker.id);
-                //console.log(filtered);
+                console.log(filtered);
                 this.form.truck = filtered;
 
                 this.next = true;

@@ -93,7 +93,24 @@ class User extends Authenticatable
      *
      * @var array
      */
+//    protected $casts = [
+//        'email_verified_at' => 'datetime',
+//    ];
+
     protected $casts = [
+        'id' => 'integer',
+        'uid' => 'string',
+        'first_name' => 'string',
+        'insert_name' => 'string',
+        'last_name' => 'string',
+        'photo' => 'string',
+        'email' => 'string',
         'email_verified_at' => 'datetime',
+        'password' => 'string',
+        'color_blind' => 'boolean',
+        'remember_token' => 'string',
+        'created_at' =>'datetime',
+        'updated_at'=>'datetime',
+        'deleted_at'=>'datetime',
     ];
 }

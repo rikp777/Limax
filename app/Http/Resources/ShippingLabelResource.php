@@ -24,6 +24,22 @@ class ShippingLabelResource extends JsonResource
 
         $totarray = [];
         $totarray["palletlabelCount"] = sizeof(parent::toArray($request));
+//        dd($this->id);
+//        $totarray["shippinglabelID"] = [
+//            'id' => $this->id,
+//            'transport_date' => $this->transport_date->format('Y-m-d'),
+//            'transport_delivery_date' => $this->transport_delivery_date->format('Y-m-d'),
+//            'transport_driver' => $this->transport_driver,
+//            'created_at' => $this->created_at->toDateTimeString(),
+//            'updated_at' => $this->updated_at->toDateTimeString(),
+////            'deleted_at' => $this->deleted_at->toDateTimeString(),
+//            'user_id' => $this->user_id,
+//            'status_id' => $this->status_id,
+//            'farmer_id' => $this->farmer_id,
+//            'truck_id' =>$this->truck_id,
+//            'transport_driver_user_id' =>$this->transport_driver_user_id,
+//        ];
+
         $totarray["shippinglabelID"] = parent::toArray($request);
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
 //        $total = ShippingLabel::where('farmer_id', $currentFarmer->id)->latest('id')->get();
@@ -35,7 +51,7 @@ class ShippingLabelResource extends JsonResource
             foreach ($this2 as $article) {
 //                dd($article);
                 foreach ($pallettype as $pallet){
-                    if($article["pallet_type_id"] === $pallet["id"]){
+                    if((int)$article["pallet_type_id"] === (int)$pallet["id"]){
                         if(!isset($ptype[$pallet["description"]])){
                             $ptype[$pallet["description"]] = 0;
                         }

@@ -44,4 +44,24 @@ class Farmer extends Model
         return Farmer::find(1)->id;
     }
 
+    protected $casts = [
+        'id' => 'integer',
+        'uid' => 'string',
+        'name' => 'string',
+        'street' => 'string',
+        'house_number' => 'string',
+        'place' => 'string',
+        'zip_code' => 'string',
+        'country' => 'string',
+        'province' => 'string',
+        'email' => 'string',
+        'phone' => 'integer',
+        'fax' => 'integer',
+        'created_at' =>'datetime',
+        'updated_at'=>'datetime',
+        'deleted_at'=>'datetime',
+        'preference_article_group_id'=>'integer',
+        'contact_person_user_id'=>'integer',
+    ];
+
 }

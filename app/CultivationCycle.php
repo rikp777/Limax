@@ -22,4 +22,15 @@ class CultivationCycle extends Model
         return $this->hasMany(CultivationCycleFlight::class);
     }
 
+    protected $casts = [
+        'id' => 'integer',
+        'cell_description' => 'string',
+        'fill_date' => 'date',
+        'created_at' =>'datetime',
+        'updated_at'=>'datetime',
+        'cell_id'=>'integer',
+        'farmer_id'=>'integer',
+        'article_group_id'=>'integer',
+    ];
+
 }

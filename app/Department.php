@@ -10,4 +10,13 @@ class Department extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'description' => 'string',
+        'color' => 'string',
+        'created_at' =>'datetime',
+        'updated_at'=>'datetime',
+    ];
 }

@@ -23,7 +23,7 @@ class PalletTypeSeeder extends Seeder
                 'name' => 'Euro',
                 'description' => 'Euro',
                 'weight' => 25000,
-                'price' => 8.60
+                'price' => 8
             ],
             [
                 'name' => 'DPA',

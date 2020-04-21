@@ -16,11 +16,13 @@ class CreateArticlesFarmerTable extends Migration
         Schema::create('article_farmer', function (Blueprint $table) {
             // relation to roles table
             $table->unsignedInteger('article_id');
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+//            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->foreign('article_id')->references('id')->on('articles');
 
             // relation to user table
             $table->unsignedInteger('farmer_id');
-            $table->foreign('farmer_id')->references('id')->on('farmers')->onDelete('cascade');
+//            $table->foreign('farmer_id')->references('id')->on('farmers')->onDelete('cascade');
+            $table->foreign('farmer_id')->references('id')->on('farmers');
 
             $table->timestamps();
 

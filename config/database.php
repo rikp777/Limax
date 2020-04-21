@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'sqlsrv'),
 
     /*
     |--------------------------------------------------------------------------
@@ -81,14 +81,18 @@ return [
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', 'localhost'),
+            'host' => env('DB_HOST', '192.168.16.3'),
             'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', 'Flowcontrol'),
+            'username' => env('DB_USERNAME', 'Mobile'),
+            'password' => env('DB_PASSWORD', 'Limax01'),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => array(
+                PDO::SQLSRV_ATTR_FETCHES_NUMERIC_TYPE => true,
+//                PDO::ATTR_STRINGIFY_FETCHES => false
+            )
         ],
 
     ],

@@ -15,8 +15,8 @@ class CreateShippingLabelsTable extends Migration
     {
         Schema::create('shipping_labels', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('transport_date');
-            $table->dateTime("transport_delivery_date");
+            $table->date('transport_date');
+            $table->date("transport_delivery_date");
             $table->integer("transport_driver");
 
             $table->timestamps();

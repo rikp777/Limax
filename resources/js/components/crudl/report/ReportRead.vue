@@ -178,6 +178,7 @@
             // this.getAllReports();
             this.$store.dispatch("getAllReports").then((response) => {
                 this.data = this.reports.labels;
+                // console.log(this.reports);
                 //console.log(this.data);
             });
         },
