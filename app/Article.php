@@ -63,4 +63,23 @@ class Article extends Model
         'article_group_id',
         'sort_type_id',
     ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'excel_code' => 'string',
+        'inset_gram' => 'string',
+        'inset_limit' =>'integer',
+        'pallet_limit' =>'integer',
+        'origin'=>'string',
+        'created_at'=>'datetime',
+        'updated_at'=>'datetime',
+        'deleted_at' =>'datetime',
+        'pallet_type_id'=>'integer',
+        'cask_id'=>'integer',
+        'inset_id'=>'integer',
+        'status_id'=>'integer',
+        'article_group_id'=>'integer',
+        'sort_type_id'=>'integer',
+        'user_id'=>'integer',
+    ];
 }

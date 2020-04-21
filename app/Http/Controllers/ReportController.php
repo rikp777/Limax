@@ -23,12 +23,11 @@ class ReportController extends Controller
     {
 //        dd('hoi');
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-        $article = Article::where('status_id', 8)->get();
+        $article = Article::all();
         $statuses = Status::all();
         $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->where('crop_date', date('Y-m-d'))->get();
 //        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->get();
         $sorts = SortType::all();
-//        dd($article);
 
 
 //        $palletweight = 0;
@@ -40,10 +39,13 @@ class ReportController extends Controller
         foreach ($palletlabels as $pallet) {
 
             foreach ($statuses as $status){
+//                dd(is_int($pallet["status_id"]));
+//                dd($status);
 //                dd($pallet["status_id"]);
-                if($status["id"] === $pallet["status_id"]){
-//                    $statusdesc = $status["name"];
-                    $reportLabel["status_description"] = $status["name"];
+//                dd($pallet);
+//                var_dump((int)$status["id"] === (int)$pallet["status_id"]);
+                if((int)$status["id"] === (int)$pallet["status_id"]){
+                    $statusdesc = $status["name"];
                 }
             }
 
@@ -51,12 +53,12 @@ class ReportController extends Controller
 
             $reportLabel = [
                 "id" => $pallet['id'],
-                "crop_date" => $pallet['crop_date'],
+                "crop_date" => $pallet['crop_date']->format('Y-m-d'),
                 "article_amount" => $pallet['article_amount'],
                 "note" => $pallet['note'],
                 "cell_number" => $pallet['cell_number'],
                 "cell_description" => $pallet['cell_description'],
-//                "status_description" => $statusdesc,
+                "status_description" => $statusdesc,
 //                "status_id" => 1
 //                "article_id" => 1
                 //weight
@@ -70,10 +72,10 @@ class ReportController extends Controller
 
                 $artSortType = $art["sort_type_id"];
                 foreach ($sorts as $sort) {
-
-                    if ($articleid === $art["id"]) {
+//                    dd($art["id"]);
+                    if ((int)$articleid === (int)$art["id"]) {
                         $sortid = $sort["id"];
-                        if ($artSortType === $sortid) {
+                        if ((int)$artSortType === (int)$sortid) {
                             $indexes[] = $index;
                             $palletweight += ($art["inset_gram"] * $pallet["article_amount"]);
                             $totpalletweight += ($art["inset_gram"] * $pallet["article_amount"]);

@@ -17,4 +17,13 @@ class Role extends Model
         'created_at',
         'pivot'
     ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'description' => 'string',
+        'color' => 'string',
+        'created_at' =>'datetime',
+        'updated_at'=>'datetime',
+    ];
 }

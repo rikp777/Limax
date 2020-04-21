@@ -15,4 +15,14 @@ class Cask extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'code' => 'string',
+        'name' => 'string',
+        'description' => 'string',
+        'created_at'=>'datetime',
+        'updated_at'=>'datetime',
+        'deleted_at' =>'datetime',
+    ];
 }

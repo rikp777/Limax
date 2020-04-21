@@ -10,4 +10,11 @@ class Certificate extends Model
     {
         return $this->hasMany(CertificateFarmerCode::class);
     }
+
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'created_at'=>'datetime',
+        'updated_at'=>'datetime',
+    ];
 }

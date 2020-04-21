@@ -10,4 +10,13 @@ class Truck extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $casts = [
+        'id' => 'integer',
+        'license_plate' => 'string',
+        'created_at' =>'datetime',
+        'updated_at'=>'datetime',
+        'status_id'=>'integer',
+        'user_id'=>'integer',
+    ];
 }

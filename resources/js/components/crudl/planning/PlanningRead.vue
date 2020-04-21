@@ -189,6 +189,7 @@
 
                 var LabelsdataArr = [];
                 for (var key in this.planning.labels) {
+                    // console.log(this.getFarmerById(parseInt(this.planning.labels[key].farmerId)));
                     LabelsdataArr.push({
                         farmer: this.getFarmerById(parseInt(this.planning.labels[key].farmerId)).name,
                         palletnr: this.planning.labels[key].id,

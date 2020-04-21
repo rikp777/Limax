@@ -14,4 +14,12 @@ class CultivationCycleFlight extends Model
         'date',
         'cultivation_cycle_id',
     ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'date' => 'date',
+        'created_at' =>'datetime',
+        'updated_at'=>'datetime',
+        'cultivation_cycle_id'=>'integer',
+    ];
 }

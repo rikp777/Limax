@@ -20,11 +20,11 @@ class PalletLabelResource extends JsonResource
      */
     public function toArray($request)
     {
-      // dd($this);
+//       dd($this->crop_date->format('Y-m-d'));
 //        return parent::toArray($request);
         return [
             'id' => $this->id,
-            'crop_date' => $this->crop_date,
+            'crop_date' => $this->crop_date->format('Y-m-d'),
             'article_amount' => $this->article_amount,
             'note' => $this->note,
             'cell' => new CellResource(Cell::find($this->cell_id)),

@@ -63,6 +63,8 @@ class PlanningController extends Controller
 
         $sort = SortType::where('name', $request->planning['sort'])->first();
 
+//        dd($request->planning);
+
         $planning = Planning::where('cell_id', $request->planning['cell']['id'])
             ->where('farmer_id', $currentFarmer->id)
             ->where('status_id', '!=', 10)
@@ -144,13 +146,13 @@ class PlanningController extends Controller
                             $sort = SortType::where('id', $planningAm["sort_type_id"])->first();
                             $planningArr = [
                                 "cell_id" => $plan["cell_id"],
-                                "date" => $plan["date"],
+                                "date" => $plan["date"]->format('Y-m-d'),
                                 "sort" => $sort->description,
                                 "sort_type_id" => $planningAm["sort_type_id"],
                                 "amount" => $planningAm["amount"]
                             ];
 
-                            if ($date->toDateTimeString() === $plan["date"]) {
+                            if ($date->toDateTimeString() === $plan["date"]->toDateTimeString()) {
 //                                var_dump($date->toDateTimeString() === $plan["date"]);
 //                            if ($sortAll["description"] === $sort->description) {
                                 $planningsArr[$date->toDateTimeString()][$sort->description] = $planningArr;
@@ -190,14 +192,15 @@ class PlanningController extends Controller
                     foreach ($prognoseRay as $item) {
 //                    $testtomtom[$item["cell_id"]][$item["date"]] = $item["status_id"];
                         $statusesasdf = Status::where('id', '=', $item["status_id"])->first();
-                        if ($item["status_id"] === 9) {
+                        if ((int)$item["status_id"] === 9) {
                             $prognoseArr = false;
-                        } elseif ($item["status_id"] === 10) {
+                        } elseif ((int)$item["status_id"] === 10) {
                             $prognoseArr = true;
                         }
-
-                        $prognoseArray[$item["cell_id"]][$item["date"]] = $prognoseArr;
-
+//                        dd($item["date"]->toDateTimeString());
+//                        if(isset($item["cell_id"]) && $item["date"] && is_object($item["cell_id"]) && is_object($item["date"])) {
+                            $prognoseArray[(int)$item["cell_id"]][$item["date"]->toDateTimeString()] = $prognoseArr;
+//                        }
 //                        $prognoseArray[$cell["id"][$date->toDateTimeString()]] = $prognoseArr;
                     }
                 }
@@ -209,12 +212,17 @@ class PlanningController extends Controller
         $reportLabels = [];
         $totpalletweight = 0;
         if (!sizeof($palletlabels)) {
-            return [];
+//            return [];
+            $totArr = [
+                "planning" => $tom,
+                "prognose" => $prognoseArray,
+            ];
+            return $totArr;
         }
         foreach ($palletlabels as $pallet) {
 
             foreach ($statuses as $status) {
-                if ($status["id"] === $pallet["status_id"]) {
+                if ((int)$status["id"] === (int)$pallet["status_id"]) {
                     $statusdesc = $status["name"];
                 }
             }
@@ -222,7 +230,7 @@ class PlanningController extends Controller
 
             $reportLabel = [
                 "id" => $pallet['id'],
-                "crop_date" => $pallet['crop_date'],
+                "crop_date" => $pallet['crop_date']->format('Y-m-d'),
                 "article_amount" => $pallet['article_amount'],
                 "note" => $pallet['note'],
                 "cell_number" => $pallet['cell_number'],
@@ -249,7 +257,7 @@ class PlanningController extends Controller
 //                        var_dump($articleid . '===' . $art["id"]);
                         $sortid = $sort["sort_type_id"];
 //                        var_dump($artSortType . ' ' . $sortid);
-                        if ($artSortType === $sortid) {
+                        if ((int)$artSortType === (int)$sortid) {
 
                             $indexes[] = $index;
                             $palletweight += (intval($art["inset_gram"]) * intval($pallet["article_amount"]));
@@ -282,6 +290,27 @@ class PlanningController extends Controller
         $totalpalletweight = round(($totpalletweight) / 1000, 2);
 
         $sortChartArr = $uniqueSort;
+
+//        dd($palletlabels);
+//        if(sizeof($palletlabels)){
+////            dd("hoi");
+//            $totArr = [
+//                "totalpallets" => $totalpallets,
+//                "avgpalletweight" => $avgpalletweight,
+//                "totalpalletweight" => $totalpalletweight,
+//                "sortchartarr" => $sortChartArr,
+//                "groupedarticles" => $articlesList,
+//                "labels" => $reportLabels,
+//                "planning" => $tom,
+//                "prognose" => $prognoseArray,
+//            ];
+//        }else{
+////            dd("no");
+//            $totArr = [
+//                "planning" => $tom,
+//                "prognose" => $prognoseArray,
+//            ];
+//        }
 
         $totArr = [
             "totalpallets" => $totalpallets,
