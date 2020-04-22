@@ -12,9 +12,10 @@ class PlanningTotalController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return array
      */
-    public function index()
+    public function index(Request $request)
     {
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
 
