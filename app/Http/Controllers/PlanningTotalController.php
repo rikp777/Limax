@@ -40,7 +40,7 @@ class PlanningTotalController extends Controller
             )
             SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
             FROM planning_amounts b
-            join plannings a ON b.planning_id = a.id
+            join (select * from plannings where farmer_id = '$currentFarmer->id') a ON b.planning_id = a.id
             right join DesiredDatesAndSortTypes ddst ON CAST(a.date as DATE)=ddst.DesiredDate and b.sort_type_id=ddst.id
             join sort_types c ON ddst.id = c.id
             GROUP BY ddst.DesiredDate,c.Description
