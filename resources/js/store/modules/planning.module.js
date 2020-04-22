@@ -1,4 +1,4 @@
-import { PlanningService } from "../../common/api.service";
+import { PlanningService, PlanningTotalService } from "../../common/api.service";
 
 // action names
 const FETCH_START = "setPlanningLoading";
@@ -7,12 +7,14 @@ const FETCH_END = "resetPlanningLoading";
 
 // mutation names
 const SET_PLANNING = "setPlanning";
+const SET_PLANNINGTOTAL = "setPlanningTotal";
 const SET_PLANNINGS= "setAllPlannings";
 
 // Initial State
 const state = {
     plannings: {},
     planning: [],
+    planningTotal: [],
     calculation: [],
     isLoading: true,
     planningsCount: 0,
@@ -25,6 +27,9 @@ const getters = {
     },
     planning(state){
         return state.planning;
+    },
+    planningTotal(state){
+        return state.planningTotal;
     },
     planningsCount(state) {
         return state.planningsCount
@@ -56,6 +61,17 @@ const actions = {
             .then(({ data }) => {
                 // console.log(data);
                 context.commit(SET_PLANNINGS, data);
+            })
+            .catch(error => {
+                throw new Error(error)
+            })
+    },
+
+    async getPlanningTotal(context){
+        context.commit(FETCH_START);
+        return PlanningTotalService.getAll()
+            .then(({ data }) => {
+                context.commit(SET_PLANNINGTOTAL, data);
             })
             .catch(error => {
                 throw new Error(error)
@@ -125,6 +141,9 @@ const mutations = {
     },
     [SET_PLANNING](state, planning){
         state.planning = planning;
+    },
+    [SET_PLANNINGTOTAL](state, planningTotal){
+        state.planningTotal = planningTotal;
     },
     setCalculation(state, calculation){
         //console.log(calculation);

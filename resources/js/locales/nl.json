@@ -39,8 +39,9 @@
         },
         "planning": {
             "main": "Planning",
-            "create": "Planning",
-            "overview": "Voorraad"
+            "create": "Maak",
+            "overview": "Voorraad",
+            "total": "Overzicht"
         }
     },
 
@@ -203,6 +204,9 @@
     "planning": {
         "overview": {
             "title": "Voorraad"
+        },
+        "total": {
+            "title": "Overzicht"
         },
         "create": {
             "title": "Planning"
