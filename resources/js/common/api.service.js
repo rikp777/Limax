@@ -383,6 +383,13 @@ export const PlanningService = {
         return ApiService.get(PlanningApi)
     }
 };
+8
+const PlanningTotalApi = "planningTotal";
+export const PlanningTotalService = {
+    getAll() {
+        return ApiService.get(PlanningTotalApi)
+    }
+};
 
 //Farmer
 const FarmerApi = "farmer";

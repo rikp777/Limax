@@ -39,8 +39,9 @@
         },
         "planning": {
             "main": "Planning",
-            "create": "Planning",
-            "overview": "Stock"
+            "create": "Create",
+            "overview": "Stock",
+            "total": "Overview"
         }
     },
 
@@ -203,6 +204,9 @@
     "planning": {
         "overview": {
             "title": "Stock"
+        },
+        "total": {
+            "title": "Overview"
         },
         "create": {
             "title": "Planning"

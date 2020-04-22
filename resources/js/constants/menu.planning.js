@@ -26,6 +26,12 @@ const data = [
                 to: "/planner/planning/create"
             },
             {
+                id: "planningTotal",
+                icon: "iconsminds-box-with-folders",
+                label: "menu.planning.total",
+                to: "/planner/planning/planningView"
+            },
+            {
                 id: "planningOverview",
                 icon: "iconsminds-check",
                 label: "menu.planning.overview",
