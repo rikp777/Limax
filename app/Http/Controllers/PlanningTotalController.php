@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Farmer;
 use App\Http\Resources\PlanningTotalResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,8 @@ class PlanningTotalController extends Controller
      */
     public function index()
     {
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+
         $planningTotal = DB::select( DB::raw("
             WITH DesiredDates AS
             (SELECT CAST(DATEADD(dd,-3,GETDATE()) as DATE) AS DesiredDate UNION ALL
@@ -32,7 +35,7 @@ class PlanningTotalController extends Controller
             SELECT * FROM DesiredDates CROSS JOIN (SELECT distinct z.sort_type_id as id
               FROM articles z
               join sort_types x ON z.sort_type_id = x.id
-              where z.id in (select article_id from article_farmer where farmer_id = 1)) t
+              where z.id in (select article_id from article_farmer where farmer_id = '$currentFarmer->id'')) t
             )
             SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
             FROM planning_amounts b
