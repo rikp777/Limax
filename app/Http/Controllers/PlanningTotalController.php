@@ -36,7 +36,7 @@ class PlanningTotalController extends Controller
             SELECT * FROM DesiredDates CROSS JOIN (SELECT distinct z.sort_type_id as id
               FROM articles z
               join sort_types x ON z.sort_type_id = x.id
-              where z.id in (select article_id from article_farmer where farmer_id = '$currentFarmer->id'')) t
+              where z.id in (select article_id from article_farmer where farmer_id = '$currentFarmer->id')) t
             )
             SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
             FROM planning_amounts b
