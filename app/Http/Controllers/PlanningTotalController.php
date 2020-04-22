@@ -29,7 +29,10 @@ class PlanningTotalController extends Controller
              SELECT CAST(DATEADD(dd,6,GETDATE()) as DATE) UNION ALL
              SELECT CAST(DATEADD(dd,7,GETDATE()) as DATE)
             ), DesiredDatesAndSortTypes AS (
-            SELECT * FROM DesiredDates CROSS JOIN (select id from sort_types) t
+            SELECT * FROM DesiredDates CROSS JOIN (SELECT distinct z.sort_type_id as id
+              FROM articles z
+              join sort_types x ON z.sort_type_id = x.id
+              where z.id in (select article_id from article_farmer where farmer_id = 1)) t
             )
             SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
             FROM planning_amounts b
@@ -39,6 +42,30 @@ class PlanningTotalController extends Controller
             GROUP BY ddst.DesiredDate,c.Description
             ORDER BY DesiredDate,Description"
         ) );
+//        $planningTotal = DB::select( DB::raw("
+//            WITH DesiredDates AS
+//            (SELECT CAST(DATEADD(dd,-3,GETDATE()) as DATE) AS DesiredDate UNION ALL
+//             SELECT CAST(DATEADD(dd,-2,GETDATE()) as DATE) UNION ALL
+//             SELECT CAST(DATEADD(dd,-1,GETDATE()) as DATE) UNION ALL
+//             SELECT CAST(GETDATE() as DATE) UNION ALL
+//             SELECT CAST(DATEADD(dd,1,GETDATE()) as DATE) UNION ALL
+//             SELECT CAST(DATEADD(dd,2,GETDATE()) as DATE) UNION ALL
+//             SELECT CAST(DATEADD(dd,3,GETDATE()) as DATE) UNION ALL
+//             SELECT CAST(DATEADD(dd,4,GETDATE()) as DATE) UNION ALL
+//             SELECT CAST(DATEADD(dd,5,GETDATE()) as DATE) UNION ALL
+//             SELECT CAST(DATEADD(dd,6,GETDATE()) as DATE) UNION ALL
+//             SELECT CAST(DATEADD(dd,7,GETDATE()) as DATE)
+//            ), DesiredDatesAndSortTypes AS (
+//            SELECT * FROM DesiredDates CROSS JOIN (select id from sort_types) t
+//            )
+//            SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
+//            FROM planning_amounts b
+//            join plannings a ON b.planning_id = a.id
+//            right join DesiredDatesAndSortTypes ddst ON CAST(a.date as DATE)=ddst.DesiredDate and b.sort_type_id=ddst.id
+//            join sort_types c ON ddst.id = c.id
+//            GROUP BY ddst.DesiredDate,c.Description
+//            ORDER BY DesiredDate,Description"
+//        ) );
 
         $totalArr = [];
         $sorts = [];
