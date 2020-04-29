@@ -41,24 +41,31 @@ class Article extends Model
     }
 
     public static function fullName($article){
-        if (isset($article->color)){
+        foreach ($article as $value){
+//dd($value);
+            if (isset($value->inset->color)){
 //            $articleColor = $article->color;
-            return
-                $article->articleGroup->name . ' ' .
-                $article->inset_limit . 'x' .
-                $article->inset_gram . ' ' .
-                $article->sortType->name . ' ' .
-                $article->inset->color . ' (' .
-                $article->excel_code . ')';
-        } else {
-            return
-                $article->articleGroup->name . ' ' .
-                $article->inset_limit . 'x' .
-                $article->inset_gram . ' ' .
-                $article->sortType->name . ' ' .
-                ' (' .
-                $article->excel_code . ')';
+//                dd("isset");
+                return
+                    $value->articleGroup->name . ' ' .
+                    $value->inset_limit . 'x' .
+                    $value->inset_gram . ' ' .
+                    $value->sortType->name . ' ' .
+                    $value->inset->color . ' (' .
+                    $value->excel_code . ')';
+            } else {
+//                dd($value);
+                return
+                    $value->articleGroup->name . ' ' .
+                    $value->inset_limit . 'x' .
+                    $value->inset_gram . ' ' .
+                    $value->sortType->name . ' ' .
+                    ' (' .
+                    $value->excel_code . ')';
+            }
+
         }
+
 
     }
 
