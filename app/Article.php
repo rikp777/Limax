@@ -42,27 +42,53 @@ class Article extends Model
 
     public static function fullName($article){
         foreach ($article as $value){
-//dd($value);
-            if (isset($value->inset->color)){
+//           dd($value);
+            if($value->sortType->name === 'none'){
+//                dd($value->sortType->name);
+
+                if (isset($value->inset->color)){
 //            $articleColor = $article->color;
 //                dd("isset");
-                return
-                    $value->articleGroup->name . ' ' .
-                    $value->inset_limit . 'x' .
-                    $value->inset_gram . ' ' .
-                    $value->sortType->name . ' ' .
-                    $value->inset->color . ' (' .
-                    $value->excel_code . ')';
-            } else {
+                    return
+                        $value->articleGroup->name . ' ' .
+                        $value->inset_limit . 'x' .
+                        $value->inset_gram . ' ' .
+                        $value->inset->color . ' (' .
+                        $value->excel_code . ')';
+                } else {
 //                dd($value);
-                return
-                    $value->articleGroup->name . ' ' .
-                    $value->inset_limit . 'x' .
-                    $value->inset_gram . ' ' .
-                    $value->sortType->name . ' ' .
-                    ' (' .
-                    $value->excel_code . ')';
+                    return
+                        $value->articleGroup->name . ' ' .
+                        $value->inset_limit . 'x' .
+                        $value->inset_gram . ' ' .
+                        ' (' .
+                        $value->excel_code . ')';
+                }
+
+            } else {
+                if (isset($value->inset->color)){
+//            $articleColor = $article->color;
+//                dd("isset");
+                    return
+                        $value->articleGroup->name . ' ' .
+                        $value->inset_limit . 'x' .
+                        $value->inset_gram . ' ' .
+                        $value->sortType->name . ' ' .
+                        $value->inset->color . ' (' .
+                        $value->excel_code . ')';
+                } else {
+//                dd($value);
+                    return
+                        $value->articleGroup->name . ' ' .
+                        $value->inset_limit . 'x' .
+                        $value->inset_gram . ' ' .
+                        $value->sortType->name . ' ' .
+                        ' (' .
+                        $value->excel_code . ')';
+                }
             }
+
+
 
         }
 
