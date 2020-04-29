@@ -77,14 +77,14 @@ class ReportController extends Controller
                         $sortid = $sort["id"];
                         if ((int)$artSortType === (int)$sortid) {
                             $indexes[] = $index;
-                            $palletweight += ($art["inset_gram"] * $pallet["article_amount"]);
-                            $totpalletweight += ($art["inset_gram"] * $pallet["article_amount"]);
+                            $palletweight += (($art["inset_gram"] * $art["inset_limit"]) * $pallet["article_amount"]);
+                            $totpalletweight += (($art["inset_gram"] * $art["inset_limit"]) * $pallet["article_amount"]);
 
                             $sortDesc = $sort["description"];
                             if (!isset($uniqueSort[$sortDesc])) {
                                 $uniqueSort[$sortDesc] = 0;
                             }
-                            $uniqueSort[$sortDesc] += round(($art["inset_gram"] * $pallet["article_amount"]) / 1000, 2);
+                            $uniqueSort[$sortDesc] += round((($art["inset_gram"] * $art["inset_limit"]) * $pallet["article_amount"]) / 1000, 2);
                             $reportLabel["sort"] =  $sortDesc;
                         }
 
