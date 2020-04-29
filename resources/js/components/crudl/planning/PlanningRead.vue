@@ -109,7 +109,7 @@
 
                     ]
                 },
-                perPageplanningArticles: 3,
+                perPageplanningArticles: 10,
 
                 dataPlanningLabels: [],
                 planningLabelsObj: {
@@ -152,7 +152,7 @@
 
                     ]
                 },
-                perPageplanningLabels: 3,
+                perPageplanningLabels: 10,
             }
         },
         watch: {
