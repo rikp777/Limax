@@ -260,8 +260,8 @@ class PlanningController extends Controller
                         if ((int)$artSortType === (int)$sortid) {
 
                             $indexes[] = $index;
-                            $palletweight += (intval($art["inset_gram"]) * intval($pallet["article_amount"]));
-                            $totpalletweight += (intval($art["inset_gram"]) * intval($pallet["article_amount"]));
+                            $palletweight += (intval(($art["inset_gram"] * $art["inset_limit"])) * intval($pallet["article_amount"]));
+                            $totpalletweight += (intval(($art["inset_gram"] * $art["inset_limit"])) * intval($pallet["article_amount"]));
 
 //                            $sortDesc = $sort["sort_type_id"];
                             $sortDesc = SortType::where('id', $sort["sort_type_id"])->first();
@@ -270,7 +270,7 @@ class PlanningController extends Controller
                                 $uniqueSort[$sortDesc["description"]] = 0;
 //                                var_dump($uniqueSort);
                             }
-                            $uniqueSort[$sortDesc["description"]] += round((intval($art["inset_gram"]) * intval($pallet["article_amount"])) / 1000, 2);
+                            $uniqueSort[$sortDesc["description"]] += round((intval(($art["inset_gram"] * $art["inset_limit"])) * intval($pallet["article_amount"])) / 1000, 2);
                             $reportLabel["sort"] = $sortDesc["description"];
 //                            var_dump($uniqueSort);
                         }
