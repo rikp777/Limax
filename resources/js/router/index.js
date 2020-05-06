@@ -78,6 +78,14 @@ const router = new VueRouter({
                         ...weight
                     ]
                 }
+                // {
+                //     path: "logistics",
+                //     component: () => import('../views/logistics/Index'),
+                //     meta: {
+                //         requiresAuth: true,
+                //         requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Logistics]
+                //     },
+                // }
             ]
         },
         ...auth

@@ -1,28 +1,5 @@
 <template>
     <div v-if="waitLoad === true">
-    <b-row>
-        <b-colxx xl="12" lg="12" md="12" class="mb-4">
-            <b-card>
-                <div class="dashboard-donut-chart">
-                    <b-refresh-button @click="refreshButtonClick"/>
-                    <vue-table
-                        ref="planningLabelsList"
-                        :api-mode="false"
-                        :fields="planningLabelsObj.fields"
-                        :per-page="perPageplanningLabels"
-                        :data-manager="dataManagerplanningLabels"
-                        pagination-path="paginationLabels"
-                        @vuetable:pagination-data="onPaginationDataLabels"
-                    >
-                    </vue-table>
-                    <vue-table-pagination-bootstrap
-                        ref="paginationLabels"
-                        @vuetable-pagination:change-page="onChangePageLabels"
-                    />
-                </div>
-            </b-card>
-        </b-colxx>
-    </b-row>
         <b-row>
             <b-colxx xl="4" lg="4" md="12" class="mb-4">
                 <b-card no-body class="h-100">
@@ -30,19 +7,19 @@
                         <p class="lead color-theme-1 mb-1 value">{{ planning.totalpallets }} X</p>
                         <p class="mb-0 label text-small">{{$t('planning.totalpallets')}}</p>
                     </b-card-body>
-<!--                    <b-card-body>-->
-<!--                        <p class="lead color-theme-1 mb-1 value">{{ planning.avgpalletweight }} KG</p>-->
-<!--                        <p class="mb-0 label text-small">{{$t('planning.avgpalletweight')}}</p>-->
-<!--                    </b-card-body>-->
-<!--                    <b-card-body>-->
-<!--                        <p class="lead color-theme-1 mb-1 value">{{ planning.totalpalletweight }} KG</p>-->
-<!--                        <p class="mb-0 label text-small">{{$t('planning.totalpalletweight')}}</p>-->
-<!--                    </b-card-body>-->
+                    <!--                    <b-card-body>-->
+                    <!--                        <p class="lead color-theme-1 mb-1 value">{{ planning.avgpalletweight }} KG</p>-->
+                    <!--                        <p class="mb-0 label text-small">{{$t('planning.avgpalletweight')}}</p>-->
+                    <!--                    </b-card-body>-->
+                    <!--                    <b-card-body>-->
+                    <!--                        <p class="lead color-theme-1 mb-1 value">{{ planning.totalpalletweight }} KG</p>-->
+                    <!--                        <p class="mb-0 label text-small">{{$t('planning.totalpalletweight')}}</p>-->
+                    <!--                    </b-card-body>-->
                 </b-card>
             </b-colxx>
             <b-colxx xl="8" lg="8" md="12" class="mb-4">
                 <b-card class="h-100">
-                    <div class="dashboard-donut-chart">
+                    <div>
                         <b-refresh-button @click="refreshButtonClick"/>
                         <vue-table
                             ref="planningArticlesList"
@@ -62,6 +39,29 @@
                 </b-card>
             </b-colxx>
         </b-row>
+    <b-row>
+        <b-colxx xl="12" lg="12" md="12" class="mb-4">
+            <b-card>
+                <div>
+                    <b-refresh-button @click="refreshButtonClick"/>
+                    <vue-table
+                        ref="planningLabelsList"
+                        :api-mode="false"
+                        :fields="planningLabelsObj.fields"
+                        :per-page="perPageplanningLabels"
+                        :data-manager="dataManagerplanningLabels"
+                        pagination-path="paginationLabels"
+                        @vuetable:pagination-data="onPaginationDataLabels"
+                    >
+                    </vue-table>
+                    <vue-table-pagination-bootstrap
+                        ref="paginationLabels"
+                        @vuetable-pagination:change-page="onChangePageLabels"
+                    />
+                </div>
+            </b-card>
+        </b-colxx>
+    </b-row>
 </div>
 </template>
 
@@ -109,7 +109,7 @@
 
                     ]
                 },
-                perPageplanningArticles: 3,
+                perPageplanningArticles: 10,
 
                 dataPlanningLabels: [],
                 planningLabelsObj: {
@@ -152,7 +152,7 @@
 
                     ]
                 },
-                perPageplanningLabels: 3,
+                perPageplanningLabels: 10,
             }
         },
         watch: {

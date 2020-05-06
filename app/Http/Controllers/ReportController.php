@@ -26,7 +26,7 @@ class ReportController extends Controller
         $article = Article::all();
         $statuses = Status::all();
         $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->where('crop_date', date('Y-m-d'))->get();
-//        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->get();
+//       $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->get();
         $sorts = SortType::all();
 
 

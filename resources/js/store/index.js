@@ -19,6 +19,7 @@ import articlefarmer from './modules/articlefarmer.module'
 import role from './modules/role.module'
 import department from './modules/department.module'
 import report from './modules/report.module'
+import logistics from './modules/logistics.module'
 import planning from './modules/planning.module'
 import cultivationCycle from '../store/modules/cultivationCycle'
 import palletType from './modules/palletType.module'
@@ -68,5 +69,6 @@ export default new Vuex.Store({
         planning,
         department,
         articlefarmer,
+        logistics,
     },
 });
