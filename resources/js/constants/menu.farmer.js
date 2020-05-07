@@ -3,29 +3,13 @@ const data = [
         id: "palletlabel",
         icon: "simple-icon-tag",
         label: "menu.palletlabel.main",
-        to: "/farmer/palletlabel",
-        subs: [
-            {
-                id: "palletlabelCreate",
-                icon: "iconsminds-add",
-                label: "menu.palletlabel.create",
-                to: "/farmer/palletlabel/create"
-            }
-        ],
+        to: "/farmer/palletlabel/create"
     },
     {
         id: "shippinglabel",
         icon: "simple-icon-tag",
         label: "menu.shippinglabel.main",
-        to: "/farmer/shippinglabel",
-        subs: [
-            {
-                id: "shippinglabelCreate",
-                icon: "iconsminds-add",
-                label: "menu.shippinglabel.create",
-                to: "/farmer/shippinglabel/create"
-            }
-        ],
+        to: "/farmer/shippinglabel/create"
     },
     {
         id: "report",

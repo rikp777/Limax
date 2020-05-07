@@ -195,7 +195,7 @@
                                                     <span
                                                         class="align-middle d-inline-block">{{item.article.name}}</span>
                                                 </a>
-                                                <p class="mb-1 text-muted text-small w-15 w-xs-100">{{item.id}}</p>
+                                                <p class="mb-1 text-muted text-small w-15 w-xs-100">{{item.palletLabelFarmerId}}</p>
                                                 <p class="mb-1 text-muted text-small w-15 w-xs-100">
                                                     {{item.cropDate}}</p>
                                                 <p class="mb-1 text-muted text-small w-15 w-xs-100">
