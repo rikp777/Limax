@@ -88,7 +88,7 @@ const actions = {
         context.commit(FETCH_START);
         return PlanningTotalService.get(planningSlug)
             .then(({data}) => {
-                console.log(data);
+                // console.log(data);
                 context.commit(SET_PLANNINGTOTALFARMER, data);
                 context.commit(FETCH_END);
             })

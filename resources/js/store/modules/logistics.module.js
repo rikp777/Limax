@@ -67,7 +67,7 @@ const actions = {
         // if (state.logistics.id === logisticSlug) {
         //     return;
         // }
-        console.log(logisticSlug);
+        // console.log(logisticSlug);
         context.commit(FETCH_START);
         return LogisticService.get(logisticSlug)
             .then(({data}) => {
