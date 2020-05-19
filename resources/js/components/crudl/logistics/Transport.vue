@@ -1,7 +1,8 @@
 <template>
     <div class="container-fluid">
         <div>
-            <div class="row">
+            {{bootstrapTable.items}}
+            <div class="row" v-if="bootstrapTable.items.length > 0">
                 <b-colxx xxs="3">
                     <b-card class="mb-4">
                         <b-card-header>
@@ -65,6 +66,12 @@
                         </b-card-body>
                     </b-card>
                 </b-colxx>
+            </div>
+            <div v-else>
+                <b-jumbotron header="Transport" lead="">
+                    <!--                            <p>Select a farmer</p>-->
+                    <!--                            <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>-->
+                </b-jumbotron>
             </div>
         </div>
 <!--        <div v-else>-->
