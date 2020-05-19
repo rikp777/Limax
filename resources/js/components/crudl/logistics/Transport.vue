@@ -260,9 +260,12 @@
             },
         },
         mounted() {
+            Promise.all([
+                this.getAllTransports()
+            ]).finally(() => {
+                this.bootstrapTable.items = this.transports.data
+            })
             // console.log('hoi');
-            this.getAllTransports();
-            this.bootstrapTable.items = this.transports.data;
             // console.log(this.bootstrapTable.items);
             // console.log(this.transports);
             // this.transports.data.forEach(element => console.log(element));
