@@ -88,16 +88,17 @@
                 reportsObj: {
                     fields: [
                         {
+                            name: 'id',
+                            sortField: 'id',
+                            title: 'ID',
+                            titleClass: '',
+                            dataClass: 'center aligned',
+                            width: "15%",
+                        },
+                        {
                             name: 'farmer',
                             sortField: 'farmer',
                             title: 'Farmer',
-                            titleClass: '',
-                            dataClass: 'center aligned'
-                        },
-                        {
-                            name: 'articleAmount',
-                            sortField: 'articleAmount',
-                            title: 'Aantal',
                             titleClass: '',
                             dataClass: 'center aligned'
                         },
@@ -109,11 +110,12 @@
                             dataClass: 'center aligned'
                         },
                         {
-                            name: 'id',
-                            sortField: 'id',
-                            title: 'ID',
+                            name: 'articleAmount',
+                            sortField: 'articleAmount',
+                            title: 'Aantal',
                             titleClass: '',
-                            dataClass: 'center aligned'
+                            dataClass: 'center aligned',
+                            width: "15%",
                         }
                     ]
                 },
@@ -153,18 +155,19 @@
                             dataClass: 'center aligned'
                         },
                         {
-                            name: 'articleAmount',
-                            sortField: 'articleAmount',
-                            title: 'Aantal',
-                            titleClass: '',
-                            dataClass: 'center aligned'
-                        },
-                        {
                             name: 'article',
                             sortField: 'article',
                             title: 'Artikel',
                             titleClass: '',
                             dataClass: 'center aligned'
+                        },
+                        {
+                            name: 'articleAmount',
+                            sortField: 'articleAmount',
+                            title: 'Aantal',
+                            titleClass: '',
+                            dataClass: 'center aligned',
+                            width: "15%",
                         }
                     ]
                 },
