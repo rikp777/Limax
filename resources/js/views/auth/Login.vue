@@ -126,6 +126,9 @@
                     if(this.authUser.roles[0].name === "Farmer"){
                         this.$router.push({ path: "/farmer"})
                     }
+                    if(this.authUser.roles[0].name === "Logistics"){
+                        this.$router.push({ path: "/logistics"})
+                    }
                     // else {
                     //     this.$router.push({ path: "/farmer"})
                     // }

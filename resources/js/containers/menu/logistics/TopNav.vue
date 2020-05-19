@@ -1,12 +1,12 @@
 <template>
     <nav class="navbar fixed-top">
         <div class="d-flex align-items-center navbar-left">
-<!--            <a href="#" class="menu-button d-none d-md-block" @click.prevent.stop="changeSideMenuStatus({step :menuClickCount+1,classNames:menuType,selectedMenuHasSubItems})">-->
-<!--                <menu-icon />-->
-<!--            </a>-->
-<!--            <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none" @click.prevent.stop="changeSideMenuForMobile(menuType)">-->
-<!--                <mobile-menu-icon />-->
-<!--            </a>-->
+            <a href="#" class="menu-button d-none d-md-block" @click.prevent.stop="changeSideMenuStatus({step :menuClickCount+1,classNames:menuType,selectedMenuHasSubItems})">
+                <menu-icon />
+            </a>
+            <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none" @click.prevent.stop="changeSideMenuForMobile(menuType)">
+                <mobile-menu-icon />
+            </a>
 <!--            <div :class="{'search':true, 'mobile-view':isMobileSearch}" ref="searchContainer" @mouseenter="isSearchOver=true" @mouseleave="isSearchOver=false">-->
 <!--                <b-input :placeholder="$t('topMenu.search')" @keypress.native.enter="search" v-model="searchKeyword" />-->
 <!--                <span class="search-icon" @click="searchClick">-->

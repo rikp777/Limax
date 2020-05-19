@@ -42,6 +42,9 @@
             "create": "Maak",
             "overview": "Voorraad",
             "total": "Overzicht"
+        },
+        "logistics":  {
+            "transport": "Transport"
         }
     },
 

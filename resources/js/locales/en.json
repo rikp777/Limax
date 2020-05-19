@@ -42,6 +42,9 @@
             "create": "Create",
             "overview": "Stock",
             "total": "Overview"
+        },
+        "logistics":  {
+            "transport": "Transport"
         }
     },
 

@@ -64,10 +64,10 @@ const actions = {
 
     //get single cell
     async getLogistic(context, logisticSlug) {
-        if (state.logistics.id === logisticSlug) {
-            return;
-        }
-
+        // if (state.logistics.id === logisticSlug) {
+        //     return;
+        // }
+        console.log(logisticSlug);
         context.commit(FETCH_START);
         return LogisticService.get(logisticSlug)
             .then(({data}) => {

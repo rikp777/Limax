@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Farmer;
+use App\Http\Resources\ArticleResource;
 use App\Http\Resources\LogisticResource;
 use App\PalletLabel;
 use App\SortType;
@@ -21,32 +22,21 @@ class LogisticController extends Controller
     public function index(Request $request)
     {
         //
-//        dd("logisticsindex");
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-//        $palletlabels = PalletLabel::where('farmer_id', $currentFarmer->id)->get();
 
-        $champlanden = [1,2,3];
+        $champlanden = [1, 2, 3];
 
-        $articlesTotal = DB::select( DB::raw(
-            "SELECT article_id, SUM(article_amount) as article_amount from pallet_labels where farmer_id IN (".implode(',',$champlanden).") AND status_id = 1 group by article_id"
-        ) );
+        $articlesTotal = DB::select(DB::raw(
+            "SELECT article_id, SUM(article_amount) as article_amount from pallet_labels where farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 group by article_id"
+        ));
 
-        $palletlabelsTotal = DB::select( DB::raw(
-            "SELECT farmer_id, id, crop_date, article_amount, article_id FROM pallet_labels WHERE farmer_id IN (".implode(',',$champlanden).") AND status_id = 1"
-        ) );
+        $palletlabelsTotal = DB::select(DB::raw(
+            "SELECT farmer_id, id, crop_date, article_amount, article_id FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1"
+        ));
 
-        $palletlabelsCount = DB::select( DB::raw(
-            "SELECT COUNT(ID) as totalLabels FROM pallet_labels WHERE farmer_id IN (".implode(',',$champlanden).") AND status_id = 1"
-        ) );
-
-//        $totalArr = [];
-//
-//        foreach ($palletlabelsTotal as $palletlabel){
-//            if (!isset($totalArr[$palletlabel->article_id])) {
-//                $totalArr[$palletlabel->article_id] = 0;
-//            }
-//            $totalArr[$palletlabel->article_id] += $palletlabel->article_amount;
-//        }
+        $palletlabelsCount = DB::select(DB::raw(
+            "SELECT COUNT(ID) as totalLabels FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1"
+        ));
 
         $totArr = [
             "total_articles" => $articlesTotal,
@@ -70,7 +60,7 @@ class LogisticController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -81,19 +71,59 @@ class LogisticController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return LogisticResource
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //
-//        dd("logisticsshow");
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+
+        $champlanden = [1, 2, 3];
+
+        $articlesTotal = DB::select(DB::raw(
+            "SELECT (SELECT CONCAT((select name from article_groups where id = articles.article_group_id), ' ', inset_limit, ' ', 'x', ' ', inset_gram, ' ', (select name from sort_types where id = articles.sort_type_id), ' ', (select color from insets where id = articles.inset_id), ' ', '(',  excel_code, ')') as article_name
+              FROM articles
+              WHERE id = pallet_labels.article_id) as article, SUM(article_amount) as article_amount from pallet_labels where farmer_id = '$id' AND status_id = 1 group by article_id"
+        ));
+
+//        $palletlabelsTotal = DB::select( DB::raw(
+//            "SELECT (select distinct name from farmers where id = '$id') as farmer, id, crop_date, article_amount, article_id FROM pallet_labels WHERE farmer_id = '$id' AND status_id = 1"
+//        ) );
+
+        $palletlabelsTotal = DB::select(DB::raw(
+            "SELECT (select distinct name from farmers where id = '$id') as farmer, id, crop_date, article_amount,
+            (SELECT CONCAT((select name from article_groups where id = articles.article_group_id), ' ', inset_limit, ' ', 'x', ' ', inset_gram, ' ', (select name from sort_types where id = articles.sort_type_id), ' ', (select color from insets where id = articles.inset_id), ' ', '(',  excel_code, ')') as article_name
+              FROM articles
+              WHERE id = pallet_labels.article_id) as article
+              FROM pallet_labels WHERE farmer_id = '$id' AND status_id = 1"
+        ));
+
+        $palletlabelsCount = DB::select(DB::raw(
+            "SELECT COUNT(ID) as totalLabels FROM pallet_labels WHERE farmer_id = '$id' AND status_id = 1"
+        ));
+
+//        dd($palletlabelsCount['0']->totalLabels);
+
+        if ($palletlabelsCount['0']->totalLabels === "0"){
+            return [];
+        }
+
+        $totArr = [
+            "total_articles" => $articlesTotal,
+            "total_labels" => $palletlabelsTotal,
+            "total_labelsCount" => $palletlabelsCount,
+            "lastupdate" => date("d-m-Y h:i:s")
+        ];
+
+        return new LogisticResource($totArr);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -104,8 +134,8 @@ class LogisticController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -116,7 +146,7 @@ class LogisticController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

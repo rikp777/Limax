@@ -69,7 +69,7 @@ import {
     menuHiddenBreakpoint,
     subHiddenBreakpoint
 } from "../../../constants/config";
-import menuItems from "../../../constants/menu.production";
+import menuItems from "../../../constants/menu.logistics";
 
 export default {
     data() {

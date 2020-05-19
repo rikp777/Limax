@@ -10,6 +10,8 @@ import report from "./routes/report"
 import planning from "./routes/planning"
 import shippingLabel from "./routes/shippingLabel";
 import weight from "./routes/weight";
+import logisticsPlanning from "./routes/logisticsPlanning";
+import logisticsTransport from "./routes/logisticsTransport";
 import RightEnum from "./rights";
 
 Vue.use(VueRouter);
@@ -77,15 +79,19 @@ const router = new VueRouter({
                     children: [
                         ...weight
                     ]
+                },
+                {
+                    path: "logistics",
+                    component: () => import('../views/logistics/Index'),
+                    meta: {
+                        requiresAuth: true,
+                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Logistics]
+                    },
+                    children: [
+                        ...logisticsPlanning,
+                        ...logisticsTransport
+                    ]
                 }
-                // {
-                //     path: "logistics",
-                //     component: () => import('../views/logistics/Index'),
-                //     meta: {
-                //         requiresAuth: true,
-                //         requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Logistics]
-                //     },
-                // }
             ]
         },
         ...auth

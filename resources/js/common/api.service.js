@@ -388,6 +388,19 @@ const PlanningTotalApi = "planningTotal";
 export const PlanningTotalService = {
     getAll() {
         return ApiService.get(PlanningTotalApi)
+    },
+    get(slug){
+        return ApiService.get(PlanningTotalApi, slug)
+    }
+};
+
+const TransportApi = "transport";
+export const TransportService = {
+    getAll() {
+        return ApiService.get(TransportApi)
+    },
+    get(slug){
+        return ApiService.get(TransportApi, slug)
     }
 };
 
