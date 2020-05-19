@@ -1,37 +1,31 @@
 <template>
     <div class="container-fluid">
         <div>
-            {{bootstrapTable.items}}
-            <div class="row" v-if="bootstrapTable.items.length > 0">
+            <div class="row">
                 <b-colxx xxs="3">
                     <b-card class="mb-4">
                         <b-card-header>
                             <h4 style="display: inline">Vrachtbrieven</h4>
                         </b-card-header>
                         <b-card-body>
-<!--                            {{transports}}-->
-                                    <b-table
-                                        ref="custom-table"
-                                        class="vuetable"
-                                        @row-selected="rowSelected"
-                                        selectable
-                                        :select-mode="bootstrapTable.selectMode"
-                                        selectedVariant="light"
-                                        :fields="bootstrapTable.fields"
-                                        :items="bootstrapTable.items"
-                                    >
-<!--                                        <template slot="status" slot-scope="data">-->
-<!--                                            <b-badge class="mb-1" :variant="data.item.statusColor">{{ data.value }}</b-badge>-->
-<!--                                        </template>-->
-                                    </b-table>
-<!--                                    <b-alert v-if="bootstrapTable.selected.length>0" show variant="primary"><br/><pre>{{ bootstrapTable.selected }}</pre></b-alert>-->
+                            <vue-table
+                                table-height="360px"
+                                ref="vrachtbrieven"
+                                :api-mode="false"
+                                :fields="vrachtbrieven.fields"
+                                :per-page="perPagevrachtbrieven"
+                                @vuetable:row-clicked="onRowClicked"
+                                :data-manager="dataManagervrachtbrieven"
+                                pagination-path="pagination"
+                            >
+                            </vue-table>
                         </b-card-body>
                     </b-card>
                 </b-colxx>
                 <b-colxx xxs="4">
                     <b-card class="mb-4">
                         <b-card-header>
-                            <h4 style="display: inline">{{'Artikellen vrachtbrief ' + bootstrapTable.selected}}</h4>
+                            <h4 style="display: inline">{{'Artikellen vrachtbrief ' + selectedRow}}</h4>
                         </b-card-header>
                         <b-card-body>
                             <vue-table
@@ -50,7 +44,7 @@
                 <b-colxx xxs="5">
                     <b-card class="mb-4">
                         <b-card-header>
-                            <h4 style="display: inline">{{'Pallets vrachtbrief ' + bootstrapTable.selected}}</h4>
+                            <h4 style="display: inline">{{'Pallets vrachtbrief ' + selectedRow}}</h4>
                         </b-card-header>
                         <b-card-body>
                             <vue-table
@@ -67,18 +61,7 @@
                     </b-card>
                 </b-colxx>
             </div>
-            <div v-else>
-                <b-jumbotron header="Transport" lead="">
-                    <!--                            <p>Select a farmer</p>-->
-                    <!--                            <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>-->
-                </b-jumbotron>
-            </div>
         </div>
-<!--        <div v-else>-->
-<!--            <b-jumbotron header="Transport" lead="">-->
-
-<!--            </b-jumbotron>-->
-<!--        </div>-->
     </div>
 </template>
 
@@ -101,6 +84,7 @@
             return {
                 data: [],
                 dataDetail: [],
+                datavrachtbrieven: [],
                 reportsObj: {
                     fields: [
                         {
@@ -133,6 +117,32 @@
                         }
                     ]
                 },
+                vrachtbrieven: {
+                    fields: [
+                        {
+                            name: 'id',
+                            sortField: 'id',
+                            title: 'ID',
+                            titleClass: '',
+                            dataClass: 'center aligned',
+                            width: "15%",
+                        },
+                        {
+                            name: 'driver',
+                            sortField: 'driver',
+                            title: 'Chauffeur',
+                            titleClass: '',
+                            dataClass: 'center aligned'
+                        },
+                        {
+                            name: 'createdAt',
+                            sortField: 'createdAt',
+                            title: 'Date',
+                            titleClass: '',
+                            dataClass: 'center aligned'
+                        }
+                    ]
+                },
                 detailObj: {
                     fields: [
                         {
@@ -160,21 +170,16 @@
                 },
                 perPage: 20,
                 perPagedetail: 20,
-                bootstrapTable: {
-                    selected: [],
-                    selectMode: 'single',
-                    fields: [
-                        { key: 'id', label: 'ID'},
-                        { key: 'driver', label: 'Chauffeur'},
-                        { key: 'createdAt', label: 'Date'}
-                    ],
-                    items: []
-                }
+                perPagevrachtbrieven: 20,
+                selectedRow: [],
             }
         },
         watch: {
             data(newVal, oldVal) {
                 this.$refs.artikels.refresh();
+            },
+            datavrachtbrieven(newVal, oldVal) {
+                this.$refs.vrachtbrieven.refresh();
             },
             dataDetail(newVal, oldVal) {
                 this.$refs.artikelsdetail.refresh();
@@ -199,12 +204,15 @@
             getAllTransports() {
                 this.$store.dispatch("getAllTransports");
             },
-            rowSelected (items) {
-                // console.log(items['0'])
-                this.$store.dispatch("getTransport", items['0'].id).then(()=>{
-                    this.bootstrapTable.selected = items['0'].id
+            onRowClicked (row) {
+                console.log(this.$refs.vrachtbrieven);
+                this.$store.dispatch("getTransport", row.id).then(()=>{
+                    this.selectedRow = row.id
                     this.data = this.transport.totalLabels;
                     this.dataDetail = this.transport.detailLabels;
+                    // this.onRowClass(row, row.id, 'bg-primary')
+                    // console.log(this.$refs.vrachtbrieven)
+                    // this.$refs.vrachtbrieven.rowClass = 'bg-primary'
                     // console.log(this.data);
                     // console.log(this.dataDetail);
                 });
@@ -265,18 +273,44 @@
                     data: _.slice(local, from, to)
                 };
             },
+            dataManagervrachtbrieven(sortOrder, pagination) {
+                if (this.datavrachtbrieven.length < 1) return;
+
+                let local = this.datavrachtbrieven;
+
+                // sortOrder can be empty, so we have to check for that as well
+                if (sortOrder.length > 0) {
+                    // console.log("orderBy:", sortOrder[0].sortField, sortOrder[0].direction);
+                    local = _.orderBy(
+                        local,
+                        sortOrder[0].sortField,
+                        sortOrder[0].direction
+                    );
+                }
+
+                pagination = this.$refs.vrachtbrieven.makePagination(
+                    local.length,
+                    this.perPage
+                );
+                // console.log('pagination:', pagination)
+                let from = pagination.from - 1;
+                let to = from + this.perPage;
+
+                return {
+                    pagination: pagination,
+                    data: _.slice(local, from, to)
+                };
+            },
         },
         mounted() {
             Promise.all([
-                this.getAllTransports()
+                // this.getAllTransports()
+                this.$store.dispatch("getAllTransports").then(()=>{
+                    this.datavrachtbrieven = this.transports.data
+                })
             ]).finally(() => {
-                this.bootstrapTable.items = this.transports.data
+                this.datavrachtbrieven = this.transports.data
             })
-            // console.log('hoi');
-            // console.log(this.bootstrapTable.items);
-            // console.log(this.transports);
-            // this.transports.data.forEach(element => console.log(element));
-            // console.log(this.bootstrapTable.items);
         },
     }
 </script>
