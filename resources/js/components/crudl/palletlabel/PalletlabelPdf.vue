@@ -144,7 +144,7 @@
                             <div class="row">
                                 <div class="text-center">
                                     <!--                            <img class="card-img-bottom" style=" bottom:0; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
-                                    <img class="card-img-bottom" style=" bottom:0;" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">
+<!--                                    <img class="card-img-bottom" style=" bottom:0;" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
                                 </div>
                             </div>
                         </template>
@@ -267,7 +267,7 @@
                             <div class="row">
                                 <div class="text-center">
                                     <!--                            <img class="card-img-bottom" style=" bottom:0; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
-                                    <img class="card-img-bottom" style=" bottom:0;" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">
+<!--                                    <img class="card-img-bottom" style=" bottom:0;" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
                                 </div>
                             </div>
                         </template>
