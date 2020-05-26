@@ -1,91 +1,93 @@
 <template>
-    <div v-if="!logisticIsLoading">
-        <div class="row">
-            <b-colxx xxs="12">
-                <b-card class="mb-4">
-                    <!--                                    <b-card-header><h4 style="display: inline">{{authFarmer.name}} overzicht</h4>-->
-                    <!--                                    </b-card-header>-->
-                    <!--                        <b-card-header>-->
-                    <!--                            <h4 style="display: inline">{{authFarmer.name + ' overzicht'}}</h4> <span style="display: inline">(last loaded: </span><span style="display: inline" v-for="(data, index) in logistic.lastupdate">{{data}}</span><span>)</span>-->
-                    <!--                        </b-card-header>-->
-                    <b-card-body>
-                        <vue-table
-                            table-height="360px"
-                            ref="palletlabels"
-                            :api-mode="false"
-                            :fields="PalletlabelObj.fields"
-                            :per-page="perPagePalletlabel"
-                            :data-manager="PalletlabeldataManager"
-                            pagination-path="pagination"
-                        >
-                        </vue-table>
-                    </b-card-body>
-                    <!--                        <b-card-footer>-->
-                    <!--                            <span style="display: inline">(last loaded: </span><span style="display: inline" v-for="(data, index) in logistic.lastupdate">{{data}}</span><span>)</span>-->
-                    <!--                        </b-card-footer>-->
-                </b-card>
-            </b-colxx>
-        </div>
-        <br>
-        <div class="row">
-            <b-colxx xl="4" lg="4" md="4" class="mb-4">
-                <b-card class="h-100">
+    <div>
+        <div v-if="!logisticIsLoading">
+            <div class="row">
+                <b-colxx xxs="12">
+                    <b-card class="mb-4">
+                        <!--                                    <b-card-header><h4 style="display: inline">{{authFarmer.name}} overzicht</h4>-->
+                        <!--                                    </b-card-header>-->
+                        <!--                        <b-card-header>-->
+                        <!--                            <h4 style="display: inline">{{authFarmer.name + ' overzicht'}}</h4> <span style="display: inline">(last loaded: </span><span style="display: inline" v-for="(data, index) in logistic.lastupdate">{{data}}</span><span>)</span>-->
+                        <!--                        </b-card-header>-->
+                        <b-card-body>
+                            <vue-table
+                                table-height="360px"
+                                ref="palletlabels"
+                                :api-mode="false"
+                                :fields="PalletlabelObj.fields"
+                                :per-page="perPagePalletlabel"
+                                :data-manager="PalletlabeldataManager"
+                                pagination-path="pagination"
+                            >
+                            </vue-table>
+                        </b-card-body>
+                        <!--                        <b-card-footer>-->
+                        <!--                            <span style="display: inline">(last loaded: </span><span style="display: inline" v-for="(data, index) in logistic.lastupdate">{{data}}</span><span>)</span>-->
+                        <!--                        </b-card-footer>-->
+                    </b-card>
+                </b-colxx>
+            </div>
+            <br>
+            <div class="row">
+                <b-colxx xl="4" lg="4" md="4" class="mb-4">
+                    <b-card class="h-100">
 
-                    <b-card-body>
-                        <p class="lead color-theme-1 mb-1 value"
-                           v-for="(data, key) in logistic.totalLabelsCount">{{data.totalLabels}}
-                            X</p>
-                        <p class="mb-0 label text-small">Aantal Pallets</p>
-                    </b-card-body>
-                </b-card>
-            </b-colxx>
+                        <b-card-body>
+                            <p class="lead color-theme-1 mb-1 value"
+                               v-for="(data, key) in logistic.totalLabelsCount">{{data.totalLabels}}
+                                X</p>
+                            <p class="mb-0 label text-small">Aantal Pallets</p>
+                        </b-card-body>
+                    </b-card>
+                </b-colxx>
 
-            <b-colxx xl="8" lg="8" md="8" class="mb-4">
-                <b-card class="h-100">
-                    <b-card-body>
-                        <vue-table
-                            table-height="360px"
-                            ref="artikels"
-                            :api-mode="false"
-                            :fields="reportsObj.fields"
-                            :per-page="perPage"
-                            :data-manager="dataManager"
-                            pagination-path="pagination"
-                        >
-                        </vue-table>
-                    </b-card-body>
-                </b-card>
-            </b-colxx>
+                <b-colxx xl="8" lg="8" md="8" class="mb-4">
+                    <b-card class="h-100">
+                        <b-card-body>
+                            <vue-table
+                                table-height="360px"
+                                ref="artikels"
+                                :api-mode="false"
+                                :fields="reportsObj.fields"
+                                :per-page="perPage"
+                                :data-manager="dataManager"
+                                pagination-path="pagination"
+                            >
+                            </vue-table>
+                        </b-card-body>
+                    </b-card>
+                </b-colxx>
+            </div>
         </div>
-    </div>
-    <div v-else>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="loading"></div>
+        <div v-else>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="loading"></div>
+        </div>
     </div>
 </template>
 
 <script>
-    import Sidebar from '../../../containers/menu/logistics/Sidebar'
-    import TopNav from '../../../containers/menu/logistics/TopNav'
-    import Footer from '../../../containers/Footer'
+    // import Sidebar from '../../../containers/menu/logistics/Sidebar'
+    // import TopNav from '../../../containers/menu/logistics/TopNav'
+    // import Footer from '../../../containers/Footer'
     import {
         mapActions,
         mapGetters, mapMutations
     } from 'vuex'
-    import DarkMode from "../../../components/menu/DarkMode";
+    // import DarkMode from "../../../components/menu/DarkMode"
     import VueTable from 'vuetable-2/src/components/Vuetable'
     import VueTablePaginationBootstrap from '../../../components/Common/vuetablePaginationBootstrap'
     import planningTotal from "../../../components/crudl/planning/PlanningTotal";
 
     export default {
         components: {
-            DarkMode,
-            'top-nav': TopNav,
-            'sidebar': Sidebar,
-            'footer-component': Footer,
+            // DarkMode,
+            // 'top-nav': TopNav,
+            // 'sidebar': Sidebar,
+            // 'footer-component': Footer,
             VueTable,
             VueTablePaginationBootstrap,
             planningTotal
