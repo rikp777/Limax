@@ -21,11 +21,11 @@
                             <table class="table" v-if="planning.labels">
                                 <thead>
                                 <tr>
-                                    <th slot-scope="col">Farmer</th>
-                                    <th slot-scope="col">PalletNr</th>
-                                    <th slot-scope="col">Crop Date</th>
-                                    <th slot-scope="col">Article</th>
-                                    <th slot-scope="col">Amount</th>
+                                    <th scope="col">Farmer</th>
+                                    <th scope="col">PalletNr</th>
+                                    <th scope="col">Crop Date</th>
+                                    <th scope="col">Article</th>
+                                    <th scope="col">Amount</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -59,8 +59,8 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th slot-scope="col">Article</th>
-                                        <th slot-scope="col">Total Amount</th>
+                                        <th scope="col">Article</th>
+                                        <th scope="col">Total Amount</th>
                                     </tr>
                                     </thead>
                                     <tbody>

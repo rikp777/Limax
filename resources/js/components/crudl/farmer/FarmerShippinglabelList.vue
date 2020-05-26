@@ -10,7 +10,7 @@
             pagination-path="pagination"
             @vuetable:pagination-data="onPaginationData"
         >
-        <template slot="actions" slot-scope="props">
+        <template slot="actions" scope="props">
           <div class="custom-actions">
             <b-button class="btn-sm" variant="primary"
               @click="onAction('print-label', props.rowData, props.rowIndex)">

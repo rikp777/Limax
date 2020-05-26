@@ -7,9 +7,9 @@
                     <table class="table table-borderless">
                         <thead>
                         <tr>
-                            <th slot-scope="col">Total Pallets</th>
-                            <th slot-scope="col">AVG Weight per Pallet</th>
-                            <th slot-scope="col">Total Weight</th>
+                            <th scope="col">Total Pallets</th>
+                            <th scope="col">AVG Weight per Pallet</th>
+                            <th scope="col">Total Weight</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,14 +32,14 @@
                     <table class="table table-borderless">
                         <thead>
                         <tr>
-                            <th slot-scope="col">ID</th>
-                            <th slot-scope="col">Crop Date</th>
-                            <th slot-scope="col">Article Amount</th>
-                            <th slot-scope="col">Sort</th>
-                            <th slot-scope="col">Weight</th>
-                            <th slot-scope="col">Note</th>
-                            <th slot-scope="col">Status</th>
-                            <th slot-scope="col">Cell</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Crop Date</th>
+                            <th scope="col">Article Amount</th>
+                            <th scope="col">Sort</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Cell</th>
                         </tr>
                         </thead>
                         <tbody>

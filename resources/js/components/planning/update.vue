@@ -24,13 +24,13 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th slot-scope="col">Date</th>
-                                <th slot-scope="col" v-for="">First</th>
+                                <th scope="col">Date</th>
+                                <th scope="col" v-for="">First</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <th slot-scope="row">1</th>
+                                <th scope="row">1</th>
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
