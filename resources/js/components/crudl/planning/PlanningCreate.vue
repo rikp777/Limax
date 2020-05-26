@@ -102,7 +102,7 @@
                                                               :value="key.replace(/_/g, `-`).slice(0, 10)"
                                                               style="border-style: hidden"/>
                                             </b-colxx>
-                                            <b-col v-for="(sort, key2) in planning">
+                                            <b-col v-for="(sort, key2) in planning" :key="key2">
                                                 <b-input-group :prepend="key2" class="mb-2 mr-sm-2 mb-sm-2">
                                                     <b-form-input v-if="sort" type="number" class="mb-2 mr-sm-2 mb-sm-0"
                                                                   :value="sort"
