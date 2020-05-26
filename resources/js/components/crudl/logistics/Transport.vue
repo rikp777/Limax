@@ -66,7 +66,7 @@
 </template>
 
 <script>
-    // import vSelect from "vue-select";
+    import vSelect from "vue-select";
     import VueTable from 'vuetable-2/src/components/Vuetable'
     import VueTablePaginationBootstrap from '../../../components/Common/vuetablePaginationBootstrap'
     import {
