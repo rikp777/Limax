@@ -216,6 +216,8 @@
                 this.setFarmer(farmer.uid);
                 this.changeAuthFarmer(farmer);
                 // this.getLogistic(farmer.id)
+                this.data = [];
+                this.dataPalletlabel = [];
 
                 Promise.all([
                     this.$store.dispatch("getLogistic", farmer.id).then(() => {
