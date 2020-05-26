@@ -21,16 +21,18 @@
                                          @click="changeFarmer(farmer)">{{farmer.name}}
                         </b-dropdown-item>
                     </b-dropdown>
-<!--                    <span v-for="(data, key) in logistic.totalLabelsCount">{{data.totalLabels}}</span>-->
+                    <!--                    <span v-for="(data, key) in logistic.totalLabelsCount">{{data.totalLabels}}</span>-->
                     <div v-if="!logisticIsLoading">
                         <hr>
                         <div class="row">
                             <b-colxx xxs="12">
                                 <b-card class="mb-4">
-<!--                                    <b-card-header><h4 style="display: inline">{{authFarmer.name}} overzicht</h4>-->
-<!--                                    </b-card-header>-->
+                                    <!--                                    <b-card-header><h4 style="display: inline">{{authFarmer.name}} overzicht</h4>-->
+                                    <!--                                    </b-card-header>-->
                                     <b-card-header>
-                                        <h4 style="display: inline">{{authFarmer.name + ' overzicht'}}</h4> <span style="display: inline">(last loaded: </span><span style="display: inline" v-for="(data, index) in logistic.lastupdate">{{data}}</span><span>)</span>
+                                        <h4 style="display: inline">{{authFarmer.name + ' overzicht'}}</h4> <span
+                                        style="display: inline">(last loaded: </span><span style="display: inline"
+                                                                                           v-for="(data, index) in logistic.lastupdate">{{data}}</span><span>)</span>
                                     </b-card-header>
                                     <b-card-body>
                                         <vue-table
@@ -81,8 +83,8 @@
                     </div>
                     <div v-else>
                         <b-jumbotron header="Voorraad" lead="">
-<!--                            <p>Select a farmer</p>-->
-<!--                            <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>-->
+                            <!--                            <p>Select a farmer</p>-->
+                            <!--                            <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>-->
                         </b-jumbotron>
                     </div>
                 </div>
@@ -217,21 +219,20 @@
                 this.changeAuthFarmer(farmer);
                 // this.getLogistic(farmer.id)
 
-                Promise.all([
-                    this.data = [],
-                    this.dataPalletlabel = [],
 
-                    this.$store.dispatch("getLogistic", farmer.id).then(() => {
-                        this.data = [];
-                        this.dataPalletlabel = [];
+                this.$store.dispatch("getLogistic", farmer.id).then(() => {
+                    Promise.all([
+                        this.data = [],
+                        this.dataPalletlabel = [],
+                    ]).finally(() => {
                         this.data = this.logistic.totalArticles;
                         this.dataPalletlabel = this.logistic.totalLabels;
-                        // this.getPlanningTotal();
                     })
-                ]).finally(() => {
+                    // this.getPlanningTotal();
                     this.data = this.logistic.totalArticles;
                     this.dataPalletlabel = this.logistic.totalLabels;
                 })
+
 
             },
             // getPlanningTotal() {
