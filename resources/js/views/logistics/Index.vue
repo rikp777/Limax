@@ -217,10 +217,15 @@
                 this.changeAuthFarmer(farmer);
                 // this.getLogistic(farmer.id)
 
-                this.$store.dispatch("getLogistic", farmer.id).then(() => {
+                Promise.all([
+                    this.$store.dispatch("getLogistic", farmer.id).then(() => {
+                        this.data = this.logistic.totalArticles;
+                        this.dataPalletlabel = this.logistic.totalLabels;
+                        // this.getPlanningTotal();
+                    })
+                ]).finally(() => {
                     this.data = this.logistic.totalArticles;
                     this.dataPalletlabel = this.logistic.totalLabels;
-                    // this.getPlanningTotal();
                 })
 
             },
