@@ -127,7 +127,7 @@
                             title: 'ID',
                             titleClass: '',
                             dataClass: 'center aligned',
-                            width: "15%",
+                            width: "20%",
                         },
                         {
                             name: 'driver',

@@ -47,7 +47,6 @@
                 </b-colxx>
                 <b-colxx xl="8" lg="8" md="12" class="mb-4">
                     <b-card class="h-100">
-                        <b-button style="float: right" @click="checkPrint">Print</b-button>
                         <!--                        <b-refresh-button @click="checkPrint"/>-->
                         <vue-table id="printMe"
                                    table-height="360px"
@@ -59,7 +58,9 @@
                                    pagination-path="pagination"
                         >
                         </vue-table>
-
+                        <br>
+                        <hr>
+                            <b-button style="float: right" @click="checkPrint">Print</b-button>
                     </b-card>
                 </b-colxx>
             </b-row>
