@@ -65,12 +65,9 @@
             Promise.all([
                 this.$store.dispatch("getAllReports")
                     .then(() => {
-                        // console.log(this.reports.data.weightPersort)
-                        $.each(this.reports.data.weightPersort, function (key, value) {
-                            // console.log(value.weight)
-                            // console.log(value.sort)
-                            this.data.datasets[0].data.push(value.weight);
-                            this.data.labels.push(value.sort);
+                        $.each(this.reports.sortchartarr, function (key, value) {
+                            this.data.datasets[0].data.push(value);
+                            this.data.labels.push(key);
                         }.bind(this));
                     })
             ]).finally(() => {
@@ -83,12 +80,9 @@
             getAllReports() {
                 this.$store.dispatch("getAllReports")
                     .then(() => {
-                        // console.log(this.reports.data.weightPersort)
-                        $.each(this.reports.data.weightPersort, function (key, value) {
-                            // console.log(value.weight)
-                            // console.log(value.sort)
-                            this.data.datasets[0].data.push(value.weight);
-                            this.data.labels.push(value.sort);
+                        $.each(this.reports.sortchartarr, function (key, value) {
+                            this.data.datasets[0].data.push(value);
+                            this.data.labels.push(key);
                         }.bind(this));
                     });
             },

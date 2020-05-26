@@ -139,7 +139,7 @@
                         }
                     ]
                 },
-                perPage: 60,
+                perPage: 20,
                 dataPalletlabel: [],
                 PalletlabelObj: {
                     fields: [

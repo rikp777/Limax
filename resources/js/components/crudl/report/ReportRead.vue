@@ -9,68 +9,64 @@
 <!--                             @click="changeFarmer(farmer)">{{farmer.name}}-->
 <!--            </b-dropdown-item>-->
 <!--        </b-dropdown>-->
-<!--{{wait}}-->
-        <div v-if="wait === false" id="">
-            <b-row>
-                <b-colxx xxs="4" class="mb-4">
-                    <b-card no-body>
-                        <b-card-body>
-                            <p class="lead color-theme-1 mb-1 value" v-for="data in reports.data.totalLabelsCount">{{data.totalLabels}} X</p>
-                            <p class="mb-0 label text-small">{{$t('report.totalpallets')}}</p>
-                        </b-card-body>
-                    </b-card>
-                </b-colxx>
-                <b-colxx xxs="4" class="mb-4">
-                    <b-card no-body>
-                        <b-card-body>
-                            <p class="lead color-theme-1 mb-1 value" v-for="data in reports.data.avgWeight">{{data.avg}} KG</p>
-                            <p class="mb-0 label text-small">{{$t('report.avgweight')}}</p>
-                        </b-card-body>
-                    </b-card>
-                </b-colxx>
-                <b-colxx xxs="4" class="mb-4">
-                    <b-card no-body>
-                        <b-card-body>
-                            <p class="lead color-theme-1 mb-1 value" v-for="data in reports.data.totalWeight">{{data.weight}} KG</p>
-                            <p class="mb-0 label text-small">{{$t('report.totalweight')}}</p>
-                        </b-card-body>
-                    </b-card>
-                </b-colxx>
-            </b-row>
-            <b-row>
-                <b-colxx xl="4" lg="4" md="12" class="mb-4">
-                    <b-card class="h-100" :title="$t('report.chart.title')">
-                        <div class="dashboard-donut-chart">
-                            <doughnut-shadow-chart :height="300"/>
-                        </div>
-                    </b-card>
-                </b-colxx>
-                <b-colxx xl="8" lg="8" md="12" class="mb-4">
-                    <b-card class="h-100">
-                        <b-button style="float: right" @click="checkPrint">Print</b-button>
-<!--                        <b-refresh-button @click="checkPrint"/>-->
-                        <vue-table id="printMe"
-                            table-height="360px"
+
+        <b-row>
+            <b-colxx xxs="4" class="mb-4">
+                <b-card no-body>
+                    <b-card-body>
+                        <p class="lead color-theme-1 mb-1 value">{{reports.totalpallets}} X</p>
+                        <p class="mb-0 label text-small">{{$t('report.totalpallets')}}</p>
+                    </b-card-body>
+                </b-card>
+            </b-colxx>
+            <b-colxx xxs="4" class="mb-4">
+                <b-card no-body>
+                    <b-card-body>
+                        <p class="lead color-theme-1 mb-1 value">{{reports.avgpalletweight}} KG</p>
+                        <p class="mb-0 label text-small">{{$t('report.avgweight')}}</p>
+                    </b-card-body>
+                </b-card>
+            </b-colxx>
+            <b-colxx xxs="4" class="mb-4">
+                <b-card no-body>
+                    <b-card-body>
+                        <p class="lead color-theme-1 mb-1 value">{{reports.totalpalletweight}} KG</p>
+                        <p class="mb-0 label text-small">{{$t('report.totalweight')}}</p>
+                    </b-card-body>
+                </b-card>
+            </b-colxx>
+        </b-row>
+        <!--        </b-colxx>-->
+        <b-row>
+            <b-colxx xl="4" lg="4" md="12" class="mb-4">
+                <b-card class="h-100" :title="$t('report.chart.title')">
+                    <div class="dashboard-donut-chart">
+                        <doughnut-shadow-chart :height="300"/>
+                    </div>
+                </b-card>
+            </b-colxx>
+            <b-colxx xl="8" lg="8" md="12" class="mb-4">
+                <b-card class="h-100">
+                    <div class="dashboard-donut-chart">
+                        <b-refresh-button @click="refreshButtonClick"/>
+                        <vue-table
                             ref="reportList"
                             :api-mode="false"
                             :fields="reportsObj.fields"
                             :per-page="perPage"
                             :data-manager="dataManager"
                             pagination-path="pagination"
+                            @vuetable:pagination-data="onPaginationData"
                         >
                         </vue-table>
-
-                    </b-card>
-                </b-colxx>
-            </b-row>
-        </div>
-        <div v-else>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class="loading"></div>
-        </div>
+                        <vue-table-pagination-bootstrap
+                            ref="pagination"
+                            @vuetable-pagination:change-page="onChangePage"
+                        />
+                    </div>
+                </b-card>
+            </b-colxx>
+        </b-row>
     </form>
 </template>
 
@@ -92,7 +88,6 @@
                 form: {
                     cells: [],
                 },
-                wait: true,
                 delMode: false,
                 btnShow: '',
                 isChecked: '',
@@ -144,15 +139,15 @@
                             dataClass: 'center aligned'
                         },
                         {
-                            name: 'status',
-                            sortField: 'status',
+                            name: 'statusDescription',
+                            sortField: 'statusDescription',
                             title: 'Status',
                             titleClass: '',
                             dataClass: 'center aligned'
                         },
                         {
-                            name: 'cell',
-                            sortField: 'cell',
+                            name: 'cellDescription',
+                            sortField: 'cellDescription',
                             title: 'Cell',
                             titleClass: '',
                             dataClass: 'center aligned'
@@ -160,7 +155,7 @@
 
                     ]
                 },
-                perPage: 60,
+                perPage: 4,
             }
         },
         watch: {
@@ -182,13 +177,7 @@
         mounted() {
             // this.getAllReports();
             this.$store.dispatch("getAllReports").then((response) => {
-                if (this.reports.data.totalLabels){
-                    this.data = this.reports.data.totalLabels;
-                    this.wait = false;
-                } else {
-                    this.wait = true;
-                }
-
+                this.data = this.reports.labels;
                 // console.log(this.reports);
                 //console.log(this.data);
             });
@@ -211,9 +200,7 @@
                         // this.form.cells = this.cells;
                     });
             },
-            checkPrint(printMe) {
-                this.$htmlToPaper('printMe');
-            },
+
             refreshButtonClick() {
                 //console.log("refresh")
                 // this.$emit('refreshMode')
@@ -258,22 +245,5 @@
 </script>
 
 <style scoped>
-    .loading {
-        display: inline-block !important;
-        width: 30px !important;
-        height: 30px !important;
-        border-radius: 50% !important;
-        animation: spin 1s ease-in-out infinite !important;
-        -webkit-animation: spin 1s ease-in-out infinite !important;
-        position: absolute !important;
-        z-index: 1 !important;
-    }
-    @media print
-    {
-        .no-print, .no-print *
-        {
-            display: none !important;
-            visibility: hidden;
-        }
-    }
+
 </style>
