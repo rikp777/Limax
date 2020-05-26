@@ -58,69 +58,13 @@
             </b-colxx>
         </div>
     </div>
-
-    <!--        <b-row>-->
-    <!--            <b-colxx xl="4" lg="4" md="12" class="mb-4">-->
-    <!--                <b-card no-body class="h-100">-->
-    <!--                    <b-card-body>-->
-    <!--                        <p class="lead color-theme-1 mb-1 value">{{ planning.totalpallets }} X</p>-->
-    <!--                        <p class="mb-0 label text-small">{{$t('planning.totalpallets')}}</p>-->
-    <!--                    </b-card-body>-->
-    <!--                    &lt;!&ndash;                    <b-card-body>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                        <p class="lead color-theme-1 mb-1 value">{{ planning.avgpalletweight }} KG</p>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                        <p class="mb-0 label text-small">{{$t('planning.avgpalletweight')}}</p>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                    </b-card-body>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                    <b-card-body>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                        <p class="lead color-theme-1 mb-1 value">{{ planning.totalpalletweight }} KG</p>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                        <p class="mb-0 label text-small">{{$t('planning.totalpalletweight')}}</p>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                    </b-card-body>&ndash;&gt;-->
-    <!--                </b-card>-->
-    <!--            </b-colxx>-->
-    <!--            <b-colxx xl="8" lg="8" md="12" class="mb-4">-->
-    <!--                <b-card class="h-100">-->
-    <!--                    <div>-->
-    <!--                        <b-refresh-button @click="refreshButtonClick"/>-->
-    <!--                        <vue-table-->
-    <!--                            ref="planningArticlesList"-->
-    <!--                            :api-mode="false"-->
-    <!--                            :fields="planningArticlesObj.fields"-->
-    <!--                            :per-page="perPageplanningArticles"-->
-    <!--                            :data-manager="dataManagerplanningArticles"-->
-    <!--                            pagination-path="paginationArticles"-->
-    <!--                            @vuetable:pagination-data="onPaginationDataArticles"-->
-    <!--                        >-->
-    <!--                        </vue-table>-->
-    <!--                        <vue-table-pagination-bootstrap-->
-    <!--                            ref="paginationArticles"-->
-    <!--                            @vuetable-pagination:change-page="onChangePageArticles"-->
-    <!--                        />-->
-    <!--                    </div>-->
-    <!--                </b-card>-->
-    <!--            </b-colxx>-->
-    <!--        </b-row>-->
-    <!--    <b-row>-->
-    <!--        <b-colxx xl="12" lg="12" md="12" class="mb-4">-->
-    <!--            <b-card>-->
-    <!--                <div>-->
-    <!--                    <b-refresh-button @click="refreshButtonClick"/>-->
-    <!--                    <vue-table-->
-    <!--                        ref="planningLabelsList"-->
-    <!--                        :api-mode="false"-->
-    <!--                        :fields="planningLabelsObj.fields"-->
-    <!--                        :per-page="perPageplanningLabels"-->
-    <!--                        :data-manager="dataManagerplanningLabels"-->
-    <!--                        pagination-path="paginationLabels"-->
-    <!--                        @vuetable:pagination-data="onPaginationDataLabels"-->
-    <!--                    >-->
-    <!--                    </vue-table>-->
-    <!--                    <vue-table-pagination-bootstrap-->
-    <!--                        ref="paginationLabels"-->
-    <!--                        @vuetable-pagination:change-page="onChangePageLabels"-->
-    <!--                    />-->
-    <!--                </div>-->
-    <!--            </b-card>-->
-    <!--        </b-colxx>-->
-    <!--    </b-row>-->
+    <div v-else>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="loading"></div>
+    </div>
 </template>
 
 <script>
@@ -612,5 +556,14 @@
 <!--</script>-->
 
 <style scoped>
-
+    .loading {
+        display: inline-block !important;
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 50% !important;
+        animation: spin 1s ease-in-out infinite !important;
+        -webkit-animation: spin 1s ease-in-out infinite !important;
+        position: absolute !important;
+        z-index: 1 !important;
+    }
 </style>
