@@ -318,6 +318,8 @@
 
         },
         mounted() {
+            this.data = [];
+            this.dataPalletlabel = [];
             this.getAllLogistics();
 
             // console.log(this.authFarmer.id);
