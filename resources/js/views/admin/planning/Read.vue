@@ -3,7 +3,7 @@
         <b-colxx xl="12" lg="12" class="mb-4">
             <b-card :title="$t('planning.overview.title') + ' - ' + authFarmer.name" style="border-left: 6px solid #f28125">
                 <b-refresh-button @click="refreshButtonClick"/>
-<!--            <planning-read :key="refresh" />-->
+            <planning-read :key="refresh" />
             </b-card>
         </b-colxx>
     </b-row>
