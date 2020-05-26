@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>
                 <tr v-for="(data, index) in planningTotal.planningTotal">
-                    <th scope="row">{{index.replace(/_/g, `-`).slice(0, 10)}}</th>
+                    <th slot-scope="row">{{index.replace(/_/g, `-`).slice(0, 10)}}</th>
                     <td v-for="(dataa) in data">{{dataa}}</td>
 <!--                    <td>{{planningTotal.total['total']}}</td>-->
                 </tr>
@@ -28,7 +28,7 @@
     // TODO
     // change disabled style for today -3 days for darkmode. this does not work properly yet!
 
-    import vSelect from "vue-select";
+    // import vSelect from "vue-select";
     import Vuetable from "vuetable-2/src/components/Vuetable";
     import {mapGetters} from "vuex";
 

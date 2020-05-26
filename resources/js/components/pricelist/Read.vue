@@ -21,11 +21,11 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col"> </th>
-                                <th scope="col">Product</th>
-                                <th scope="col">Origin</th>
-                                <th scope="col" class="text-center">Quantity</th>
-                                <th scope="col" class="text-center">Price</th>
+                                <th slot-scope="col"> </th>
+                                <th slot-scope="col">Product</th>
+                                <th slot-scope="col">Origin</th>
+                                <th slot-scope="col" class="text-center">Quantity</th>
+                                <th slot-scope="col" class="text-center">Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,8 +40,8 @@
                                     </ul>
                                 </td>
                                 <td>Hungary</td>
-                                <td scope="col" class="text-center">16640</td>
-                                <td scope="col" class="text-center">124,90 €</td>
+                                <td slot-scope="col" class="text-center">16640</td>
+                                <td slot-scope="col" class="text-center">124,90 €</td>
                             </tr>
                         </tbody>
                     </table>

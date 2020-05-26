@@ -13,7 +13,7 @@
             <!--            :per-page="6"-->
             <!--            pagination-path=""-->
             <!--            @vuetable:pagination-data="onPaginationData"-->
-            <template slot="actions" scope="props">
+            <template slot="actions" slot-scope="props">
                 <div class="custom-actions">
                     <b-button class="btn-sm" variant="primary"
                       @click="onAction('edit-label', props.rowData, props.rowIndex)">

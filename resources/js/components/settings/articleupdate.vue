@@ -28,13 +28,13 @@
                                                 <table class="table" v-if="form.articles.length">
                                                     <thead>
                                                     <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Name</th>
+                                                        <th slot-scope="col">#</th>
+                                                        <th slot-scope="col">Name</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     <tr v-for="article in form.articles">
-                                                        <th scope="row">{{article.id}}</th>
+                                                        <th slot-scope="row">{{article.id}}</th>
                                                         <td>{{article.name}}</td>
                                                     </tr>
                                                     </tbody>
