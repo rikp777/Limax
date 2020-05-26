@@ -318,10 +318,14 @@
 
         },
         mounted() {
-            this.data = [];
-            this.dataPalletlabel = [];
+            Promise.all([
+                this.data = [],
+                this.dataPalletlabel = [],
+            ]).finally(() => {
+                this.$refs.artikels.refresh();
+                this.$refs.palletlabels.refresh();
+            })
             this.getAllLogistics();
-
             // console.log(this.authFarmer.id);
             // this.getLogistic(this.authFarmer.id);
             // this.data = this.logistic.totalArticles;
