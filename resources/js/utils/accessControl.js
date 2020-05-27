@@ -50,6 +50,10 @@ const AccessControl = {
                     // console.log('already logged in Farmer');
                     next("/farmer")
                 }
+                if(authUser.roles[0].name === "Logistics"){
+                    // console.log('already logged in Farmer');
+                    next("/logistics")
+                }
 
                 // console.log('already logged in');
                 // next();
