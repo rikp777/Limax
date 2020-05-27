@@ -22,6 +22,7 @@
                         </b-dropdown-item>
                     </b-dropdown>
                     <!--                    <span v-for="(data, key) in logistic.totalLabelsCount">{{data.totalLabels}}</span>-->
+                    <div v-if="empty === false">
                     <div v-if="!logisticIsLoading">
                         <hr>
                         <div class="row">
@@ -81,6 +82,7 @@
                             </b-colxx>
                         </div>
                     </div>
+                    </div>
                     <div v-else>
                         <b-jumbotron header="Voorraad" lead="">
                             <!--                            <p>Select a farmer</p>-->
@@ -121,6 +123,7 @@
         },
         data() {
             return {
+                empty: true,
                 show: false,
                 data: [],
                 reportsObj: {
@@ -221,6 +224,11 @@
 
 
                 this.$store.dispatch("getLogistic", farmer.id).then(() => {
+                    if(this.logistic.totalLabels){
+                        this.empty = false
+                        console.log(this.logistic.totalLabels)
+                        console.log(this.empty)
+                    };
                     Promise.all([
                         this.data = [],
                         this.dataPalletlabel = [],
@@ -232,7 +240,6 @@
                     this.data = this.logistic.totalArticles;
                     this.dataPalletlabel = this.logistic.totalLabels;
                 })
-
 
             },
             // getPlanningTotal() {
