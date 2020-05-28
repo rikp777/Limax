@@ -224,10 +224,11 @@
 
 
                 this.$store.dispatch("getLogistic", farmer.id).then(() => {
-                    if(this.logistic.totalLabels){
+                    if(this.logistic.totalLabels.length > 0){
                         this.empty = false
                         console.log(this.logistic.totalLabels)
                         console.log(this.empty)
+                        console.log('new commit')
                     };
                     Promise.all([
                         this.data = [],
