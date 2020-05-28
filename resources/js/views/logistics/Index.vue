@@ -236,10 +236,12 @@
                     ]).finally(() => {
                         this.data = this.logistic.totalArticles;
                         this.dataPalletlabel = this.logistic.totalLabels;
+                        this.empty = true
                     })
                     // this.getPlanningTotal();
                     this.data = this.logistic.totalArticles;
                     this.dataPalletlabel = this.logistic.totalLabels;
+                    this.empty = true
                 })
 
             },
