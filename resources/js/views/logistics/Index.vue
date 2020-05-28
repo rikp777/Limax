@@ -85,7 +85,8 @@
                     </div>
                     <div v-else>
                         <b-jumbotron header="Voorraad" lead="">
-                            <!--                            <p>Select a farmer</p>-->
+                            <p v-if="jumbotron === true">{{authFarmer.name}} heeft niks in de voorraad staan. Probeer het later nog een keer.</p>
+                            <p v-else>Selecteer een kwekerij om desbetreffende voorraad te bekijken.</p>
                             <!--                            <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>-->
                         </b-jumbotron>
                     </div>
@@ -124,6 +125,7 @@
         data() {
             return {
                 empty: true,
+                jumbotron: false,
                 show: false,
                 data: [],
                 reportsObj: {
@@ -222,16 +224,19 @@
                 this.changeAuthFarmer(farmer);
                 // this.getLogistic(farmer.id)
                 this.empty = true
-                // console.log('true before db request')
+                this.jumbotron = false
+                // console.log('false before db request')
 
                 this.$store.dispatch("getLogistic", farmer.id).then(() => {
                     if(this.logistic.totalLabels.length > 0){
                         this.empty = false
+                        this.jumbotron = false
                         // console.log(this.logistic.totalLabels)
                         // console.log(this.empty)
                         // console.log('new commit')
                     } else {
                         this.empty = true
+                        this.jumbotron = true
                         // console.log('else > this.empty = true')
                     };
                     Promise.all([
@@ -247,7 +252,7 @@
                     this.dataPalletlabel = this.logistic.totalLabels;
                     // this.empty = true
                 })
-
+                this.jumbotron = true
             },
             // getPlanningTotal() {
             //     this.$store.dispatch("getPlanningTotal");
