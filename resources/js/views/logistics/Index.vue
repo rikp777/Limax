@@ -221,7 +221,8 @@
                 this.setFarmer(farmer.uid);
                 this.changeAuthFarmer(farmer);
                 // this.getLogistic(farmer.id)
-
+                this.empty = true
+                console.log('true before db request')
 
                 this.$store.dispatch("getLogistic", farmer.id).then(() => {
                     if(this.logistic.totalLabels.length > 0){
@@ -229,6 +230,9 @@
                         console.log(this.logistic.totalLabels)
                         console.log(this.empty)
                         console.log('new commit')
+                    } else {
+                        this.empty = true
+                        console.log('else > this.empty = true')
                     };
                     Promise.all([
                         this.data = [],
@@ -236,12 +240,12 @@
                     ]).finally(() => {
                         this.data = this.logistic.totalArticles;
                         this.dataPalletlabel = this.logistic.totalLabels;
-                        this.empty = true
+                        // this.empty = true
                     })
                     // this.getPlanningTotal();
                     this.data = this.logistic.totalArticles;
                     this.dataPalletlabel = this.logistic.totalLabels;
-                    this.empty = true
+                    // this.empty = true
                 })
 
             },
