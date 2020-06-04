@@ -291,6 +291,19 @@
                 "palletlabelCreate": "Maak palletlabel"
             }
         },
+        "delete": {
+            "title": "Weet je het zeker?",
+            "text": "Als je een vrachtbrief verwijderd kun je deze niet meer terug halen! De pallets worden terug gezet om op een nieuwe vrachtbrief gezet te kunnen worden.",
+            "actions": {
+                "confirmButtonText": "Ja, Verwijder vrachtbrief",
+                "cancelButtonText": "Annuleren",
+                "buttonCancel": "Cancel, Ga terug"
+            },
+            "deleted": "Verwijderd!",
+            "deletedtext": "Vrachtbrief is verwijderd. De pallets zijn terug gezet om op een nieuwe vrachtbrief gezet te kunnen worden.",
+            "cancelled": "Geannuleerd!",
+            "cancelledtext": "Vrachtbrief is niet verwijderd"
+        },
         "list": {
             "title": "Lijst van vrachtbrieven"
         },

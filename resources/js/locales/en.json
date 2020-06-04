@@ -291,6 +291,19 @@
                 "palletlabelCreate": "Create palletlabel"
             }
         },
+        "delete": {
+            "title": "Are you sure?",
+            "text": "Once a shippinglabel is deleted you can not recover this. The pallets will be put available for a new shippinglabel.",
+            "actions": {
+                "confirmButtonText": "Yes, Delete shippinglabel",
+                "cancelButtonText": "Cancel",
+                "buttonCancel": "Cancel, Go back"
+            },
+            "deleted": "Deleted!",
+            "deletedtext": "Shippinglabel is deleted. The pallets are available again for a new shippinglabel.",
+            "cancelled": "Cancelled!",
+            "cancelledtext": "Shippinglabel hasn't been deleted"
+        },
         "list": {
             "title": "List of all shippinglabels"
         },

@@ -16,6 +16,10 @@
               @click="onAction('print-label', props.rowData, props.rowIndex)">
               <i class="simple-icon-printer"></i>
             </b-button>
+              <b-button class="btn-sm" variant="primary" data-toggle="modal"
+                        @click="shippinglabelReset(props.rowData.shippinglabelId.id, props.rowIndex)">
+                  <i class="simple-icon-trash"></i>
+              </b-button>
           </div>
         </template>
         </vue-table>
@@ -101,6 +105,42 @@
             });
         },
         methods: {
+            shippinglabelReset(id, index) {
+                console.log(id)
+                // this.$emit('deleteMode')
+                this.$swal({
+                    title: this.$t('shippinglabel.delete.title'),
+                    text: this.$t('shippinglabel.delete.text'),
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#f2ab59",
+                    confirmButtonText: this.$t('shippinglabel.delete.actions.confirmButtonText'),
+                    cancelButtonText: this.$t('shippinglabel.delete.actions.cancelButtonText'),
+                }).then((confirmed) => {
+                    if (confirmed.value) {
+                        this.$swal(
+                            this.$t('shippinglabel.delete.deleted'),
+                            this.$t('shippinglabel.delete.deletedtext'),
+                            'success'
+                        );
+                        Promise.all([
+                            this.$store.dispatch("shippinglabelReset", id)
+                        ]).finally(() => {
+                            // this.getAllPalletLabels();
+                            this.$store.dispatch("getAllShippingLabels").then((response) => {
+                                this.data = this.shippingLabels.data;
+                                this.$emit('deleteMode')
+                            });
+                        })
+                    } else {
+                        this.$swal(
+                            this.$t('shippinglabel.delete.cancelled'),
+                            this.$t('shippinglabel.delete.cancelledtext'),
+                            "error"
+                        );
+                    }
+                });
+            },
             onAction (action, data, index) {
               // console.log('slot) action: ' + action, data, index)
               // console.log('id: ' + data.id + ' ' + 'action: ' + action)

@@ -2,13 +2,16 @@
     <b-row>
         <b-colxx xl="7" lg="12" class="mb-4">
             <b-card :title="$t('shippinglabel.create.title')" style="border-left: 6px solid #f28125">
-                <shippinglabel-create />
+                <shippinglabel-create :key="reloadComp"
+
+                />
             </b-card>
         </b-colxx>
         <b-colxx xl="5" lg="12" class="mb-4">
             <b-card :title="$t('shippinglabel.list.title')">
                 <farmer-shippinglabel-list :key="reloadComp"
-                    @refreshMode="reloadListener"
+                                           @refreshMode="reloadListener"
+                                           @deleteMode="reloadListener"
                 />
             </b-card>
         </b-colxx>
@@ -20,12 +23,13 @@
     import PalletlabelCreate from "../../../components/crudl/palletlabel/PalletlabelCreate";
     import PalletlabelUpdate from "../../../components/crudl/palletlabel/PalletlabelUpdate";
     import FarmerPalletlabelList from "../../../components/crudl/farmer/FarmerPalletlabelList";
+
     export default {
         components: {
             FarmerShippinglabelList,
             ShippinglabelCreate,
         },
-        data () {
+        data() {
             return {
                 update: false,
                 labelId: null,
