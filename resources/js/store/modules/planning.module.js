@@ -8,6 +8,7 @@ const FETCH_END = "resetPlanningLoading";
 // mutation names
 const SET_PLANNING = "setPlanning";
 const SET_PLANNINGTOTAL = "setPlanningTotal";
+const SET_PLANNINGTOTALFARMER = "setPlanningTotalFarmer";
 const SET_PLANNINGS= "setAllPlannings";
 
 // Initial State
@@ -15,6 +16,7 @@ const state = {
     plannings: {},
     planning: [],
     planningTotal: [],
+    planningTotalFarmer: [],
     calculation: [],
     isLoading: true,
     planningsCount: 0,
@@ -30,6 +32,9 @@ const getters = {
     },
     planningTotal(state){
         return state.planningTotal;
+    },
+    planningTotalFarmer(state){
+        return state.planningTotalFarmer;
     },
     planningsCount(state) {
         return state.planningsCount
@@ -72,10 +77,25 @@ const actions = {
         return PlanningTotalService.getAll()
             .then(({ data }) => {
                 context.commit(SET_PLANNINGTOTAL, data);
+                context.commit(FETCH_END);
             })
             .catch(error => {
                 throw new Error(error)
             })
+    },
+
+    async getPlanningTotalFarmer(context, planningSlug) {
+        context.commit(FETCH_START);
+        return PlanningTotalService.get(planningSlug)
+            .then(({data}) => {
+                // console.log(data);
+                context.commit(SET_PLANNINGTOTALFARMER, data);
+                context.commit(FETCH_END);
+            })
+            .catch(error => {
+                throw error
+            });
+
     },
 
     //get single cell
@@ -144,6 +164,9 @@ const mutations = {
     },
     [SET_PLANNINGTOTAL](state, planningTotal){
         state.planningTotal = planningTotal;
+    },
+    [SET_PLANNINGTOTALFARMER](state, planningTotalFarmer){
+        state.planningTotalFarmer = planningTotalFarmer;
     },
     setCalculation(state, calculation){
         //console.log(calculation);

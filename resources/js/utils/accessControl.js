@@ -16,20 +16,20 @@ const AccessControl = {
             if (store.getters.authUser.uid !== undefined) {
                 authUser = store.getters.authUser;
                 store.dispatch("checkAuth");
-                //console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' requiredRoles=' + requiresRoles + " userRoles= ");
-                // authUser.roles.forEach(item => {
-                //     console.log("Right: " + item.id +  " " + item.name)
-                // })
+                console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' requiredRoles=' + requiresRoles + " userRoles= ");
+                authUser.roles.forEach(item => {
+                    console.log("Right: " + item.id +  " " + item.name)
+                })
             }
-            // console.log(authUser);
-            // console.log(to.path);
-            // console.log(requiresAuth);
-            // console.log(authUser.uid);
+            console.log(authUser);
+            console.log(to.path);
+            console.log(requiresAuth);
+            console.log(authUser.uid);
             if (requiresAuth && authUser.uid === undefined) {
-                // console.log('not logged in');
+                console.log('not logged in');
                 next('/auth/login');
             } else if ((to.path === '/auth/login' || to.path === '/') && authUser.uid) {
-                // console.log(authUser);
+                console.log(authUser);
                 if(authUser.roles[0].name === "Admin"){
                     // console.log('already logged in admin');
                     next("/admin")
@@ -37,6 +37,10 @@ const AccessControl = {
                 if(authUser.roles[0].name === "Moderator"){
                     // console.log('already logged in Moderator');
                     next("/admin")
+                }
+                if(authUser.roles[0].name === "Logistics"){
+                    console.log('already logged in Logistics');
+                    next("/logistics")
                 }
                 if(authUser.roles[0].name === "Planning"){
                     // console.log('already logged in Planning');
@@ -55,11 +59,11 @@ const AccessControl = {
                 // next();
             } else if (requiresRoles && authUser) {
                 if (this.hasRight(requiresRoles, authUser)) {
-                    // console.log('authorized');
+                    console.log('authorized');
                     next()
                 } else {
                     store.dispatch('logout');
-                    // console.log('unauthorized');
+                    console.log('unauthorized');
                     next('/auth/login')
                 }
             }else{

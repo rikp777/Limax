@@ -116,14 +116,29 @@ class ShippingLabelController extends Controller
 
     public function destroy($id)
     {
-        $shippingLabel = ShippingLabel::withTrashed()->where('id', $id)->first();
 
-        if ($shippingLabel->trashed()){
-            $shippingLabel->restore();
+        $shippingLabel = ShippingLabel::where('id', $id)->first();
+
+        $shippingLabel->palletlabels()->update(['status_id' =>1]);
+        $shippingLabel->palletlabels()->detach();
+
+        $shippingLabelDel = ShippingLabel::withTrashed()->where('id', $id)->first();
+
+        if ($shippingLabelDel->trashed()){
+            $shippingLabelDel->restore();
         }
         else {
-            $shippingLabel->delete();
+            $shippingLabelDel->delete();
         }
+
+//        $shippingLabel = ShippingLabel::withTrashed()->where('id', $id)->first();
+//
+//        if ($shippingLabel->trashed()){
+//            $shippingLabel->restore();
+//        }
+//        else {
+//            $shippingLabel->delete();
+//        }
 
         return new ShippingLabelResource($shippingLabel);
     }

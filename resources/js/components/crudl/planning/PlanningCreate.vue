@@ -102,7 +102,7 @@
                                                               :value="key.replace(/_/g, `-`).slice(0, 10)"
                                                               style="border-style: hidden"/>
                                             </b-colxx>
-                                            <b-col v-for="(sort, key2) in planning">
+                                            <b-col v-for="(sort, key2) in planning" :key="key2">
                                                 <b-input-group :prepend="key2" class="mb-2 mr-sm-2 mb-sm-2">
                                                     <b-form-input v-if="sort" type="number" class="mb-2 mr-sm-2 mb-sm-0"
                                                                   :value="sort"
@@ -141,8 +141,12 @@
     import vSelect from "vue-select";
     import Vuetable from "vuetable-2/src/components/Vuetable";
     import ListWithPalletlabelSetupItem from "../../listing/ListWithPalletlabelSetupItem";
-    import {mapGetters} from "vuex";
+    import {mapGetters, mapMutations} from "vuex";
     import Switches from "vue-switches";
+    import {
+        menuHiddenBreakpoint,
+        subHiddenBreakpoint
+    } from '../../../constants/config';
 
     export default {
         name: "PlanningCreate",
@@ -167,7 +171,8 @@
         computed: {
             ...mapGetters({
                 authFarmer: 'authFarmer',
-                authUserFarmers: 'authUserFarmers'
+                authUserFarmers: 'authUserFarmers',
+                selectedMenuHasSubItems: 'getSelectedMenuHasSubItems'
             }),
             articlefarmers() {
                 return this.$store.getters.articlefarmers;
@@ -183,6 +188,7 @@
             },
         },
         methods: {
+            ...mapMutations(['changeSideMenuStatus']),
             // checkSetup() {
             //     // console.log(this.palletLabel);
             //     if (!this.palletLabelLength) {
@@ -298,10 +304,46 @@
                     // this.palletLabelLength.push(this.palletLabel);
                     // console.log(this.palletLabel);
                 });
-            }
+            },
+
+            changeDefaultMenuType(containerClassnames) {
+                let nextClasses = this.getMenuClassesForResize(containerClassnames)
+                this.changeSideMenuStatus({
+                    step: 0,
+                    classNames: nextClasses.join(' '),
+                    selectedMenuHasSubItems: this.selectedMenuHasSubItems
+                })
+            },
+            getMenuClassesForResize(classes) {
+                let nextClasses = classes.split(' ').filter(x => x !== '')
+                const windowWidth = window.innerWidth
+
+                if (windowWidth < menuHiddenBreakpoint) {
+                    nextClasses.push('menu-mobile')
+                } else if (windowWidth < subHiddenBreakpoint) {
+                    nextClasses = nextClasses.filter(x => x !== 'menu-mobile')
+                    if (
+                        nextClasses.includes('menu-default') &&
+                        !nextClasses.includes('menu-sub-hidden')
+                    ) {
+                        nextClasses.push('menu-sub-hidden')
+                    }
+                } else {
+                    nextClasses = nextClasses.filter(x => x !== 'menu-mobile')
+                    if (
+                        nextClasses.includes('menu-default') &&
+                        nextClasses.includes('menu-sub-hidden')
+                    ) {
+                        nextClasses = nextClasses.filter(x => x !== 'menu-sub-hidden')
+                    }
+                }
+                return nextClasses
+            },
+
         },
         mounted() {
             Promise.all([
+                this.changeDefaultMenuType('menu-hidden'),
                 this.getAllCells(),
                 this.getAllPalletLabels(),
                 this.$store.dispatch("getAllArticleFarmers").then((response) => {

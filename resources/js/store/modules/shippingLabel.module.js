@@ -102,6 +102,11 @@ const actions = {
         return data;
     },
 
+    //delete palletlabel
+    shippinglabelReset(context, shippingLabelSlug) {
+        return ShippingLabelService.delete(shippingLabelSlug)
+    },
+
 };
 
 // Mutations

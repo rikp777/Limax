@@ -41,8 +41,8 @@
                             <i class="simple-icon-grid" />
                         </template>
 
-                        <h3 class="text-center font-weight-light" style="color: grey">Panels</h3>
-                        <b-dropdown-divider/>
+<!--                        <h3 class="text-center font-weight-light" style="color: grey">Panels</h3>-->
+<!--                        <b-dropdown-divider/>-->
 
                         <div v-for="role in authUser.roles">
                             <div v-if="role.id === 1">
@@ -61,6 +61,10 @@
                                 <router-link tag="a" :to="{ path: '/production' }" class="icon-menu-item">
                                     <i class="iconsminds-factory d-block" />
                                     Production
+                                </router-link>
+                                <router-link tag="a" :to="{ path: '/logistics' }" class="icon-menu-item">
+                                    <i class="simple-icon-share d-block" />
+                                    Logistics
                                 </router-link>
                             </div>
 
