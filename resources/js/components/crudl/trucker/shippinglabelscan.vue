@@ -3,7 +3,7 @@
         <b-form @submit.prevent="validateBeforeSubmit()">
             <b-row>
                 <b-colxx xxs="12" xl="6" class="mb-3">
-                    <b-card no-body>
+
                         <b-card-body>
                             <!--                            <p class="lead color-theme-1 mb-1 value">{{palletlabel.weight / 1000}} KG</p>-->
                             <!--                            <p class="mb-0 label text-small text-secondary">{{$t('production.dashboard.expectedNoTax')}}</p>-->
@@ -16,21 +16,20 @@
 
                             <!--                            <qrcode-stream @decode="onDecode"></qrcode-stream>-->
                         </b-card-body>
-                    </b-card>
                 </b-colxx>
                 <b-colxx xxs="12" xl="6" class="mb-3">
-                    <b-card no-body>
+<!--                    <b-card no-body>-->
                         <b-card-body>
 <!--                            <p v-for="palletlabel in form.palletlabels" class="lead color-theme-1 mb-1 value">{{palletlabel}}</p>-->
 
-                            <b-row class="row icon-cards-row mb-2">
+                            <b-row class="row icon-cards-roww mb-2">
                                 <b-colxx xxs="4" sm="4" md="2" lg="2"  v-for="palletlabel in form.palletlabels">
 <!--                                    <icon-card title="ID" icon="simple-icon-tag" :value="palletlabel" />-->
                                     <div class="icon-row-item">
-                                        <b-card class="mb-4 text-center" @click="removePalletlabel(palletlabel)">
+                                            <b-card class="mb-2 text-center" @click="removePalletlabel(palletlabel)">
                                             <i class="simple-icon-tag"/>
-                                            <p class="card-text font-weight-semibold mb-0">ID</p>
-                                            <p class="lead text-center">{{ palletlabel }}</p>
+                                            <p class="card-text font-weight-semibold">{{ palletlabel }}</p>
+<!--                                            <p class="lead text-center">{{ palletlabel }}</p>-->
                                         </b-card>
                                     </div>
                                 </b-colxx>
@@ -63,7 +62,7 @@
 <!--                            </table>-->
                             <!--                            <p class="mb-0 label text-small text-secondary">{{$t('production.dashboard.tax')}}</p>-->
                         </b-card-body>
-                    </b-card>
+<!--                    </b-card>-->
                 </b-colxx>
             </b-row>
             <b-form-group label-align="center">
