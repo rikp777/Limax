@@ -137,11 +137,14 @@
                                 </div>
                             </div>
                             <hr>
+<!--                            <br>-->
+<!--                            <br>-->
+<!--                            <br>-->
                             <div class="row">
 <!--                                {{palletLabel}}-->
-                                <qrcode-vue :value="palletLabel.id" size="300" level="H" renderAs="svg"></qrcode-vue>
-<!--                                <div class="barcodee" style="font-family: 'Libre Barcode 39', cursive;">{{palletLabel.pallet_label_farmer_id}}-->
-<!--                                </div>-->
+                                    <div class="col-sm-6">
+                                        <qrcode-vue :value="qrcodeId" size="300" level="L" renderAs="svg"></qrcode-vue>
+                                    </div>
                             </div>
                             <div class="row">
                                 <div class="text-center">
@@ -263,7 +266,9 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <qrcode-vue :value="palletLabel.id" size="300" level="H" renderAs="svg"></qrcode-vue>
+                                <div class="col-sm-6">
+                                    <qrcode-vue :value="qrcodeId" size="300" level="L" renderAs="svg"></qrcode-vue>
+                                </div>
 <!--                                <div class="barcodee" style="font-family: 'Libre Barcode 39', cursive;">{{palletLabel.pallet_label_farmer_id}}-->
 <!--                                </div>-->
                             </div>
@@ -293,6 +298,11 @@
 
     export default {
         name: 'palletLabel-pdf',
+        data() {
+            return {
+                qrcodeId: '',
+            }
+        },
         components: {
             QrcodeVue,
         },
@@ -345,7 +355,8 @@
                this.getPalletlabel(this.$route.params.id),
                this.getAllArticles(),
             ]).finally(() => {
-                // console.log(" nu ben ik klaar");
+                this.qrcodeId = this.palletLabel.id.toString();
+                console.log(this.qrcodeId);
                 // this.checkPrint();
             })
         },
