@@ -2,7 +2,7 @@
     <validation-observer ref="observer" v-slot="{ invalid }">
         <b-form @submit.prevent="validateBeforeSubmit()">
             <b-row>
-                <b-colxx xxs="12" xl="6" class="mb-6">
+                <b-colxx xxs="12" xl="6" class="mb-3">
                     <b-card no-body>
                         <b-card-body>
                             <!--                            <p class="lead color-theme-1 mb-1 value">{{palletlabel.weight / 1000}} KG</p>-->
@@ -18,7 +18,7 @@
                         </b-card-body>
                     </b-card>
                 </b-colxx>
-                <b-colxx xxs="12" xl="6" class="mb-6">
+                <b-colxx xxs="12" xl="6" class="mb-3">
                     <b-card no-body>
                         <b-card-body>
 <!--                            <p v-for="palletlabel in form.palletlabels" class="lead color-theme-1 mb-1 value">{{palletlabel}}</p>-->
@@ -66,7 +66,6 @@
                     </b-card>
                 </b-colxx>
             </b-row>
-            <hr>
             <b-form-group label-align="center">
                 <div class="d-flex justify-content-center">
                     <!--                    <b-button-->
