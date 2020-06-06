@@ -24,6 +24,7 @@
         "js-cookie": "^2.2.1",
         "moment-timezone": "^0.5.27",
         "npm": "^6.13.7",
+        "qrcode.vue": "^1.7.0",
         "secure-ls": "^1.2.6",
         "v-contextmenu": "^2.8.0",
         "vee-validate": "^3.2.0",
