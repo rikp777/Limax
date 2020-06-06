@@ -331,5 +331,14 @@
                 "buttonCreate": "Register weight check"
             }
         }
+    },
+    "trucker": {
+        "dashboard": {
+            "title": "Create Shippinglabel",
+            "actions": {
+                "title": "Are you finished?",
+                "buttonCreate": "Create Shippinglabel"
+            }
+        }
     }
 }

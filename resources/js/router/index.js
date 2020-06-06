@@ -12,6 +12,7 @@ import shippingLabel from "./routes/shippingLabel";
 import weight from "./routes/weight";
 import logisticsPlanning from "./routes/logisticsPlanning";
 import logisticsTransport from "./routes/logisticsTransport";
+import truckerShippinglabel from "./routes/trucker";
 import RightEnum from "./rights";
 
 Vue.use(VueRouter);
@@ -90,6 +91,17 @@ const router = new VueRouter({
                     children: [
                         ...logisticsPlanning,
                         ...logisticsTransport
+                    ]
+                },
+                {
+                    path: "trucker",
+                    component: () => import('../views/trucker/Index'),
+                    meta: {
+                        requiresAuth: true,
+                        requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Trucker]
+                    },
+                    children: [
+                        ...truckerShippinglabel
                     ]
                 }
             ]

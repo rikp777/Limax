@@ -39,7 +39,7 @@ const AccessControl = {
                     next("/admin")
                 }
                 if(authUser.roles[0].name === "Logistics"){
-                    console.log('already logged in Logistics');
+                    // console.log('already logged in Logistics');
                     next("/logistics")
                 }
                 if(authUser.roles[0].name === "Planning"){
@@ -51,8 +51,12 @@ const AccessControl = {
                     next("/production")
                 }
                 if(authUser.roles[0].name === "Farmer"){
-                    // console.log('already logged in Farmer');
+                    // console.log('alreaedy logged in Farmer');
                     next("/farmer")
+                }
+                if(authUser.roles[0].name === "Trucker"){
+                    // console.log('already logged in Logistics');
+                    next("/trucker")
                 }
 
                 // console.log('already logged in');

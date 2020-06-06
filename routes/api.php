@@ -71,7 +71,13 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('/palletlabelStatus', 'PalletLabelStatusController')
         ->only(['update', 'store']);
 
+    Route::apiResource('/truckerpalletlabelStatus', 'TruckerPalletLabelStatusController')
+        ->only(['update', 'store']);
+
     Route::apiResource('/shippinglabel', 'ShippingLabelController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/truckershippinglabel', 'TruckerShippingLabelController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
     Route::get('/cultivationcycle/calculate/{cell}', 'CultivationCycleController@calculate');
