@@ -2,7 +2,7 @@
     <validation-observer ref="observer" v-slot="{ invalid }">
         <b-form @submit.prevent="validateBeforeSubmit()">
             <b-row>
-                <b-colxx xxs="6" class="mb-6">
+                <b-colxx xxs="12" xl="6" class="mb-6">
                     <b-card no-body>
                         <b-card-body>
                             <!--                            <p class="lead color-theme-1 mb-1 value">{{palletlabel.weight / 1000}} KG</p>-->
@@ -18,13 +18,13 @@
                         </b-card-body>
                     </b-card>
                 </b-colxx>
-                <b-colxx xxs="6" class="mb-6">
+                <b-colxx xxs="12" xl="6" class="mb-6">
                     <b-card no-body>
                         <b-card-body>
 <!--                            <p v-for="palletlabel in form.palletlabels" class="lead color-theme-1 mb-1 value">{{palletlabel}}</p>-->
 
                             <b-row class="row icon-cards-row mb-2">
-                                <b-colxx xxs="6" sm="4" md="3" lg="2"  v-for="palletlabel in form.palletlabels">
+                                <b-colxx xxs="4" sm="4" md="2" lg="2"  v-for="palletlabel in form.palletlabels">
 <!--                                    <icon-card title="ID" icon="simple-icon-tag" :value="palletlabel" />-->
                                     <div class="icon-row-item">
                                         <b-card class="mb-4 text-center" @click="removePalletlabel(palletlabel)">
@@ -66,8 +66,9 @@
                     </b-card>
                 </b-colxx>
             </b-row>
-            <b-form-group :label="$t('trucker.dashboard.actions.title')" label-align="right">
-                <div class="d-flex justify-content-end">
+            <hr>
+            <b-form-group label-align="center">
+                <div class="d-flex justify-content-center">
                     <!--                    <b-button-->
                     <!--                        type="button"-->
                     <!--                        variant="outline-danger"-->

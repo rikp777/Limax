@@ -13,9 +13,9 @@
 <!--                <i class="simple-icon-magnifier"></i>-->
 <!--            </span>-->
 <!--            </div>-->
-            <div class="d-inline-block">
-                <change-lang />
-            </div>
+<!--            <div class="d-inline-block">-->
+<!--                <change-lang />-->
+<!--            </div>-->
             <div class="d-inline-block">
                 <select-farmer />
             </div>
@@ -30,117 +30,117 @@
 
         <div class="navbar-right">
 
-            <dark-mode />
+<!--            <dark-mode />-->
 
 
             <div class="header-icons d-inline-block align-middle">
 
-                <div class="position-relative d-none d-sm-inline-block">
-                    <b-dropdown variant="empty" size="sm" right toggle-class="header-icon" menu-class="position-absolute mt-3 iconMenuDropdown" no-caret>
-                        <template slot="button-content">
-                            <i class="simple-icon-grid" />
-                        </template>
+<!--                <div class="position-relative d-none d-sm-inline-block">-->
+<!--                    <b-dropdown variant="empty" size="sm" right toggle-class="header-icon" menu-class="position-absolute mt-3 iconMenuDropdown" no-caret>-->
+<!--                        <template slot="button-content">-->
+<!--                            <i class="simple-icon-grid" />-->
+<!--                        </template>-->
 
-<!--                        <h3 class="text-center font-weight-light" style="color: grey">Panels</h3>-->
-<!--                        <b-dropdown-divider/>-->
+<!--&lt;!&ndash;                        <h3 class="text-center font-weight-light" style="color: grey">Panels</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <b-dropdown-divider/>&ndash;&gt;-->
 
-                        <div v-for="role in authUser.roles">
-                            <div v-if="role.id === 1">
-                                <router-link tag="a" :to="{ path: '/admin' }" class="icon-menu-item">
-                                    <i class="iconsminds-administrator d-block" />
-                                    Admin
-                                </router-link>
-                                <router-link tag="a" :to="{ path: '/farmer' }" class="icon-menu-item">
-                                    <i class="iconsminds-tractor d-block" />
-                                    Farmer
-                                </router-link>
-                                <router-link tag="a" :to="{ path: '/planner' }" class="icon-menu-item">
-                                    <i class="simple-icon-organization d-block" />
-                                    Planner
-                                </router-link>
-                                <router-link tag="a" :to="{ path: '/production' }" class="icon-menu-item">
-                                    <i class="iconsminds-factory d-block" />
-                                    Production
-                                </router-link>
-                                <router-link tag="a" :to="{ path: '/logistics' }" class="icon-menu-item">
-                                    <i class="simple-icon-share d-block" />
-                                    Logistics
-                                </router-link>
-                            </div>
-
-                            <div v-if="role.id === 2">
-                                <router-link tag="a" :to="{ path: '/admin' }" class="icon-menu-item">
-                                    <i class="iconsminds-administrator d-block" />
-                                    Moderator
-                                </router-link>
+<!--                        <div v-for="role in authUser.roles">-->
+<!--                            <div v-if="role.id === 1">-->
+<!--                                <router-link tag="a" :to="{ path: '/admin' }" class="icon-menu-item">-->
+<!--                                    <i class="iconsminds-administrator d-block" />-->
+<!--                                    Admin-->
+<!--                                </router-link>-->
 <!--                                <router-link tag="a" :to="{ path: '/farmer' }" class="icon-menu-item">-->
 <!--                                    <i class="iconsminds-tractor d-block" />-->
 <!--                                    Farmer-->
 <!--                                </router-link>-->
-                                <router-link tag="a" :to="{ path: '/planner' }" class="icon-menu-item">
-                                    <i class="simple-icon-organization d-block" />
-                                    Planner
-                                </router-link>
-                                <router-link tag="a" :to="{ path: '/production' }" class="icon-menu-item">
-                                    <i class="iconsminds-factory d-block" />
-                                    Production
-                                </router-link>
-                            </div>
+<!--                                <router-link tag="a" :to="{ path: '/planner' }" class="icon-menu-item">-->
+<!--                                    <i class="simple-icon-organization d-block" />-->
+<!--                                    Planner-->
+<!--                                </router-link>-->
+<!--                                <router-link tag="a" :to="{ path: '/production' }" class="icon-menu-item">-->
+<!--                                    <i class="iconsminds-factory d-block" />-->
+<!--                                    Production-->
+<!--                                </router-link>-->
+<!--                                <router-link tag="a" :to="{ path: '/logistics' }" class="icon-menu-item">-->
+<!--                                    <i class="simple-icon-share d-block" />-->
+<!--                                    Logistics-->
+<!--                                </router-link>-->
+<!--                            </div>-->
 
-                            <div v-if="role.id === 3">
-                                <router-link tag="a" :to="{ path: '/farmer' }" class="icon-menu-item">
-                                    <i class="iconsminds-tractor d-block" />
-                                    Farmer
-                                </router-link>
-                            </div>
+<!--                            <div v-if="role.id === 2">-->
+<!--                                <router-link tag="a" :to="{ path: '/admin' }" class="icon-menu-item">-->
+<!--                                    <i class="iconsminds-administrator d-block" />-->
+<!--                                    Moderator-->
+<!--                                </router-link>-->
+<!--&lt;!&ndash;                                <router-link tag="a" :to="{ path: '/farmer' }" class="icon-menu-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <i class="iconsminds-tractor d-block" />&ndash;&gt;-->
+<!--&lt;!&ndash;                                    Farmer&ndash;&gt;-->
+<!--&lt;!&ndash;                                </router-link>&ndash;&gt;-->
+<!--                                <router-link tag="a" :to="{ path: '/planner' }" class="icon-menu-item">-->
+<!--                                    <i class="simple-icon-organization d-block" />-->
+<!--                                    Planner-->
+<!--                                </router-link>-->
+<!--                                <router-link tag="a" :to="{ path: '/production' }" class="icon-menu-item">-->
+<!--                                    <i class="iconsminds-factory d-block" />-->
+<!--                                    Production-->
+<!--                                </router-link>-->
+<!--                            </div>-->
 
-                            <div v-if="role.id === 4">
-                                <router-link tag="a" :to="{ path: '/trucker' }" class="icon-menu-item">
-                                    <i class="iconsminds-factory d-block" />
-                                    Production
-                                </router-link>
-                            </div>
+<!--                            <div v-if="role.id === 3">-->
+<!--                                <router-link tag="a" :to="{ path: '/farmer' }" class="icon-menu-item">-->
+<!--                                    <i class="iconsminds-tractor d-block" />-->
+<!--                                    Farmer-->
+<!--                                </router-link>-->
+<!--                            </div>-->
 
-                            <div v-if="role.id === 5">
-                                <router-link tag="a" :to="{ path: '/planner' }" class="icon-menu-item">
-                                    <i class="simple-icon-organization d-block" />
-                                    Planner
-                                </router-link>
-                            </div>
+<!--                            <div v-if="role.id === 4">-->
+<!--                                <router-link tag="a" :to="{ path: '/trucker' }" class="icon-menu-item">-->
+<!--                                    <i class="iconsminds-factory d-block" />-->
+<!--                                    Production-->
+<!--                                </router-link>-->
+<!--                            </div>-->
 
-                            <div v-if="role.id === 6">
-                                <router-link tag="a" :to="{ path: '/production' }" class="icon-menu-item">
-                                    <i class="iconsminds-factory d-block" />
-                                    Production
-                                </router-link>
-                            </div>
-                        </div>
+<!--                            <div v-if="role.id === 5">-->
+<!--                                <router-link tag="a" :to="{ path: '/planner' }" class="icon-menu-item">-->
+<!--                                    <i class="simple-icon-organization d-block" />-->
+<!--                                    Planner-->
+<!--                                </router-link>-->
+<!--                            </div>-->
 
-                    </b-dropdown>
-                </div>
-                <div class="position-relative d-inline-block">
-                    <b-dropdown variant="empty" size="sm" right toggle-class="header-icon notificationButton" menu-class="position-absolute mt-3 notificationDropdown" no-caret>
-                        <template slot="button-content">
-                            <i class="simple-icon-bell" />
-                            <span class="count">1</span>
-                        </template>
-                        <vue-perfect-scrollbar :settings="{ suppressScrollX: true, wheelPropagation: false }">
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom" v-for="(n,index) in notifications" :key="index">
-                                <!--                        <router-link tag="a" to="/app/pages/product/details">-->
-                                <!--                            <img :src="n.img" :alt="n.title" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />-->
-                                <!--                        </router-link>-->
-                                <div class="pl-3 pr-2 text-secondary">
-                                    <p class="font-weight-medium mb-1">{{n.title}}</p>
-                                    <p class="text-muted mb-0 text-small">{{n.date}}</p>
-                                </div>
-                            </div>
-                        </vue-perfect-scrollbar>
-                    </b-dropdown>
-                </div>
+<!--                            <div v-if="role.id === 6">-->
+<!--                                <router-link tag="a" :to="{ path: '/production' }" class="icon-menu-item">-->
+<!--                                    <i class="iconsminds-factory d-block" />-->
+<!--                                    Production-->
+<!--                                </router-link>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                <div class="position-relative d-none d-sm-inline-block ">
-                    <full-screen />
-                </div>
+<!--                    </b-dropdown>-->
+<!--                </div>-->
+<!--                <div class="position-relative d-inline-block">-->
+<!--                    <b-dropdown variant="empty" size="sm" right toggle-class="header-icon notificationButton" menu-class="position-absolute mt-3 notificationDropdown" no-caret>-->
+<!--                        <template slot="button-content">-->
+<!--                            <i class="simple-icon-bell" />-->
+<!--                            <span class="count">1</span>-->
+<!--                        </template>-->
+<!--                        <vue-perfect-scrollbar :settings="{ suppressScrollX: true, wheelPropagation: false }">-->
+<!--                            <div class="d-flex flex-row mb-3 pb-3 border-bottom" v-for="(n,index) in notifications" :key="index">-->
+<!--                                &lt;!&ndash;                        <router-link tag="a" to="/app/pages/product/details">&ndash;&gt;-->
+<!--                                &lt;!&ndash;                            <img :src="n.img" :alt="n.title" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />&ndash;&gt;-->
+<!--                                &lt;!&ndash;                        </router-link>&ndash;&gt;-->
+<!--                                <div class="pl-3 pr-2 text-secondary">-->
+<!--                                    <p class="font-weight-medium mb-1">{{n.title}}</p>-->
+<!--                                    <p class="text-muted mb-0 text-small">{{n.date}}</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </vue-perfect-scrollbar>-->
+<!--                    </b-dropdown>-->
+<!--                </div>-->
+
+<!--                <div class="position-relative d-none d-sm-inline-block ">-->
+<!--                    <full-screen />-->
+<!--                </div>-->
 
             </div>
 
