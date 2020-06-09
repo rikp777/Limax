@@ -220,9 +220,10 @@
                 this.cell = cell;
             },
             loadPlanning(id) {
+                // console.log(id.id)
                 this.isLoad = false
                 Promise.all([
-                    this.$store.dispatch("getPlanning", this.authFarmer.id).then((response) => {
+                    this.$store.dispatch("getPlanningFast", id.id).then((response) => {
                         // console.log('hiernaar planning console loggen')
                     })
                 ]).finally(() => {
@@ -345,7 +346,7 @@
             Promise.all([
                 this.changeDefaultMenuType('menu-hidden'),
                 this.getAllCells(),
-                this.getAllPalletLabels(),
+                // this.getAllPalletLabels(),
                 this.$store.dispatch("getAllArticleFarmers").then((response) => {
                     //console.log("nu ben ik klaar")
                 })

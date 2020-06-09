@@ -1,4 +1,4 @@
-import { PlanningService, PlanningTotalService } from "../../common/api.service";
+import { PlanningService, PlanningTotalService, PlanningFastService } from "../../common/api.service";
 
 // action names
 const FETCH_START = "setPlanningLoading";
@@ -106,6 +106,24 @@ const actions = {
 
         context.commit(FETCH_START);
         return PlanningService.get(planningSlug)
+            .then(({data}) => {
+                // console.log(data);
+                context.commit(SET_PLANNING, data);
+                context.commit(FETCH_END);
+            })
+            .catch(error => {
+                throw error
+            });
+    },
+
+    //get single cell
+    async getPlanningFast(context, planningSlug) {
+        if (state.plannings.id === planningSlug) {
+            return;
+        }
+
+        context.commit(FETCH_START);
+        return PlanningFastService.get(planningSlug)
             .then(({data}) => {
                 // console.log(data);
                 context.commit(SET_PLANNING, data);
