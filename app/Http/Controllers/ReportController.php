@@ -27,7 +27,7 @@ class ReportController extends Controller
         $id = Farmer::where('uid', $request->header('authFarmer'))->first();
 
         $palletlabelsTotal = DB::select(DB::raw(
-            "SELECT id, crop_date, article_amount, (select name from sort_types where id = (select sort_type_id from articles where id = pallet_labels.article_id)) as sort, (select cast((((select inset_gram from articles where id = pallet_labels.article_id) * (select inset_limit from articles where id = pallet_labels.article_id)) * article_amount) / 1000 as numeric(36,2)) from articles where articles.id = pallet_labels.article_id) as weight, note, (select name from statuses where id = pallet_labels.status_id) as status, (SELECT description from cells where id = pallet_labels.cell_id) as cell FROM pallet_labels WHERE farmer_id = '$id->id' AND created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP))"
+            "SELECT id, crop_date, article_amount, (select name from sort_types where id = (select sort_type_id from articles where id = pallet_labels.article_id)) as sort, (select cast((((select inset_gram from articles where id = pallet_labels.article_id) * (select inset_limit from articles where id = pallet_labels.article_id)) * article_amount) / 1000 as numeric(36,2)) from articles where articles.id = pallet_labels.article_id) as weight, note, (select name from statuses where id = pallet_labels.status_id) as status, (SELECT description from cells where id = pallet_labels.cell_id) as cell FROM pallet_labels WHERE farmer_id = '$id->id' AND created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND deleted_at IS NULL"
         ));
 
         $sortsTotal = DB::select(DB::raw(
@@ -37,7 +37,7 @@ SELECT sort,
 from pallet_labels
 JOIN articles ON articles.id = pallet_labels.article_id
 CROSS APPLY (SELECT name as sort from sort_types where id = (select sort_type_id from articles where id = pallet_labels.article_id)) Alias
-WHERE farmer_id = '$id->id' AND pallet_labels.created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND pallet_labels.created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP))
+WHERE farmer_id = '$id->id' AND pallet_labels.created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND pallet_labels.created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND pallet_labels.deleted_at IS NULL
 ) p GROUP BY sort"
         ));
 
@@ -47,7 +47,7 @@ select
 (select b.weight from (select (select cast((((select inset_gram from articles where id = pallet_labels.article_id) * (select inset_limit from articles where id = pallet_labels.article_id)) * article_amount) / 1000 as numeric(36,2)) from articles where articles.id = pallet_labels.article_id) as weight) b) as weight
 from pallet_labels
 JOIN articles ON articles.id = pallet_labels.article_id
-WHERE farmer_id = '$id->id' AND pallet_labels.created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND pallet_labels.created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP))
+WHERE farmer_id = '$id->id' AND pallet_labels.created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND pallet_labels.created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND pallet_labels.deleted_at IS NULL
 ) p
 "
         ));
@@ -58,12 +58,12 @@ select
 (select b.weight from (select (select cast((((select inset_gram from articles where id = pallet_labels.article_id) * (select inset_limit from articles where id = pallet_labels.article_id)) * article_amount) / 1000 as numeric(36,2)) from articles where articles.id = pallet_labels.article_id) as weight) b) as weight
 from pallet_labels
 JOIN articles ON articles.id = pallet_labels.article_id
-WHERE farmer_id = '$id->id' AND pallet_labels.created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND pallet_labels.created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP))
+WHERE farmer_id = '$id->id' AND pallet_labels.created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND pallet_labels.created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND pallet_labels.deleted_at IS NULL
 ) p"
         ));
 
         $palletlabelsCount = DB::select(DB::raw(
-            "SELECT COUNT(id) as totalLabels FROM pallet_labels where farmer_id = '$id->id' AND created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP))"
+            "SELECT COUNT(id) as totalLabels FROM pallet_labels where farmer_id = '$id->id' AND created_at  >= DATEADD(DAY, 0, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND created_at <  DATEADD(DAY, 1, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP)) AND deleted_at IS NULL"
         ));
 
 //        dd($palletlabelsCount['0']->totalLabels);

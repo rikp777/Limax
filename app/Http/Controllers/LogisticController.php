@@ -27,15 +27,15 @@ class LogisticController extends Controller
         $champlanden = [1, 2, 3];
 
         $articlesTotal = DB::select(DB::raw(
-            "SELECT article_id, SUM(article_amount) as article_amount from pallet_labels where farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 group by article_id"
+            "SELECT article_id, SUM(article_amount) as article_amount from pallet_labels where farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 group by article_id AND deleted_at IS NULL"
         ));
 
         $palletlabelsTotal = DB::select(DB::raw(
-            "SELECT farmer_id, id, crop_date, article_amount, article_id FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1"
+            "SELECT farmer_id, id, crop_date, article_amount, article_id FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 AND deleted_at IS NULL"
         ));
 
         $palletlabelsCount = DB::select(DB::raw(
-            "SELECT COUNT(ID) as totalLabels FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1"
+            "SELECT COUNT(ID) as totalLabels FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 AND deleted_at IS NULL"
         ));
 
         $totArr = [
@@ -85,7 +85,7 @@ class LogisticController extends Controller
         $articlesTotal = DB::select(DB::raw(
             "SELECT (SELECT CONCAT((select name from article_groups where id = articles.article_group_id), ' ', inset_limit, ' ', 'x', ' ', inset_gram, ' ', (select name from sort_types where id = articles.sort_type_id), ' ', (select color from insets where id = articles.inset_id), ' ', '(',  excel_code, ')') as article_name
               FROM articles
-              WHERE id = pallet_labels.article_id) as article, SUM(article_amount) as article_amount from pallet_labels where farmer_id = '$id' AND status_id = 1 group by article_id"
+              WHERE id = pallet_labels.article_id) as article, SUM(article_amount) as article_amount from pallet_labels where farmer_id = '$id' AND status_id = 1 AND deleted_at IS NULL group by article_id"
         ));
 
 //        $palletlabelsTotal = DB::select( DB::raw(
@@ -97,11 +97,11 @@ class LogisticController extends Controller
             (SELECT CONCAT((select name from article_groups where id = articles.article_group_id), ' ', inset_limit, ' ', 'x', ' ', inset_gram, ' ', (select name from sort_types where id = articles.sort_type_id), ' ', (select color from insets where id = articles.inset_id), ' ', '(',  excel_code, ')') as article_name
               FROM articles
               WHERE id = pallet_labels.article_id) as article
-              FROM pallet_labels WHERE farmer_id = '$id' AND status_id = 1"
+              FROM pallet_labels WHERE farmer_id = '$id' AND status_id = 1 AND deleted_at IS NULL"
         ));
 
         $palletlabelsCount = DB::select(DB::raw(
-            "SELECT COUNT(ID) as totalLabels FROM pallet_labels WHERE farmer_id = '$id' AND status_id = 1"
+            "SELECT COUNT(ID) as totalLabels FROM pallet_labels WHERE farmer_id = '$id' AND status_id = 1 AND deleted_at IS NULL"
         ));
 
 //        dd($palletlabelsCount['0']->totalLabels);
