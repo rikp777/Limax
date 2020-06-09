@@ -295,6 +295,16 @@ export const PalletLabelStatusService = {
     }
 };
 
+//truckerPalletLabelStatus
+const truckerPalletLabelStatusApi = "truckerpalletlabelStatus";
+export const truckerPalletLabelStatusService = {
+    create(params) {
+        return ApiService.post(truckerPalletLabelStatusApi, { truckerShippingPalletLabel: params});
+    },
+    update(slug, params) {
+        return ApiService.update(truckerPalletLabelStatusApi, slug, params);
+    }
+};
 
 
 //Shippinglabel
@@ -319,6 +329,26 @@ export const ShippingLabelService = {
     }
 };
 
+const truckerShippingLabelApi = "truckershippinglabel";
+export const truckerShippingLabelService = {
+    create(params){
+        return ApiService.post(truckerShippingLabelApi, { truckershippingLabel: params})
+    },
+    update(slug, params) {
+        return ApiService.update(truckerShippingLabelApi, slug, { truckershippingLabel: params });
+    },
+    delete(slug) {
+        return ApiService.delete(truckerShippingLabelApi, slug);
+    },
+    get(slug){
+        // console.log('api = ' + ShippingLabelApi);
+        // console.log('slug = ' + slug);
+        return ApiService.get(truckerShippingLabelApi, slug)
+    },
+    getAll() {
+        return ApiService.get(truckerShippingLabelApi)
+    }
+};
 
 //Cell
 const CellApi = "cell";

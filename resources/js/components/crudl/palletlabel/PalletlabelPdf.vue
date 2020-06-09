@@ -137,14 +137,19 @@
                                 </div>
                             </div>
                             <hr>
+<!--                            <br>-->
+<!--                            <br>-->
+<!--                            <br>-->
                             <div class="row">
-                                <div class="barcodee" style="font-family: 'Libre Barcode 39', cursive;">{{palletLabel.pallet_label_farmer_id}}
-                                </div>
+<!--                                {{palletLabel}}-->
+                                    <div class="col-sm-6">
+                                        <qrcode-vue :value="qrcodeId" size="300" level="L" renderAs="svg"></qrcode-vue>
+                                    </div>
                             </div>
                             <div class="row">
                                 <div class="text-center">
                                     <!--                            <img class="card-img-bottom" style=" bottom:0; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
-                                    <img class="card-img-bottom" style=" bottom:0;" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">
+<!--                                    <img class="card-img-bottom" style=" bottom:0;" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
                                 </div>
                             </div>
                         </template>
@@ -261,13 +266,16 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="barcodee" style="font-family: 'Libre Barcode 39', cursive;">{{palletLabel.pallet_label_farmer_id}}
+                                <div class="col-sm-6">
+                                    <qrcode-vue :value="qrcodeId" size="300" level="L" renderAs="svg"></qrcode-vue>
                                 </div>
+<!--                                <div class="barcodee" style="font-family: 'Libre Barcode 39', cursive;">{{palletLabel.pallet_label_farmer_id}}-->
+<!--                                </div>-->
                             </div>
                             <div class="row">
                                 <div class="text-center">
                                     <!--                            <img class="card-img-bottom" style=" bottom:0; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
-                                    <img class="card-img-bottom" style=" bottom:0;" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">
+<!--                                    <img class="card-img-bottom" style=" bottom:0;" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
                                 </div>
                             </div>
                         </template>
@@ -284,11 +292,20 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
+    import QrcodeVue from 'qrcode.vue'
     // import palletLabel from "../../router/routes/palletLabel";
     // import {getToken} from '../../common/jwt.service';
 
     export default {
         name: 'palletLabel-pdf',
+        data() {
+            return {
+                qrcodeId: '',
+            }
+        },
+        components: {
+            QrcodeVue,
+        },
         computed: {
             // ...mapGetters(["authUser"]),
             ...mapGetters({
@@ -338,7 +355,8 @@
                this.getPalletlabel(this.$route.params.id),
                this.getAllArticles(),
             ]).finally(() => {
-                // console.log(" nu ben ik klaar");
+                this.qrcodeId = this.palletLabel.id.toString();
+                console.log(this.qrcodeId);
                 // this.checkPrint();
             })
         },

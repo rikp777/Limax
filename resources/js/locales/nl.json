@@ -331,5 +331,14 @@
                 "buttonCreate": "Registreer controlle"
             }
         }
+    },
+    "trucker": {
+        "dashboard": {
+            "title": "Maak Vrachtbrief",
+            "actions": {
+                "title": "Bent u klaar?",
+                "buttonCreate": "Maak Vrachtbrief"
+            }
+        }
     }
 }

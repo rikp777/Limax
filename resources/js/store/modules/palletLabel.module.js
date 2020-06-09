@@ -1,4 +1,4 @@
-import ApiService, {ArticleService, PalletLabelService, PalletLabelStatusService, UserService} from "../../common/api.service";
+import ApiService, {ArticleService, PalletLabelService, PalletLabelStatusService, UserService, truckerPalletLabelStatusService} from "../../common/api.service";
 import palletLabel from "../../router/routes/palletLabel";
 
 
@@ -137,12 +137,19 @@ const actions = {
             context.commit(SET_PALLETLABEL, data);
             return data;
         });
-
-
-        // const { data } = await PalletLabelService.update(payload);
-        // context.commit(SET_PALLETLABEL, data);
-        // return data;
     },
+
+    //truckerupdate palletLabelStatus
+    async truckerupdatePalletLabelStatus(context, payload) {
+        // console.log(payload);
+        payload.forEach(function(palletLabelID) {
+            console.log(palletLabelID);
+            const { data } = truckerPalletLabelStatusService.update(palletLabelID);
+            context.commit(SET_PALLETLABEL, data);
+            return data;
+        });
+    },
+
     //create palletLabelStatus
     async createShippingPalletID(context, payload) {
         // console.log(payload);

@@ -18,7 +18,7 @@ class TransportController extends Controller
         //
 
         $shippinglabels = DB::select(DB::raw(
-            "SELECT id, created_at, (select (first_name + ' ' + last_name) from users where id = transport_driver) as driver FROM shipping_labels WHERE created_at >= DATEADD(day, -1, GETDATE())"
+            "SELECT id, created_at, (select (first_name + ' ' + last_name) from users where id = transport_driver) as driver FROM shipping_labels WHERE created_at >= DATEADD(day, -1, GETDATE()) AND deleted_at IS NULL"
         ));
 
         return new TransportResource($shippinglabels);
@@ -63,7 +63,7 @@ class TransportController extends Controller
 (select name from farmers where id = b.farmer_id) as farmer, b.id
 from pallet_label_shipping_label a
 JOIN pallet_labels b ON a.pallet_label_id = b.id
-where shipping_label_id = '$id'"
+where shipping_label_id = '$id' AND deleted_at IS NULL"
         ));
 
         $shippinglabeldetail = DB::select(DB::raw(
@@ -74,7 +74,7 @@ where shipping_label_id = '$id'"
 (select name from farmers where id = b.farmer_id) as farmer
 from pallet_label_shipping_label a
 JOIN pallet_labels b ON a.pallet_label_id = b.id
-where shipping_label_id = '$id'
+where shipping_label_id = '$id' AND deleted_at IS NULL
 group by article_id, farmer_id"
         ));
 

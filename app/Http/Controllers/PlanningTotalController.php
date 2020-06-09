@@ -40,9 +40,10 @@ class PlanningTotalController extends Controller
             )
             SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
             FROM planning_amounts b
-            join (select * from plannings where farmer_id = '$currentFarmer->id') a ON b.planning_id = a.id
+            join (select * from plannings where farmer_id = '$currentFarmer->id' AND deleted_at IS NULL) a ON b.planning_id = a.id
             right join DesiredDatesAndSortTypes ddst ON CAST(a.date as DATE)=ddst.DesiredDate and b.sort_type_id=ddst.id
             join sort_types c ON ddst.id = c.id
+			where b.deleted_at IS NULL
             GROUP BY ddst.DesiredDate,c.Description
             ORDER BY DesiredDate,Description"
         ) );
@@ -157,9 +158,10 @@ class PlanningTotalController extends Controller
             )
             SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
             FROM planning_amounts b
-            join (select * from plannings where farmer_id = '$currentFarmer->id') a ON b.planning_id = a.id
+            join (select * from plannings where farmer_id = '$currentFarmer->id' AND deleted_at IS NULL) a ON b.planning_id = a.id
             right join DesiredDatesAndSortTypes ddst ON CAST(a.date as DATE)=ddst.DesiredDate and b.sort_type_id=ddst.id
             join sort_types c ON ddst.id = c.id
+			where b.deleted_at IS NULL
             GROUP BY ddst.DesiredDate,c.Description
             ORDER BY DesiredDate,Description"
         ) );

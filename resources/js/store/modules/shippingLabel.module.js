@@ -1,4 +1,4 @@
-import {PalletLabelService, ShippingLabelService} from "../../common/api.service";
+import {PalletLabelService, ShippingLabelService, truckerShippingLabelService} from "../../common/api.service";
 import shippingLabel from "../../router/routes/shippingLabel";
 
 // action names
@@ -89,6 +89,15 @@ const actions = {
         // console.log(payload);
         // const data = payload;
         const {data} = await ShippingLabelService.create(payload);
+        context.commit(SET_SHIPPINGLABEL, data);
+        // console.log(data);
+        return data;
+    },
+
+    async truckercreateShippingLabel(context, payload) {
+        // console.log(payload);
+        // const data = payload;
+        const {data} = await truckerShippingLabelService.create(payload);
         context.commit(SET_SHIPPINGLABEL, data);
         // console.log(data);
         return data;
