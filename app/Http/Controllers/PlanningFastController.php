@@ -59,12 +59,12 @@ class PlanningFastController extends Controller
         //get the articles that have sort id's from the article selection the farmer made.
         $sorts = $currentFarmer->articles()->get();
         $cells = cell::where('farmer_id', $currentFarmer->id)->get();
-
+        $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
             foreach ($sorts as $sortAll) {
                 //get the description of the sorts based on article selection made by farmer
                 $sortDesc = SortType::where('id', $sortAll["sort_type_id"])->first();
 
-                $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
+//                $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
                 foreach ($period as $date) {
                     $tom1[$id][$date->toDateTimeString()][$sortDesc["description"]] = null;
                     $tom[$id][$date->toDateTimeString()][$sortDesc["description"]] = null;
@@ -96,20 +96,29 @@ class PlanningFastController extends Controller
             }
             $prognoseRay = Planning::whereIn('status_id', [9, 10])->where('farmer_id', $currentFarmer->id)->where('cell_id', $id)->get();
 
-            $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
+//            $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
             foreach ($period as $date) {
                 $prognoseArray[$id][$date->toDateTimeString()] = false;
             }
-            if ($prognoseRay) {
-                foreach ($prognoseRay as $item) {
-                    if ((int)$item["status_id"] === 9) {
-                        $prognoseArr = false;
-                    } elseif ((int)$item["status_id"] === 10) {
-                        $prognoseArr = true;
-                    }
-                    $prognoseArray[(int)$item["cell_id"]][$item["date"]->toDateTimeString()] = $prognoseArr;
+//            if ($prognoseRay) {
+//                foreach ($prognoseRay as $item) {
+//                    if ((int)$item["status_id"] === 10) {
+//                        $prognoseArray[$id][$date->toDateTimeString()] = true;
+//                    }  else {
+//                        $prognoseArray[$id][$date->toDateTimeString()] = false;
+//                    }
+//                }
+//            }
+        if ($prognoseRay) {
+            foreach ($prognoseRay as $item) {
+                if ((int)$item["status_id"] === 9) {
+                    $prognoseArr = false;
+                } elseif ((int)$item["status_id"] === 10) {
+                    $prognoseArr = true;
                 }
+                $prognoseArray[(int)$item["cell_id"]][$item["date"]->toDateTimeString()] = $prognoseArr;
             }
+        }
 
             $totArr = [
                 "planning" => $tom,
