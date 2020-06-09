@@ -414,6 +414,26 @@ export const PlanningService = {
     }
 };
 
+//PlanningFastService
+const PlanningFastApi = "planningfast";
+export const PlanningFastService = {
+    create(params){
+        return ApiService.post(PlanningFastApi, { planningfast: params})
+    },
+    update(slug, params) {
+        return ApiService.update(PlanningFastApi, slug, { planningfast: params });
+    },
+    delete(slug) {
+        return ApiService.delete(PlanningFastApi, slug);
+    },
+    get(slug){
+        return ApiService.get(PlanningFastApi, slug)
+    },
+    getAll() {
+        return ApiService.get(PlanningFastApi)
+    }
+};
+
 const PlanningTotalApi = "planningTotal";
 export const PlanningTotalService = {
     getAll() {
