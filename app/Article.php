@@ -65,6 +65,9 @@ class Article extends Model
                         $value->excel_code . ')';
                 }
 
+            } elseif($value->sortType->name === 'Kist') {
+                return
+                    $value->articleGroup->name . ' ' .  $value->sortType->name . ' (' . $value->excel_code . ')';
             } else {
                 if (isset($value->inset->color)){
 //            $articleColor = $article->color;
