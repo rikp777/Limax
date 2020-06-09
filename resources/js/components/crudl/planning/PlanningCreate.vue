@@ -346,7 +346,7 @@
             Promise.all([
                 this.changeDefaultMenuType('menu-hidden'),
                 this.getAllCells(),
-                this.getAllPalletLabels(),
+                // this.getAllPalletLabels(),
                 this.$store.dispatch("getAllArticleFarmers").then((response) => {
                     //console.log("nu ben ik klaar")
                 })
