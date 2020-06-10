@@ -34,6 +34,18 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('/pallettype', 'PalletTypeController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
+    Route::apiResource('/cask', 'CaskController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/inset', 'InsetController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/articlegroup', 'ArticleGroupController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
+    Route::apiResource('/sort', 'SortController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
     Route::apiResource('/cell', 'CellController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 

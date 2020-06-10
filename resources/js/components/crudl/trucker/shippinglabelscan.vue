@@ -115,6 +115,32 @@
             logErrors(promise) {
                 promise.catch(console.error)
             },
+
+            showLoading(){
+                this.$swal({
+                    title: 'Vrachtbrief laden, ogenblik geduld.',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    timer: 2000,
+                    onOpen: () => {
+                       this.$swal.showLoading();
+                    }
+                }).then(
+                    () => {},
+                    (dismiss) => {
+                        if (dismiss === 'timer') {
+                            console.log('closed by timer!!!!');
+                            this.$swal({
+                                title: 'Finished!',
+                                type: 'success',
+                                timer: 2000,
+                                showConfirmButton: false
+                            })
+                        }
+                    }
+                )
+            },
+
             removePalletlabel(id) {
                 const index = this.form.palletlabels.indexOf(id);
                 if (index > -1) {
@@ -133,14 +159,31 @@
             },
             onDecode(decodedString) {
                 console.log(decodedString)
-                if (this.form.palletlabels.indexOf(decodedString) === -1) this.form.palletlabels.push(decodedString);
-                console.log(this.form.palletlabels)
+                Promise.all([
+                    this.$store.dispatch("checkScannedLabel", decodedString).then(() => {
+                    })
+                ]).finally(() => {
+                    if (this.shippingLabel === true){
+                        this.$swal({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Label bestaat al op vracht',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                    } else {
+                        if (this.form.palletlabels.indexOf(decodedString) === -1) this.form.palletlabels.push(decodedString);
+                    }
+                })
+
+                // console.log(this.form.palletlabels)
             },
             truckerupdatePalletLabelStatus() {
                 // console.log(this.form);
                 this.$store.dispatch("truckerupdatePalletLabelStatus", this.form.palletlabels)
             },
             validateBeforeSubmit() {
+                this.showLoading()
                 this.truckerupdatePalletLabelStatus();
                 // this.createShippingLabel();
                 this.$store.dispatch("truckercreateShippingLabel", this.form.palletlabels)
@@ -153,6 +196,7 @@
             }
         },
         mounted() {
+            // this.showLoading()
         }
     }
 </script>

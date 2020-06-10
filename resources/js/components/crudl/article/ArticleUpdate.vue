@@ -1,6 +1,14 @@
 <template>
-    <b-card :title="$t('article.create.title')">
+    <b-card :title="$t('article.update.title') + ' : ' + getArticle.id" style="border-left: 6px solid red">
         <validation-observer ref="observer" v-slot="{ invalid }">
+            <div v-if="articleIsLoading">
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="loading"></div>
+            </div>
+            <div v-else>
             <b-form @submit.prevent="validateBeforeSubmit">
 
                 <b-row>
@@ -8,7 +16,7 @@
                         <div class="alert alert-primary" role="alert">
                             <div class="alert-heading">
                                 <div v-if="article.sort_type_id.name === 'Reuze'">  <!-- Reuze moet veranderd worden naar none -->
-                                    <div v-if="article.inset_id.color">
+                                    <div v-if="article.inset_id">
                                         {{article.article_group_id.name + ' ' + article.inset_limit + 'x' + article.inset_gram + ' ' + article.inset_id.color + ' (' + article.excel_code + ')'}}
                                     </div>
                                     <div v-else>
@@ -19,7 +27,7 @@
                                     {{article.article_group_id.name + ' ' + article.sort_type_id.name + ' (' + article.excel_code + ')'}}
                                 </div>
                                 <div v-else>
-                                    <div v-if="article.inset_id.color">
+                                    <div v-if="article.inset_id">
                                         {{article.article_group_id.name + ' ' + article.inset_limit + 'x' + article.inset_gram + ' ' + article.sort_type_id.name + ' ' + article.inset_id.color + ' (' + article.excel_code + ')'}}
                                     </div>
                                     <div v-else>
@@ -115,7 +123,7 @@
                             <!--                    <label class="form-group has-float-label mb-4"></label>-->
                             <multiselect class="form-group has-float-label mb-4" v-model="article.pallet_type_id" :options="palletTypes" :multiple="false"
                                          :close-on-select="true" :allow-empty="false"
-                                         placeholder="Selecteer pallet type" label="description" track-by="description"
+                                         placeholder="Select pallet type" label="description" track-by="description"
                                          :preselect-first="false">
                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span
                                     class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} pallet type selected</span>
@@ -147,14 +155,14 @@
                 <b-row>
                     <b-col>
                         <validation-provider
-                            :name="$t('article.attributes.cask_id.title')"
+                            :name="$t('article.attributes.cask_id')"
                             :rules="{ required: true }"
                             v-slot="validationContext"
                         >
                             <!--                    <label class="form-group has-float-label mb-4"></label>-->
                             <multiselect class="form-group has-float-label mb-4" v-model="article.cask_id" :options="casks" :multiple="false"
                                          :close-on-select="true" :allow-empty="false"
-                                         placeholder="Selecteer fust" label="description" track-by="description"
+                                         placeholder="Select cask" label="description" track-by="description"
                                          :preselect-first="false">
                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span
                                     class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} cask selected</span>
@@ -167,14 +175,14 @@
                     </b-col>
                     <b-col>
                         <validation-provider
-                            :name="$t('article.attributes.inset_id.title')"
+                            :name="$t('article.attributes.inset_id')"
                             :rules="{ required: false }"
                             v-slot="validationContext"
                         >
                             <!--                    <label class="form-group has-float-label mb-4"></label>-->
                             <multiselect class="form-group has-float-label mb-4" v-model="article.inset_id" :options="insets" :multiple="false"
                                          :close-on-select="true" :allow-empty="false"
-                                         placeholder="Selecteer inzet" label="description" track-by="description"
+                                         placeholder="Select inset" label="description" track-by="description"
                                          :preselect-first="false">
                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span
                                     class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} inset selected</span>
@@ -197,7 +205,7 @@
                             <!--                    <label class="form-group has-float-label mb-4"></label>-->
                             <multiselect class="form-group has-float-label mb-4" v-model="article.article_group_id" :options="articlegroups" :multiple="false"
                                          :close-on-select="true" :allow-empty="false"
-                                         placeholder="Selecteer artikel groep" label="description" track-by="description"
+                                         placeholder="Select article group" label="description" track-by="description"
                                          :preselect-first="false">
                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span
                                     class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} article group selected</span>
@@ -217,7 +225,7 @@
                             <!--                    <label class="form-group has-float-label mb-4"></label>-->
                             <multiselect class="form-group has-float-label mb-4" v-model="article.sort_type_id" :options="sorts" :multiple="false"
                                          :close-on-select="true" :allow-empty="false"
-                                         placeholder="Selecteer sortering" label="description" track-by="description"
+                                         placeholder="Select sort type" label="description" track-by="description"
                                          :preselect-first="false">
                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span
                                     class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} sort type selected</span>
@@ -236,40 +244,57 @@
 <!--                    </b-col>-->
 <!--                </b-row>-->
                 <div class="d-flex justify-content-end align-items-center">
-                    <b-button type="submit" variant="primary" size="lg" class="btn-shadow" :disabled="invalid">{{
-                        $t('article.actions.buttonCreate')}}
+                    <b-button
+                        type="button"
+                        variant="outline-danger"
+                        class="ml-1"
+                        @click="cancel"
+                    >{{ $t('article.actions.buttonCancel') }}
+                    </b-button>
+                    <b-button type="submit" variant="primary" size="lg" class="btn-shadow">{{
+                        $t('article.actions.buttonUpdate')}}
                     </b-button>
                 </div>
             </b-form>
+            </div>
         </validation-observer>
     </b-card>
 </template>
 
 <script>
     export default {
-        name: "ArticleCreate",
+        name: "ArticleUpdate",
+        props: ['id'],
         data() {
             return {
                 article: {
+                    id: this.id,
                     excel_code: '',
                     inset_gram: '',
                     inset_limit: '',
                     pallet_limit: 170,
                     origin: '',
-                    pallet_type_id: [],
-                    cask_id: [],
-                    inset_id: [],
+                    pallet_type_id: null,
+                    cask_id: null,
+                    inset_id: null,
                     status_id: 8,
-                    article_group_id: [],
-                    sort_type_id: [],
+                    article_group_id: null,
+                    sort_type_id: null,
                     user_id: 1,
                 },
                 serverErrors: '',
+                updateMode: true,
             }
         },
         computed: {
             authUser() {
                 return this.$store.getters.authUser;
+            },
+            articleIsLoading() {
+                return this.$store.getters.articleIsLoading;
+            },
+            getArticle() {
+                return this.$store.getters.article;
             },
             palletTypes() {
                 return this.$store.getters.palletTypes;
@@ -292,38 +317,17 @@
                 return dirty || validated ? valid : null;
             },
             validateBeforeSubmit() {
-                this.create();
+                this.update();
             },
-            create() {
-                this.$store.dispatch('createArticle', {
-                    excel_code: this.article.excel_code,
-                    inset_gram: this.article.inset_gram,
-                    inset_limit: this.article.inset_limit,
-                    pallet_limit: this.article.pallet_limit,
-                    origin: this.article.origin,
-                    pallet_type_id: this.article.pallet_type_id,
-                    cask_id: this.article.cask_id,
-                    inset_id: this.article.inset_id,
-                    status_id: this.article.status_id,
-                    article_group_id: this.article.article_group_id,
-                    sort_type_id: this.article.sort_type_id,
-                    user_id: this.article.user_id,
-                }).then(response => {
-                    // this.$router.push({ name: 'userList'})
-                    // this.$emit('refreshMode');
-                    this.article.excel_code = '';
-                    this.article.inset_gram = '';
-                    this.article.inset_limit = '';
-                    this.article.pallet_limit = 170;
-                    this.article.origin = '';
-                    this.article.pallet_type_id = [];
-                    this.article.cask_id = [];
-                    this.article.inset_id = [];
-                    this.article.status_id = 8;
-                    this.article.article_group_id = [];
-                    this.article.sort_type_id = [];
-                    this.article.user_id = 1;
-                })
+            update() {
+                this.$store.dispatch("updateArticle", this.article)
+                    .then(()=> {
+                        this.getAllArticles();
+                        this.cancel()
+                    });
+            },
+            getArticleMethod() {
+                this.$store.dispatch("getArticle", this.id)
             },
             getAllPalletTypes() {
                 this.$store.dispatch("getAllPalletTypes");
@@ -340,21 +344,68 @@
             getAllSorts() {
                 this.$store.dispatch("getAllSorts");
             },
+            getAllArticles() {
+                this.$store.dispatch("getAllArticles");
+            },
+            cancel() {
+                this.$emit('refreshMode')
+                this.$emit('createMode')
+            }
         },
         mounted() {
-            // Promise.all([
-            //     this.getAllPalletTypes(),
-            //     this.getAllCasks(),
-            //     this.getAllInsets(),
-            //     this.getAllArticlegroup(),
-            //     this.getAllSorts()
-            // ]).finally(() => {
-            //     //console.log(" nu ben ik klaar");
-            // })
+            Promise.all([
+                // this.getAllPalletTypes(),
+                // this.getAllCasks(),
+                // this.getAllInsets(),
+                // this.getAllArticlegroup(),
+                // this.getAllSorts(),
+                // this.getArticleMethod(),
+                this.$store.dispatch("getArticle", this.id).then(()=>{
+                    //console.log("nu dit");
+                })
+            ]).finally(() => {
+                console.log(this.getArticle);
+                this.article.excel_code = this.getArticle.excelCode;
+                this.article.inset_gram = this.getArticle.weight;
+                this.article.inset_limit = this.getArticle.insetLimit;
+                this.article.pallet_limit = this.getArticle.palletLimit;
+                this.article.origin = this.getArticle.origin;
+                this.article.pallet_type_id = this.getArticle.palletType;
+                this.article.cask_id = this.getArticle.cask;
+                if(this.getArticle.inset){
+                    this.article.inset_id = this.getArticle.inset;
+                }
+                this.article.status_id = this.getArticle.status;
+                this.article.article_group_id = this.getArticle.articleGroup;
+                this.article.sort_type_id = this.getArticle.sortType;
+                    // this.article.excel_code = this.getArticle.excelCode;
+                    // this.article.inset_gram = this.getArticle.weight;
+                    // this.article.inset_limit = this.getArticle.insetLimit;
+                    // this.article.pallet_limit = this.getArticle.palletLimit;
+                    // this.article.origin = this.getArticle.origin;
+                    // this.article.pallet_type_id.push(this.getArticle.palletType);
+                    // this.article.cask_id.push(this.getArticle.cask);
+                    // if(this.getArticle.inset){
+                    //     this.article.inset_id.push(this.getArticle.inset);
+                    // }
+                    // this.article.status_id = this.getArticle.status;
+                    // this.article.article_group_id.push(this.getArticle.articleGroup);
+                    // this.article.sort_type_id.push(this.getArticle.sortType);
+                console.log(this.article);
+            })
         },
     }
 </script>
 
 <style scoped>
-
+    .loading {
+        display: inline-block !important;
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 50% !important;
+        animation: spin 1s ease-in-out infinite !important;
+        -webkit-animation: spin 1s ease-in-out infinite !important;
+        position: absolute !important;
+        z-index: 1 !important;
+    }
 </style>

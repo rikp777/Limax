@@ -7,6 +7,7 @@ use App\Http\Resources\ArticleResource;
 use App\Http\Resources\ArticleResourceCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -25,22 +26,21 @@ class ArticleController extends Controller
      * store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return ArticleResource
      */
     public function store(Request $request)
     {
         $request->validate([
             'excel_code' => 'required|string|min:4|max:25|unique:articles',
-            'inset_gram' => 'required|int',
-            'inset_limit' => 'required|int',
-            'pallet_limit' => 'required|int|max:180',
+            'inset_gram' => 'required',
+            'inset_limit' => 'required',
+            'pallet_limit' => 'required',
             'origin' => 'required|string|min:2',
-            'pallet_type_id' => 'exists:pallet_types,id|required|int',
-            'cask_id' => 'exists:casks,id|required|int',
-            'inset_id' => 'exists:insets,id|required|int',
-            'status_id' => 'exists:statuses,id|required|int',
-            'article_group_id' => 'exists:article_groups,id|required|int',
-            'sort_type_id' => 'exists:sort_types,id|required|int',
+            'pallet_type_id' => 'required',
+            'cask_id' => 'required',
+            'status_id' => 'required|int',
+            'article_group_id' => 'required',
+            'sort_type_id' => 'required',
         ]);
 
         $article = new Article();
@@ -49,12 +49,14 @@ class ArticleController extends Controller
         $article->inset_limit = $request->inset_limit;
         $article->pallet_limit = $request->pallet_limit;
         $article->origin = $request->origin;
-        $article->pallet_type_id = $request->pallet_type_id;
-        $article->cask_id = $request->cask_id;
-        $article->inset_id = $request->inset_id;
+        $article->pallet_type_id = $request->pallet_type_id['id'];
+        $article->cask_id = $request->cask_id['id'];
+        if(sizeof($request->inset_id)){
+            $article->inset_id = $request->inset_id['id'];
+        }
         $article->status_id = $request->status_id;
-        $article->article_group_id = $request->article_group_id;
-        $article->sort_type_id = $request->sort_type_id;
+        $article->article_group_id = $request->article_group_id['id'];
+        $article->sort_type_id = $request->sort_type_id['id'];
         $article->user_id = Auth::id();
         $article->save();
 
@@ -81,20 +83,24 @@ class ArticleController extends Controller
      */
     public function update(Article $article, Request $request) : ArticleResource
     {
-        $request->validate([
-            'excel_code' => 'sometimes|string|min:4|max:25|unique:articles',
-            'inset_gram' => 'required|int',
-            'inset_limit' => 'required|int',
-            'pallet_limit' => 'required|int|max:180',
-            'origin' => 'required|string|min:2',
-            'pallet_type_id' => 'exists:pallet_types,id|required|int',
-            'cask_id' => 'exists:casks,id|required|int',
-            'inset_id' => 'exists:insets,id|required|int',
-            'status_id' => 'exists:statuses,id|required|int',
-            'article_group_id' => 'exists:article_groups,id|required|int',
-            'sort_type_id' => 'exists:sort_types,id|required|int',
-        ]);
-        $article->update($request->all());
+
+        $authUser = auth()->user();
+//        dd($request->article['excel_code']);
+        $article->excel_code = $request->article['excel_code'];
+        $article->inset_gram = $request->article['inset_gram'];
+        $article->inset_limit = $request->article['inset_limit'];
+        $article->pallet_limit = $request->article['pallet_limit'];
+        $article->origin = $request->article['origin'];
+        $article->pallet_type_id = $request->article['pallet_type_id']['id'];
+        $article->cask_id = $request->article['cask_id']['id'];
+        $article->inset_id = $request->article['inset_id']['id'];
+        $article->status_id = 8;
+        $article->article_group_id = $request->article['article_group_id']['id'];
+        $article->sort_type_id = $request->article['sort_type_id']['id'];
+        $article->user_id = $authUser->id;
+
+
+        $article->save();
 
         return new ArticleResource($article);
     }

@@ -34,6 +34,12 @@ const data = [
         to: "/admin/settings"
     },
     {
+        id: "articles",
+        icon: "iconsminds-optimization",
+        label: "menu.article.main",
+        to: "/admin/article/create"
+    },
+    {
         id: "user",
         icon: "simple-icon-user-follow",
         label: "menu.user.main",

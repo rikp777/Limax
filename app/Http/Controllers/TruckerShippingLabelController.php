@@ -86,11 +86,18 @@ class TruckerShippingLabelController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return bool
      */
     public function show($id)
     {
-        //
+        $palletlabel = PalletLabel::where('status_id', 2)->find($id);
+
+        if ($palletlabel) {
+            $status =  'true';
+        } else {
+            $status = 'false';
+        }
+        return $status;
     }
 
     /**

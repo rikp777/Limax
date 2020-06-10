@@ -79,23 +79,33 @@ export const actions = {
     },
 
     //create article
-    async createArticle(context, { state }) {
-        const { data } = await ArticleService.create(state.article);
-        context.commit(SET_ARTICLE, data);
-        return data;
+    createArticle(context, payload) {
+        console.log(payload);
+        return ArticleService.create(payload)
+            .then(({data}) => {
+                // console.log(data.data);
+                context.commit(SET_ARTICLE, data.data);
+            }).catch( (error) => {
+                throw error
+            })
     },
 
     //update article
-    async updateArticle(context, articleSlug, { state }) {
-        const { data } = await ArticleService.update(articleSlug, state.article);
-        context.commit(SET_ARTICLE, data);
-        return data;
+    updateArticle(context, payload) {
+        //console.log(payload);
+        return ArticleService.update(payload.id, payload)
+            .then(({data}) => {
+                // console.log(data);
+                context.commit(SET_ARTICLE, data.data);
+            }).catch( (error) => {
+                throw error
+            })
     },
 
     //delete article
-    async deleteArticle(context, articleSlug) {
-        const { data } = await ArticleService.delete(articleSlug);
-        return data;
+    deleteArticle(context, articleSlug) {
+        console.log(articleSlug);
+        return ArticleService.delete(articleSlug)
     }
 
 };
