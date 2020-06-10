@@ -105,7 +105,14 @@
                         {
                             name: 'id',
                             sortField: 'id',
-                            title: '#',
+                            title: 'Limax ID',
+                            titleClass: '',
+                            dataClass: 'center aligned'
+                        },
+                        {
+                            name: 'palletLabelFarmerId',
+                            sortField: 'palletLabelFarmerId',
+                            title: 'ID',
                             titleClass: '',
                             dataClass: 'center aligned'
                         },
