@@ -77,7 +77,7 @@
                         }
                     ]
                 },
-                perPage: 60,
+                perPage: 210,
             }
         },
         watch: {
