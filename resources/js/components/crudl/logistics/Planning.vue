@@ -144,7 +144,7 @@
             changeFarmer(farmer) {
                 this.setFarmer(farmer.uid);
                 this.changeAuthFarmer(farmer);
-                // this.getLogistic(farmer.id)
+                //  this.getLogistic(farmer.id)
                 this.noSorts = false;
                 this.$store.dispatch("getPlanningTotalFarmer", farmer.id).then(() => {
                     if (this.planningTotalFarmer.length === 0){
