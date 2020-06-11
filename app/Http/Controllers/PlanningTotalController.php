@@ -124,11 +124,11 @@ class PlanningTotalController extends Controller
             ), DesiredDatesAndSortTypes AS (
             SELECT * FROM DesiredDates CROSS JOIN (SELECT distinct z.sort_type_id as id
               FROM farmer_sort_type z
-              where z.farmer_id = '$currentFarmer->id') t
+              where z.farmer_id = '$id') t
             )
             SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
             FROM planning_amounts b
-            join (select * from plannings where farmer_id = '$currentFarmer->id' AND deleted_at IS NULL) a ON b.planning_id = a.id
+            join (select * from plannings where farmer_id = '$id' AND deleted_at IS NULL) a ON b.planning_id = a.id
             right join DesiredDatesAndSortTypes ddst ON CAST(a.date as DATE)=ddst.DesiredDate and b.sort_type_id=ddst.id
             join sort_types c ON ddst.id = c.id
 			where b.deleted_at IS NULL
