@@ -75,6 +75,7 @@
         mounted() {
             Promise.all([
                 this.getPlanningTotal(),
+                // this.noSorts = false,
                 // this.$moment().subtract(4, 'days').format('YYYY-MM-DD'), this.$moment().add(7, 'days').format('YYYY-MM-DD')
             ]).finally(() => {
                 if (this.planningTotal.length === 0){
