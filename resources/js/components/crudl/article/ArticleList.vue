@@ -2,6 +2,7 @@
     <div>
         <b-refresh-button @click="refreshButtonClick"/>
         <vue-table
+            table-height="360px"
             ref="ArticleList"
             :api-mode="false"
             :fields="articles.fields"
@@ -23,10 +24,10 @@
                 </div>
             </template>
         </vue-table>
-        <vue-table-pagination-bootstrap
-            ref="pagination"
-            @vuetable-pagination:change-page="onChangePage"
-        />
+<!--        <vue-table-pagination-bootstrap-->
+<!--            ref="pagination"-->
+<!--            @vuetable-pagination:change-page="onChangePage"-->
+<!--        />-->
     </div>
 </template>
 
@@ -76,7 +77,7 @@
                         }
                     ]
                 },
-                perPage: 6,
+                perPage: 60,
             }
         },
         watch: {
