@@ -74,7 +74,23 @@
 <!--        <div class="separator mb-5" v-if="!setupItems.length"></div>-->
         <b-row>
             <b-colxx xl="12" lg="12" md="12" class="mb-4">
-                <b-card>
+                <b-colxx md="12" class="mb-4" v-if="noSorts === true">
+                    <b-card title="Error">
+                        <b-refresh-button/>
+
+                        <div class="d-flex flex-row mb-3 pb-3 border-bottom">
+                                            <span class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
+                                                <i class="simple-icon-exclamation"/>
+                                            </span>
+                            <div class="pl-3 pr-2">
+                                <p class="font-weight-medium mb-0 ">Create a sort link on the settings page</p>
+                                <p class="text-muted mb-0 text-small">You need to link sorts to make a planning for</p>
+                            </div>
+                        </div>
+
+                    </b-card>
+                </b-colxx>
+                <b-card v-if="noSorts === false">
                     <b-card-header>
 
                         <b-dropdown id="cell" class="ml-2" size="sm" variant="outline-primary" block>
@@ -88,11 +104,11 @@
                             </b-dropdown-item>
                         </b-dropdown>
 
-                        <br v-if="!isLoad"><br v-if="!isLoad"><br v-if="!isLoad"><br v-if="!isLoad"><br v-if="!isLoad">
-                        <div v-if="!isLoad" class="loading"></div>
                     </b-card-header>
                     <b-card-body>
                         <b-row align-v="center">
+                            <br v-if="!isLoad"><br v-if="!isLoad"><br v-if="!isLoad"><br v-if="!isLoad"><br v-if="!isLoad">
+                            <div v-if="!isLoad" class="loading"></div>
                             <b-colxx v-if="isLoad">
                                     <b-form v-if="planningArr">
                                         <b-form-row v-for="(planning, key, index) in planningArr" :key="index">
@@ -158,6 +174,7 @@
             return {
                 // palletLabelLength: null,
                 // setupItems: [],
+                noSorts: false,
                 switches: null,
                 isLoad: false,
                 planningArr: null,
@@ -229,10 +246,14 @@
                 ]).finally(() => {
                     // console.log(this.planning)
                     // console.log(id.id);
-                    this.planningArr = this.planning.planning[id.id];
-                    this.switches = this.planning.prognose[id.id];
-                    // console.log(this.switches);
-                    this.isLoad = true
+                    if (this.planning.length === 0){
+                        this.noSorts = true
+                    } else {
+                        this.planningArr = this.planning.planning[id.id];
+                        this.switches = this.planning.prognose[id.id];
+                        // console.log(this.switches);
+                        this.isLoad = true
+                    }
                 });
             },
             updatePlanning(sort, interval, e) {

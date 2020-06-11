@@ -20,7 +20,7 @@ class PlanningTotalController extends Controller
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
 
         $planningTotal = DB::select( DB::raw("
-            WITH DesiredDates AS
+        WITH DesiredDates AS
             (SELECT CAST(DATEADD(dd,-3,GETDATE()) as DATE) AS DesiredDate UNION ALL
              SELECT CAST(DATEADD(dd,-2,GETDATE()) as DATE) UNION ALL
              SELECT CAST(DATEADD(dd,-1,GETDATE()) as DATE) UNION ALL
@@ -34,9 +34,8 @@ class PlanningTotalController extends Controller
              SELECT CAST(DATEADD(dd,7,GETDATE()) as DATE)
             ), DesiredDatesAndSortTypes AS (
             SELECT * FROM DesiredDates CROSS JOIN (SELECT distinct z.sort_type_id as id
-              FROM articles z
-              join sort_types x ON z.sort_type_id = x.id
-              where z.id in (select article_id from article_farmer where farmer_id = '$currentFarmer->id')) t
+              FROM farmer_sort_type z
+              where z.farmer_id = '$currentFarmer->id') t
             )
             SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
             FROM planning_amounts b
@@ -47,45 +46,21 @@ class PlanningTotalController extends Controller
             GROUP BY ddst.DesiredDate,c.Description
             ORDER BY DesiredDate,Description"
         ) );
-//        $planningTotal = DB::select( DB::raw("
-//            WITH DesiredDates AS
-//            (SELECT CAST(DATEADD(dd,-3,GETDATE()) as DATE) AS DesiredDate UNION ALL
-//             SELECT CAST(DATEADD(dd,-2,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,-1,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(GETDATE() as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,1,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,2,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,3,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,4,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,5,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,6,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,7,GETDATE()) as DATE)
-//            ), DesiredDatesAndSortTypes AS (
-//            SELECT * FROM DesiredDates CROSS JOIN (select id from sort_types) t
-//            )
-//            SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
-//            FROM planning_amounts b
-//            join plannings a ON b.planning_id = a.id
-//            right join DesiredDatesAndSortTypes ddst ON CAST(a.date as DATE)=ddst.DesiredDate and b.sort_type_id=ddst.id
-//            join sort_types c ON ddst.id = c.id
-//            GROUP BY ddst.DesiredDate,c.Description
-//            ORDER BY DesiredDate,Description"
-//        ) );
 
         $totalArr = [];
         $sorts = [];
         $datesArr = [];
         $totalperDate = [];
+
+        if (!sizeof($planningTotal)) {
+            return [];
+        }
+
         foreach ($planningTotal as $total){
-//            dd($total->DesiredDate);
 
             if (!isset($totalArr[$total->DesiredDate])) {
                 $totalArr[$total->DesiredDate] = [];
             }
-//            if (!isset($totalperDate[$total->DesiredDate]["total"])) {
-//                $totalperDate[$total->DesiredDate]["total"] = 0;
-//            }
-//            $totalperDate[$total->DesiredDate]["total"] += $total->Amount;
 
             if (!isset($totalArr[$total->Description])) {
                 $totalArr[$total->DesiredDate][$total->Description] = 0;
@@ -97,7 +72,6 @@ class PlanningTotalController extends Controller
             }
             $totalArr[$total->DesiredDate]["total"] += $total->Amount;
 
-            //set total key to end of array for overview in vue
             $totalArr[$total->DesiredDate] += array_splice($totalArr[$total->DesiredDate],array_search('total',array_keys($totalArr[$total->DesiredDate])),1);
 
             if (!isset($sorts[$total->Description])) {
@@ -111,7 +85,6 @@ class PlanningTotalController extends Controller
         ];
 
         return $totArr;
-//        return PlanningTotalResource::collection($planningTotal);
     }
 
     /**
@@ -133,12 +106,10 @@ class PlanningTotalController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $currentFarmer = Farmer::where('id', $id)->first();
-//        dd($currentFarmer);
-//        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
 
         $planningTotal = DB::select( DB::raw("
-            WITH DesiredDates AS
+        WITH DesiredDates AS
             (SELECT CAST(DATEADD(dd,-3,GETDATE()) as DATE) AS DesiredDate UNION ALL
              SELECT CAST(DATEADD(dd,-2,GETDATE()) as DATE) UNION ALL
              SELECT CAST(DATEADD(dd,-1,GETDATE()) as DATE) UNION ALL
@@ -152,9 +123,8 @@ class PlanningTotalController extends Controller
              SELECT CAST(DATEADD(dd,7,GETDATE()) as DATE)
             ), DesiredDatesAndSortTypes AS (
             SELECT * FROM DesiredDates CROSS JOIN (SELECT distinct z.sort_type_id as id
-              FROM articles z
-              join sort_types x ON z.sort_type_id = x.id
-              where z.id in (select article_id from article_farmer where farmer_id = '$currentFarmer->id')) t
+              FROM farmer_sort_type z
+              where z.farmer_id = '$currentFarmer->id') t
             )
             SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
             FROM planning_amounts b
@@ -165,45 +135,21 @@ class PlanningTotalController extends Controller
             GROUP BY ddst.DesiredDate,c.Description
             ORDER BY DesiredDate,Description"
         ) );
-//        $planningTotal = DB::select( DB::raw("
-//            WITH DesiredDates AS
-//            (SELECT CAST(DATEADD(dd,-3,GETDATE()) as DATE) AS DesiredDate UNION ALL
-//             SELECT CAST(DATEADD(dd,-2,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,-1,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(GETDATE() as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,1,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,2,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,3,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,4,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,5,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,6,GETDATE()) as DATE) UNION ALL
-//             SELECT CAST(DATEADD(dd,7,GETDATE()) as DATE)
-//            ), DesiredDatesAndSortTypes AS (
-//            SELECT * FROM DesiredDates CROSS JOIN (select id from sort_types) t
-//            )
-//            SELECT SUM(ISNULL(Amount,0)) as Amount, DesiredDate, c.Description
-//            FROM planning_amounts b
-//            join plannings a ON b.planning_id = a.id
-//            right join DesiredDatesAndSortTypes ddst ON CAST(a.date as DATE)=ddst.DesiredDate and b.sort_type_id=ddst.id
-//            join sort_types c ON ddst.id = c.id
-//            GROUP BY ddst.DesiredDate,c.Description
-//            ORDER BY DesiredDate,Description"
-//        ) );
 
         $totalArr = [];
         $sorts = [];
         $datesArr = [];
         $totalperDate = [];
+
+        if (!sizeof($planningTotal)) {
+            return [];
+        }
+
         foreach ($planningTotal as $total){
-//            dd($total->DesiredDate);
 
             if (!isset($totalArr[$total->DesiredDate])) {
                 $totalArr[$total->DesiredDate] = [];
             }
-//            if (!isset($totalperDate[$total->DesiredDate]["total"])) {
-//                $totalperDate[$total->DesiredDate]["total"] = 0;
-//            }
-//            $totalperDate[$total->DesiredDate]["total"] += $total->Amount;
 
             if (!isset($totalArr[$total->Description])) {
                 $totalArr[$total->DesiredDate][$total->Description] = 0;
@@ -215,7 +161,6 @@ class PlanningTotalController extends Controller
             }
             $totalArr[$total->DesiredDate]["total"] += $total->Amount;
 
-            //set total key to end of array for overview in vue
             $totalArr[$total->DesiredDate] += array_splice($totalArr[$total->DesiredDate],array_search('total',array_keys($totalArr[$total->DesiredDate])),1);
 
             if (!isset($sorts[$total->Description])) {

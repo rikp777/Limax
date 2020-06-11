@@ -16,6 +16,7 @@ import truck from './modules/truck.module'
 import article from './modules/article.module'
 import cell from './modules/cell.module'
 import articlefarmer from './modules/articlefarmer.module'
+import sortfarmer from './modules/sortfarmer.module'
 import role from './modules/role.module'
 import department from './modules/department.module'
 import report from './modules/report.module'
@@ -78,6 +79,7 @@ export default new Vuex.Store({
         planning,
         department,
         articlefarmer,
+        sortfarmer,
         logistics,
         transport
     },

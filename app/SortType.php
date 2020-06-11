@@ -9,6 +9,10 @@ class SortType extends Model
     public function articleGroups(){
         return $this->hasMany(Article::class);
     }
+    public function farmers()
+    {
+        return $this->belongsToMany(Farmer::class);
+    }
 
     protected $hidden = [
         'created_at',

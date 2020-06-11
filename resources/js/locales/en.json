@@ -195,6 +195,21 @@
             }
         }
     },
+    "sort": {
+        "main": {
+            "title": "Planning Sort"
+        },
+        "list": {
+            "title": "List of sorts"
+        },
+        "connect": {
+            "title": "Assign sorts to planning",
+            "label": "Sorts",
+            "actions": {
+                "buttonUpdate": "Submit sort selections"
+            }
+        }
+    },
     "report": {
         "title": "Report",
         "totalpallets": "Total pallets",

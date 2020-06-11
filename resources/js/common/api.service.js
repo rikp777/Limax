@@ -360,6 +360,25 @@ export const FarmerArticleService = {
     }
 };
 
+const SortFarmerApi = "sortfarmer";
+export const SortFarmerService = {
+    create(params){
+        return ApiService.post(SortFarmerApi, params)
+    },
+    update(slug, params) {
+        return ApiService.update(SortFarmerApi, slug, params);
+    },
+    delete(slug) {
+        return ApiService.delete(SortFarmerApi, slug);
+    },
+    get(slug){
+        return ApiService.get(SortFarmerApi, slug)
+    },
+    getAll() {
+        return ApiService.get(SortFarmerApi)
+    }
+};
+
 //PalletLabelStatus
 const PalletLabelStatusApi = "palletlabelStatus";
 export const PalletLabelStatusService = {

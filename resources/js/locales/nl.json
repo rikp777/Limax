@@ -210,6 +210,21 @@
             }
         }
     },
+    "sort": {
+        "main": {
+            "title": "Planning Sorteringen"
+        },
+        "list": {
+            "title": "Lijst van sorteringen"
+        },
+        "connect": {
+            "title": "Koppelen van sortering voor planning",
+            "label": "Sortering",
+            "actions": {
+                "buttonUpdate": "Sortering koppeling aanpassen"
+            }
+        }
+    },
     "report": {
         "title": "Rapportage",
         "totalpallets": "Totaal pallets",

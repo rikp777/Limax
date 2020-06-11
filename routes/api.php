@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('/articlefarmer', 'ArticleFarmerController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 
+    Route::apiResource('/sortfarmer', 'SortFarmerController')
+        ->only(['index', 'show', 'destroy', 'update', 'store']);
+
     Route::apiResource('/report', 'ReportController')
         ->only(['index', 'show', 'destroy', 'update', 'store']);
 

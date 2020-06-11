@@ -22,29 +22,29 @@ class LogisticController extends Controller
     public function index(Request $request)
     {
         //
-        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-
-        $champlanden = [1, 2, 3];
-
-        $articlesTotal = DB::select(DB::raw(
-            "SELECT article_id, SUM(article_amount) as article_amount from pallet_labels where farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 group by article_id AND deleted_at IS NULL"
-        ));
-
-        $palletlabelsTotal = DB::select(DB::raw(
-            "SELECT farmer_id, id, crop_date, article_amount, article_id FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 AND deleted_at IS NULL"
-        ));
-
-        $palletlabelsCount = DB::select(DB::raw(
-            "SELECT COUNT(ID) as totalLabels FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 AND deleted_at IS NULL"
-        ));
-
-        $totArr = [
-            "total_articles" => $articlesTotal,
-            "total_labels" => $palletlabelsTotal,
-            "total_labelsCount" => $palletlabelsCount
-        ];
-
-        return new LogisticResource($totArr);
+//        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+//
+//        $champlanden = [1, 2, 3];
+//
+//        $articlesTotal = DB::select(DB::raw(
+//            "SELECT article_id, SUM(article_amount) as article_amount from pallet_labels where farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 AND deleted_at IS NULL group by article_id"
+//        ));
+//
+//        $palletlabelsTotal = DB::select(DB::raw(
+//            "SELECT farmer_id, id, crop_date, article_amount, article_id FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 AND deleted_at IS NULL"
+//        ));
+//
+//        $palletlabelsCount = DB::select(DB::raw(
+//            "SELECT COUNT(ID) as totalLabels FROM pallet_labels WHERE farmer_id IN (" . implode(',', $champlanden) . ") AND status_id = 1 AND deleted_at IS NULL"
+//        ));
+//
+//        $totArr = [
+//            "total_articles" => $articlesTotal,
+//            "total_labels" => $palletlabelsTotal,
+//            "total_labelsCount" => $palletlabelsCount
+//        ];
+//
+//        return new LogisticResource($totArr);
     }
 
     /**

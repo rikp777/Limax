@@ -17,6 +17,26 @@
         </b-dropdown>
         <!--        {{planningIsLoading}}-->
         <!--        {{planningTotalFarmer.length}}-->
+
+        <b-colxx md="12" class="mb-4" v-if="noSorts === true">
+            <b-card title="Error">
+                <b-refresh-button/>
+
+                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
+                                            <span
+                                                class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
+                                                <i class="simple-icon-exclamation"/>
+                                            </span>
+                    <div class="pl-3 pr-2">
+                        <p class="font-weight-medium mb-0 ">Create a sort link on the settings page</p>
+                        <p class="text-muted mb-0 text-small">You need to link sorts to make a planning for</p>
+                    </div>
+                </div>
+
+            </b-card>
+        </b-colxx>
+
+        <div v-if="noSorts === false">
         <div v-if="planningTotalFarmer.length !== 0">
             <div v-if="!planningIsLoading">
                 <hr>
@@ -55,6 +75,7 @@
                 <!--                            <p>Select a farmer</p>-->
                 <!--                            <b-button variant="primary" :href='$route.path + "/docs"'>Documentation</b-button>-->
             </b-jumbotron>
+        </div>
         </div>
     </div>
 
@@ -97,6 +118,7 @@
         components: {},
         data() {
             return {
+                noSorts: false,
                 data: [],
             }
         },
@@ -125,6 +147,9 @@
                 // this.getLogistic(farmer.id)
 
                 this.$store.dispatch("getPlanningTotalFarmer", farmer.id).then(() => {
+                    if (this.planningTotalFarmer.length === 0){
+                        this.noSorts = true
+                    }
                     // this.data = this.logistic.totalArticles;
                     // this.dataPalletlabel = this.logistic.totalLabels;
                     // this.getPlanningTotalFarmer();

@@ -15,7 +15,7 @@
                     <b-col>
                         <div class="alert alert-primary" role="alert">
                             <div class="alert-heading">
-                                <div v-if="article.sort_type_id.name === 'Reuze'">  <!-- Reuze moet veranderd worden naar none -->
+                                <div v-if="article.sort_type_id.name === 'none'">  <!-- Reuze moet veranderd worden naar none -->
                                     <div v-if="article.inset_id">
                                         {{article.article_group_id.name + ' ' + article.inset_limit + 'x' + article.inset_gram + ' ' + article.inset_id.color + ' (' + article.excel_code + ')'}}
                                     </div>
@@ -23,7 +23,7 @@
                                         {{article.article_group_id.name + ' ' + article.inset_limit + 'x' + article.inset_gram + ' (' + article.excel_code + ')'}}
                                     </div>
                                 </div>
-                                <div v-else-if="article.sort_type_id.name === 'Fijn'"> <!-- Fijn moet veranderd worden naar Kist -->
+                                <div v-else-if="article.sort_type_id.name === 'Kist'"> <!-- Fijn moet veranderd worden naar Kist -->
                                     {{article.article_group_id.name + ' ' + article.sort_type_id.name + ' (' + article.excel_code + ')'}}
                                 </div>
                                 <div v-else>
