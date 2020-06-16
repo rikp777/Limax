@@ -4,19 +4,21 @@
             <b-row>
                 <b-colxx xxs="12" xl="6" class="mb-3">
                         <b-card-body>
-                            <p class="error" v-if="noFrontCamera">
-                                You don't seem to have a front camera on your device
-                            </p>
+                            <p class="error">{{ error }}</p>
+                            <qrcode-stream @decode="onDecode" @init="onInit" />
+<!--                            <p class="error" v-if="noFrontCamera">-->
+<!--                                You don't seem to have a front camera on your device-->
+<!--                            </p>-->
 
-                            <p class="error" v-if="noRearCamera">
-                                You don't seem to have a rear camera on your device
-                            </p>
+<!--                            <p class="error" v-if="noRearCamera">-->
+<!--                                You don't seem to have a rear camera on your device-->
+<!--                            </p>-->
 
-                            <qrcode-stream :camera="camera" @init="onInit">
-                                <button type="button" @click="switchCamera">
-                                    switch camera
-                                </button>
-                            </qrcode-stream>
+<!--                            <qrcode-stream :camera="camera" @init="onInit">-->
+<!--                                <button type="button" @click="switchCamera">-->
+<!--                                    switch camera-->
+<!--                                </button>-->
+<!--                            </qrcode-stream>-->
 <!--                            <qrcode-drop-zone @decode="onDecode" @init="logErrors">-->
 <!--                                <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit"/>-->
 <!--                            </qrcode-drop-zone>-->
@@ -69,6 +71,7 @@
                 noRearCamera: false,
                 noFrontCamera: false,
                 noStreamApiSupport: false,
+                error: '',
                 form: {
                     palletlabels: [],
                 }
@@ -133,22 +136,41 @@
                 try {
                     await promise
                 } catch (error) {
-                    const triedFrontCamera = this.camera === 'front'
-                    const triedRearCamera = this.camera === 'rear'
-
-                    const cameraMissingError = error.name === 'OverconstrainedError'
-
-                    if (triedRearCamera && cameraMissingError) {
-                        this.noRearCamera = true
+                    if (error.name === 'NotAllowedError') {
+                        this.error = "ERROR: you need to grant camera access permisson"
+                    } else if (error.name === 'NotFoundError') {
+                        this.error = "ERROR: no camera on this device"
+                    } else if (error.name === 'NotSupportedError') {
+                        this.error = "ERROR: secure context required (HTTPS, localhost)"
+                    } else if (error.name === 'NotReadableError') {
+                        this.error = "ERROR: is the camera already in use?"
+                    } else if (error.name === 'OverconstrainedError') {
+                        this.error = "ERROR: installed cameras are not suitable"
+                    } else if (error.name === 'StreamApiNotSupportedError') {
+                        this.error = "ERROR: Stream API is not supported in this browser"
                     }
-
-                    if (triedFrontCamera && cameraMissingError) {
-                        this.noFrontCamera = true
-                    }
-
-                    console.error(error)
                 }
             },
+            // async onInit (promise) {
+            //     try {
+            //         await promise
+            //     } catch (error) {
+            //         const triedFrontCamera = this.camera === 'front'
+            //         const triedRearCamera = this.camera === 'rear'
+            //
+            //         const cameraMissingError = error.name === 'OverconstrainedError'
+            //
+            //         if (triedRearCamera && cameraMissingError) {
+            //             this.noRearCamera = true
+            //         }
+            //
+            //         if (triedFrontCamera && cameraMissingError) {
+            //             this.noFrontCamera = true
+            //         }
+            //
+            //         console.error(error)
+            //     }
+            // },
             // async onInit(promise) {
             //     try {
             //         await promise
