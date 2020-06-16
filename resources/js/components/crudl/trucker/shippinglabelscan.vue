@@ -3,76 +3,30 @@
         <b-form @submit.prevent="validateBeforeSubmit()">
             <b-row>
                 <b-colxx xxs="12" xl="6" class="mb-3">
-
                         <b-card-body>
-                            <!--                            <p class="lead color-theme-1 mb-1 value">{{palletlabel.weight / 1000}} KG</p>-->
-                            <!--                            <p class="mb-0 label text-small text-secondary">{{$t('production.dashboard.expectedNoTax')}}</p>-->
-
                             <qrcode-drop-zone @decode="onDecode" @init="logErrors">
-                                <qrcode-stream @decode="onDecode" @init="onInit"/>
+                                <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit"/>
                             </qrcode-drop-zone>
-
                             <qrcode-capture v-if="noStreamApiSupport" @decode="onDecode"/>
-
-                            <!--                            <qrcode-stream @decode="onDecode"></qrcode-stream>-->
                         </b-card-body>
                 </b-colxx>
                 <b-colxx xxs="12" xl="6" class="mb-3">
-<!--                    <b-card no-body>-->
                         <b-card-body>
-<!--                            <p v-for="palletlabel in form.palletlabels" class="lead color-theme-1 mb-1 value">{{palletlabel}}</p>-->
-
                             <b-row class="row icon-cards-roww mb-2">
                                 <b-colxx xxs="4" sm="4" md="2" lg="2"  v-for="palletlabel in form.palletlabels">
-<!--                                    <icon-card title="ID" icon="simple-icon-tag" :value="palletlabel" />-->
                                     <div class="icon-row-item">
                                             <b-card class="mb-2 text-center" @click="removePalletlabel(palletlabel)">
                                             <i class="simple-icon-tag"/>
                                             <p class="card-text font-weight-semibold">{{ palletlabel }}</p>
-<!--                                            <p class="lead text-center">{{ palletlabel }}</p>-->
                                         </b-card>
                                     </div>
                                 </b-colxx>
                             </b-row>
-
-<!--                            <b-row v-for="palletlabel in form.palletlabels">-->
-<!--                                <h2><b-badge class="lead color-theme-1 value" variant="primary">{{palletlabel}}</b-badge></h2>-->
-<!--                            </b-row>-->
-<!--                            <h2><b-badge v-for="palletlabel in form.palletlabels" class="lead color-theme-1 value" variant="primary">{{palletlabel}}</b-badge></h2>-->
-<!--                            <table style="width:100%">-->
-<!--                                <tr>-->
-<!--                                    <th>ID</th>-->
-<!--                                    <th>Actions</th>-->
-<!--                                </tr>-->
-<!--                                <tr v-for="palletlabel in form.palletlabels">-->
-<!--                                    <td class="lead color-theme-1 mb-1 value">{{palletlabel}}</td>-->
-<!--                                    <td>-->
-<!--                                        <b-button-->
-<!--                                            style="     background-color: Transparent;-->
-<!--                                                            background-repeat:no-repeat;-->
-<!--                                                            border: none;-->
-<!--                                                            cursor:pointer;-->
-<!--                                                            overflow: hidden;-->
-<!--                                                            outline:none;"-->
-<!--                                            class="text-primary"-->
-<!--                                        >Delete-->
-<!--                                        </b-button>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                            </table>-->
-                            <!--                            <p class="mb-0 label text-small text-secondary">{{$t('production.dashboard.tax')}}</p>-->
                         </b-card-body>
-<!--                    </b-card>-->
                 </b-colxx>
             </b-row>
             <b-form-group label-align="center">
                 <div class="d-flex justify-content-center">
-                    <!--                    <b-button-->
-                    <!--                        type="button"-->
-                    <!--                        variant="outline-danger"-->
-                    <!--                        class="ml-1"-->
-                    <!--                    >{{ $t('palletlabel.create.actions.buttonClear') }}-->
-                    <!--                    </b-button>-->
                     <b-button
                         type="submit"
                         variant="primary"
@@ -98,6 +52,7 @@
         },
         data() {
             return {
+                camera: 'rear',
                 noStreamApiSupport: false,
                 form: {
                     palletlabels: [],
