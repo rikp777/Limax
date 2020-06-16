@@ -1,6 +1,8 @@
 <template>
     <b-row>
-        <b-colxx md="12" class="mb-4">
+        <div class="loading" v-if="loadingPDF === true">
+        </div>
+        <b-colxx md="12" class="mb-4" v-else>
             <validation-observer ref="observer" v-slot="{ invalid }">
                 <b-form @submit.prevent="validateBeforeSubmit()">
                     <b-row>
@@ -272,6 +274,7 @@
         },
         data() {
             return {
+                loadingPDF: false,
                 selectedColor: '',
                 form: {
                     palletLabels: [],
@@ -506,12 +509,16 @@
                     this.form.truck = []
             },
             validateBeforeSubmit() {
-
+                // console.log(this.loadingPDF);
+                this.loadingPDF = true;
+                // console.log(this.loadingPDF);
 
                 this.updatePalletLabelStatus();
                 // this.createShippingLabel();
                 this.$store.dispatch("createShippingLabel", this.form)
                     .then(() => {
+                        this.loadingPDF = false;
+                        // console.log(this.loadingPDF);
                         this.$router.push({
                             name: 'shippinglabelPdf',
                             params: {id: this.shippingLabel.id}
@@ -522,6 +529,17 @@
     }
 </script>
 <style>
+    .loading {
+        display: inline-block !important;
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 50% !important;
+        animation: spin 1s ease-in-out infinite !important;
+        -webkit-animation: spin 1s ease-in-out infinite !important;
+        position: absolute !important;
+        z-index: 1 !important;
+    }
+
     .form-control[readonly] {
         background-color: transparent !important;
         opacity: 1 !important;
