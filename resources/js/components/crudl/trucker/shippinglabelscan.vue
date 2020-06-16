@@ -65,7 +65,7 @@
         },
         data() {
             return {
-                camera: 'rear',
+                camera: 'front',
                 noRearCamera: false,
                 noFrontCamera: false,
                 noStreamApiSupport: false,
