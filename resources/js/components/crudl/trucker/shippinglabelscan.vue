@@ -4,10 +4,23 @@
             <b-row>
                 <b-colxx xxs="12" xl="6" class="mb-3">
                         <b-card-body>
-                            <qrcode-drop-zone @decode="onDecode" @init="logErrors">
-                                <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit"/>
-                            </qrcode-drop-zone>
-                            <qrcode-capture v-if="noStreamApiSupport" @decode="onDecode"/>
+                            <p class="error" v-if="noFrontCamera">
+                                You don't seem to have a front camera on your device
+                            </p>
+
+                            <p class="error" v-if="noRearCamera">
+                                You don't seem to have a rear camera on your device
+                            </p>
+
+                            <qrcode-stream :camera="camera" @init="onInit">
+                                <button type="button" @click="switchCamera">
+                                    switch camera
+                                </button>
+                            </qrcode-stream>
+<!--                            <qrcode-drop-zone @decode="onDecode" @init="logErrors">-->
+<!--                                <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit"/>-->
+<!--                            </qrcode-drop-zone>-->
+<!--                            <qrcode-capture v-if="noStreamApiSupport" @decode="onDecode"/>-->
                         </b-card-body>
                 </b-colxx>
                 <b-colxx xxs="12" xl="6" class="mb-3">
@@ -53,6 +66,8 @@
         data() {
             return {
                 camera: 'rear',
+                noRearCamera: false,
+                noFrontCamera: false,
                 noStreamApiSupport: false,
                 form: {
                     palletlabels: [],
@@ -69,6 +84,17 @@
             ...mapActions([]),
             logErrors(promise) {
                 promise.catch(console.error)
+            },
+
+            switchCamera () {
+                switch (this.camera) {
+                    case 'front':
+                        this.camera = 'rear'
+                        break
+                    case 'rear':
+                        this.camera = 'front'
+                        break
+                }
             },
 
             showLoading(){
@@ -103,15 +129,35 @@
                 }
                 console.log('removed' + ' ' + id);
             },
-            async onInit(promise) {
+            async onInit (promise) {
                 try {
                     await promise
                 } catch (error) {
-                    if (error.name === 'StreamApiNotSupportedError') {
-                        this.noStreamApiSupport = true
+                    const triedFrontCamera = this.camera === 'front'
+                    const triedRearCamera = this.camera === 'rear'
+
+                    const cameraMissingError = error.name === 'OverconstrainedError'
+
+                    if (triedRearCamera && cameraMissingError) {
+                        this.noRearCamera = true
                     }
+
+                    if (triedFrontCamera && cameraMissingError) {
+                        this.noFrontCamera = true
+                    }
+
+                    console.error(error)
                 }
             },
+            // async onInit(promise) {
+            //     try {
+            //         await promise
+            //     } catch (error) {
+            //         if (error.name === 'StreamApiNotSupportedError') {
+            //             this.noStreamApiSupport = true
+            //         }
+            //     }
+            // },
             onDecode(decodedString) {
                 console.log(decodedString)
                 Promise.all([
