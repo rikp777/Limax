@@ -60,7 +60,7 @@ class PalletLabelStatusController extends Controller
         $authUser = auth()->user();
 
         //insert palletLabel
-        $palletlabel = Palletlabel::where('farmer_id', $currentFarmer->id)->where('id', $id)->first();
+        $palletlabel = Palletlabel::where('id', $id)->first();
         $palletlabel->status_id = 2;
 
 
