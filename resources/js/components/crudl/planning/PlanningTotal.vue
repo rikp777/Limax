@@ -74,9 +74,9 @@
         },
         mounted() {
             Promise.all([
-                this.getPlanningTotal(),
-                // this.noSorts = false,
-                // this.$moment().subtract(4, 'days').format('YYYY-MM-DD'), this.$moment().add(7, 'days').format('YYYY-MM-DD')
+                this.$store.dispatch("getPlanningTotal").then(()=>{
+                   this.noSorts = false
+                }),
             ]).finally(() => {
                 if (this.planningTotal.length === 0){
                     this.noSorts = true
