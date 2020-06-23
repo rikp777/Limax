@@ -44,11 +44,11 @@ class TruckerPalletLabelStatusController extends Controller
     public function update(Request $request, $id)
     {
 //        dd($id);
-        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+//        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
         $authUser = auth()->user();
 
         //insert palletLabel
-        $palletlabel = Palletlabel::where('farmer_id', $currentFarmer->id)->where('id', $id)->first();
+        $palletlabel = Palletlabel::where('id', $id)->first();
         $palletlabel->status_id = 2;
 
 

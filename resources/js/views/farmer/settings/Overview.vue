@@ -51,6 +51,23 @@
             <!--            </b-colxx>-->
         </b-row>
 
+        <h6>{{$t('sort.main.title')}}</h6>
+        <hr>
+        <b-row>
+            <b-colxx xl="6" lg="12" class="mb-4">
+                <b-card :title="$t('sort.connect.title')" style="border-left: 6px solid #f28125">
+                    <farmer-sort-connect @reloadMode="reloadListenerSort"/>
+                </b-card>
+            </b-colxx>
+            <b-colxx xl="6" lg="12" class="mb-4">
+                <b-card :title="$t('sort.list.title')">
+                    <farmer-sort-list :key="reloadCompSort"
+                                         @refreshMode="reloadListenerSort"
+                    />
+                </b-card>
+            </b-colxx>
+        </b-row>
+
     </div>
 </template>
 
@@ -60,6 +77,8 @@
     import FarmerCellList from "../../../components/crudl/farmer/FarmerCellList";
     import FarmerArticleConnect from "../../../components/crudl/farmer/FarmerArticleConnect";
     import FarmerArticleList from "../../../components/crudl/farmer/FarmerArticleList";
+    import FarmerSortConnect from "../../../components/crudl/farmer/FarmerSortConnect";
+    import FarmerSortList from "../../../components/crudl/farmer/FarmerSortList";
 
     export default {
         name: "overview",
@@ -69,11 +88,14 @@
                 cellId: null,
                 reloadCompCel: 0,
                 reloadCompArticle: 0,
+                reloadCompSort: 0,
             }
         },
         components: {
             FarmerArticleList,
             FarmerArticleConnect,
+            FarmerSortList,
+            FarmerSortConnect,
             FarmerCellList,
             FarmerCellCreate,
             FarmerCellUpdate
@@ -89,6 +111,9 @@
             },
             reloadListenerArticle() {
                 this.reloadCompArticle += 1
+            },
+            reloadListenerSort() {
+                this.reloadCompSort += 1
             },
             createListener() {
                 //console.log('create')

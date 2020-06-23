@@ -344,7 +344,7 @@
                 this.$refs.artikels.refresh();
                 this.$refs.palletlabels.refresh();
             })
-            this.getAllLogistics();
+            // this.getAllLogistics();
             // console.log(this.authFarmer.id);
             // this.getLogistic(this.authFarmer.id);
             // this.data = this.logistic.totalArticles;

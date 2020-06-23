@@ -103,7 +103,7 @@ export default ApiService;
 const ArticleApi = "article";
 export const ArticleService  = {
     create(params){
-        return ApiService.post(ArticleApi, { article: params})
+        return ApiService.post(ArticleApi, params)
     },
     update(slug, params) {
         return ApiService.update(ArticleApi, slug, { article: params });
@@ -178,6 +178,82 @@ export const PalletTypeService = {
     },
     getAll() {
         return ApiService.get(PalletTypeApi)
+    }
+};
+
+const caskApi = "cask";
+export const caskService = {
+    create(params){
+        return ApiService.post(caskApi, { cask: params})
+    },
+    update(slug, params) {
+        return ApiService.update(caskApi, slug, { cask: params });
+    },
+    delete(slug) {
+        return ApiService.delete(caskApi, slug);
+    },
+    get(slug){
+        return ApiService.get(caskApi, slug)
+    },
+    getAll() {
+        return ApiService.get(caskApi)
+    }
+};
+
+const insetApi = "inset";
+export const insetService = {
+    create(params){
+        return ApiService.post(insetApi, { inset: params})
+    },
+    update(slug, params) {
+        return ApiService.update(insetApi, slug, { inset: params });
+    },
+    delete(slug) {
+        return ApiService.delete(insetApi, slug);
+    },
+    get(slug){
+        return ApiService.get(insetApi, slug)
+    },
+    getAll() {
+        return ApiService.get(insetApi)
+    }
+};
+
+const articlegroupApi = "articlegroup";
+export const articlegroupService = {
+    create(params){
+        return ApiService.post(articlegroupApi, { articlegroup: params})
+    },
+    update(slug, params) {
+        return ApiService.update(articlegroupApi, slug, { articlegroup: params });
+    },
+    delete(slug) {
+        return ApiService.delete(articlegroupApi, slug);
+    },
+    get(slug){
+        return ApiService.get(articlegroupApi, slug)
+    },
+    getAll() {
+        return ApiService.get(articlegroupApi)
+    }
+};
+
+const sortApi = "sort";
+export const sortService = {
+    create(params){
+        return ApiService.post(sortApi, { sort: params})
+    },
+    update(slug, params) {
+        return ApiService.update(sortApi, slug, { sort: params });
+    },
+    delete(slug) {
+        return ApiService.delete(sortApi, slug);
+    },
+    get(slug){
+        return ApiService.get(sortApi, slug)
+    },
+    getAll() {
+        return ApiService.get(sortApi)
     }
 };
 
@@ -281,6 +357,25 @@ export const FarmerArticleService = {
     },
     getAll() {
         return ApiService.get(ArticleFarmerApi)
+    }
+};
+
+const SortFarmerApi = "sortfarmer";
+export const SortFarmerService = {
+    create(params){
+        return ApiService.post(SortFarmerApi, params)
+    },
+    update(slug, params) {
+        return ApiService.update(SortFarmerApi, slug, params);
+    },
+    delete(slug) {
+        return ApiService.delete(SortFarmerApi, slug);
+    },
+    get(slug){
+        return ApiService.get(SortFarmerApi, slug)
+    },
+    getAll() {
+        return ApiService.get(SortFarmerApi)
     }
 };
 

@@ -181,8 +181,23 @@
         "main": {
             "title": "Artikellen"
         },
+        "attributes": {
+            "excel_code": "Excel Code",
+            "origin": "Afkomst",
+            "inset_limit": "Inzet Limiet",
+            "inset_gram": "Inzet Gram",
+            "pallet_limit": "Pallet Limiet"
+        },
+        "actions": {
+            "buttonCreate": "Artikel aanmaken",
+            "buttonCancel": "Cancel, Ga terug",
+            "buttonUpdate": "Artikel updaten"
+        },
         "create": {
             "title": "Maak een nieuw artikel"
+        },
+        "update": {
+            "title": "Update Artikel"
         },
         "list": {
             "title": "Lijst van artikelen"
@@ -192,6 +207,21 @@
             "label": "Artikelen",
             "actions": {
                 "buttonUpdate": "Artikel koppeling aanpassen"
+            }
+        }
+    },
+    "sort": {
+        "main": {
+            "title": "Planning Sorteringen"
+        },
+        "list": {
+            "title": "Lijst van sorteringen"
+        },
+        "connect": {
+            "title": "Koppelen van sortering voor planning",
+            "label": "Sortering",
+            "actions": {
+                "buttonUpdate": "Sortering koppeling aanpassen"
             }
         }
     },
@@ -287,7 +317,7 @@
             "modeTitle": "Maak",
             "actions": {
                 "palletlabels": "Selecteer palletlabels",
-                "buttonCreate": "Maak shippinglabel aan",
+                "buttonCreate": "Maak vrachtbrief aan",
                 "palletlabelCreate": "Maak palletlabel"
             }
         },

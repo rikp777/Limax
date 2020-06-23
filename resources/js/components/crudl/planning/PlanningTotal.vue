@@ -1,26 +1,43 @@
 <template>
     <div>
-    <b-row>
-        <b-colxx xl="12" lg="12" md="12" class="mb-4">
-            <table class="table table-hover table-borderless">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th v-for="(data, index) in planningTotal.sorts">{{data}}</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="(data, index) in planningTotal.planningTotal">
-                    <th scope="row">{{index.replace(/_/g, `-`).slice(0, 10)}}</th>
-                    <td v-for="(dataa) in data">{{dataa}}</td>
-<!--                    <td>{{planningTotal.total['total']}}</td>-->
-                </tr>
-                </tbody>
-            </table>
+        <b-colxx md="12" class="mb-4" v-if="noSorts === true">
+            <b-card title="Error">
+                <b-refresh-button/>
+
+                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
+                                            <span
+                                                class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
+                                                <i class="simple-icon-exclamation"/>
+                                            </span>
+                    <div class="pl-3 pr-2">
+                        <p class="font-weight-medium mb-0 ">Create a sort link on the settings page</p>
+                        <p class="text-muted mb-0 text-small">You need to link sorts to make a planning for</p>
+                    </div>
+                </div>
+
+            </b-card>
         </b-colxx>
-    </b-row>
-</div>
+        <b-row v-if="noSorts === false">
+            <b-colxx xl="12" lg="12" md="12" class="mb-4">
+                <table class="table table-hover table-borderless">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th v-for="(data, index) in planningTotal.sorts">{{data}}</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(data, index) in planningTotal.planningTotal">
+                        <th scope="row">{{index.replace(/_/g, `-`).slice(0, 10)}}</th>
+                        <td v-for="(dataa) in data">{{dataa}}</td>
+                        <!--                    <td>{{planningTotal.total['total']}}</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </b-colxx>
+        </b-row>
+    </div>
 </template>
 
 <script>
@@ -34,10 +51,10 @@
 
     export default {
         name: "PlanningCreate",
-        components: {
-        },
+        components: {},
         data() {
             return {
+                noSorts: false,
                 data: []
             }
         },
@@ -57,10 +74,13 @@
         },
         mounted() {
             Promise.all([
-                this.getPlanningTotal(),
-                // this.$moment().subtract(4, 'days').format('YYYY-MM-DD'), this.$moment().add(7, 'days').format('YYYY-MM-DD')
+                this.$store.dispatch("getPlanningTotal").then(()=>{
+                   this.noSorts = false
+                }),
             ]).finally(() => {
-                //finally
+                if (this.planningTotal.length === 0){
+                    this.noSorts = true
+                }
             })
         },
     }

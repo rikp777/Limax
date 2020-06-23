@@ -25,13 +25,13 @@ const getters = {
         return state.palletTypes;
     },
     palletType(state) {
-        return state.palletType
+        return state.palletType;
     },
     palletTypesCount(state) {
-        return state.palletTypesCount
+        return state.palletTypesCount;
     },
     isLoading(state) {
-        return state.isLoading
+        return state.isLoading;
     },
 
 

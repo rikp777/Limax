@@ -48,19 +48,36 @@
                       <!--                FROM / TO-->
                       <div class="row">
                           <template>
-                              <div class="col-sm-6" style="font-size: 16px;">
-                                  <h6 class="mb-3" style="font-size: 22px;">Import :</h6>
-                                  <!--                                <strong>{{ Import }}</strong>-->
+                              <div class="col-sm-2" style="font-size: 16px;">
+                                  <h6 class="mb-3" style="font-size: 22px;">Transport :</h6>
                                   <div>Time: {{ $moment().locale('nl').format('LTS') }}</div>
                                   <div>Date: {{ $moment().locale('nl').format('L') }}</div>
                               </div>
                           </template>
                           <template>
-                              <div class="col-sm-6" style="font-size: 16px;">
-                                  <h6 class="mb-3" style="font-size: 22px;">Transport :</h6>
-                                  <!--                                <strong>Transport</strong>-->
-                                  <div>Time: {{ $moment().locale('nl').format('LTS') }}</div>
-                                  <div>Date: {{ $moment().locale('nl').format('L') }}</div>
+                              <div class="col-sm-10" style="font-size: 16px;">
+<!--                                  <h6 class="mb-3" style="font-size: 22px;">Transport :</h6>-->
+<!--                                  &lt;!&ndash;                                <strong>Transport</strong>&ndash;&gt;-->
+<!--                                  <div>Time: {{ $moment().locale('nl').format('LTS') }}</div>-->
+<!--                                  <div>Date: {{ $moment().locale('nl').format('L') }}</div>-->
+                                  <div class="row">
+                                      <div class="col-3">
+                                          <h6 class="mb-3" style="font-size: 16px;">Bruto KG Industrie :</h6>
+                                          <div style="border-style: groove; width: 180px; height: 54px"></div>
+                                      </div>
+                                      <div class="col-3">
+                                          <h6 class="mb-3" style="font-size: 16px;">Netto KG Industrie :</h6>
+                                          <div style="border-style: groove; width: 180px; height: 54px"></div>
+                                      </div>
+                                      <div class="col-3">
+                                          <h6 class="mb-3" style="font-size: 16px;">Driver name :</h6>
+                                          <div style="border-style: groove; width: 180px; height: 54px"></div>
+                                      </div>
+                                      <div class="col-3">
+                                          <h6 class="mb-3" style="font-size: 16px;">Driver signature :</h6>
+                                          <div style="border-style: groove; width: 180px; height: 54px"></div>
+                                      </div>
+                                  </div>
                               </div>
                           </template>
                       </div>
@@ -93,34 +110,8 @@
                                   <div>Email: info@limax.nl</div>
                                   <div>Phone: 773999660</div>
                                   <br>
-<!--                                  <strong>Driver</strong>-->
-                                  <div>
-                                      <table style="width: 50%">
-                                          <thead>
-                                          <tr>
-                                              <th>
-                                                 Driver name:
-                                              </th>
-                                              <th>
-                                                  Driver signature:
-                                              </th>
-                                          </tr>
-                                          </thead>
-                                          <tbody>
-                                          <tr>
-                                              <td>
-                                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
-                                              </td>
-                                              <td>
-                                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
-                                              </td>
-                                          </tr>
-                                          </tbody>
-                                      </table>
-                                  </div>
-<!--                                  <div>-->
-<!--                                      <div style="border-style: groove; width: 300px; height: 54px"></div>-->
-<!--                                  </div>-->
+                                  <strong>Limax Signature</strong>
+                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
                               </div>
                           </template>
                           <!--                        <template>-->
@@ -345,9 +336,9 @@
                           <div class="row">
                               <div class="text-center">
                                   <!--                            <img class="card-img-bottom" style=" bottom:0; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
-                                  <img class="card-img-bottom" style=" bottom:0;"
-                                       src='https://www.limax.nl/build/images/color-bar.48031fde.svg'
-                                       alt="Card image cap">
+<!--                                  <img class="card-img-bottom" style=" bottom:0;"-->
+<!--                                       src='https://www.limax.nl/build/images/color-bar.48031fde.svg'-->
+<!--                                       alt="Card image cap">-->
                               </div>
                           </div>
                       </template>
@@ -372,19 +363,36 @@
                       <!--                FROM / TO-->
                       <div class="row">
                           <template>
-                              <div class="col-sm-6" style="font-size: 16px;">
-                                  <h6 class="mb-3" style="font-size: 22px;">Import :</h6>
-                                  <!--                                <strong>{{ Import }}</strong>-->
+                              <div class="col-sm-2" style="font-size: 16px;">
+                                  <h6 class="mb-3" style="font-size: 22px;">Transport :</h6>
                                   <div>Time: {{ $moment().locale('nl').format('LTS') }}</div>
                                   <div>Date: {{ $moment().locale('nl').format('L') }}</div>
                               </div>
                           </template>
                           <template>
-                              <div class="col-sm-6" style="font-size: 16px;">
-                                  <h6 class="mb-3" style="font-size: 22px;">Transport :</h6>
-                                  <!--                                <strong>Transport</strong>-->
-                                  <div>Time: {{ $moment().locale('nl').format('LTS') }}</div>
-                                  <div>Date: {{ $moment().locale('nl').format('L') }}</div>
+                              <div class="col-sm-10" style="font-size: 16px;">
+                                  <!--                                  <h6 class="mb-3" style="font-size: 22px;">Transport :</h6>-->
+                                  <!--                                  &lt;!&ndash;                                <strong>Transport</strong>&ndash;&gt;-->
+                                  <!--                                  <div>Time: {{ $moment().locale('nl').format('LTS') }}</div>-->
+                                  <!--                                  <div>Date: {{ $moment().locale('nl').format('L') }}</div>-->
+                                  <div class="row">
+                                      <div class="col-3">
+                                          <h6 class="mb-3" style="font-size: 16px;">Bruto KG Industrie :</h6>
+                                          <div style="border-style: groove; width: 180px; height: 54px"></div>
+                                      </div>
+                                      <div class="col-3">
+                                          <h6 class="mb-3" style="font-size: 16px;">Netto KG Industrie :</h6>
+                                          <div style="border-style: groove; width: 180px; height: 54px"></div>
+                                      </div>
+                                      <div class="col-3">
+                                          <h6 class="mb-3" style="font-size: 16px;">Driver name :</h6>
+                                          <div style="border-style: groove; width: 180px; height: 54px"></div>
+                                      </div>
+                                      <div class="col-3">
+                                          <h6 class="mb-3" style="font-size: 16px;">Driver signature :</h6>
+                                          <div style="border-style: groove; width: 180px; height: 54px"></div>
+                                      </div>
+                                  </div>
                               </div>
                           </template>
                       </div>
@@ -417,34 +425,8 @@
                                   <div>Email: info@limax.nl</div>
                                   <div>Phone: 773999660</div>
                                   <br>
-                                  <!--                                  <strong>Driver</strong>-->
-                                  <div>
-                                      <table style="width: 50%">
-                                          <thead>
-                                          <tr>
-                                              <th>
-                                                  Driver name:
-                                              </th>
-                                              <th>
-                                                  Driver signature:
-                                              </th>
-                                          </tr>
-                                          </thead>
-                                          <tbody>
-                                          <tr>
-                                              <td>
-                                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
-                                              </td>
-                                              <td>
-                                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
-                                              </td>
-                                          </tr>
-                                          </tbody>
-                                      </table>
-                                  </div>
-                                  <!--                                  <div>-->
-                                  <!--                                      <div style="border-style: groove; width: 300px; height: 54px"></div>-->
-                                  <!--                                  </div>-->
+                                  <strong>Limax Signature</strong>
+                                  <div style="border-style: groove; width: 250px; height: 54px"></div>
                               </div>
                           </template>
                           <!--                        <template>-->
@@ -603,9 +585,9 @@
                           <div class="row">
                               <div class="text-center">
                                   <!--                            <img class="card-img-bottom" style=" bottom:0; -webkit-filter: grayscale(100%); filter: grayscale(100%);" src='https://www.limax.nl/build/images/color-bar.48031fde.svg' alt="Card image cap">-->
-                                  <img class="card-img-bottom" style=" bottom:0;"
-                                       src='https://www.limax.nl/build/images/color-bar.48031fde.svg'
-                                       alt="Card image cap">
+<!--                                  <img class="card-img-bottom" style=" bottom:0;"-->
+<!--                                       src='https://www.limax.nl/build/images/color-bar.48031fde.svg'-->
+<!--                                       alt="Card image cap">-->
                               </div>
                           </div>
                       </template>

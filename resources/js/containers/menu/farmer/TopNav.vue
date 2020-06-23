@@ -30,7 +30,7 @@
 
         <div class="navbar-right">
 
-           <dark-mode />
+<!--           <dark-mode />-->
 
 
             <div class="header-icons d-inline-block align-middle">

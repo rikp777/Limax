@@ -14,6 +14,11 @@ class Farmer extends Model
         return $this->belongsToMany(Article::class);
     }
 
+    public function sort_types()
+    {
+        return $this->belongsToMany(SortType::class);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

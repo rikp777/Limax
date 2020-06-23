@@ -103,6 +103,20 @@ const actions = {
         return data;
     },
 
+    //get single shippinglabel
+    async checkScannedLabel(context, labelSlug) {
+        context.commit(FETCH_START);
+        return truckerShippingLabelService.get(labelSlug)
+            .then(({ data }) => {
+                // console.log(data);
+                context.commit(SET_SHIPPINGLABEL, data);
+                context.commit(FETCH_END);
+            })
+            .catch(error => {
+                throw error
+            });
+    },
+
     //update palletLabel
     async updateShippingLabel(context, payload) {
         // console.log(payload);

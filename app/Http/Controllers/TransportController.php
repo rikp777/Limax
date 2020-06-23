@@ -18,7 +18,7 @@ class TransportController extends Controller
         //
 
         $shippinglabels = DB::select(DB::raw(
-            "SELECT id, created_at, (select (first_name + ' ' + last_name) from users where id = transport_driver) as driver FROM shipping_labels WHERE created_at >= DATEADD(day, -1, GETDATE()) AND deleted_at IS NULL"
+            "SELECT id, created_at, (select (first_name + ' ' + last_name) from users where id = transport_driver) as driver FROM shipping_labels WHERE created_at >= DATEADD(day, -1, GETDATE()) AND deleted_at IS NULL ORDER BY id DESC"
         ));
 
         return new TransportResource($shippinglabels);

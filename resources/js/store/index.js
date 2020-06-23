@@ -16,6 +16,7 @@ import truck from './modules/truck.module'
 import article from './modules/article.module'
 import cell from './modules/cell.module'
 import articlefarmer from './modules/articlefarmer.module'
+import sortfarmer from './modules/sortfarmer.module'
 import role from './modules/role.module'
 import department from './modules/department.module'
 import report from './modules/report.module'
@@ -24,6 +25,10 @@ import transport from './modules/transport.module'
 import planning from './modules/planning.module'
 import cultivationCycle from '../store/modules/cultivationCycle'
 import palletType from './modules/palletType.module'
+import cask from './modules/cask.module'
+import inset from './modules/inset.module'
+import articlegroup from './modules/articlegroup.module'
+import sort from './modules/sort.module'
 import farmer from './modules/farmer.module'
 import menu from './modules/menu.module'
 import app from '../app'
@@ -61,6 +66,10 @@ export default new Vuex.Store({
         shippingLabel,
         truck,
         palletType,
+        cask,
+        inset,
+        articlegroup,
+        sort,
         // cultivationCycle,
         article,
         cell,
@@ -70,6 +79,7 @@ export default new Vuex.Store({
         planning,
         department,
         articlefarmer,
+        sortfarmer,
         logistics,
         transport
     },

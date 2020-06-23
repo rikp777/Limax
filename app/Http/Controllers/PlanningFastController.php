@@ -57,20 +57,25 @@ class PlanningFastController extends Controller
     {
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
         //get the articles that have sort id's from the article selection the farmer made.
-        $sorts = $currentFarmer->articles()->get();
+        $sorts = $currentFarmer->sort_types()->get();
+        // id name description
+        if (!sizeof($sorts)) {
+            return [];
+        }
+
         $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
             foreach ($sorts as $sortAll) {
                 //get the description of the sorts based on article selection made by farmer
-                $sortDesc = SortType::where('id', $sortAll["sort_type_id"])->first();
+//                $sortDesc = SortType::where('id', $sortAll["sort_type_id"])->first();
                 foreach ($period as $date) {
-                    $tom1[$id][$date->toDateTimeString()][$sortDesc["description"]] = null;
-                    $tom[$id][$date->toDateTimeString()][$sortDesc["description"]] = null;
+                    $tom1[$id][$date->toDateTimeString()][$sortAll["description"]] = null;
+                    $tom[$id][$date->toDateTimeString()][$sortAll["description"]] = null;
                     $planning = Planning::where('farmer_id', $currentFarmer->id)->where('cell_id', $id)->get();
 
                     foreach ($planning as $plan) {
                             if ($date->toDateTimeString() === $plan["date"]->toDateTimeString()) {
-                                $sortAmount = PlanningAmount::where('planning_id', $plan->id)->where('sort_type_id', $sortAll["sort_type_id"])->first();
-                                $tom2[$id][$date->toDateTimeString()][$sortDesc["description"]] = $sortAmount["amount"];
+                                $sortAmount = PlanningAmount::where('planning_id', $plan->id)->where('sort_type_id', $sortAll["id"])->first();
+                                $tom2[$id][$date->toDateTimeString()][$sortAll["description"]] = $sortAmount["amount"];
                                 $tom = (array_replace_recursive($tom1, $tom2));
                             }
                     }
