@@ -115,7 +115,17 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <br v-if="palletLabel.harvestCycle === null && palletLabel.harvestCycleDay === null">
+                            <div class="row" v-if="palletLabel.harvestCycle === null && palletLabel.harvestCycleDay === null">
+
+                                <div class="col-sm-12 alert" role="alert">
+                                    <h4><b>Mix Cell (no harvest cycle)</b></h4>
+                                </div>
+
+                            </div>
+<!--                            <br v-if="palletLabel.harvestCycle === null && palletLabel.harvestCycleDay === null">-->
+
+                            <div class="row" v-if="palletLabel.harvestCycle !== null && palletLabel.harvestCycleDay !== null">
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Harvest Cycle</strong>
                                     <div>{{ palletLabel.harvestCycle }}</div>
@@ -243,7 +253,17 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <br v-if="palletLabel.harvestCycle === null && palletLabel.harvestCycleDay === null">
+                            <div class="row" v-if="palletLabel.harvestCycle === null && palletLabel.harvestCycleDay === null">
+
+                                <div class="col-sm-12 alert" role="alert">
+                                    <h4><b>Mix Cell (no harvest cycle)</b></h4>
+                                </div>
+
+                            </div>
+<!--                            <br v-if="palletLabel.harvestCycle === null && palletLabel.harvestCycleDay === null">-->
+
+                            <div class="row" v-if="palletLabel.harvestCycle !== null && palletLabel.harvestCycleDay !== null">
                                 <div class="col-sm-6" style="font-size: 22px;">
                                     <strong>Harvest Cycle</strong>
                                     <div>{{ palletLabel.harvestCycle }}</div>
@@ -253,6 +273,17 @@
                                     <div>{{ palletLabel.harvestCycleDay }}</div>
                                 </div>
                             </div>
+
+<!--                            <div class="row">-->
+<!--                                <div class="col-sm-6" style="font-size: 22px;">-->
+<!--                                    <strong>Harvest Cycle</strong>-->
+<!--                                    <div>{{ palletLabel.harvestCycle }}</div>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-6" style="font-size: 22px;">-->
+<!--                                    <strong>Harvest Cycle Day</strong>-->
+<!--                                    <div>{{ palletLabel.harvestCycleDay }}</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="row">
                                 <div class="col-sm-6" style="font-size: 22px;">
