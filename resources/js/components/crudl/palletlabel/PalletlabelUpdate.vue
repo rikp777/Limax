@@ -197,7 +197,7 @@
 
 
                         <!-- Flight  -->
-                        <b-colxx xs="12" xl="4">
+                        <b-colxx xs="12" xl="4" v-if="form.cell.description !== 'Mix'">
                           <validation-provider
                              :name="$t('palletlabel.attributes.harvestCycle.title')"
                              :rules="{ required: true }"
@@ -219,7 +219,7 @@
 
 
                         <!-- Flight Day -->
-                        <b-colxx xs="12" xl="4">
+                        <b-colxx xs="12" xl="4" v-if="form.cell.description !== 'Mix'">
                           <validation-provider
                              :name="$t('palletlabel.attributes.harvestCycleDay.title')"
                              :rules="{ required: true }"
@@ -313,8 +313,8 @@
                     palletType: [],
                     cropDate: '',
                     cell: [],
-                    harvestCycle: '',
-                    harvestCycleDay: '',
+                    harvestCycle: null,
+                    harvestCycleDay: null,
                     amount: '',
                     note: null
                 },
@@ -362,15 +362,26 @@
             },
 
             formSubmit() {
-                // this.$validator.validateAll().then((result) => {
-                //     if (result) {
-                            this.$store.dispatch("updatePalletLabel", this.form)
-                                .then(() => {
-                                    // console.log(this.palletLabel.id);
-                                    this.$router.push({name: 'palletlabelPdf', params: {id: this.id}})
-                                });
-                    //     }
-                    // })
+
+                if(this.form.cell.description === 'Mix') {
+                    this.form.harvestCycle = null;
+                    this.form.harvestCycleDay = null;
+                }
+                Promise.all([
+                    // this.loadingPDF = true
+                ]).finally(() => {
+                    this.$store.dispatch("updatePalletLabel", this.form)
+                        .then(() => {
+                            // console.log(this.palletLabel.id);
+                            this.$router.push({name: 'palletlabelPdf', params: {id: this.id}})
+                        });
+                })
+
+                //             this.$store.dispatch("updatePalletLabel", this.form)
+                //                 .then(() => {
+                //                     // console.log(this.palletLabel.id);
+                //                     this.$router.push({name: 'palletlabelPdf', params: {id: this.id}})
+                //                 });
 
             },
             create() {

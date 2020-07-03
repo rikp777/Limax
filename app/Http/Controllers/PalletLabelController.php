@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Request as CookieRequest;
 use Illuminate\Support\Facades\Route;
+
 //use Illuminate\Routing\Route;
 
 class PalletLabelController extends Controller
@@ -29,7 +30,7 @@ class PalletLabelController extends Controller
     public function index(Request $request)
     {
         $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
-        if($currentFarmer){
+        if ($currentFarmer) {
             $palletlabels = PalletLabel::where('status_id', 1)->where('farmer_id', $currentFarmer->id)->latest('id')->get();
 
             return PalletLabelResource::collection($palletlabels);
@@ -50,15 +51,18 @@ class PalletLabelController extends Controller
 
     public function store(Request $request)
     {
+
+        //change db structure so harvest cycle/day can be null
+
 //        dd($request);
         $request->validate([
             'crop_date' => 'required|date',
             'amount' => 'required|int',
             'article' => 'required',
             'pallet_type' => 'required',
-            'cell' => 'required|',
-            'harvest_cycle' => ' required|int',
-            'harvest_cycle_day' => ' required|int',
+            'cell' => 'required',
+            'harvest_cycle' => 'nullable|int',
+            'harvest_cycle_day' => 'nullable|int',
             'note' => 'max:500',
         ]);
 
@@ -102,14 +106,14 @@ class PalletLabelController extends Controller
         $palletlabel->cell_number = $cell->number;
         $palletlabel->cell_description = $cell->description;
         $palletlabel->cell_id = $request->cell['id'];
-         $palletlabel->save();
+        $palletlabel->save();
 
         //return
         return new PalletLabelResource($palletlabel);
     }
 
 
-    public function show(PalletLabel $palletlabel) : PalletLabelResource
+    public function show(PalletLabel $palletlabel): PalletLabelResource
     {
         return new PalletLabelResource($palletlabel);
     }
@@ -120,14 +124,14 @@ class PalletLabelController extends Controller
 //        dd($id);
 
         $request->validate([
-          'crop_date' => 'required|date',
-          'amount' => 'required|int',
-          'article' => 'required',
-          'pallet_type' => 'required',
-          'cell' => 'required|',
-          'harvest_cycle' => ' required|int',
-          'harvest_cycle_day' => ' required|int',
-          'note' => 'max:500',
+            'crop_date' => 'required|date',
+            'amount' => 'required|int',
+            'article' => 'required',
+            'pallet_type' => 'required',
+            'cell' => 'required',
+            'harvest_cycle' => 'nullable|int',
+            'harvest_cycle_day' => 'nullable|int',
+            'note' => 'max:500',
         ]);
 
         $authUser = auth()->user();
@@ -174,10 +178,9 @@ class PalletLabelController extends Controller
     {
         $palletLabel = PalletLabel::withTrashed()->where('id', $id)->first();
 
-        if ($palletLabel->trashed()){
+        if ($palletLabel->trashed()) {
             $palletLabel->restore();
-        }
-        else {
+        } else {
             $palletLabel->delete();
         }
 

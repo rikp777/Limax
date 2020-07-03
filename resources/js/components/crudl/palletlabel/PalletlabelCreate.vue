@@ -209,7 +209,7 @@
 
 
                                 <!-- Flight  -->
-                                <b-colxx xs="12" xl="4">
+                                <b-colxx xs="12" xl="4" v-if="form.cell.description !== 'Mix'">
                                     <validation-provider
                                         :name="$t('palletlabel.attributes.harvestCycle.title')"
                                         :rules="{ required: true }"
@@ -234,7 +234,7 @@
 
 
                                 <!-- Flight Day -->
-                                <b-colxx xs="12" xl="4">
+                                <b-colxx xs="12" xl="4" v-if="form.cell.description !== 'Mix'">
                                     <validation-provider
                                         :name="$t('palletlabel.attributes.harvestCycleDay.title')"
                                         :rules="{ required: true }"
@@ -328,8 +328,8 @@
                     palletType: [],
                     cropDate: '',
                     cell: [],
-                    harvestCycle: '',
-                    harvestCycleDay: '',
+                    harvestCycle: null,
+                    harvestCycleDay: null,
                     amount: '',
                     note: null
                 },
@@ -376,9 +376,7 @@
             },
 
             formSubmit() {
-                // console.log(this.$validator)
-                // this.$validator.validateAll().then((result) => {
-                // if (result) {
+
                 this.loadingPDF = true;
                 this.$store.dispatch("createPalletLabel", this.form)
                     .then(() => {
