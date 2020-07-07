@@ -384,10 +384,10 @@
                // console.log(this.authFarmer.id),
                this.getFarmer(this.authFarmer.id),
                this.getPalletlabel(this.$route.params.id),
-               this.getAllArticles(),
+               // this.getAllArticles(),
             ]).finally(() => {
                 this.qrcodeId = this.palletLabel.id.toString();
-                console.log(this.qrcodeId);
+                // console.log(this.qrcodeId);
                 // this.checkPrint();
             })
         },
