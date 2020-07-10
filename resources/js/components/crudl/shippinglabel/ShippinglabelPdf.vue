@@ -621,6 +621,7 @@
             // ...mapGetters(["authUser"]),
             ...mapGetters({
                 authFarmer: 'authFarmer',
+                authUser: 'authUser',
                 authUserFarmers: 'authUserFarmers',
             }),
             shippingLabelCount() {

@@ -43,42 +43,31 @@ class TruckerShippingLabelController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request['shipping_label']);
-//        dd('hoi');
-//        dd($request->truckershipping_label);
+//        dd($request['truckershipping_label']['farmid']);
         $palletIDs = [];
 
-        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
+//        $currentFarmer = Farmer::where('uid', $request->header('authFarmer'))->first();
         $truck = Truck::where('user_id', auth()->user()->id)->first();
 
-//        dd($palletIDs);
-        //create shippingLabel
         $shippingLabel = new ShippingLabel();
-        // $shippingLabel->transport_delivery_date = date('Y-m-d');
-        // $shippingLabel->transport_date = date('Y-m-d');
         $shippingLabel->transport_delivery_date = Carbon::now()->format('Y-m-d');
         $shippingLabel->transport_date = Carbon::now()->format('Y-m-d');
         $shippingLabel->transport_driver = auth()->user()->id;
         $shippingLabel->user_id = auth()->user()->id;
         $shippingLabel->status_id = 2;
-        //ctrlfFARMERID change farmer id to route
-        $shippingLabel->farmer_id = $currentFarmer->id;
+        $shippingLabel->farmer_id = $request['truckershipping_label']['farmid'];
+//        $shippingLabel->farmer_id = $currentFarmer->id;
         $shippingLabel->truck_id = $truck->id;
         $shippingLabel->transport_driver_user_id = auth()->user()->id;
         $shippingLabel->save();
 
-        foreach ($request->truckershipping_label as $key) {
+        foreach ($request['truckershipping_label']['palletlabels'] as $key) {
             array_push($palletIDs, $key);
         }
 
         $shippingLabel->palletLabels()->attach($palletIDs);
 
-//        $shippingLabel->palletlabels()->attach($request->palletlabels);
-//        $shippingLabel->palletlabels()->update(['status_id' =>1]);
-
         return $shippingLabel;
-
-//        return new ShippingLabelResource(PalletLabel::whereRaw("ID IN (SELECT pallet_label_id FROM pallet_label_shipping_label WHERE shipping_label_id = '$shippingLabel->id')")->get());
 
     }
 
@@ -86,18 +75,27 @@ class TruckerShippingLabelController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return bool
+     * @return array
      */
     public function show($id)
     {
-        $palletlabel = PalletLabel::where('status_id', 2)->find($id);
+        $palletlabel = PalletLabel::find($id);
 
-        if ($palletlabel) {
-            $status =  'true';
-        } else {
+        if (!$palletlabel) {
             $status = 'false';
+        } else {
+            if ($palletlabel->status_id === 2) {
+                $status =  'true';
+            } else {
+                $status = 'false';
+            }
         }
-        return $status;
+
+        $scanReturn = [
+            "status" => $status,
+            "palletlabel" => $palletlabel,
+        ];
+        return $scanReturn;
     }
 
     /**

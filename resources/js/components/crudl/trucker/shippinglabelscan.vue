@@ -4,6 +4,39 @@
             <b-row>
                 <b-colxx xxs="12" xl="6" class="mb-3">
                         <b-card-body>
+                            {{form.palletlabels}}
+                            <b-button
+                                type="button"
+                                variant="secondary"
+                                class="ml-1"
+                                :disabled="invalid"
+                                @click="onDecode(2)"
+                            >palletlabel code 2
+                            </b-button>
+                            <b-button
+                                type="button"
+                                variant="secondary"
+                                class="ml-1"
+                                :disabled="invalid"
+                                @click="onDecode(9)"
+                            >palletlabel code 9
+                            </b-button>
+                            <b-button
+                                type="button"
+                                variant="secondary"
+                                class="ml-1"
+                                :disabled="invalid"
+                                @click="onDecode(3)"
+                            >palletlabel code 3
+                            </b-button>
+                            <b-button
+                                type="button"
+                                variant="secondary"
+                                class="ml-1"
+                                :disabled="invalid"
+                                @click="onDecode(81)"
+                            >palletlabel code 81
+                            </b-button>
 <!--                            <p class="error">{{ error }}</p>-->
 <!--                            <qrcode-stream @decode="onDecode" @init="onInit" />-->
 <!--                            <p class="error" v-if="noFrontCamera">-->
@@ -74,6 +107,7 @@
                 error: '',
                 form: {
                     palletlabels: [],
+                    farmid: null,
                 }
             }
         },
@@ -181,21 +215,37 @@
                 }
             },
             onDecode(decodedString) {
-                console.log(decodedString)
+                // console.log(decodedString)
                 Promise.all([
                     this.$store.dispatch("checkScannedLabel", decodedString).then(() => {
                     })
                 ]).finally(() => {
-                    if (this.shippingLabel === true){
+
+                    //check if label exists in database
+                    if (this.shippingLabel.palletlabel === null){
                         this.$swal({
                             position: 'center',
                             icon: 'error',
-                            title: 'Label bestaat al op vracht',
+                            title: 'Label bestaat niet',
                             showConfirmButton: false,
                             timer: 1000
                         })
                     } else {
-                        if (this.form.palletlabels.indexOf(decodedString) === -1) this.form.palletlabels.push(decodedString);
+                        // console.log(this.shippingLabel);
+                        if (this.shippingLabel.status === "true"){
+                            this.$swal({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Label staat niet meer in koelcel',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                        } else {
+                            if (this.form.palletlabels.indexOf(decodedString) === -1) {
+                                this.form.palletlabels.push(decodedString);
+                                this.form.farmid = this.shippingLabel.palletlabel.farmerId;
+                            }
+                        }
                     }
                 })
 
@@ -206,10 +256,10 @@
                 this.$store.dispatch("truckerupdatePalletLabelStatus", this.form.palletlabels)
             },
             validateBeforeSubmit() {
-                this.showLoading()
+                this.showLoading();
                 this.truckerupdatePalletLabelStatus();
                 // this.createShippingLabel();
-                this.$store.dispatch("truckercreateShippingLabel", this.form.palletlabels)
+                this.$store.dispatch("truckercreateShippingLabel", this.form)
                     .then(() => {
                         this.$router.push({
                             name: 'shippinglabelPdf',

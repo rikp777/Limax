@@ -28,7 +28,7 @@ export default [
                 component: Pdf,
                 meta: {
                     requiresAuth: true,
-                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer]
+                    requiresRoles: [ RightEnum.Admin, RightEnum.Moderator, RightEnum.Farmer, RightEnum.Trucker]
                 },
             },
         ]

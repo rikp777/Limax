@@ -95,11 +95,8 @@ const actions = {
     },
 
     async truckercreateShippingLabel(context, payload) {
-        // console.log(payload);
-        // const data = payload;
         const {data} = await truckerShippingLabelService.create(payload);
         context.commit(SET_SHIPPINGLABEL, data);
-        // console.log(data);
         return data;
     },
 
