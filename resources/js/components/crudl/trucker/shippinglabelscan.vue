@@ -4,14 +4,14 @@
             <b-row>
                 <b-colxx xxs="12" xl="6" class="mb-3">
                         <b-card-body>
-                            <b-button
-                                type="button"
-                                variant="secondary"
-                                class="ml-1"
-                                :disabled="invalid"
-                                @click="onDecode(116)"
-                            >palletlabel 116
-                            </b-button>
+<!--                            <b-button-->
+<!--                                type="button"-->
+<!--                                variant="secondary"-->
+<!--                                class="ml-1"-->
+<!--                                :disabled="invalid"-->
+<!--                                @click="onDecode(116)"-->
+<!--                            >palletlabel 116-->
+<!--                            </b-button>-->
 <!--                            <p class="error">{{ error }}</p>-->
 <!--                            <qrcode-stream @decode="onDecode" @init="onInit" />-->
 <!--                            <p class="error" v-if="noFrontCamera">-->
