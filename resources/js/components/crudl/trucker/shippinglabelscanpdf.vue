@@ -37,8 +37,10 @@
                       <br>
                       <!--                STATUS-->
                       <div class="row">
-                          <div class="col-sm-6" style="font-size: 16px;">
-                              <strong>Shippinglabel - {{uniqueshippingid}}: </strong>{{ $moment().format("dddd, MMMM Do YYYY") }}
+<!--                          {{ShippingLabelPalletLabels}}-->
+                          <div class="col-sm-6" style="font-size: 16px;" v-for="date in ShippingLabelPalletLabels['shippinglabelId']">
+                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}} | <strong>created: </strong>{{$moment(date.createdAt).format('dddd, MMMM Do YYYY') + ' ' + $moment(date.createdAt).locale('nl').format('LTS')}}
+<!--                              <strong>Shippinglabel - {{uniqueshippingid}}: </strong>{{ $moment().format("dddd, MMMM Do YYYY") }}-->
                           </div>
                           <div class="col-sm-6" style="font-size: 16px;">
                               <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -352,8 +354,8 @@
                       <br>
                       <!--                STATUS-->
                       <div class="row">
-                          <div class="col-sm-6" style="font-size: 16px;">
-                              <strong>Shippinglabel - {{uniqueshippingid}}: </strong>{{ $moment().format("dddd, MMMM Do YYYY") }}
+                          <div class="col-sm-6" style="font-size: 16px;" v-for="date in ShippingLabelPalletLabels['shippinglabelId']">
+                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}} | <strong>created: </strong>{{$moment(date.createdAt).format('dddd, MMMM Do YYYY') + ' ' + $moment(date.createdAt).locale('nl').format('LTS')}}
                           </div>
                           <div class="col-sm-6" style="font-size: 16px;">
                               <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -606,6 +608,8 @@
 </template>
 
 <script>
+    //TODO
+    //loop label view, instead of copy pasting
     import { mapGetters, mapActions } from 'vuex';
     // import palletLabel from "../../router/routes/palletLabel";
     // import {getToken} from '../../common/jwt.service';

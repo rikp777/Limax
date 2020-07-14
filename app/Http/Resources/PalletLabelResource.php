@@ -33,7 +33,8 @@ class PalletLabelResource extends JsonResource
             'harvestCycleDay' => $this->harvest_cycle_day,
             'article' => new ArticleResource($this->article),
             'palletType' => $this->palletType,
-            'weight' =>(((int)$this->article->inset_gram * (int)$this->article_amount) + (int)$this->palletType->weight)
+            'weight' =>(((int)$this->article->inset_gram * (int)$this->article_amount) + (int)$this->palletType->weight),
+            'createdAt' =>$this->created_at
         ];
     }
 //    public function toArray($request)
