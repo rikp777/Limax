@@ -9,7 +9,7 @@
 <!--                                variant="secondary"-->
 <!--                                class="ml-1"-->
 <!--                                :disabled="invalid"-->
-<!--                                @click="onDecode(116)"-->
+<!--                                @click="onDecode(10)"-->
 <!--                            >palletlabel 116-->
 <!--                            </b-button>-->
 <!--                            <p class="error">{{ error }}</p>-->
@@ -237,7 +237,7 @@
                 this.$store.dispatch("truckercreateShippingLabel", this.form)
                     .then(() => {
                         this.$router.push({
-                            name: 'shippinglabelPdf',
+                            name: 'shippinglabelpdf',
                             params: {id: this.shippingLabel.id}
                         })
                     });

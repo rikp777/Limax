@@ -39,7 +39,7 @@
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 16px;">
                                 <!-- <strong>Palletlabel: </strong>{{ moment().format("dddd, MMMM Do YYYY") + ' ' + moment().locale('nl').format('LTS') }} -->
-                                <strong>Palletlabel - {{qrcodeId}}: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}}
+                                <strong>Palletlabel - {{$route.params.id}}: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}}
                             </div>
                             <div class="col-sm-6" style="font-size: 16px;">
                                 <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -152,7 +152,7 @@
 <!--                            <br>-->
                             <div class="row">
                                     <div class="col-sm-6">
-                                        <qrcode-vue :value="qrcodeId" size="300" level="L" renderAs="svg"></qrcode-vue>
+                                        <qrcode-vue :value="$route.params.id" size="300" level="L" renderAs="svg"></qrcode-vue>
                                     </div>
                             </div>
                             <div class="row">
@@ -175,7 +175,7 @@
                         <!--                STATUS-->
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 16px;">
-                                <strong>Palletlabel - {{qrcodeId}}: </strong>{{ $moment().format("dddd, MMMM Do YYYY") + ' ' + $moment().locale('nl').format('LTS') }}
+                                <strong>Palletlabel - {{$route.params.id}}: </strong>{{ $moment().format("dddd, MMMM Do YYYY") + ' ' + $moment().locale('nl').format('LTS') }}
                                 <!-- <strong>Palletlabel: </strong>dddd, MMMM Do YYYY -->
                             </div>
                             <div class="col-sm-6" style="font-size: 16px;">
@@ -297,7 +297,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <qrcode-vue :value="qrcodeId" size="300" level="L" renderAs="svg"></qrcode-vue>
+                                    <qrcode-vue :value="$route.params.id" size="300" level="L" renderAs="svg"></qrcode-vue>
                                 </div>
 <!--                                <div class="barcodee" style="font-family: 'Libre Barcode 39', cursive;">{{palletLabel.pallet_label_farmer_id}}-->
 <!--                                </div>-->
@@ -383,9 +383,10 @@
                // console.log(this.authFarmer.id),
                this.getFarmer(this.authFarmer.id),
                this.getPalletlabel(this.$route.params.id),
+                this.qrcodeId = this.palletLabel.id.toString(),
                // this.getAllArticles(),
             ]).finally(() => {
-                this.qrcodeId = this.palletLabel.id.toString();
+                // this.qrcodeId = this.palletLabel.id.toString();
                 // console.log(this.qrcodeId);
                 // this.checkPrint();
             })

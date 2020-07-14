@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Article::class);
-    }
+//    public function __construct()
+//    {
+//        $this->authorizeResource(Article::class);
+//    }
 
 
     public function index()
