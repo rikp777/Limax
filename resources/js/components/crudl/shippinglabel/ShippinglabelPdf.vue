@@ -37,8 +37,8 @@
                       <br>
                       <!--                STATUS-->
                       <div class="row">
-                          <div class="col-sm-6" style="font-size: 16px;" v-for="date in ShippingLabelPalletLabels['shippinglabelId']">
-                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}} | <strong>created: </strong>{{$moment(date.createdAt).format('dddd, MMMM Do YYYY') + ' ' + $moment(date.createdAt).locale('nl').format('LTS')}}
+                          <div class="col-sm-6" style="font-size: 16px;">
+                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}}
                           </div>
                           <div class="col-sm-6" style="font-size: 16px;">
                               <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -217,9 +217,10 @@
                                       </tr>
                                       </thead>
                                       <tbody>
-                                      <tr v-for="total in ShippingLabelPalletLabels['total']" v-if="articles.length">
+                                      <tr v-for="total in ShippingLabelPalletLabels['total'].sort(function(a,b){return a.article.localeCompare(b.article)})" v-if="articles.length">
                                           <td>
-                                              {{ getArticlesById(Number(total.articleId)).name }}
+<!--                                              {{ getArticlesById(Number(total.articleId)).name }}-->
+                                              {{ total.article }}
                                           </td>
                                           <td>
                                               {{ total.amount }}
@@ -352,8 +353,8 @@
                       <br>
                       <!--                STATUS-->
                       <div class="row">
-                          <div class="col-sm-6" style="font-size: 16px;" v-for="date in ShippingLabelPalletLabels['shippinglabelId']">
-                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}} | <strong>created: </strong>{{$moment(date.createdAt).format('dddd, MMMM Do YYYY') + ' ' + $moment(date.createdAt).locale('nl').format('LTS')}}
+                          <div class="col-sm-6" style="font-size: 16px;">
+                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}}
                           </div>
                           <div class="col-sm-6" style="font-size: 16px;">
                               <span class="float-right"> <strong>Status: </strong>Ready </span>
