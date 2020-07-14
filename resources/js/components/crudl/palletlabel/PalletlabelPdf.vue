@@ -39,7 +39,7 @@
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 16px;">
                                 <!-- <strong>Palletlabel: </strong>{{ moment().format("dddd, MMMM Do YYYY") + ' ' + moment().locale('nl').format('LTS') }} -->
-                                <strong>Palletlabel: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}}
+                                <strong>Palletlabel - {{qrcodeId}}: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}}
                             </div>
                             <div class="col-sm-6" style="font-size: 16px;">
                                 <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -151,7 +151,6 @@
 <!--                            <br>-->
 <!--                            <br>-->
                             <div class="row">
-<!--                                {{palletLabel}}-->
                                     <div class="col-sm-6">
                                         <qrcode-vue :value="qrcodeId" size="300" level="L" renderAs="svg"></qrcode-vue>
                                     </div>
@@ -176,7 +175,7 @@
                         <!--                STATUS-->
                         <div class="row">
                             <div class="col-sm-6" style="font-size: 16px;">
-                                <strong>Palletlabel: </strong>{{ $moment().format("dddd, MMMM Do YYYY") + ' ' + $moment().locale('nl').format('LTS') }}
+                                <strong>Palletlabel - {{qrcodeId}}: </strong>{{ $moment().format("dddd, MMMM Do YYYY") + ' ' + $moment().locale('nl').format('LTS') }}
                                 <!-- <strong>Palletlabel: </strong>dddd, MMMM Do YYYY -->
                             </div>
                             <div class="col-sm-6" style="font-size: 16px;">
