@@ -217,7 +217,7 @@
                                       </tr>
                                       </thead>
                                       <tbody>
-                                      <tr v-for="total in ShippingLabelPalletLabels['total'].sort(function(a,b){return a.article.localeCompare(b.article)})" v-if="articles.length">
+                                      <tr v-for="total in ShippingLabelPalletLabels['total']" v-if="articles.length">
                                           <td>
 <!--                                              {{ getArticlesById(Number(total.articleId)).name }}-->
                                               {{ total.article }}

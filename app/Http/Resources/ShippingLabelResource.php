@@ -82,7 +82,10 @@ class ShippingLabelResource extends JsonResource
         if (isset($ptype)){
             $totarray["pallet_types"] = $ptype;
         }
-        $totarray["total"] = collect($totarray["total"])->sortBy('article')->reverse()->toArray();
+        if (isset($totarray["total"])){
+            $totarray["total"] = collect($totarray["total"])->sortBy('article')->reverse()->toArray();
+        }
+//        $totarray["total"] = collect($totarray["total"])->sortBy('article')->reverse()->toArray();
         return $totarray;
 //
 //        $collectionReturn = [
