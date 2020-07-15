@@ -16,18 +16,18 @@
                     </router-link>
                     <h6 class="mb-4">{{ $t('auth.login.title')}}</h6>
 
-                    <b-alert show dismissible variant="danger" v-if="errorLog">{{errorLog}}</b-alert>
+                    <b-alert show dismissible variant="danger" data-test=error v-if="errorLog">{{errorLog}}</b-alert>
 
                     <b-form @submit.prevent="formSubmit" class="av-tooltip tooltip-label-bottom">
                         <b-form-group :label="$t('user.attributes.email.title')" class="has-float-label mb-4">
-                            <b-form-input type="text" v-model="form.email"/>
+                            <b-form-input type="text" data-test="email" v-model="form.email"/>
 <!--                            <b-form-invalid-feedback v-if="!$v.form.email.required">{{ $t('user.email.validation.notEntered')}}</b-form-invalid-feedback>-->
 <!--                            <b-form-invalid-feedback v-else-if="!$v.form.email.email">{{ $t('user.email.validation.notValid')}}</b-form-invalid-feedback>-->
 <!--                            <b-form-invalid-feedback v-else-if="!$v.form.email.minLength">{{ $t('user.email.validation.minLength')}}</b-form-invalid-feedback>-->
                         </b-form-group>
 
                         <b-form-group :label="$t('user.attributes.password.title')" class="has-float-label mb-4">
-                            <b-form-input type="password" v-model="form.password" />
+                            <b-form-input type="password" data-test="password" v-model="form.password" />
 <!--                            <b-form-invalid-feedback v-if="!$v.form.password.required">{{ $t('user.password.validation.notEntered')}}</b-form-invalid-feedback>-->
 <!--                            <b-form-invalid-feedback v-else-if="!$v.form.password.minLength || !$v.form.password.maxLength">{{ $t('user.password.validation.minLength')}}</b-form-invalid-feedback>-->
                         </b-form-group>
@@ -128,6 +128,9 @@
                     }
                     if(this.authUser.roles[0].name === "Logistics"){
                         this.$router.push({ path: "/logistics"})
+                    }
+                    if(this.authUser.roles[0].name === "Trucker"){
+                        this.$router.push({ path: "/trucker"})
                     }
                     // else {
                     //     this.$router.push({ path: "/farmer"})
