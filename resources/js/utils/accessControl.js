@@ -15,6 +15,7 @@ const AccessControl = {
             let authUser = [];
             if (store.getters.authUser.uid !== undefined) {
                 authUser = store.getters.authUser;
+                // console.log(authUser);
                 store.dispatch("checkAuth");
                 // console.log('user=' + authUser.lastName + ' to=' + to.name + ' path=' + to.path + ' auth=' + requiresAuth + ' requiredRoles=' + requiresRoles + " userRoles= ");
                 authUser.roles.forEach(item => {
@@ -27,7 +28,7 @@ const AccessControl = {
             // console.log(requiresAuth);
             // console.log(authUser.uid);
             if (requiresAuth && authUser.uid === undefined) {
-                console.log('not logged in');
+                // console.log('not logged in');
                 next('/auth/login');
             } else if ((to.path === '/auth/login' || to.path === '/') && authUser.uid) {
                 // console.log(authUser);
@@ -56,13 +57,15 @@ const AccessControl = {
                     next("/farmer")
                 }
                 if(authUser.roles[0].name === "Trucker"){
-                    // console.log('already logged in Logistics');
+                    // console.log('already logged in Trucker');
                     next("/trucker")
                 }
 
                 // console.log('already logged in');
                 // next();
             } else if (requiresRoles && authUser) {
+                // console.log(requiresRoles)
+                // console.log(authUser)
                 if (this.hasRight(requiresRoles, authUser)) {
                     // console.log('authorized');
                     next()
