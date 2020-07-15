@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Article;
 use App\Farmer;
 use App\ShippingLabel;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -67,11 +68,13 @@ class ShippingLabelResource extends JsonResource
                 ];
                 if (isset($totarray["total"][$article["article_id"]])) {
                     $totarray["total"][$article["article_id"]]['amount'] += $article["article_amount"];
-                } else {
+                } else if ($article["article_id"]){
                     $totarray["total"][$article["article_id"]] = [
                         'article_id' => $article["article_id"],
                         'amount' => $article["article_amount"],
+                        'article' => Article::fullName(new ArticleResource(Article::find($article["article_id"])))
                     ];
+
                 }
             }
 
@@ -79,7 +82,10 @@ class ShippingLabelResource extends JsonResource
         if (isset($ptype)){
             $totarray["pallet_types"] = $ptype;
         }
-
+        if (isset($totarray["total"])){
+            $totarray["total"] = collect($totarray["total"])->sortBy('article')->toArray();
+        }
+//        $totarray["total"] = collect($totarray["total"])->sortBy('article')->reverse()->toArray();
         return $totarray;
 //
 //        $collectionReturn = [

@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class FarmerController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Farmer::class);
-    }
+//    public function __construct()
+//    {
+//        $this->authorizeResource(Farmer::class);
+//    }
 
 
     public function index()

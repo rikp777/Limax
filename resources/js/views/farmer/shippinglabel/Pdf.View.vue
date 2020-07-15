@@ -2,7 +2,7 @@
     <b-row>
         <b-colxx xl="12" lg="12" class="mb-4">
             <div>
-              <router-link :to="{ name: 'shippinglabelCreate' }"  class="btn btn-lg btn-light btn-block" style="position: relative; z-index: 3">New</router-link>
+                    <router-link :to="{ name: 'shippinglabelCreate' }"  class="btn btn-lg btn-light btn-block" style="position: relative; z-index: 3">New</router-link>
               <br>
               <!-- <div class="separator mb-5"/> -->
                 <shippinglabel-pdf />
@@ -12,9 +12,13 @@
 </template>
 <script>
     import ShippinglabelPdf from "../../../components/crudl/shippinglabel/ShippinglabelPdf"
+    import {mapGetters} from "vuex";
     export default {
         components: {
             ShippinglabelPdf
+        },
+        computed: {
+            ...mapGetters(["authUser"])
         }
     }
 </script>

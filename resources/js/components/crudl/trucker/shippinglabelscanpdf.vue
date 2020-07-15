@@ -37,8 +37,10 @@
                       <br>
                       <!--                STATUS-->
                       <div class="row">
-                          <div class="col-sm-6" style="font-size: 16px;">
-                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}}
+<!--                          {{ShippingLabelPalletLabels}}-->
+                          <div class="col-sm-6" style="font-size: 16px;" v-for="date in ShippingLabelPalletLabels['shippinglabelId']">
+                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}} | <strong>created: </strong>{{$moment(date.createdAt).format('dddd, MMMM Do YYYY') + ' ' + $moment(date.createdAt).locale('nl').format('LTS')}}
+<!--                              <strong>Shippinglabel - {{uniqueshippingid}}: </strong>{{ $moment().format("dddd, MMMM Do YYYY") }}-->
                           </div>
                           <div class="col-sm-6" style="font-size: 16px;">
                               <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -219,8 +221,7 @@
                                       <tbody>
                                       <tr v-for="total in ShippingLabelPalletLabels['total']" v-if="articles.length">
                                           <td>
-<!--                                              {{ getArticlesById(Number(total.articleId)).name }}-->
-                                              {{ total.article }}
+                                              {{ getArticlesById(Number(total.articleId)).name }}
                                           </td>
                                           <td>
                                               {{ total.amount }}
@@ -353,8 +354,8 @@
                       <br>
                       <!--                STATUS-->
                       <div class="row">
-                          <div class="col-sm-6" style="font-size: 16px;">
-                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}}
+                          <div class="col-sm-6" style="font-size: 16px;" v-for="date in ShippingLabelPalletLabels['shippinglabelId']">
+                              <strong>shippinglabel: </strong>{{uniqueshippingid}} | <strong>printed: </strong>{{$moment().format('dddd, MMMM Do YYYY') + ' ' + $moment().locale('nl').format('LTS')}} | <strong>created: </strong>{{$moment(date.createdAt).format('dddd, MMMM Do YYYY') + ' ' + $moment(date.createdAt).locale('nl').format('LTS')}}
                           </div>
                           <div class="col-sm-6" style="font-size: 16px;">
                               <span class="float-right"> <strong>Status: </strong>Ready </span>
@@ -607,12 +608,14 @@
 </template>
 
 <script>
+    //TODO
+    //loop label view, instead of copy pasting
     import { mapGetters, mapActions } from 'vuex';
     // import palletLabel from "../../router/routes/palletLabel";
     // import {getToken} from '../../common/jwt.service';
 
     export default {
-        name: 'shippingLabel-pdf',
+        name: 'shippinglabelpdf',
         data() {
             return {
                 uniqueshippingid: this.$route.params.id

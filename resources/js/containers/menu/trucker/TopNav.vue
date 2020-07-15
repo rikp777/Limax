@@ -16,9 +16,9 @@
 <!--            <div class="d-inline-block">-->
 <!--                <change-lang />-->
 <!--            </div>-->
-            <div class="d-inline-block">
-                <select-farmer />
-            </div>
+<!--            <div class="d-inline-block">-->
+<!--                <select-farmer />-->
+<!--            </div>-->
         </div>
         <router-link class="navbar-logo" tag="a" to="/production">
 

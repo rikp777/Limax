@@ -74,18 +74,18 @@ class Article extends Model
 //                dd("isset");
                     return
                         $value->articleGroup->name . ' ' .
+                        $value->sortType->name . ' ' .
                         $value->inset_limit . 'x' .
                         $value->inset_gram . ' ' .
-                        $value->sortType->name . ' ' .
                         $value->inset->color . ' (' .
                         $value->excel_code . ')';
                 } else {
 //                dd($value);
                     return
                         $value->articleGroup->name . ' ' .
+                        $value->sortType->name . ' ' .
                         $value->inset_limit . 'x' .
                         $value->inset_gram . ' ' .
-                        $value->sortType->name . ' ' .
                         ' (' .
                         $value->excel_code . ')';
                 }
