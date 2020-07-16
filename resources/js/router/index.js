@@ -12,6 +12,7 @@ import shippingLabel from "./routes/shippingLabel";
 import weight from "./routes/weight";
 import logisticsPlanning from "./routes/logisticsPlanning";
 import logisticsTransport from "./routes/logisticsTransport";
+import logisticsShippinglabel from "./routes/logisticsShippinglabel";
 import truckerShippinglabel from "./routes/trucker";
 import RightEnum from "./rights";
 
@@ -90,7 +91,8 @@ const router = new VueRouter({
                     },
                     children: [
                         ...logisticsPlanning,
-                        ...logisticsTransport
+                        ...logisticsTransport,
+                        ...logisticsShippinglabel
                     ]
                 },
                 {
