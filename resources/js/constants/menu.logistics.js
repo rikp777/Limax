@@ -17,5 +17,11 @@ const data = [
         label: "menu.logistics.transport",
         to: "/logistics/transport"
     },
+    {
+        id: "vrachtbrief",
+        icon: "simple-icon-tag",
+        label: "menu.logistics.vrachtbrief",
+        to: "/logistics/shippinglabel"
+    },
 ];
 export default data;

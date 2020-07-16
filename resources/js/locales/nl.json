@@ -44,7 +44,8 @@
             "total": "Overzicht"
         },
         "logistics":  {
-            "transport": "Transport"
+            "transport": "Transport",
+            "vrachtbrief": "Vrachtbrief"
         }
     },
 

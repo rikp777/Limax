@@ -2,7 +2,7 @@
     <b-row>
         <b-colxx xl="12" lg="12" class="mb-4">
             <div>
-              <router-link :to="{ name: 'palletlabelCreate' }"  class="btn btn-lg btn-light btn-block" style="position: relative; z-index: 3">New</router-link>
+              <router-link :to="{ name: 'palletlabelCreate' }" id="newBtn"  class="btn btn-lg btn-light btn-block" style="position: relative; z-index: 3">New</router-link>
               <br>
               <!-- <div class="separator mb-5"/> -->
                 <palletlabel-pdf />

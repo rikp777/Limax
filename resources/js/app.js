@@ -231,9 +231,16 @@ ApiService.initialize();
 AccessControl.router(store, router);
 
 Vue.config.productionTip = false;
-export default new Vue({
+const app = new Vue({
     i18n,
     router,
     store,
     render: h => h(MainApp)
 }).$mount('#app')
+
+
+if(window.Cypress){
+    window.app = app
+    console.log(window.app)
+}
+export default app;

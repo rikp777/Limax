@@ -15,7 +15,7 @@
             <!--            @vuetable:pagination-data="onPaginationData"-->
             <template slot="actions" scope="props">
                 <div class="custom-actions">
-                    <b-button class="btn-sm" variant="primary"
+                    <b-button class="btn-sm" variant="primary" :cy-test="props.rowIndex"
                               @click="onAction('edit-label', props.rowData, props.rowIndex)">
                         <i class="simple-icon-note"></i>
                     </b-button>
