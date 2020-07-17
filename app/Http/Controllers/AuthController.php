@@ -51,7 +51,7 @@ class AuthController extends Controller
         $token = $tokenResult->token;
 
         if ($request->remember_me) {
-            $token->expires_at = Carbon::now()->addDays(1);
+            $token->expires_at = Carbon::now()->addDays(1); //todo vandaag 23:55 expire
         }
 
         $token->save();

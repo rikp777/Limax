@@ -45,7 +45,8 @@
         },
         "logistics":  {
             "transport": "Transport",
-            "vrachtbrief": "Shippinglabel"
+            "vrachtbrief": "Shippinglabel",
+            "palletlabel": "Palletlabel"
         }
     },
 
