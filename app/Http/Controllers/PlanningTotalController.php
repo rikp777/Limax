@@ -21,10 +21,7 @@ class PlanningTotalController extends Controller
 
         $planningTotal = DB::select( DB::raw("
         WITH DesiredDates AS
-            (SELECT CAST(DATEADD(dd,-3,GETDATE()) as DATE) AS DesiredDate UNION ALL
-             SELECT CAST(DATEADD(dd,-2,GETDATE()) as DATE) UNION ALL
-             SELECT CAST(DATEADD(dd,-1,GETDATE()) as DATE) UNION ALL
-             SELECT CAST(GETDATE() as DATE) UNION ALL
+            (SELECT CAST(GETDATE() as DATE) AS DesiredDate UNION ALL
              SELECT CAST(DATEADD(dd,1,GETDATE()) as DATE) UNION ALL
              SELECT CAST(DATEADD(dd,2,GETDATE()) as DATE) UNION ALL
              SELECT CAST(DATEADD(dd,3,GETDATE()) as DATE) UNION ALL
@@ -110,10 +107,7 @@ class PlanningTotalController extends Controller
 
         $planningTotal = DB::select( DB::raw("
         WITH DesiredDates AS
-            (SELECT CAST(DATEADD(dd,-3,GETDATE()) as DATE) AS DesiredDate UNION ALL
-             SELECT CAST(DATEADD(dd,-2,GETDATE()) as DATE) UNION ALL
-             SELECT CAST(DATEADD(dd,-1,GETDATE()) as DATE) UNION ALL
-             SELECT CAST(GETDATE() as DATE) UNION ALL
+            (SELECT CAST(GETDATE() as DATE) AS DesiredDate UNION ALL
              SELECT CAST(DATEADD(dd,1,GETDATE()) as DATE) UNION ALL
              SELECT CAST(DATEADD(dd,2,GETDATE()) as DATE) UNION ALL
              SELECT CAST(DATEADD(dd,3,GETDATE()) as DATE) UNION ALL

@@ -64,6 +64,7 @@ class PlanningFastController extends Controller
         }
 
         $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
+//        $period = CarbonPeriod::create(Carbon::now()->subDays(3)->format('Y-m-d'), Carbon::now()->addDays(7)->format('Y-m-d'));
             foreach ($sorts as $sortAll) {
                 //get the description of the sorts based on article selection made by farmer
 //                $sortDesc = SortType::where('id', $sortAll["sort_type_id"])->first();
