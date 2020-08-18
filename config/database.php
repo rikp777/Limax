@@ -88,11 +88,11 @@ return [
             'password' => env('DB_PASSWORD', 'Limax01'),
             'charset' => 'utf8',
             'prefix' => '',
-            'prefix_indexes' => true,
-            'options' => array(
-                PDO::SQLSRV_ATTR_FETCHES_NUMERIC_TYPE => true,
-//                PDO::ATTR_STRINGIFY_FETCHES => false
-            )
+            'prefix_indexes' => true
+//            'options' => array(
+//                PDO::SQLSRV_ATTR_FETCHES_NUMERIC_TYPE => true,
+////                PDO::ATTR_STRINGIFY_FETCHES => false
+//            )
         ],
 
     ],
