@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "@glidejs/glide": "^3.4.1",
-        "axios": "^0.19.1",
+        "axios": "^0.21.2",
         "axios-case-converter": "^0.3.0",
         "bootstrap-vue": "^2.0.4",
         "chart.js": "^2.7.2",
